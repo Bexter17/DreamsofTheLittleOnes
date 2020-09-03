@@ -49,7 +49,7 @@ public class EnemyAI1 : MonoBehaviour
         }
         if (dmgDealt <= 0)
         {
-            dmgDealt = 1f;
+            dmgDealt = 1;
         }
         Patrol();
         //MoveContinuouslyForward();
