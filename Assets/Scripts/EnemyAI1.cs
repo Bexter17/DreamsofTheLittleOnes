@@ -7,7 +7,7 @@ public class EnemyAI1 : MonoBehaviour
 {
     // The player that the enemy will chase
     public Transform target;
-    public Vector3 initialPos;
+    //public Vector3 initialPos;
     //bool isInitPos = true;
 
     // How fast enemy moves
@@ -20,14 +20,14 @@ public class EnemyAI1 : MonoBehaviour
 
     //bool isMoving = true;
     bool isPatrolling = false;
-    public float patrolDuration;
-    public float patrolPause;
 
     NavMeshAgent agent;
 
     public Transform waypoint1;
     public Transform waypoint2;
-    //float randomRotation;
+
+    // Amount of damage done by enemy to player
+    public int dmgDealt;
     // Start is called before the first frame update
     void Start()
     {
@@ -47,13 +47,9 @@ public class EnemyAI1 : MonoBehaviour
         {
             attackRange = 2f;
         }
-        if (patrolDuration <= 0)
+        if (dmgDealt <= 0)
         {
-            patrolDuration = 2f;
-        }
-        if (patrolPause <= 0)
-        {
-            patrolPause = 0.5f;
+            dmgDealt = 1f;
         }
         Patrol();
         //MoveContinuouslyForward();
@@ -85,16 +81,6 @@ public class EnemyAI1 : MonoBehaviour
 
 
     }
-    private void GoHome()
-    {
-        Debug.Log("GOING HOME");
-        //transform.LookAt(initialPos, Vector3.up);
-        agent.SetDestination(initialPos);
-    }
-    //private void MoveContinuouslyForward()
-    //{
-    //    rb.velocity = gameObject.transform.rotation * Vector3.forward * enemyMovement * Time.deltaTime;
-    //}
     private void Chase()
     {
         //Debug.Log("CHASE");
@@ -107,7 +93,6 @@ public class EnemyAI1 : MonoBehaviour
         // Move forward
     }
 
-    // During Patrol moves one way for patrolDuration then stops for patrolPause
     // Turns around and continues
     private void Patrol()
     {
@@ -118,18 +103,12 @@ public class EnemyAI1 : MonoBehaviour
             agent.SetDestination(waypoint1.position);
             isPatrolling = true;
         }
-        //isMoving = true;
-        //transform.Rotate(0, 180, 0);
-        //Invoke("PatrolPause", patrolDuration);
-        // If agent is close to finish it will switch destination
-
-
     }
+    // During patrol alternate going between Waypoint1 and Waypoint2
     private void OnTriggerEnter(Collider other)
     {
         if (isPatrolling)
         {
-
             if (other.CompareTag("WayPoint1"))
             {
                 //Debug.Log("Waypoint");
