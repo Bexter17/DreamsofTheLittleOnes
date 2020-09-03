@@ -8,13 +8,13 @@ public class Powerup : MonoBehaviour
 
     public CollectibleType type;
 
-    Character_Mechanics instance;
+    CharacterMechanics instance;
 
 
 
     void Start()
     {
-        instance = FindObjectOfType<Character_Mechanics>();
+        instance = FindObjectOfType<CharacterMechanics>();
     }
     // activating power up for player
     void OnTriggerEnter(Collider other)

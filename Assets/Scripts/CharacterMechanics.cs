@@ -20,7 +20,10 @@ public class CharacterMechanics : MonoBehaviour
     CharacterController controller;
 
     //Tracks player health
-    int Health = 5;
+    public int currentHealth = 5;
+
+    //Max health
+    public int maxHealth = 50;
 
     //Tracks incoming damage
     int Damage = 0;
@@ -146,7 +149,7 @@ public class CharacterMechanics : MonoBehaviour
         if (isAlive)
         {
             //If health drops to or below zero, the player dies
-            if (Health <= 0)
+            if (currentHealth <= 0)
             {
                 animator.SetTrigger("Die");
                 isAlive = false;
@@ -234,7 +237,7 @@ public class CharacterMechanics : MonoBehaviour
         if (hit.gameObject.tag == "Enemy")
         {
             damageSource = hit.gameObject;
-            Health--;
+            currentHealth--;
             animator.SetTrigger("Got Hit");
             Debug.Log("Player Hit by Enemy");
             takeDamage();
@@ -242,7 +245,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (hit.gameObject.tag == "Projectile")
         {
-            Health--;
+            currentHealth--;
             animator.SetTrigger("Got Hit"); 
             Debug.Log("Player Hit by projectile");
         }
@@ -321,8 +324,8 @@ public class CharacterMechanics : MonoBehaviour
     public int takeDamage()
     {
         //Damage = damageSource.Damage;
-        Health -= Damage;
-        return Health;
+        currentHealth -= Damage;
+        return currentHealth;
     }
 
     public void Ability1()
