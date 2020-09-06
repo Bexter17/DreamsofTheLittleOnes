@@ -16,6 +16,9 @@ using System;
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {
+    //HealthBar for Player
+    public HealthBar healthBar;
+
     //Creates a charactercontoller variable named "controller"
     CharacterController controller;
 
@@ -93,6 +96,8 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        currentHealth = maxHealth;
+        healthBar.SetMaxHealth(maxHealth);
         try
         {
             //Accesses the CharacterController component on the character object 
@@ -110,32 +115,26 @@ public class CharacterMechanics : MonoBehaviour
             if (speed <= 0)
             {
                 speed = 6.0f;
-                Debug.Log("Speed not set on " + name + " defaulting to " + speed);
             }
 
             if (jumpSpeed <= 0)
             {
                 jumpSpeed = 8.0f;
-                Debug.Log("JumpSpeed not set on " + name + " defaulting to " + jumpSpeed);
             }
 
             if (rotationSpeed <= 0)
             {
                 rotationSpeed = 10.0f;
-                Debug.Log("RotationSpeed not set on " + name + " defaulting to " + rotationSpeed);
             }
 
             if (gravity <= 0)
             {
                 gravity = 9.81f;
-                Debug.Log("Gravity not set on " + name + " defaulting to " + gravity);
             }
 
             //Assigns a value to the variable
             moveDirection = Vector3.zero;
 
-            // Manually throw the Exception or the System will throw an Exception
-            // throw new ArgumentNullException("Whoops");
         }
         catch (NullReferenceException e)
         {
@@ -236,18 +235,12 @@ public class CharacterMechanics : MonoBehaviour
 
         if (hit.gameObject.tag == "Enemy")
         {
-            damageSource = hit.gameObject;
-            currentHealth--;
-            animator.SetTrigger("Got Hit");
-            Debug.Log("Player Hit by Enemy");
-            takeDamage();
+            TakeDamage(1);
         }
 
         if (hit.gameObject.tag == "Projectile")
         {
-            currentHealth--;
-            animator.SetTrigger("Got Hit"); 
-            Debug.Log("Player Hit by projectile");
+
         }
     }
 
@@ -321,11 +314,10 @@ public class CharacterMechanics : MonoBehaviour
         speed -= speedBoost;
     }
 
-    public int takeDamage()
+    public void TakeDamage(int damage)
     {
-        //Damage = damageSource.Damage;
-        currentHealth -= Damage;
-        return currentHealth;
+        currentHealth -= damage;
+        healthBar.SetHealth(currentHealth);
     }
 
     public void Ability1()
