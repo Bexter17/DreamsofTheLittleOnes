@@ -67,6 +67,7 @@ public class EnemyAI1 : MonoBehaviour
         if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
         {
             Chase();
+            Honk();
         }
 
         //else if (!isInitPos)
@@ -81,7 +82,7 @@ public class EnemyAI1 : MonoBehaviour
 
 
     }
-    private void Chase()
+    public void Chase()
     {
         //Debug.Log("CHASE");
         isPatrolling = false;
@@ -91,6 +92,16 @@ public class EnemyAI1 : MonoBehaviour
         // Sets player as destination
         agent.SetDestination(target.transform.position);
         // Move forward
+    }
+    // Calls Chase() for all enemies
+    private void Honk()
+    {
+        GameObject[] enemies;
+        enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i < enemies.Length; i++)
+        {
+            enemies[i].GetComponent<EnemyAI1>().Chase();
+        }
     }
 
     // Turns around and continues
@@ -105,6 +116,7 @@ public class EnemyAI1 : MonoBehaviour
         }
     }
     // During patrol alternate going between Waypoint1 and Waypoint2
+    // On colliding with waypoint
     private void OnTriggerEnter(Collider other)
     {
         if (isPatrolling)
