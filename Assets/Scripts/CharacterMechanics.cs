@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using UnityEngine.SceneManagement;
 
 // Character Mechanics Prototype #5
 //Made By Craig Walker
@@ -124,7 +125,7 @@ public class CharacterMechanics : MonoBehaviour
 
             if (rotationSpeed <= 0)
             {
-                rotationSpeed = 10.0f;
+                rotationSpeed = 4.0f;
             }
 
             if (gravity <= 0)
@@ -150,6 +151,7 @@ public class CharacterMechanics : MonoBehaviour
             //If health drops to or below zero, the player dies
             if (currentHealth <= 0)
             {
+                SceneManager.LoadScene("EndScene");
                 animator.SetTrigger("Die");
                 isAlive = false;
                 Die();
