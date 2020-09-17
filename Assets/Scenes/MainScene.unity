@@ -630,7 +630,7 @@ GameObject:
   - component: {fileID: 542367837}
   m_Layer: 0
   m_Name: Respawn Point
-  m_TagString: Untagged
+  m_TagString: Starting Respawn Point
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -1918,6 +1918,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
+    - target: {fileID: 1497398856072575931, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.77
+      objectReference: {fileID: 0}
     - target: {fileID: 4885740106634086851, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
@@ -1930,6 +1934,22 @@ PrefabInstance:
       propertyPath: healthBar
       value: 
       objectReference: {fileID: 1814376237}
+    - target: {fileID: 5316497363414415003, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+      propertyPath: respawnPoint
+      value: 
+      objectReference: {fileID: 542367836}
+    - target: {fileID: 5316497363414415003, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+      propertyPath: attackSpawn
+      value: 
+      objectReference: {fileID: 5316497363961161120}
+    - target: {fileID: 5316497363414415003, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+      propertyPath: attackRangePrefab
+      value: 
+      objectReference: {fileID: 5222450952366994248, guid: 4a62e6e1f8da2f44b8535aa7b4e95817, type: 3}
+    - target: {fileID: 5316497363414415003, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+      propertyPath: attackTimer
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 5642244327374623093, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
       propertyPath: m_LocalPosition.x
       value: -0.000017943
@@ -1976,6 +1996,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+--- !u!4 &5316497363961161120 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1497398856072575931, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+  m_PrefabInstance: {fileID: 5316497363961161119}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &6844810566781413959
 PrefabInstance:
   m_ObjectHideFlags: 0

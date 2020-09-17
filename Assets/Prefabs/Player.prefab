@@ -1131,6 +1131,36 @@ Transform:
   m_Father: {fileID: 415780204401391684}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &4732887737830240770
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1497398856072575931}
+  m_Layer: 0
+  m_Name: Attack Spawn
+  m_TagString: Attack Spawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1497398856072575931
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4732887737830240770}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0.97}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5642244327374623093}
+  m_RootOrder: 4
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &4973829959942458319
 GameObject:
   m_ObjectHideFlags: 0
@@ -1165,6 +1195,7 @@ Transform:
   - {fileID: 8707055929246818359}
   - {fileID: 3894323821765488405}
   - {fileID: 5316497363041093867}
+  - {fileID: 1497398856072575931}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1234,6 +1265,9 @@ MonoBehaviour:
   crouchIsToggle: 0
   isCrouched: 0
   isGrounded: 0
+  attackRangePrefab: {fileID: 0}
+  attackSpawn: {fileID: 0}
+  attackTimer: 0
   respawnPoint: {fileID: 0}
 --- !u!1 &5098917775639914644
 GameObject:

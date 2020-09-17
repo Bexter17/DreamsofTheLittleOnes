@@ -6,12 +6,7 @@ using UnityEngine.SceneManagement;
 
 // Character Mechanics Prototype #5
 //Made By Craig Walker
-//Fixed Jump
-//Removed 1st Person Control 
-//Added Abilities 1,2, and 3
-//Added respawnPoints and death resetting
-//Cleaned up excess code
-//Health loss on collision with "Enemy" or "Projectile"
+//Changed ability 1 to instantiate a damage block
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
@@ -85,6 +80,17 @@ public class CharacterMechanics : MonoBehaviour
     //Boolean to track if the player is on the ground or in the air
     public bool isGrounded;
 
+    //holds the box collider for the attack range
+    public GameObject attackRangePrefab;
+
+    //creates atemporary, destructable version of the prefab
+    private GameObject attackTemp; 
+
+    //determines how long the attack lasts
+    public Transform attackSpawn;
+
+    [SerializeField] private int attackTimer;
+
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
 
@@ -131,6 +137,26 @@ public class CharacterMechanics : MonoBehaviour
             if (gravity <= 0)
             {
                 gravity = 9.81f;
+            }
+
+            if (respawnPoint == null)
+            {
+                respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+            }
+
+            if (attackRangePrefab == null)
+            {
+                attackRangePrefab = GameObject.FindGameObjectWithTag("Attack Zone");
+            }
+
+            if (attackSpawn == null)
+            {
+                attackSpawn = GameObject.FindGameObjectWithTag("Attack Spawn").transform;
+            }
+
+            if (attackTimer <= 0)
+            {
+                attackTimer = 3;
             }
 
             //Assigns a value to the variable
@@ -213,11 +239,6 @@ public class CharacterMechanics : MonoBehaviour
             controller.Move(moveDirection * Time.deltaTime);
             Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
         }
-    }
-    //Triggers at the end of an animation to turn bool off
-    public void AttackEnds()
-    {
-        isAttacking = false;
     }
 
     //Tracks player collision 
@@ -325,6 +346,11 @@ public class CharacterMechanics : MonoBehaviour
     public void Ability1()
     {
         Debug.Log("Ability 1 has been pressed");
+
+        attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
+
+        Destroy(attackTemp, attackTimer);
+        Debug.Log("attack complete");
     }
 
     public void Ability2()
