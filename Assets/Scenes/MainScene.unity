@@ -797,10 +797,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: waypoint1
       value: 
       objectReference: {fileID: 1965042099}
@@ -808,14 +804,6 @@ PrefabInstance:
       propertyPath: waypoint2
       value: 
       objectReference: {fileID: 776037792}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: rb
-      value: 
-      objectReference: {fileID: 1560127385}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: dmgDealt
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
 --- !u!4 &715195112 stripped
@@ -1299,11 +1287,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1519723774}
   m_CullTransparentMesh: 0
---- !u!54 &1560127385 stripped
-Rigidbody:
-  m_CorrespondingSourceObject: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
-  m_PrefabInstance: {fileID: 715195111}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1597521997
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -1776,10 +1759,6 @@ PrefabInstance:
       propertyPath: waypoint2
       value: 
       objectReference: {fileID: 1978559270}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: dmgDealt
-      value: 2
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
 --- !u!4 &1965042099 stripped
@@ -2057,10 +2036,6 @@ PrefabInstance:
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: target
-      value: 
-      objectReference: {fileID: 0}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: waypoint1
       value: 
       objectReference: {fileID: 976834416}
@@ -2068,10 +2043,6 @@ PrefabInstance:
       propertyPath: waypoint2
       value: 
       objectReference: {fileID: 1978559270}
-    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: dmgDealt
-      value: 3
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
 --- !u!1001 &7735122982621999792

@@ -15,6 +15,7 @@ GameObject:
   - component: {fileID: 6844810565142239591}
   - component: {fileID: 6844810565142239576}
   - component: {fileID: 1643934495}
+  - component: {fileID: 7618830116581312363}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -112,15 +113,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  initialPos: {x: 0, y: 0, z: 0}
   enemyMovement: 0
-  rb: {fileID: 0}
+  rb: {fileID: 6844810565142239576}
   chaseRange: 0
   attackRange: 0
-  patrolDuration: 0
-  patrolPause: 0
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
+  dmgDealt: 2
 --- !u!54 &6844810565142239576
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -159,3 +158,18 @@ NavMeshAgent:
   m_BaseOffset: 1
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
+--- !u!114 &7618830116581312363
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6844810565142239577}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4695a18f50ebfa144a89a9480deda900, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  rb: {fileID: 0}
+  target: {fileID: 5642244327374623093, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
+  knockDistance: 100
