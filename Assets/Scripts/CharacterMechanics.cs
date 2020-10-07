@@ -83,18 +83,28 @@ public class CharacterMechanics : MonoBehaviour
     //holds the box collider for the attack range
     public GameObject attackRangePrefab;
 
+    public GameObject DashRangePrefab;
+
     //creates atemporary, destructable version of the prefab
-    private GameObject attackTemp; 
+    private GameObject attackTemp;
+
+    private GameObject dashTemp;
 
     //determines how long the attack lasts
-    public Transform attackSpawn;
+    [SerializeField] private Transform attackSpawn;
+
+    [SerializeField] private Transform dashSpawn;
 
     [SerializeField] private int attackTimer;
+
+    [SerializeField] private int dashDamage;
+
+    [SerializeField] private int dashSpeed;
 
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
 
-    //creates the animator version of the Animator component
+    //creates a script accessable variable of the Animator component
     Animator animator;
 
     //Tracks player checkpoints and where they will respawn 
@@ -208,8 +218,13 @@ public class CharacterMechanics : MonoBehaviour
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("Ability1 has been pressed");
-                Ability1();
+                if (!isAttacking)
+                {
+                    Debug.Log("Attack has been pressed");
+                    animator.SetTrigger("Attack");
+                    //Attack();
+                    isAttacking = true;
+                }
             }
 
             //Enables the player to use Ability 2
@@ -343,14 +358,33 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    public void Ability1()
+    public void Attack()
     {
-        Debug.Log("Ability 1 has been pressed");
+        Debug.Log("Attack has been triggered");
 
+        
         attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
 
         Destroy(attackTemp, attackTimer);
-        Debug.Log("attack complete");
+        Debug.Log("Attack complete");
+        isAttacking = false;
+    }
+
+    public void Dash()
+    {
+        Debug.Log("Dash has been triggered");
+
+        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
+
+        animator.SetTrigger("Dash");
+
+        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+    }
+
+    private void DashEnds()
+    {
+        Destroy(dashTemp);
+        Debug.Log("Dash complete");
     }
 
     public void Ability2()
