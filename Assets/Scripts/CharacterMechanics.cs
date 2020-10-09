@@ -136,7 +136,7 @@ public class CharacterMechanics : MonoBehaviour
 
             if (jumpSpeed <= 0)
             {
-                jumpSpeed = 8.0f;
+                jumpSpeed = 10.0f;
             }
 
             if (rotationSpeed <= 0)
@@ -242,11 +242,12 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             //Enables the player to jump
+            // Jumping is not working with the player when in game
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 Debug.Log("Jump has been pressed");
                 vSpeed = jumpSpeed;
-                //animator.SetTrigger("Jump");
+                animator.SetTrigger("Jump");
             }
 
             vSpeed -= gravity * Time.deltaTime;
@@ -362,14 +363,15 @@ public class CharacterMechanics : MonoBehaviour
     {
         Debug.Log("Attack has been triggered");
 
-        
-        attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
+        // not sure where this is working correctly
+        //attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
 
-        Destroy(attackTemp, attackTimer);
+        //Destroy(attackTemp, attackTimer);
         Debug.Log("Attack complete");
         isAttacking = false;
     }
 
+    // Dash doesnt have a animation yet so not changing anything with it
     public void Dash()
     {
         Debug.Log("Dash has been triggered");

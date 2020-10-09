@@ -30,7 +30,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 6172059923977535839}
-  m_RootOrder: 8
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 30, y: 0, z: 0}
 --- !u!20 &1841600654179508263
 Camera:
@@ -92,6 +92,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7397290250103880017}
+  - component: {fileID: 8202996397370544956}
   m_Layer: 0
   m_Name: Attack Spawn
   m_TagString: Untagged
@@ -106,13 +107,26 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5061167488232381447}
-  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
-  m_LocalPosition: {x: -0, y: 1.06, z: 0.53}
-  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
+  m_LocalRotation: {x: -0.5150735, y: -0.515161, z: -0.57417506, w: 0.37367302}
+  m_LocalPosition: {x: -0.16760145, y: 0.0692225, z: 0.58687615}
+  m_LocalScale: {x: 0.13129991, y: 0.13129988, z: 0.13129996}
   m_Children: []
-  m_Father: {fileID: 6172059923977535839}
-  m_RootOrder: 6
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_Father: {fileID: 6176895597544883437}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: -102.44, y: -73.444, z: -28.136993}
+--- !u!65 &8202996397370544956
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5061167488232381447}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 5.7457247, y: 0.7430796, z: 0.22749293}
+  m_Center: {x: -0.25370553, y: -0.00833259, z: -0.015621043}
 --- !u!1 &6174590679352550449
 GameObject:
   m_ObjectHideFlags: 0
@@ -2259,7 +2273,8 @@ Transform:
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children: []
+  m_Children:
+  - {fileID: 7397290250103880017}
   m_Father: {fileID: 6176892598806656005}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3684,7 +3699,6 @@ Transform:
   - {fileID: 6176848072755979321}
   - {fileID: 6176942553643011827}
   - {fileID: 6176824331679804739}
-  - {fileID: 7397290250103880017}
   - {fileID: 8808256718426828856}
   - {fileID: 5245181864763607352}
   m_Father: {fileID: 0}
@@ -3798,7 +3812,7 @@ MonoBehaviour:
   crouchIsToggle: 0
   isCrouched: 0
   isGrounded: 0
-  attackRangePrefab: {fileID: 5222450952366994248, guid: 4a62e6e1f8da2f44b8535aa7b4e95817, type: 3}
+  attackRangePrefab: {fileID: 5061167488232381447}
   DashRangePrefab: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
   attackSpawn: {fileID: 7397290250103880017}
   dashSpawn: {fileID: 0}
@@ -4763,5 +4777,5 @@ Transform:
   m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
   m_Children: []
   m_Father: {fileID: 6172059923977535839}
-  m_RootOrder: 7
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
