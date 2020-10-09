@@ -17,15 +17,21 @@ public class EnemyCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetButtonDown("Fire1"))
-        {
-            takeDamage(1);
-        }
+    //DEBUG: Tests if knockback works
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    takeDamage(1);
+        //}
     }
     private void takeDamage(int dmg)
     {
         hp -= dmg;
         //Knockback
-        rb.AddForce(Vector3.back * knockDistance);
+        // Get the difference between enemy and player position
+        // To knockback enemy away from player
+        Vector3 direction = transform.position - target.transform.position;
+        // direction.normalized so that knockback distance is the same regardless of how far the enemy is from the player
+        // ForceMode.Impulse so that knockback happense instantly
+        rb.AddForce(direction.normalized * knockDistance, ForceMode.Impulse);
     }
 }
