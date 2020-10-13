@@ -83,18 +83,28 @@ public class CharacterMechanics : MonoBehaviour
     //holds the box collider for the attack range
     public GameObject attackRangePrefab;
 
+    public GameObject DashRangePrefab;
+
     //creates atemporary, destructable version of the prefab
-    private GameObject attackTemp; 
+    private GameObject attackTemp;
+
+    private GameObject dashTemp;
 
     //determines how long the attack lasts
-    public Transform attackSpawn;
+    [SerializeField] private Transform attackSpawn;
+
+    [SerializeField] private Transform dashSpawn;
 
     [SerializeField] private int attackTimer;
+
+    [SerializeField] private int dashDamage;
+
+    [SerializeField] private int dashSpeed;
 
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
 
-    //creates the animator version of the Animator component
+    //creates a script accessable variable of the Animator component
     Animator animator;
 
     //Tracks player checkpoints and where they will respawn 
@@ -126,7 +136,7 @@ public class CharacterMechanics : MonoBehaviour
 
             if (jumpSpeed <= 0)
             {
-                jumpSpeed = 8.0f;
+                jumpSpeed = 10.0f;
             }
 
             if (rotationSpeed <= 0)
@@ -208,8 +218,13 @@ public class CharacterMechanics : MonoBehaviour
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.Log("Ability1 has been pressed");
-                Ability1();
+                if (!isAttacking)
+                {
+                    Debug.Log("Attack has been pressed");
+                    animator.SetTrigger("Attack");
+                    //Attack();
+                    isAttacking = true;
+                }
             }
 
             //Enables the player to use Ability 2
@@ -227,11 +242,12 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             //Enables the player to jump
+            // Jumping is not working with the player when in game
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
                 Debug.Log("Jump has been pressed");
                 vSpeed = jumpSpeed;
-                //animator.SetTrigger("Jump");
+                animator.SetTrigger("Jump");
             }
 
             vSpeed -= gravity * Time.deltaTime;
@@ -343,14 +359,34 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    public void Ability1()
+    public void Attack()
     {
-        Debug.Log("Ability 1 has been pressed");
+        Debug.Log("Attack has been triggered");
 
-        attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
+        // not sure where this is working correctly
+        //attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
 
-        Destroy(attackTemp, attackTimer);
-        Debug.Log("attack complete");
+        //Destroy(attackTemp, attackTimer);
+        Debug.Log("Attack complete");
+        isAttacking = false;
+    }
+
+    // Dash doesnt have a animation yet so not changing anything with it
+    public void Dash()
+    {
+        Debug.Log("Dash has been triggered");
+
+        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
+
+        animator.SetTrigger("Dash");
+
+        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+    }
+
+    private void DashEnds()
+    {
+        Destroy(dashTemp);
+        Debug.Log("Dash complete");
     }
 
     public void Ability2()
