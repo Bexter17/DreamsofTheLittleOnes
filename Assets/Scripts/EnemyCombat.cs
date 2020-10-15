@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class EnemyCombat : MonoBehaviour
 {
@@ -9,12 +10,15 @@ public class EnemyCombat : MonoBehaviour
     public Rigidbody rb;
     public Transform target;
     public int knockDistance;
-    public TextMeshProUGUI HPText;
+
+    [SerializeField] private Image hpBar;
     // Start is called before the first frame update
     void Start()
     {
-        HPText.text = hp.ToString();
+        //HPText.text = hp.ToString();
         rb = GetComponent<Rigidbody>();
+        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
+        int maxHP = hp;
     }
 
     // Update is called once per frame
@@ -40,7 +44,8 @@ public class EnemyCombat : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        HPText.text = hp.ToString();
+        hpBar.fillAmount = (float)(hp * 0.1);
+        //HPText.text = hp.ToString();
         //Knockback
         // Get the difference between enemy and player position
         // To knockback enemy away from player
