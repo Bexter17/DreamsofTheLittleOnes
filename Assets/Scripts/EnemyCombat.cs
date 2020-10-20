@@ -3,13 +3,18 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 using UnityEngine.UI;
+using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
     private int hp = 10;
     public Rigidbody rb;
     public Transform target;
-    public int knockDistance;
+    [SerializeField] float knockDistanceModifier;
+    [SerializeField] float knockDuration;
+    [SerializeField] float knockPause;
+
+    NavMeshAgent agent;
 
     [SerializeField] private Image hpBar;
     // Start is called before the first frame update
@@ -19,16 +24,18 @@ public class EnemyCombat : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
+        agent = GetComponent<NavMeshAgent>();
+
     }
 
     // Update is called once per frame
     void Update()
     {
         //DEBUG: Tests if knockback works
-        //if (Input.GetButtonDown("Fire1"))
-        //{
-        //    takeDamage(1);
-        //}
+        if (Input.GetButtonDown("Fire1"))
+        {
+            takeDamage(1);
+        }
         //HPText.transform.rotation = HPText.transform.LookAt(target) + Quaternion.Euler(0, 180, 0);
         //HPText.transform.LookAt(target) += Quaternion.Euler(0, 180, 0);
 
@@ -39,6 +46,7 @@ public class EnemyCombat : MonoBehaviour
     }
     private void takeDamage(int dmg)
     {
+        agent.isStopped = true;
         hp -= dmg;
         if(hp <= 0)
         {
@@ -46,12 +54,24 @@ public class EnemyCombat : MonoBehaviour
         }
         hpBar.fillAmount = (float)(hp * 0.1);
         //HPText.text = hp.ToString();
-        //Knockback
-        // Get the difference between enemy and player position
+        //KNOCKBACK
+        // Gets the difference between enemy and player position
         // To knockback enemy away from player
         Vector3 knockDirection = transform.position - target.transform.position;
-        // direction.normalized so that knockback distance is the same regardless of how far the enemy is from the player
-        // ForceMode.Impulse so that knockback happense instantly
-        rb.AddForce(knockDirection.normalized * knockDistance, ForceMode.Impulse);
+        rb.velocity = knockDirection * knockDistanceModifier;
+        //Invokes once enemy is no longer being knocked back and pauses
+        Invoke("AgentStop", knockDuration);
+    }
+    private void AgentStop()
+    {
+        //Enemy briefly pauses after being knocked back
+        //Where it's velocity is 0
+        rb.velocity = Vector3.zero;
+        Invoke("AgentStart", knockPause);
+    }
+    private void AgentStart()
+    {
+        //Enemy continues moving
+        agent.isStopped = false;
     }
 }
