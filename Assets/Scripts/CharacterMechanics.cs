@@ -4,6 +4,7 @@ using UnityEngine;
 using System;
 using UnityEngine.SceneManagement;
 
+
 // Character Mechanics Prototype #5
 //Made By Craig Walker
 //Changed ability 1 to instantiate a damage block
@@ -89,6 +90,8 @@ public class CharacterMechanics : MonoBehaviour
     private GameObject attackTemp;
 
     private GameObject dashTemp;
+
+    private int comboCount;
 
     //determines how long the attack lasts
     [SerializeField] private Transform attackSpawn;
@@ -221,9 +224,46 @@ public class CharacterMechanics : MonoBehaviour
                 if (!isAttacking)
                 {
                     Debug.Log("Attack has been pressed");
-                    animator.SetTrigger("Attack");
-                    //Attack();
+                    //animator.SetTrigger("Attack");
+                    comboCount = 1;
+                    animator.SetInteger("Counter", comboCount);
+
+                    //AttackEnd();
                     isAttacking = true;
+                }
+                else
+                {
+                    switch (comboCount)
+                    {
+                        case 0:
+                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Stance"))
+                            {
+                                comboCount++;
+                            }                            
+                            break;
+                        case 1:
+                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 1"))
+                            {                                
+                                comboCount++;
+                                Debug.Log("attack 2 start");
+                            }
+                            break;
+                        case 2:
+                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 2"))
+                            {
+                                comboCount++;
+                                Debug.Log("attack 3 start");
+                            }
+                            break;
+                        case 3:
+                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 3"))
+                            {
+                                comboCount = 0;
+                            }
+                            break;
+                    }
+                    animator.SetInteger("Counter", comboCount);
+
                 }
             }
 
@@ -359,16 +399,47 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
-    public void Attack()
+    public void AttackEnd()
     {
-        Debug.Log("Attack has been triggered");
-
         // not sure where this is working correctly
         //attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
 
         //Destroy(attackTemp, attackTimer);
-        Debug.Log("Attack complete");
-        isAttacking = false;
+        Debug.LogWarning("Attack complete");
+
+        if (animator.GetInteger("Counter") == 1)
+        {
+            Debug.LogWarning(comboCount);
+            if (comboCount == 1)
+            {
+                comboCount = 0;
+                isAttacking = false;
+                animator.SetInteger("Counter", comboCount);
+            }
+
+        }
+        
+        if (animator.GetInteger("Counter") == 2)
+        {
+            if (comboCount == 2)
+            {
+                comboCount = 0;
+                isAttacking = false;
+                animator.SetInteger("Counter", comboCount);
+            }
+        }
+        
+        if (animator.GetInteger("Counter") == 3)
+        {
+            if (comboCount == 3)
+            {
+                comboCount = 0;
+                isAttacking = false;
+                animator.SetInteger("Counter", comboCount);
+            }
+        }
+
+        
     }
 
     // Dash doesnt have a animation yet so not changing anything with it
