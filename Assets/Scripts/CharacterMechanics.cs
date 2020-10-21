@@ -152,6 +152,18 @@ public class CharacterMechanics : MonoBehaviour
                 gravity = 9.81f;
             }
 
+            if (dashDamage <= 0)
+            {
+                dashDamage = 10;
+                Debug.Log("dashDamage not set, defaulting to " + dashDamage);
+            }
+
+            if (dashSpeed <= 0)
+            {
+                dashSpeed = 1500;
+                Debug.Log("dashSpeed not set, defaulting to " + dashSpeed);
+            }
+
             if (respawnPoint == null)
             {
                 respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
@@ -271,7 +283,7 @@ public class CharacterMechanics : MonoBehaviour
             if (Input.GetButtonDown("Fire2"))
             {
                 Debug.Log("Ability2 has been pressed");
-                Ability2();
+                Dash();
             }
 
             //Enables the player to use Ability 3
@@ -447,11 +459,11 @@ public class CharacterMechanics : MonoBehaviour
     {
         Debug.Log("Dash has been triggered");
 
-        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
+        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation, transform);
 
         animator.SetTrigger("Dash");
 
-        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+        controller.SimpleMove(transform.forward * dashSpeed);
     }
 
     private void DashEnds()
