@@ -1173,8 +1173,9 @@ GameObject:
   - component: {fileID: 1778195654915214095}
   - component: {fileID: 5316497363414415002}
   - component: {fileID: 5316497363414415003}
+  - component: {fileID: 5288553676171238510}
   m_Layer: 0
-  m_Name: Player
+  m_Name: Old Player
   m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1266,9 +1267,26 @@ MonoBehaviour:
   isCrouched: 0
   isGrounded: 0
   attackRangePrefab: {fileID: 0}
+  DashRangePrefab: {fileID: 0}
   attackSpawn: {fileID: 0}
+  dashSpawn: {fileID: 0}
   attackTimer: 0
+  dashDamage: 0
+  dashSpeed: 0
   respawnPoint: {fileID: 0}
+--- !u!65 &5288553676171238510
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4973829959942458319}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.351169, y: 1.9794086, z: 2.8847098}
+  m_Center: {x: -0.076039724, y: 1.2717755, z: -0.14344586}
 --- !u!1 &5098917775639914644
 GameObject:
   m_ObjectHideFlags: 0

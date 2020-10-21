@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
@@ -9,6 +10,9 @@ public class EnemyAI1 : MonoBehaviour
     public Transform target;
     //public Vector3 initialPos;
     //bool isInitPos = true;
+
+    //Animations
+    Animator eAnim;
 
     // How fast enemy moves
     public float enemyMovement;
@@ -31,6 +35,8 @@ public class EnemyAI1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        eAnim = gameObject.GetComponent<Animator>();
+
         target = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
@@ -115,10 +121,16 @@ public class EnemyAI1 : MonoBehaviour
             isPatrolling = true;
         }
     }
-    // During patrol alternate going between Waypoint1 and Waypoint2
-    // On colliding with waypoint
+    
+    // Used for enemy animations and patrolling between waypoints
     private void OnTriggerEnter(Collider other)
     {
+        // Plays punching animation when player enters collision
+        if (other.CompareTag("Player"))
+            eAnim.SetTrigger("isPunching");
+
+        // During patrol alternate going between Waypoint1 and Waypoint2
+        // On colliding with waypoint
         if (isPatrolling)
         {
             if (other.CompareTag("WayPoint1"))
@@ -127,12 +139,20 @@ public class EnemyAI1 : MonoBehaviour
                 agent.SetDestination(waypoint2.position);
             }
             else if (other.CompareTag("WayPoint2"))
-            {
+            { 
                 agent.SetDestination(waypoint1.position);
             }
         }
+}
+
+    //Sets enemy to walking animation if player leaves collision
+    private void OnTriggerExit(Collider other)
+    {
+       // eAnim.ResetTrigger("isPunching");
     }
-    private void OnCollisionEnter(Collision collision)
+    
+
+    /*private void OnCollisionEnter(Collision collision)
     {
         if (!isPatrolling)
         {
@@ -141,7 +161,7 @@ public class EnemyAI1 : MonoBehaviour
                 //Debug.Log("Player Hit");
             }
         }
-    }
+    }*/
 }
 
 //Go in circles
