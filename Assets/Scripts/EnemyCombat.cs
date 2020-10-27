@@ -32,10 +32,10 @@ public class EnemyCombat : MonoBehaviour
     void Update()
     {
         //DEBUG: Tests if knockback works
-        if (Input.GetButtonDown("Fire1"))
-        {
-            takeDamage(1);
-        }
+        //if (Input.GetButtonDown("Fire1"))
+        //{
+        //    takeDamage(1);
+        //}
         //HPText.transform.rotation = HPText.transform.LookAt(target) + Quaternion.Euler(0, 180, 0);
         //HPText.transform.LookAt(target) += Quaternion.Euler(0, 180, 0);
 
