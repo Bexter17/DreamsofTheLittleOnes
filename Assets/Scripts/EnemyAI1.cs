@@ -73,7 +73,7 @@ public class EnemyAI1 : MonoBehaviour
         if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
         {
             Chase();
-            //Honk();
+            Honk();
         }
 
         //else if (!isInitPos)
@@ -100,7 +100,6 @@ public class EnemyAI1 : MonoBehaviour
         // Move forward
     }
     // Calls Chase() for all enemies
-    // Currently not being called
     private void Honk()
     {
         GameObject[] enemies;

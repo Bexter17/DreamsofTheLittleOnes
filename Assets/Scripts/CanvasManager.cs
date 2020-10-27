@@ -12,9 +12,7 @@ public class CanvasManager : MonoBehaviour
     public Button returnButton;
 
     public GameObject pauseMenu;
-
-    AudioSource pauseAudio;
-
+   
     // Start is called before the first frame update
     void Start()
     {
@@ -37,27 +35,9 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            if (pauseMenu.activeSelf)
-            {
-                // pauseAudio.Play();
-            }
-        }
-        if (pauseMenu)
-        {
-            if (pauseMenu.activeSelf)
-            {
-                Time.timeScale = 0.0f;
-
-            }
-            else
-            {
-                Time.timeScale = 1.0f;
-            }
-
-        }
-
+     
+      
     }
+
 }
+
