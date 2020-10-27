@@ -411,6 +411,11 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
+    public void DealDamage(int damage)
+    {
+
+    }
+
     public void AttackEnd()
     {
         // not sure where this is working correctly
