@@ -106,7 +106,7 @@ NavMeshSettings:
   m_BuildSettings:
     serializedVersion: 2
     agentTypeID: 0
-    agentRadius: 0.5
+    agentRadius: 1
     agentHeight: 2
     agentSlope: 45
     agentClimb: 0.4
@@ -114,7 +114,7 @@ NavMeshSettings:
     maxJumpAcrossDistance: 4
     minRegionArea: 2
     manualCellSize: 0
-    cellSize: 0.16666667
+    cellSize: 0.33333334
     manualTileSize: 0
     tileSize: 256
     accuratePlacement: 0
@@ -983,6 +983,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239577, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -2251,10 +2255,6 @@ PrefabInstance:
       propertyPath: waypoint2
       value: 
       objectReference: {fileID: 1978559270}
-    - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: knockDistanceModifier
-      value: 0.4
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
 --- !u!4 &1965042099 stripped
@@ -2393,6 +2393,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: m_IsKinematic
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239577, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_Name
       value: Enemy

@@ -32,6 +32,7 @@ public class EnemyCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //DEBUG: Tests if knockback works
         //if (Input.GetButtonDown("Fire1"))
         //{
@@ -76,5 +77,14 @@ public class EnemyCombat : MonoBehaviour
         //Enemy continues moving
         agent.isStopped = false;
         agent.SetDestination(target.position);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            rb.velocity = Vector3.zero;
+            agent.isStopped = true;
+            AgentStop();
+        }
     }
 }
