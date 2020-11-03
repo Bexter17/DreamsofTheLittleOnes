@@ -14,7 +14,7 @@ public class Sword : MonoBehaviour
         {
             if (Attacking)
             {
-                collision.gameObject.SendMessage("TakeDamage", 1);
+                collision.gameObject.SendMessage("takeDamage", 1);
             }
         }
     }

@@ -20,8 +20,8 @@ public class Attack : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-            other.SendMessage("TakeDamage", 10);
-            Debug.Log("TakeDamage triggered on" + other.name);
+            other.SendMessage("takeDamage", 10);
+            Debug.Log("takeDamage triggered on" + other.name);
         }
     }
 }
