@@ -762,11 +762,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 06a6d602e7141d8479eff27c9e9c3ad9, type: 3}
---- !u!4 &744023578 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 8808256718426828856, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-  m_PrefabInstance: {fileID: 2727483046251003459}
-  m_PrefabAsset: {fileID: 0}
 --- !u!1 &906787431
 GameObject:
   m_ObjectHideFlags: 0
@@ -2295,22 +2290,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
-    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-      propertyPath: isGrounded
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-      propertyPath: dashSpeed
-      value: 5
-      objectReference: {fileID: 0}
-    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-      propertyPath: dashDamage
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-      propertyPath: dashSpawn
-      value: 
-      objectReference: {fileID: 744023578}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
 --- !u!1 &2727483046251003460 stripped

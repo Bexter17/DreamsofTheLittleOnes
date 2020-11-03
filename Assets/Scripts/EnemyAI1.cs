@@ -39,6 +39,7 @@ public class EnemyAI1 : MonoBehaviour
 
         target = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
         agent = GetComponent<NavMeshAgent>();
 
         if (enemyMovement <= 0)
@@ -64,6 +65,7 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        transform.LookAt(agent.destination);
         //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
         //{
         //    agent.ResetPath();

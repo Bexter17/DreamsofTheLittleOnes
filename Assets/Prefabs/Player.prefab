@@ -3811,14 +3811,14 @@ MonoBehaviour:
   gravity: 0
   crouchIsToggle: 0
   isCrouched: 0
-  isGrounded: 0
+  isGrounded: 1
   attackRangePrefab: {fileID: 5061167488232381447}
   DashRangePrefab: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
   attackSpawn: {fileID: 7397290250103880017}
   dashSpawn: {fileID: 8808256718426828856}
   attackTimer: 3
-  dashDamage: 0
-  dashSpeed: 0
+  dashDamage: 1
+  dashSpeed: 500
   respawnPoint: {fileID: 0}
 --- !u!1 &6175544729087243021
 GameObject:

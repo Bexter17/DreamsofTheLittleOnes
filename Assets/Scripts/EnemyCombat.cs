@@ -17,6 +17,8 @@ public class EnemyCombat : MonoBehaviour
     NavMeshAgent agent;
 
     [SerializeField] private Image hpBar;
+
+    CharacterMechanics cm;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,11 +29,13 @@ public class EnemyCombat : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.Find("Player").transform;
 
+        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
     }
 
     // Update is called once per frame
     void Update()
     {
+
         //DEBUG: Tests if knockback works
         if (Input.GetButtonDown("Fire1"))
         {
@@ -76,5 +80,14 @@ public class EnemyCombat : MonoBehaviour
         //Enemy continues moving
         agent.isStopped = false;
         agent.SetDestination(target.position);
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            rb.velocity = Vector3.zero;
+            agent.isStopped = true;
+            AgentStop();
+        }
     }
 }
