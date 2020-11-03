@@ -32,7 +32,7 @@ public class CharacterMechanics : MonoBehaviour
     private GameObject damageSource;
 
     //Tracks player's lives
-    int Lives = 3;
+    int Lives = 1;
 
     //Tracks if the playe is currently alive or not
     private bool isAlive = true;
@@ -366,7 +366,7 @@ public class CharacterMechanics : MonoBehaviour
     public void Die()
     {
         Lives--;
-        gameObject.transform.position = respawnPoint.transform.position;
+       // gameObject.transform.position = respawnPoint.transform.position;
         isAlive = true;
         if (Lives == 0)
         {
