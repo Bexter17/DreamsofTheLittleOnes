@@ -190,7 +190,7 @@ public class CharacterMechanics : MonoBehaviour
             //If health drops to or below zero, the player dies
             if (currentHealth <= 0)
             {
-                SceneManager.LoadScene("EndScene");
+                
                 animator.SetTrigger("Die");
                 isAlive = false;
                 Die();
@@ -369,6 +369,10 @@ public class CharacterMechanics : MonoBehaviour
         Lives--;
         gameObject.transform.position = respawnPoint.transform.position;
         isAlive = true;
+        if (Lives == 0)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
     }
 
     IEnumerator stopGodmode()
