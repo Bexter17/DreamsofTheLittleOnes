@@ -17,6 +17,8 @@ public class EnemyCombat : MonoBehaviour
     NavMeshAgent agent;
 
     [SerializeField] private Image hpBar;
+
+    CharacterMechanics cm;
     // Start is called before the first frame update
     void Start()
     {
@@ -27,6 +29,7 @@ public class EnemyCombat : MonoBehaviour
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.Find("Player").transform;
 
+        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
     }
 
     // Update is called once per frame

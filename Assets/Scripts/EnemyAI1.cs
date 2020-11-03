@@ -39,6 +39,7 @@ public class EnemyAI1 : MonoBehaviour
 
         target = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody>();
+        rb.isKinematic = true;
         agent = GetComponent<NavMeshAgent>();
 
         if (enemyMovement <= 0)
