@@ -85,8 +85,6 @@ public class EnemyAI1 : MonoBehaviour
             Patrol();
         }
         //MoveForward();
-
-
     }
     public void Chase()
     {

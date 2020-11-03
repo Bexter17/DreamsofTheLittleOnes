@@ -152,18 +152,6 @@ public class CharacterMechanics : MonoBehaviour
                 gravity = 9.81f;
             }
 
-            if (dashDamage <= 0)
-            {
-                dashDamage = 10;
-                Debug.Log("dashDamage not set, defaulting to " + dashDamage);
-            }
-
-            if (dashSpeed <= 0)
-            {
-                dashSpeed = 1500;
-                Debug.Log("dashSpeed not set, defaulting to " + dashSpeed);
-            }
-
             if (respawnPoint == null)
             {
                 respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
@@ -190,7 +178,7 @@ public class CharacterMechanics : MonoBehaviour
         }
         catch (NullReferenceException e)
         {
-            Debug.LogWarning(e.Message);
+           // Debug.LogWarning(e.Message);
         }
     }
 
@@ -223,7 +211,7 @@ public class CharacterMechanics : MonoBehaviour
             //Character controller movement
             controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * speed));
 
-            Debug.Log("Speed: " + moveDirection);
+          //  Debug.Log("Speed: " + moveDirection);
             //animator.SetFloat("Speed", transform.TransformDirection(controller.velocity).z);
             //animator.SetFloat("Speed", transform.InverseTransformDirection(controller.velocity).z);
             //animator.SetFloat("Speed", curSpeed);
@@ -297,7 +285,7 @@ public class CharacterMechanics : MonoBehaviour
             // Jumping is not working with the player when in game
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
-                Debug.Log("Jump has been pressed");
+              //  Debug.Log("Jump has been pressed");
                 vSpeed = jumpSpeed;
                 animator.SetTrigger("Jump");
             }
@@ -305,14 +293,14 @@ public class CharacterMechanics : MonoBehaviour
             vSpeed -= gravity * Time.deltaTime;
             moveDirection.y = vSpeed;
             controller.Move(moveDirection * Time.deltaTime);
-            Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+           // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
         }
     }
 
     //Tracks player collision 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-        Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
+       // Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
 
         if(hit.gameObject.tag == "Floor")
         {
@@ -326,6 +314,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (hit.gameObject.tag == "Enemy")
         {
+            animator.SetTrigger("Got Hit");
             TakeDamage(1);
         }
 
@@ -342,7 +331,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             speed *= speedBoost;
             Destroy(c.gameObject);
-            Debug.Log("Drank Teleportation Potion");
+          //  Debug.Log("Drank Teleportation Potion");
             StartCoroutine(stopSpeedBoost());
         }
 
@@ -350,7 +339,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             jumpSpeed += jumpBoost;
             Destroy(c.gameObject);
-            Debug.Log("Jump Boost Applied");
+           // Debug.Log("Jump Boost Applied");
             StartCoroutine(stopJumpBoost());
         }
 
@@ -369,7 +358,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             speed *= speedBoost;
             Destroy(c.gameObject);
-            Debug.Log("Speed Boost Applied");
+           // Debug.Log("Speed Boost Applied");
             StartCoroutine(stopSpeedBoost());
         }
     }
@@ -409,11 +398,6 @@ public class CharacterMechanics : MonoBehaviour
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
-    }
-
-    public void DealDamage(int damage)
-    {
-
     }
 
     public void AttackEnd()
@@ -459,16 +443,18 @@ public class CharacterMechanics : MonoBehaviour
         
     }
 
-    // Dash doesnt have a animation yet so not changing anything with it
+    // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
     public void Dash()
     {
         Debug.Log("Dash has been triggered");
 
-        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation, transform);
+        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
 
         animator.SetTrigger("Dash");
 
-        controller.SimpleMove(transform.forward * dashSpeed);
+        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+
+        
     }
 
     private void DashEnds()

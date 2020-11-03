@@ -137,7 +137,7 @@ GameObject:
   - component: {fileID: 7618830116581312363}
   - component: {fileID: 1426521413}
   m_Layer: 0
-  m_Name: Enemy
+  m_Name: Old Enemy
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -256,7 +256,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!195 &1643934495
 NavMeshAgent:

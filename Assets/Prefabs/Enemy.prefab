@@ -96,7 +96,7 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942041078614933}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
   m_Radius: 0.5
   m_Height: 2
@@ -118,7 +118,7 @@ MonoBehaviour:
   enemyMovement: 0
   rb: {fileID: 942041078614932}
   chaseRange: 0
-  attackRange: 0
+  attackRange: 1
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 2
@@ -173,9 +173,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   rb: {fileID: 0}
-  target: {fileID: 5642244327374623093, guid: 1e6a21289197ef1439ec7310e7652a17, type: 3}
-  knockDistanceModifier: 1
-  knockDuration: 0.1
+  target: {fileID: 0}
+  knockDistanceModifier: 5
+  knockDuration: 0.3
   knockPause: 0.3
   hpBar: {fileID: 6255862322667623475}
 --- !u!95 &6845188007653863305

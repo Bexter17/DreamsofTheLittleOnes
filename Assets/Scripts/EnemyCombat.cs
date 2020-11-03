@@ -25,6 +25,7 @@ public class EnemyCombat : MonoBehaviour
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
         agent = GetComponent<NavMeshAgent>();
+        target = GameObject.Find("Player").transform;
 
     }
 
@@ -44,8 +45,9 @@ public class EnemyCombat : MonoBehaviour
         Vector3 textDirection = transform.position - target.transform.position;
         transform.rotation = Quaternion.LookRotation(textDirection);
     }
-    private void takeDamage(int dmg)
+    public void takeDamage(int dmg)
     {
+        //Debug.Log(dmg + "Damage Taken");
         agent.isStopped = true;
         hp -= dmg;
         if(hp <= 0)
@@ -73,5 +75,6 @@ public class EnemyCombat : MonoBehaviour
     {
         //Enemy continues moving
         agent.isStopped = false;
+        agent.SetDestination(target.position);
     }
 }
