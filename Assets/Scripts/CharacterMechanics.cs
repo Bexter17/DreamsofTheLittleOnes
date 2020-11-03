@@ -193,7 +193,6 @@ public class CharacterMechanics : MonoBehaviour
                 
                 animator.SetTrigger("Die");
                 isAlive = false;
-                Die();
             }
 
             //Assign "moveDirection" to track vertical movement
