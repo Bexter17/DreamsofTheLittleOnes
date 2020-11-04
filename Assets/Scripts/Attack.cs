@@ -21,6 +21,7 @@ public class Attack : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             other.SendMessage("takeDamage", 10);
+            other.GetComponent<EnemyCombat>().takeDamage(1);
             Debug.Log("takeDamage triggered on" + other.name);
         }
     }

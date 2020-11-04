@@ -75,7 +75,7 @@ public class EnemyAI1 : MonoBehaviour
         if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
         {
             Chase();
-            Honk();
+            //Honk();
         }
 
         //else if (!isInitPos)
