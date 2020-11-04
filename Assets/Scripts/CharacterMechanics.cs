@@ -460,6 +460,8 @@ public class CharacterMechanics : MonoBehaviour
         animator.SetTrigger("Dash");
 
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+
+        //Rigidbody.addforce();
     }
 
     private void DashEnds()
