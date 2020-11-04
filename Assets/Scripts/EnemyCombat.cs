@@ -61,7 +61,8 @@ public class EnemyCombat : MonoBehaviour
             AgentStop();
         }
 
-        if (Input.GetKeyDown("s"))
+        //Used for testing enemy death
+        if (Input.GetKeyDown("p"))
         {
             Debug.Log("Enemy has lost 1 hp");
             hp -= 1;
