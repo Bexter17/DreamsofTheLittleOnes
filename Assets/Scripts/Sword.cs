@@ -8,7 +8,7 @@ public class Sword : MonoBehaviour
 
     private GameObject Player;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collision collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
