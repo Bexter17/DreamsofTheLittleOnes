@@ -7,7 +7,8 @@ using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
-    private int hp = 10;
+    [SerializeField] int hp = 5;
+    private int maxHP;
     public Rigidbody rb;
     public Transform target;
     [SerializeField] float knockDistanceModifier;
@@ -52,7 +53,7 @@ public class EnemyCombat : MonoBehaviour
         {
             Destroy(gameObject);
         }
-        hpBar.fillAmount = (float)(hp * 0.1);
+        hpBar.fillAmount = (float)(hp * 0.2);
         //HPText.text = hp.ToString();
         //KNOCKBACK
         // Gets the difference between enemy and player position
