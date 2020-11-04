@@ -6,6 +6,9 @@ using UnityEngine.AI;
 
 public class EnemyAI1 : MonoBehaviour
 {
+    //Connect EnemyAI1 script and EnemyCombat script
+    EnemyCombat EnemyCombatScript;
+
     // The player that the enemy will chase
     public Transform target;
     //public Vector3 initialPos;
@@ -35,6 +38,8 @@ public class EnemyAI1 : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        EnemyCombatScript = gameObject.GetComponent<EnemyCombat>();
+
         eAnim = gameObject.GetComponent<Animator>();
 
         target = GameObject.Find("Player").transform;
@@ -65,28 +70,37 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(agent.destination);
-        //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-        //{
-        //    agent.ResetPath();
-        //}
-        // Checks if the distance between enemy and player
-        // is less then chaseRange
-        if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
-        {
-            Chase();
-            //Honk();
-        }
+            transform.LookAt(agent.destination);
+            //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            //{
+            //    agent.ResetPath();
+            //}
+            // Checks if the distance between enemy and player
+            // is less then chaseRange
+            if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            {
+                Chase();
+                //Honk();
+            }
 
-        //else if (!isInitPos)
-        //{
-        //    GoHome();
-        //}
-        else if (!isPatrolling /*&& isInitPos*/)
+            //else if (!isInitPos)
+            //{
+            //    GoHome();
+            //}
+            else if (!isPatrolling /*&& isInitPos*/)
+            {
+                Patrol();
+            }
+            //MoveForward();
+        
+
+        if (EnemyCombatScript.death == true)
         {
-            Patrol();
+            eAnim.SetTrigger("IsPunching");
+            eAnim.SetBool("IsDying", true);
+            eAnim.SetTrigger("IsDead");
+            Destroy(gameObject, 5);
         }
-        //MoveForward();
     }
     public void Chase()
     {

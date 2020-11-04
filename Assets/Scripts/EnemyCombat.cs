@@ -7,6 +7,9 @@ using UnityEngine.AI;
 
 public class EnemyCombat : MonoBehaviour
 {
+    //Connect EnemyAI1 script with EnemyCombat script
+    EnemyAI1 EnemyAI1Script;
+
     [SerializeField] int hp = 5;
     private int maxHP;
     public Rigidbody rb;
@@ -19,10 +22,15 @@ public class EnemyCombat : MonoBehaviour
 
     [SerializeField] private Image hpBar;
 
+    //Death
+    public bool death = false;
+
     CharacterMechanics cm;
     // Start is called before the first frame update
     void Start()
     {
+        EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
+        
         //HPText.text = hp.ToString();
         rb = GetComponent<Rigidbody>();
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
@@ -43,6 +51,21 @@ public class EnemyCombat : MonoBehaviour
         //So it's not backwards to the player
         Vector3 textDirection = transform.position - target.transform.position;
         transform.rotation = Quaternion.LookRotation(textDirection);
+
+        //Detect when there is no HP to kill enemy and play death animation
+        if (hp <= 0)
+        {
+            death = true;
+            Debug.Log("Enemy has been killed");
+            agent.isStopped = true;
+            AgentStop();
+        }
+
+        if (Input.GetKeyDown("s"))
+        {
+            Debug.Log("Enemy has lost 1 hp");
+            hp -= 1;
+        }
     }
     public void takeDamage(int dmg)
     {
