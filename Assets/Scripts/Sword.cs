@@ -8,13 +8,19 @@ public class Sword : MonoBehaviour
 
     private GameObject Player;
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if(collision.gameObject.tag == "Enemy")
         {
+            Debug.Log("Enemy collision detected");
+
+            Attacking = Player.GetComponent<CharacterMechanics>().isAttacking;
+
             if (Attacking)
             {
                 collision.gameObject.SendMessage("takeDamage", 1);
+
+                Debug.Log("Attacking == true");
             }
         }
     }
@@ -25,10 +31,4 @@ public class Sword : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");    
     }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-        Attacking = Player.GetComponent("isAttacking");
-    }
 }

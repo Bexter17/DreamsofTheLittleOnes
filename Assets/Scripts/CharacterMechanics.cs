@@ -228,7 +228,6 @@ public class CharacterMechanics : MonoBehaviour
                     animator.SetInteger("Counter", comboCount);
 
                     //AttackEnd();
-                    isAttacking = true;
                 }
                 else
                 {
@@ -403,6 +402,11 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
+    public void AttackBegins()
+    {
+        Debug.Log("AttackBegins called");
+        isAttacking = true;
+    }
     public void AttackEnd()
     {
         // not sure where this is working correctly
@@ -456,8 +460,6 @@ public class CharacterMechanics : MonoBehaviour
         animator.SetTrigger("Dash");
 
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
-
-        
     }
 
     private void DashEnds()
