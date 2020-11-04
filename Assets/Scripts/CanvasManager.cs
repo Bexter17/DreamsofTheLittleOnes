@@ -35,8 +35,27 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-     
-      
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if (pauseMenu.activeSelf)
+            {
+                //pauseAudio.Play();
+            }
+        }
+        if (pauseMenu)
+        {
+            if (pauseMenu.activeSelf)
+            {
+                Time.timeScale = 0.0f;
+
+            }
+            else
+            {
+                Time.timeScale = 1.0f;
+            }
+        }
+
     }
 
 }
