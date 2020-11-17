@@ -70,14 +70,14 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-            transform.LookAt(agent.destination);
-            //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-            //{
-            //    agent.ResetPath();
-            //}
-            // Checks if the distance between enemy and player
-            // is less then chaseRange
-            if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+        transform.LookAt(agent.destination);
+        //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+        //{
+        //    agent.ResetPath();
+        //}
+        // Checks if the distance between enemy and player
+        // is less then chaseRange
+        if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange) /*&& Vector3.Distance(target.position, gameObject.transform.position) > attackRange)*/
             {
                 Chase();
                 //Honk();
