@@ -70,7 +70,9 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.LookAt(agent.destination);
+        // Look at destination on x and z axis
+        Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
+        transform.LookAt(targetPosition);
         //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
         //{
         //    agent.ResetPath();
