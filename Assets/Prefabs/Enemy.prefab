@@ -172,12 +172,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4695a18f50ebfa144a89a9480deda900, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  hp: 5
   rb: {fileID: 0}
   target: {fileID: 0}
   knockDistanceModifier: 5
   knockDuration: 0.3
   knockPause: 0.3
   hpBar: {fileID: 6255862322667623475}
+  death: 0
 --- !u!95 &6845188007653863305
 Animator:
   serializedVersion: 3
