@@ -220,6 +220,8 @@ public class CharacterMechanics : MonoBehaviour
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
+                Debug.LogWarning(isAttacking);
+
                 if (!isAttacking)
                 {
                     Debug.Log("Attack has been pressed");
@@ -244,6 +246,7 @@ public class CharacterMechanics : MonoBehaviour
                             {                                
                                 comboCount++;
                                 Debug.Log("attack 2 start");
+                                //animator.SetTrigger("Attack");
                             }
                             break;
                         case 2:
@@ -251,6 +254,7 @@ public class CharacterMechanics : MonoBehaviour
                             {
                                 comboCount++;
                                 Debug.Log("attack 3 start");
+                                //animator.SetTrigger("Attack");
                             }
                             break;
                         case 3:
@@ -410,44 +414,18 @@ public class CharacterMechanics : MonoBehaviour
     public void AttackEnd()
     {
         // not sure where this is working correctly
-        //attackTemp = Instantiate(attackRangePrefab, attackSpawn.transform.position, attackSpawn.transform.rotation);
+        Debug.Log("Attack complete");
 
-        //Destroy(attackTemp, attackTimer);
-        Debug.LogWarning("Attack complete");
-
-        if (animator.GetInteger("Counter") == 1)
+        if (animator.GetInteger("Counter") == comboCount)
         {
             Debug.LogWarning(comboCount);
-            if (comboCount == 1)
-            {
-                comboCount = 0;
-                isAttacking = false;
-                animator.SetInteger("Counter", comboCount);
-            }
 
-        }
-        
-        if (animator.GetInteger("Counter") == 2)
-        {
-            if (comboCount == 2)
-            {
-                comboCount = 0;
-                isAttacking = false;
-                animator.SetInteger("Counter", comboCount);
-            }
-        }
-        
-        if (animator.GetInteger("Counter") == 3)
-        {
-            if (comboCount == 3)
-            {
-                comboCount = 0;
-                isAttacking = false;
-                animator.SetInteger("Counter", comboCount);
-            }
+            comboCount = 0;
+            isAttacking = false;
+            animator.SetInteger("Counter", comboCount);
         }
 
-        
+        animator.SetInteger("Counter", comboCount);
     }
 
     // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.

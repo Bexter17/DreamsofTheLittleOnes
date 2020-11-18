@@ -399,8 +399,8 @@ ModelImporter:
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: AttackBegins
+      - time: 0.681672
+        functionName: AttackEnd
         data: 
         objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
         floatParameter: 0
@@ -438,14 +438,14 @@ ModelImporter:
       - time: 0.1715686
         functionName: AttackBegins
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: AttackBegins
+      - time: 0.6752411
+        functionName: AttackEnd
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
@@ -481,14 +481,14 @@ ModelImporter:
       - time: 0.16176468
         functionName: AttackBegins
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
-      - time: 1
-        functionName: AttackBegins
+      - time: 0.5
+        functionName: AttackEnd
         data: 
-        objectReferenceParameter: {instanceID: 0}
+        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0
