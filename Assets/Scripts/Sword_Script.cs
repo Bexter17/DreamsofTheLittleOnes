@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Sword : MonoBehaviour
+public class Sword_Script : MonoBehaviour
 {
     private bool Attacking = false;
 
@@ -13,8 +13,6 @@ public class Sword : MonoBehaviour
         if(collision.gameObject.tag == "Enemy")
         {
             Debug.Log("Enemy collision detected");
-
-            Attacking = Player.GetComponent<CharacterMechanics>().isAttacking;
 
             if (Attacking)
             {
@@ -29,6 +27,18 @@ public class Sword : MonoBehaviour
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");    
+    }
+
+    public void activateAttack()
+    {
+        Debug.Log("Sword Activated");
+        Attacking = true;
+    }
+
+    public void deactivateAttack()
+    {
+        Debug.Log("Sword Deactivated");
+        Attacking = false;
     }
 
 }

@@ -38,7 +38,9 @@ public class CharacterMechanics : MonoBehaviour
     private bool isAlive = true;
 
     //tracks if the player is mid attack
-    public bool isAttacking = false;
+    public bool isAbleToAttack = true;
+
+    public bool isInCombo = false;
 
     //Tracks if GodMode is Active
     public bool isGodMode;
@@ -110,14 +112,27 @@ public class CharacterMechanics : MonoBehaviour
     //creates a script accessable variable of the Animator component
     Animator animator;
 
+    AnimatorClipInfo[] CurrentClipInfo;
+
+    private string animName;
+
     //Tracks player checkpoints and where they will respawn 
     public GameObject respawnPoint;
+
+    Sword_Script sword;
 
     // Start is called before the first frame update
     void Start()
     {
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
+
+        isAbleToAttack = true;
+
+        comboCount = 0;
+
+        sword = GetComponentInChildren<Sword_Script>();
+
         try
         {
             //Accesses the CharacterController component on the character object 
@@ -127,6 +142,18 @@ public class CharacterMechanics : MonoBehaviour
 
             //Accesses the Animator component
             animator = GetComponent<Animator>();
+
+            int idleId = Animator.StringToHash("Male Sword Stance");
+
+            int runId = Animator.StringToHash("Male Sword Sprint");
+
+            int attack1Id = Animator.StringToHash("Male Attack 1");
+
+            int attack2Id = Animator.StringToHash("Male Attack 2");
+
+            int attack3Id = Animator.StringToHash("Male Attack 3");
+
+            AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
             //Automatically disables Root Motion (to avoid adding motion twice)
             animator.applyRootMotion = false;
@@ -195,6 +222,8 @@ public class CharacterMechanics : MonoBehaviour
                 isAlive = false;
             }
 
+            CurrentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
+
             //Assign "moveDirection" to track vertical movement
             moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
 
@@ -210,63 +239,138 @@ public class CharacterMechanics : MonoBehaviour
             //Character controller movement
             controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * speed));
 
-          //  Debug.Log("Speed: " + moveDirection);
-            //animator.SetFloat("Speed", transform.TransformDirection(controller.velocity).z);
-            //animator.SetFloat("Speed", transform.InverseTransformDirection(controller.velocity).z);
-            //animator.SetFloat("Speed", curSpeed);
             animator.SetFloat("Speed", Input.GetAxis("Vertical"));
             animator.SetBool("isGrounded", controller.isGrounded);
 
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.LogWarning(isAttacking);
+                Debug.LogWarning(isAbleToAttack);
 
-                if (!isAttacking)
+                if (isAbleToAttack || isInCombo)
                 {
                     Debug.Log("Attack has been pressed");
                     //animator.SetTrigger("Attack");
-                    comboCount = 1;
-                    animator.SetInteger("Counter", comboCount);
-
                     //AttackEnd();
-                }
-                else
-                {
+                    animName = CurrentClipInfo[0].clip.name;
+
                     switch (comboCount)
                     {
                         case 0:
-                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Stance"))
+
+                            //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Stance") || animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Sprint"))
+                            if(animName == ("Male Sword Stance") || animName == ("Male Sword Sprint"))
                             {
-                                comboCount++;
-                            }                            
+                                comboCount = 1;
+                                animator.SetInteger("Counter", comboCount);
+                                animator.SetTrigger("Attack");
+                                Debug.Log("Attack 1 Start");
+                            }
+
+                            else
+                            {
+                                Debug.LogWarning("Error in combo case 0");
+
+                                Debug.LogWarning("comboCount = " + comboCount);
+
+                                Debug.LogWarning("Animation: " + animName);
+
+                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                                Debug.Log("comboCount resetting to 0");
+
+                                comboCount = 0;
+                            }
+
                             break;
+
                         case 1:
-                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 1"))
-                            {                                
-                                comboCount++;
+                            if (animName == ("Male Attack 1"))
+                            {
+                                comboCount = 2;
+                                animator.SetInteger("Counter", comboCount);
+                                animator.SetTrigger("Attack");
                                 Debug.Log("attack 2 start");
                                 //animator.SetTrigger("Attack");
                             }
-                            break;
-                        case 2:
-                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 2"))
+
+                            else
                             {
-                                comboCount++;
-                                Debug.Log("attack 3 start");
-                                //animator.SetTrigger("Attack");
+                                Debug.LogWarning("Error in combo case 1");
+
+                                Debug.LogWarning("comboCount = " + comboCount);
+
+                                Debug.LogWarning("Animation: " + animName);
+
+                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                                Debug.Log("comboCount resetting to 0");
+
+                                comboCount = 0;
                             }
+
                             break;
-                        case 3:
-                            if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Attack 3"))
+
+                        case 2:
+                            if (animName == ("Male Attack 2"))
                             {
+                                comboCount = 3;
+                                Debug.Log("attack 3 start");
+                                animator.SetInteger("Counter", comboCount);
+                                animator.SetTrigger("Attack");
+                            }
+
+                            else
+                            {
+                                Debug.LogWarning("Error in combo case 2");
+
+                                Debug.LogWarning("comboCount = " + comboCount);
+
+                                Debug.LogWarning("Animation: " + animName);
+
+                                Debug.Log("comboCount resetting to 0");
+
+                                comboCount = 0;
+                            }
+
+                            break;
+
+                        case 3:
+
+                            if (animName == ("Male Attack 2") || animName == ("Male Sword Stance") || animName == ("Male Sword Sprint"))
+                            {
+                                comboCount = 3;
+                                Debug.Log("attack 3 start");
+                                animator.SetInteger("Counter", comboCount);
+                                animator.SetTrigger("Attack");
+                            }
+                            if (animName == ("Male Attack 3"))
+                            {
+                                comboCount = 0;
+                            }
+                            else
+                            {
+                                Debug.LogWarning("Error in combo case 3");
+
+                                Debug.LogWarning("comboCount = " + comboCount);
+
+                                Debug.LogWarning("Animation: " + animName);
+
+                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                                Debug.Log("comboCount resetting to 0");
+
                                 comboCount = 0;
                             }
                             break;
                     }
-                    animator.SetInteger("Counter", comboCount);
-
                 }
+
+                else if (!isAbleToAttack)
+                {
+                    Debug.Log("Attack has been pressed, you are unable to attack");
+                }
+
             }
 
             //Enables the player to use Ability 2
@@ -409,20 +513,25 @@ public class CharacterMechanics : MonoBehaviour
     public void AttackBegins()
     {
         Debug.Log("AttackBegins called");
-        isAttacking = true;
+        isAbleToAttack = false;
+        isInCombo = true;
+        sword.SendMessage("activateAttack");
     }
     public void AttackEnd()
     {
         // not sure where this is working correctly
         Debug.Log("Attack complete");
 
+        sword.SendMessage("deactivateAttack");
+
         if (animator.GetInteger("Counter") == comboCount)
         {
             Debug.LogWarning(comboCount);
 
-            comboCount = 0;
-            isAttacking = false;
-            animator.SetInteger("Counter", comboCount);
+            //comboCount = 0;
+            isAbleToAttack = true;
+            isInCombo = false;
+            //animator.SetInteger("Counter", comboCount);
         }
 
         animator.SetInteger("Counter", comboCount);
@@ -440,6 +549,13 @@ public class CharacterMechanics : MonoBehaviour
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
 
         //Rigidbody.addforce();
+    }
+    public void comboReset()
+    {
+        Debug.LogWarning("comboReset Ran");
+        comboCount =  0;
+        animator.SetInteger("Counter", comboCount);
+
     }
 
     private void DashEnds()
