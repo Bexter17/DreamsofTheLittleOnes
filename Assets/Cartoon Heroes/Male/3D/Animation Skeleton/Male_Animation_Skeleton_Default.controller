@@ -369,7 +369,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Land
+  m_Name: Land
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -422,7 +422,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Jump Up
+  m_Name: Jump
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -527,7 +527,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Attack 3
+  m_Name: Attack 3
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -658,7 +658,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Attack 2
+  m_Name: Attack 2
   m_Speed: 0.7
   m_CycleOffset: 0
   m_Transitions:
@@ -686,7 +686,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Sword Die
+  m_Name: Death
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions: []
@@ -790,7 +790,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Attack 1
+  m_Name: Attack 1
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -818,7 +818,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Fall
+  m_Name: Fall
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -845,7 +845,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Sword Damage Light
+  m_Name: Light Damage
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -872,7 +872,7 @@ AnimatorState:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: Male Sword Roll
+  m_Name: Roll
   m_Speed: 1
   m_CycleOffset: 0
   m_Transitions:
@@ -1058,7 +1058,7 @@ AnimatorStateMachine:
     m_Position: {x: 1310, y: 90, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102554951633155134}
-    m_Position: {x: 1310, y: 170, z: 0}
+    m_Position: {x: 1310, y: 160, z: 0}
   - serializedVersion: 1
     m_State: {fileID: 1102157342845842840}
     m_Position: {x: 1160, y: -570, z: 0}
