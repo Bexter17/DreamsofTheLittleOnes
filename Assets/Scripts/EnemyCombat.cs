@@ -32,8 +32,8 @@ public class EnemyCombat : MonoBehaviour
     {
         EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
         
-        //HPText.text = hp.ToString();
         rb = GetComponent<Rigidbody>();
+
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
         agent = GetComponent<NavMeshAgent>();
@@ -45,9 +45,6 @@ public class EnemyCombat : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //HPText.transform.rotation = HPText.transform.LookAt(target) + Quaternion.Euler(0, 180, 0);
-        //HPText.transform.LookAt(target) += Quaternion.Euler(0, 180, 0);
-
         //Sets hp text to change based on players perspective
         //So it's not backwards to the player
         Vector3 textDirection = transform.position - target.transform.position;
@@ -80,13 +77,14 @@ public class EnemyCombat : MonoBehaviour
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
-        //HPText.text = hp.ToString();
+
         //KNOCKBACK
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
         Vector3 knockDirection = transform.position - target.transform.position;
         rb.velocity = knockDirection * knockDistanceModifier;
-        //Invokes once enemy is no longer being knocked back and pauses
+
+        //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
     private void AgentStop()
