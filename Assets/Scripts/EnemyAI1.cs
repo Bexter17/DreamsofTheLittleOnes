@@ -49,6 +49,7 @@ public class EnemyAI1 : MonoBehaviour
         rb.isKinematic = true;
         agent = GetComponent<NavMeshAgent>();
 
+        // Default values
         if (enemyMovement <= 0)
         {
             enemyMovement = 10f;
@@ -66,42 +67,31 @@ public class EnemyAI1 : MonoBehaviour
             dmgDealt = 1;
         }
         Patrol();
-        //MoveContinuouslyForward();
     }
 
     // Update is called once per frame
     void Update()
     {
-        // Look at destination on x and z axis
+        // Enemy looks at player on x and z axis
+        // This excluded y axis so that enemy isn't leaning
         Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
         transform.LookAt(targetPosition);
-        //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-        //{
-        //    agent.ResetPath();
-        //}
 
+        // If enemy within attackrange stop moving and attack
+        // If enemy within chaserange chase player
+        // else go back to patrol route
         if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
         {
             agent.isStopped = true;
         }
-            // Checks if the distance between enemy and player
-            // is less then chaseRange
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange) /*&& Vector3.Distance(target.position, gameObject.transform.position) > attackRange)*/
-            {
-                Chase();
-                //Honk();
-            }
-
-            //else if (!isInitPos)
-            //{
-            //    GoHome();
-            //}
-            else if (!isPatrolling /*&& isInitPos*/)
-            {
-                Patrol();
-            }
-            //MoveForward();
-        
+        else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+        {
+            Chase();
+        }
+        else if (!isPatrolling)
+        {
+            Patrol();
+        }
 
         if (EnemyCombatScript.death == true)
         {
@@ -116,14 +106,12 @@ public class EnemyAI1 : MonoBehaviour
         agent.isStopped = false;
         //Debug.Log("CHASE");
         isPatrolling = false;
-        //isInitPos = false;
-        // Rotates to always face the player
-        //transform.LookAt(target, Vector3.up);
         // Sets player as destination
         agent.SetDestination(target.transform.position);
-        // Move forward
     }
+
     // Calls Chase() for all enemies
+    // Currently not being used
     private void Honk()
     {
         GameObject[] enemies;
@@ -138,7 +126,7 @@ public class EnemyAI1 : MonoBehaviour
     private void Patrol()
     {
         //Debug.Log("PATROL");
-        //At the begin of patrolling sets first patrol destination
+        // At the beginning of patrolling sets first patrol destination
         if (!isPatrolling)
         {
             agent.SetDestination(waypoint1.position);
@@ -154,7 +142,7 @@ public class EnemyAI1 : MonoBehaviour
             eAnim.SetTrigger("isPunching");
 
         // During patrol alternate going between Waypoint1 and Waypoint2
-        // On colliding with waypoint
+        // On colliding with waypoint sets other as destination
         if (isPatrolling)
         {
             if (other.CompareTag("WayPoint1"))
