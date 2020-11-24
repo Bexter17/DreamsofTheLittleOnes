@@ -5,6 +5,7 @@ using TMPro;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
+//Combat Script
 public class EnemyCombat : MonoBehaviour
 {
     //Connect EnemyAI1 script with EnemyCombat script
@@ -75,7 +76,8 @@ public class EnemyCombat : MonoBehaviour
         hp -= dmg;
         if(hp <= 0)
         {
-            Destroy(gameObject);
+            death = true;
+            //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
         //HPText.text = hp.ToString();

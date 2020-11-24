@@ -983,6 +983,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: 1643934495, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: m_BaseOffset
+      value: 0.8
+      objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_IsKinematic
       value: 1
@@ -997,7 +1001,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 94.76
+      value: 94.64
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalPosition.z
@@ -1046,6 +1050,10 @@ PrefabInstance:
     - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: knockDistanceModifier
       value: 0.4
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: death
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}

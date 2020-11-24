@@ -34,7 +34,7 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks player's lives
     int Lives = 1;
 
-    //Tracks if the playe is currently alive or not
+    //Tracks if the player is currently alive or not
     private bool isAlive = true;
 
     //tracks if the player is mid attack

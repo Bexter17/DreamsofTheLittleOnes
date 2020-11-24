@@ -4,6 +4,8 @@ using System.Runtime.CompilerServices;
 using UnityEngine;
 using UnityEngine.AI;
 
+
+//Animation Script
 public class EnemyAI1 : MonoBehaviour
 {
     //Connect EnemyAI1 script and EnemyCombat script
