@@ -59,7 +59,7 @@ public class EnemyAI1 : MonoBehaviour
         }
         if (attackRange <= 0)
         {
-            attackRange = 2f;
+            attackRange = 3f;
         }
         if (dmgDealt <= 0)
         {
@@ -79,9 +79,14 @@ public class EnemyAI1 : MonoBehaviour
         //{
         //    agent.ResetPath();
         //}
-        // Checks if the distance between enemy and player
-        // is less then chaseRange
-        if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange) /*&& Vector3.Distance(target.position, gameObject.transform.position) > attackRange)*/
+
+        if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+        {
+            agent.isStopped = true;
+        }
+            // Checks if the distance between enemy and player
+            // is less then chaseRange
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange) /*&& Vector3.Distance(target.position, gameObject.transform.position) > attackRange)*/
             {
                 Chase();
                 //Honk();
@@ -108,6 +113,7 @@ public class EnemyAI1 : MonoBehaviour
     }
     public void Chase()
     {
+        agent.isStopped = false;
         //Debug.Log("CHASE");
         isPatrolling = false;
         //isInitPos = false;
