@@ -95,6 +95,9 @@ public class EnemyAI1 : MonoBehaviour
 
         if (EnemyCombatScript.death == true)
         {
+            // so that enemy doesn't move after dying
+            agent.isStopped = true;
+
             eAnim.SetTrigger("IsPunching");
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
