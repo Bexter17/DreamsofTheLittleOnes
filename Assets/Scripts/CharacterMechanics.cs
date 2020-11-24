@@ -37,10 +37,9 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks if the player is currently alive or not
     private bool isAlive = true;
 
-    //tracks if the player is mid attack
-    public bool isAbleToAttack = true;
+    private bool isInCombo = false;
 
-    public bool isInCombo = false;
+    private int wastedClicks = 0; 
 
     //Tracks if GodMode is Active
     public bool isGodMode;
@@ -80,6 +79,9 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks if the player is actively hold crouch key
     public bool isCrouched = false;
 
+    //Tracks if player is too busy to attack
+    public bool isBusy = false;
+
     //Boolean to track if the player is on the ground or in the air
     public bool isGrounded;
 
@@ -94,6 +96,12 @@ public class CharacterMechanics : MonoBehaviour
     private GameObject dashTemp;
 
     private int comboCount;
+
+    private int queuedAttack1 = -1;
+
+    private int queuedAttack2 = -1;
+
+    private int currentAttack;
 
     //determines how long the attack lasts
     [SerializeField] private Transform attackSpawn;
@@ -127,8 +135,6 @@ public class CharacterMechanics : MonoBehaviour
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
-        isAbleToAttack = true;
-
         comboCount = 0;
 
         sword = GetComponentInChildren<Sword_Script>();
@@ -143,15 +149,15 @@ public class CharacterMechanics : MonoBehaviour
             //Accesses the Animator component
             animator = GetComponent<Animator>();
 
-            int idleId = Animator.StringToHash("Male Sword Stance");
+            int idleId = Animator.StringToHash("Idle");
 
-            int runId = Animator.StringToHash("Male Sword Sprint");
+            int runId = Animator.StringToHash("Run");
 
-            int attack1Id = Animator.StringToHash("Male Attack 1");
+            int attack1Id = Animator.StringToHash("Attack 1");
 
-            int attack2Id = Animator.StringToHash("Male Attack 2");
+            int attack2Id = Animator.StringToHash("Attack 2");
 
-            int attack3Id = Animator.StringToHash("Male Attack 3");
+            int attack3Id = Animator.StringToHash("Attack 3");
 
             AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
 
@@ -201,11 +207,11 @@ public class CharacterMechanics : MonoBehaviour
 
             //Assigns a value to the variable
             moveDirection = Vector3.zero;
-
         }
-        catch (NullReferenceException e)
+
+        finally
         {
-           // Debug.LogWarning(e.Message);
+
         }
     }
 
@@ -221,8 +227,6 @@ public class CharacterMechanics : MonoBehaviour
                 animator.SetTrigger("Die");
                 isAlive = false;
             }
-
-            CurrentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
 
             //Assign "moveDirection" to track vertical movement
             moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
@@ -245,132 +249,7 @@ public class CharacterMechanics : MonoBehaviour
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
-                Debug.LogWarning(isAbleToAttack);
-
-                if (isAbleToAttack || isInCombo)
-                {
-                    Debug.Log("Attack has been pressed");
-                    //animator.SetTrigger("Attack");
-                    //AttackEnd();
-                    animName = CurrentClipInfo[0].clip.name;
-
-                    switch (comboCount)
-                    {
-                        case 0:
-
-                            //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Stance") || animator.GetCurrentAnimatorStateInfo(0).IsName("Male Sword Sprint"))
-                            if(animName == ("Male Sword Stance") || animName == ("Male Sword Sprint"))
-                            {
-                                comboCount = 1;
-                                animator.SetInteger("Counter", comboCount);
-                                animator.SetTrigger("Attack");
-                                Debug.Log("Attack 1 Start");
-                            }
-
-                            else
-                            {
-                                Debug.LogWarning("Error in combo case 0");
-
-                                Debug.LogWarning("comboCount = " + comboCount);
-
-                                Debug.LogWarning("Animation: " + animName);
-
-                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-
-                                Debug.Log("comboCount resetting to 0");
-
-                                comboCount = 0;
-                            }
-
-                            break;
-
-                        case 1:
-                            if (animName == ("Male Attack 1"))
-                            {
-                                comboCount = 2;
-                                animator.SetInteger("Counter", comboCount);
-                                animator.SetTrigger("Attack");
-                                Debug.Log("attack 2 start");
-                                //animator.SetTrigger("Attack");
-                            }
-
-                            else
-                            {
-                                Debug.LogWarning("Error in combo case 1");
-
-                                Debug.LogWarning("comboCount = " + comboCount);
-
-                                Debug.LogWarning("Animation: " + animName);
-
-                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-
-                                Debug.Log("comboCount resetting to 0");
-
-                                comboCount = 0;
-                            }
-
-                            break;
-
-                        case 2:
-                            if (animName == ("Male Attack 2"))
-                            {
-                                comboCount = 3;
-                                Debug.Log("attack 3 start");
-                                animator.SetInteger("Counter", comboCount);
-                                animator.SetTrigger("Attack");
-                            }
-
-                            else
-                            {
-                                Debug.LogWarning("Error in combo case 2");
-
-                                Debug.LogWarning("comboCount = " + comboCount);
-
-                                Debug.LogWarning("Animation: " + animName);
-
-                                Debug.Log("comboCount resetting to 0");
-
-                                comboCount = 0;
-                            }
-
-                            break;
-
-                        case 3:
-
-                            if (animName == ("Male Attack 2") || animName == ("Male Sword Stance") || animName == ("Male Sword Sprint"))
-                            {
-                                comboCount = 3;
-                                Debug.Log("attack 3 start");
-                                animator.SetInteger("Counter", comboCount);
-                                animator.SetTrigger("Attack");
-                            }
-                            if (animName == ("Male Attack 3"))
-                            {
-                                comboCount = 0;
-                            }
-                            else
-                            {
-                                Debug.LogWarning("Error in combo case 3");
-
-                                Debug.LogWarning("comboCount = " + comboCount);
-
-                                Debug.LogWarning("Animation: " + animName);
-
-                                //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-
-                                Debug.Log("comboCount resetting to 0");
-
-                                comboCount = 0;
-                            }
-                            break;
-                    }
-                }
-
-                else if (!isAbleToAttack)
-                {
-                    Debug.Log("Attack has been pressed, you are unable to attack");
-                }
-
+                Attack();
             }
 
             //Enables the player to use Ability 2
@@ -510,31 +389,319 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetHealth(currentHealth);
     }
 
+    public void QueueAttack()
+    {
+        int incomingAttack = comboCount;
+
+        if (incomingAttack != queuedAttack1)
+        {
+            queuedAttack1 = incomingAttack;
+        }
+
+        if (incomingAttack != queuedAttack1 && incomingAttack != queuedAttack2)
+        {
+
+        }
+
+        else
+        {
+            wastedClicks += 1;
+        }
+    }
+
+    public void checkQueue()
+    {
+        isBusy = false;
+
+        if (queuedAttack1 > -1)
+        {
+            comboCount = queuedAttack1;
+            queuedAttack1 = -1;
+
+            if(queuedAttack2 > -1)
+            {
+                queuedAttack1 = queuedAttack2;
+                queuedAttack2 = -1;
+            }
+
+            Attack();
+        }
+    }
+    public void Attack()
+    {
+        //Debug.LogWarning(isBusy);
+
+        //if (!isBusy || isInCombo)
+        //{
+        Debug.Log("Attack has been pressed");
+
+        isBusy = true;
+
+        isInCombo = true;
+
+        currentAttack = comboCount;
+
+        CurrentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
+
+        animName = CurrentClipInfo[0].clip.name;
+
+        Debug.LogWarning("animName =" + animName);
+
+        Debug.LogError("comboCount =" + comboCount);
+
+        switch (comboCount)
+        {
+            case 0:
+
+                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
+                if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
+                {
+                    Debug.Log("Attack 1 Start");
+                    comboCount = 1;
+                    Debug.LogWarning(comboCount);
+                    animator.SetInteger("Counter", comboCount);
+                    animator.SetTrigger("Attack");
+                }
+
+                else if (animName != ("Idle") && animName != ("Run") && animName != ("Walk") && animName != ("Attack 1"))
+                {
+                    Debug.LogWarning("Error in combo case 0");
+
+                    Debug.LogWarning("comboCount = " + comboCount);
+
+                    Debug.LogWarning("Animation: " + animName);
+
+                    //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                    Debug.LogWarning("comboCount resetting to 0");
+
+                    comboCount = 0;
+
+                    isBusy = false;
+                }
+
+                else if (animName == ("Attack 1"))
+                {
+                    comboCount = 1;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 2"))
+                {
+                    comboCount = 2;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 3"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                break;
+
+            case 1:
+                if (animName == ("Attack 1"))
+                {
+                    Debug.Log("attack 2 start");
+                    comboCount = 2;
+                    Debug.LogWarning(comboCount);
+                    animator.SetInteger("Counter", comboCount);
+                    animator.SetTrigger("Attack");
+                }
+
+                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 2"))
+                {
+                    comboCount = 3;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 3"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName != ("Attack 1"))
+                {
+                    Debug.LogWarning("Error in combo case 1");
+
+                    Debug.LogWarning("comboCount = " + comboCount);
+
+                    Debug.LogWarning("Animation: " + animName);
+
+                    //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                    Debug.LogWarning("comboCount resetting to 0");
+
+                    comboCount = 0;
+
+                    isBusy = false;
+                }
+
+                break;
+
+            case 2:
+                if (animName == ("Attack 2"))
+                {
+                    Debug.Log("attack 3 start");
+                    comboCount = 3;
+                    Debug.LogWarning(comboCount);
+                    animator.SetInteger("Counter", comboCount);
+                    animator.SetTrigger("Attack");
+                    //isInCombo = false;
+                }
+
+                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                //else if (animName == ("Attack 1"))
+                //{
+                //    comboCount = 1;
+                //    Debug.LogWarning(comboCount);
+                //    isBusy = false;
+                //    Attack();
+                //}
+
+                else if (animName == ("Attack 3"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName != ("Attack 2") && animName != ("Attack 1"))
+                {
+                    Debug.LogWarning("Error in combo case 2");
+
+                    Debug.LogWarning("comboCount = " + comboCount);
+
+                    Debug.LogWarning("Animation: " + animName);
+
+                    Debug.LogWarning("comboCount resetting to 0");
+
+                    comboCount = 0;
+
+                    isBusy = false;
+                }
+
+                break;
+
+            case 3:
+
+                if (animName == ("Attack 3"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
+                {
+                    comboCount = 0;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 1"))
+                {
+                    comboCount = 1;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName == ("Attack 2"))
+                {
+                    comboCount = 2;
+                    Debug.LogWarning(comboCount);
+                    isBusy = false;
+                    Attack();
+                }
+
+                else if (animName != ("Attack 3"))
+                {
+                    Debug.LogWarning("Error in combo case 3");
+
+                    Debug.LogWarning("comboCount = " + comboCount);
+
+                    Debug.LogWarning("Animation: " + animName);
+
+                    //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                    Debug.LogWarning("comboCount resetting to 0");
+
+                    comboCount = 0;
+
+                    isBusy = false;
+                }
+
+                break;
+        }
+    
+
+//        else if (isBusy)
+//{
+//            Debug.Log("Attack has been pressed, you are too busy to attack");
+
+//            if (comboCount != currentAttack)
+//            {
+//                Debug.Log("Attack Queued");
+//                QueueAttack();
+//            }
+//        }
+    }
     public void AttackBegins()
     {
-        Debug.Log("AttackBegins called");
-        isAbleToAttack = false;
         isInCombo = true;
         sword.SendMessage("activateAttack");
+        //sends message to the players sword script to start dealing damage on collision
+
     }
     public void AttackEnd()
-    {
-        // not sure where this is working correctly
-        Debug.Log("Attack complete");
-
+    { 
+        //sends message to the players sword script to stop dealing damage on collision
         sword.SendMessage("deactivateAttack");
 
         if (animator.GetInteger("Counter") == comboCount)
         {
-            Debug.LogWarning(comboCount);
+            //Debug.LogWarning(comboCount);
 
             //comboCount = 0;
-            isAbleToAttack = true;
+            
             isInCombo = false;
             //animator.SetInteger("Counter", comboCount);
         }
 
         animator.SetInteger("Counter", comboCount);
+        
+        //checkQueue();
     }
 
     // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
