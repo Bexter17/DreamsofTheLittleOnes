@@ -16,6 +16,7 @@ public class EnemyCombat : MonoBehaviour
     public Rigidbody rb;
     public Transform target;
     [SerializeField] float knockDistanceModifier;
+    [SerializeField] float knockHeightModifier;
     [SerializeField] float knockDuration;
     [SerializeField] float knockPause;
 
@@ -48,8 +49,13 @@ public class EnemyCombat : MonoBehaviour
         //Sets hp text to change based on players perspective
         //So it's not backwards to the player
         Vector3 textDirection = transform.position - target.transform.position;
-        transform.rotation = Quaternion.LookRotation(textDirection);
 
+
+        if (agent.enabled)
+        {
+            transform.rotation = Quaternion.LookRotation(textDirection);
+        }
+        
         //Detect when there is no HP to kill enemy and play death animation
         if (hp <= 0)
         {
@@ -81,9 +87,12 @@ public class EnemyCombat : MonoBehaviour
         //KNOCKBACK
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
-        Vector3 knockDirection = transform.position - target.transform.position;
-        rb.velocity = knockDirection * knockDistanceModifier;
-
+        rb.isKinematic = false;
+        agent.enabled = false;
+        rb.AddForce(-transform.forward * knockDistanceModifier);
+        rb.AddForce(transform.up * knockHeightModifier);
+        
+        Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
@@ -91,12 +100,13 @@ public class EnemyCombat : MonoBehaviour
     {
         //Enemy briefly pauses after being knocked back
         //Where it's velocity is 0
-        rb.velocity = Vector3.zero;
         Invoke("AgentStart", knockPause);
     }
     private void AgentStart()
     {
+        rb.isKinematic = true;
         //Enemy continues moving
+        agent.enabled = true;
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }

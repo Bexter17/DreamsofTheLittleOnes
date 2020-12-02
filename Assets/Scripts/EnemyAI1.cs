@@ -72,41 +72,41 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        // Enemy looks at player on x and z axis
-        // This excluded y axis so that enemy isn't leaning
-        Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
-        transform.LookAt(targetPosition);
+        if (agent.enabled)
+        {
+            Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
+            transform.LookAt(targetPosition);
+            // If enemy within attackrange stop moving and attack
+            // If enemy within chaserange chase player
+            // else go back to patrol route
+            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            {
+                agent.isStopped = true;
+            }
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            {
+                Chase();
+            }
+            else if (!isPatrolling)
+            {
+                Patrol();
+            }
 
-        // If enemy within attackrange stop moving and attack
-        // If enemy within chaserange chase player
-        // else go back to patrol route
-        if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-        {
-            agent.isStopped = true;
-        }
-        else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
-        {
-            Chase();
-        }
-        else if (!isPatrolling)
-        {
-            Patrol();
-        }
+            if (EnemyCombatScript.death == true)
+            {
+                // so that enemy doesn't move after dying
+                agent.isStopped = true;
 
-        if (EnemyCombatScript.death == true)
-        {
-            // so that enemy doesn't move after dying
-            agent.isStopped = true;
-
-            eAnim.SetTrigger("IsPunching");
-            eAnim.SetBool("IsDying", true);
-            eAnim.SetTrigger("IsDead");
-            Destroy(gameObject, 5);
+                eAnim.SetTrigger("IsPunching");
+                eAnim.SetBool("IsDying", true);
+                eAnim.SetTrigger("IsDead");
+                Destroy(gameObject, 5);
+            }
         }
     }
     public void Chase()
     {
-        agent.isStopped = false;
+        //agent.isStopped = false;
         //Debug.Log("CHASE");
         isPatrolling = false;
         // Sets player as destination
@@ -115,15 +115,15 @@ public class EnemyAI1 : MonoBehaviour
 
     // Calls Chase() for all enemies
     // Currently not being used
-    private void Honk()
-    {
-        GameObject[] enemies;
-        enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for(int i = 0; i < enemies.Length; i++)
-        {
-            enemies[i].GetComponent<EnemyAI1>().Chase();
-        }
-    }
+    //private void Honk()
+    //{
+    //    GameObject[] enemies;
+    //    enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //    for(int i = 0; i < enemies.Length; i++)
+    //    {
+    //        enemies[i].GetComponent<EnemyAI1>().Chase();
+    //    }
+    //}
 
     // Turns around and continues
     private void Patrol()

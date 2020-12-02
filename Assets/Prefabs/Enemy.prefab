@@ -136,7 +136,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 112
+  m_Constraints: 32
   m_CollisionDetection: 0
 --- !u!195 &6845188008510120403
 NavMeshAgent:
@@ -176,6 +176,7 @@ MonoBehaviour:
   rb: {fileID: 0}
   target: {fileID: 0}
   knockDistanceModifier: 5
+  knockHeightModifier: 0
   knockDuration: 0.3
   knockPause: 0.3
   hpBar: {fileID: 6255862322667623475}
