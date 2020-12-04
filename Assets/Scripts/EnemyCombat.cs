@@ -88,9 +88,9 @@ public class EnemyCombat : MonoBehaviour
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
         rb.isKinematic = false;
-        agent.enabled = false;
+        //agent.enabled = false;
         rb.AddForce(-transform.forward * knockDistanceModifier);
-        rb.AddForce(transform.up * knockHeightModifier);
+        //rb.AddForce(transform.up * knockHeightModifier);
         
         Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
@@ -106,7 +106,7 @@ public class EnemyCombat : MonoBehaviour
     {
         rb.isKinematic = true;
         //Enemy continues moving
-        agent.enabled = true;
+        //agent.enabled = true;
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }

@@ -11,6 +11,8 @@ public class EnemyAI1 : MonoBehaviour
     //Connect EnemyAI1 script and EnemyCombat script
     EnemyCombat EnemyCombatScript;
 
+    [SerializeField] enum EnemyState {Start, Patrol, Chase, Attack};
+    EnemyState myEnemy;
     // The player that the enemy will chase
     public Transform target;
     //public Vector3 initialPos;
@@ -41,6 +43,8 @@ public class EnemyAI1 : MonoBehaviour
     void Start()
     {
         EnemyCombatScript = gameObject.GetComponent<EnemyCombat>();
+
+        myEnemy = EnemyState.Start;
 
         eAnim = gameObject.GetComponent<Animator>();
 
@@ -74,22 +78,32 @@ public class EnemyAI1 : MonoBehaviour
     {
         if (agent.enabled)
         {
-            Vector3 targetPosition = new Vector3(agent.destination.x, transform.position.y, agent.destination.z);
+            Vector3 targetPosition = agent.destination;
+            targetPosition.y = transform.position.y;
+            // Corrects rotation for punch to better connect
+            if (myEnemy == EnemyState.Attack)
+                targetPosition.x -= 100;
             transform.LookAt(targetPosition);
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-            {
-                agent.isStopped = true;
-            }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && Vector3.Distance(target.position, gameObject.transform.position) > attackRange)
             {
                 Chase();
+                agent.isStopped = false;
+                myEnemy = EnemyState.Chase;
             }
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            {
+                agent.isStopped = true;
+                myEnemy = EnemyState.Attack;
+            }
+
             else if (!isPatrolling)
             {
                 Patrol();
+                agent.isStopped = false;
+                myEnemy = EnemyState.Patrol;
             }
 
             if (EnemyCombatScript.death == true)
@@ -102,6 +116,14 @@ public class EnemyAI1 : MonoBehaviour
                 eAnim.SetTrigger("IsDead");
                 Destroy(gameObject, 5);
             }
+            if(myEnemy == EnemyState.Patrol)
+            {
+                Patrol();
+            }
+            else if(myEnemy == EnemyState.Chase)
+            {
+                Chase();
+            }
         }
     }
     public void Chase()
@@ -109,6 +131,7 @@ public class EnemyAI1 : MonoBehaviour
         //agent.isStopped = false;
         //Debug.Log("CHASE");
         isPatrolling = false;
+        myEnemy = EnemyState.Chase;
         // Sets player as destination
         agent.SetDestination(target.transform.position);
     }
@@ -130,8 +153,9 @@ public class EnemyAI1 : MonoBehaviour
     {
         //Debug.Log("PATROL");
         // At the beginning of patrolling sets first patrol destination
-        if (!isPatrolling)
+        if (myEnemy != EnemyState.Patrol)
         {
+            myEnemy = EnemyState.Patrol;
             agent.SetDestination(waypoint1.position);
             isPatrolling = true;
         }
