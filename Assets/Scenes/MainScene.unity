@@ -991,6 +991,10 @@ PrefabInstance:
       propertyPath: m_IsKinematic
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239577, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
@@ -1009,15 +1013,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.w
@@ -1051,9 +1055,17 @@ PrefabInstance:
       propertyPath: enviromentLayer.m_Bits
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: chaseRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: knockDistanceModifier
-      value: 0.4
+      value: 250
       objectReference: {fileID: 0}
     - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: death
@@ -2219,6 +2231,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: m_Constraints
+      value: 80
+      objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239577, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -2237,15 +2253,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2278,6 +2294,18 @@ PrefabInstance:
     - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: enviromentLayer.m_Bits
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: chaseRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: attackRange
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: knockDistanceModifier
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
@@ -2418,8 +2446,8 @@ PrefabInstance:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
     - target: {fileID: 6844810565142239576, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: m_IsKinematic
-      value: 1
+      propertyPath: m_Constraints
+      value: 80
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239577, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_Name
@@ -2439,15 +2467,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6844810565142239587, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: m_LocalRotation.w
@@ -2478,12 +2506,16 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 1978559270}
     - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
-      propertyPath: enviromentLayer.m_Bits
-      value: 1
+      propertyPath: chaseRange
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 6844810565142239591, guid: de7905ea631247144b0cde0c87176486, type: 3}
+      propertyPath: attackRange
+      value: 3
       objectReference: {fileID: 0}
     - target: {fileID: 7618830116581312363, guid: de7905ea631247144b0cde0c87176486, type: 3}
       propertyPath: knockDistanceModifier
-      value: 0.4
+      value: 250
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de7905ea631247144b0cde0c87176486, type: 3}
