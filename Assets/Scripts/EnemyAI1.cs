@@ -165,6 +165,7 @@ public class EnemyAI1 : MonoBehaviour
     {
        // eAnim.ResetTrigger("isPunching");
     }
+
     
 
     /*private void OnCollisionEnter(Collision collision)
