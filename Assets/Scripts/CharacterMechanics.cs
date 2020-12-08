@@ -897,17 +897,17 @@ public class CharacterMechanics : MonoBehaviour
 //            }
 //        }
     }
-    public void attackBegins()
+    public void AttackBegins()
     {
         isInCombo = true;
-        sword.SendMessage("activateattack");
+        sword.SendMessage("activateAttack");
         //sends message to the players sword script to start dealing damage on collision
 
     }
-    public void attackEnd()
+    public void AttackEnd()
     { 
         //sends message to the players sword script to stop dealing damage on collision
-        sword.SendMessage("deactivateattack");
+        sword.SendMessage("deactivateAttack");
 
         if (animator.GetInteger("Counter") == comboCount)
         {
