@@ -5,14 +5,21 @@ using System;
 using UnityEngine.SceneManagement;
 
 
-// Character Mechanics Prototype #5
+// Character Mechanics Prototype #6
 //Made By Craig Walker
-//Changed ability 1 to instantiate a damage block
+
+//Changes:
+//fixed combo system, implemented IK foot system
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {
+    #region Variables
+
+    #region PlayerStats
+
+    [Header("Player Stats")]
     //HealthBar for Player
     public HealthBar healthBar;
 
@@ -20,75 +27,78 @@ public class CharacterMechanics : MonoBehaviour
     CharacterController controller;
 
     //Tracks player health
+    //[SerializeField] private
     public int currentHealth = 5;
 
     //Max health
+    //[SerializeField] private
     public int maxHealth = 50;
 
     //Tracks incoming damage
-    int Damage = 0;
+    private int Damage = 0;
 
     //Tracks what is damaging the player
     private GameObject damageSource;
 
     //Tracks player's lives
-    int Lives = 1;
+    [SerializeField] private int Lives = 1;
 
     //Tracks if the player is currently alive or not
     private bool isAlive = true;
 
     private bool isInCombo = false;
 
-    private int wastedClicks = 0; 
-
-    //Tracks if GodMode is Active
-    public bool isGodMode;
-
-    //Sets the length of the Mode
-    public float timerGodMode;
-
-    //Variable to amplify the jumpBoost
-    public float jumpBoost;
-
-    //How long the jump boost lasts
-    public float timerJumpBoost;
-
-    //How much we are boosting the speed by
-    public float speedBoost;
-
-    //How long the speed boost lasts
-    public float timerSpeedBoost;
+    private int wastedClicks = 0;
 
     //Determines how fast the character moves
+    //[SerializeField] private 
     public float speed;
 
     //Variable for how high the character will jump
-    public float jumpSpeed;
+    [SerializeField ] private float jumpSpeed;
 
     private float vSpeed = 0;
 
     //Rotation speed of the character
-    public float rotationSpeed; // Used when not using MouseLook.CS to rotate character
-    
+    [SerializeField] private float rotationSpeed; // Used when not using MouseLook.CS to rotate character
+
     //Amount of gravity set on the player
-    public float gravity;
+    [SerializeField] private float gravity;
 
     //Allows you to toggle hold to crouch or press to crouch
-    public bool crouchIsToggle;
+    [SerializeField] private bool crouchIsToggle;
 
     //Tracks if the player is actively hold crouch key
-    public bool isCrouched = false;
+    [SerializeField] private bool isCrouched = false;
 
     //Tracks if player is too busy to attack
-    public bool isBusy = false;
+    [SerializeField] private bool isBusy = false;
 
     //Boolean to track if the player is on the ground or in the air
-    public bool isGrounded;
+    [SerializeField] private bool isGrounded;
 
+    //Variable used to add force or direction to the character
+    Vector3 moveDirection;
+
+    //creates a script accessable variable of the Animator component
+    Animator animator;
+
+    AnimatorClipInfo[] CurrentClipInfo;
+
+    private string animName;
+
+    //Tracks player checkpoints and where they will respawn 
+    [SerializeField] private GameObject respawnPoint;
+
+#endregion
+
+    #region AttackSystem
+
+    [Header("Attack System")]
     //holds the box collider for the attack range
-    public GameObject attackRangePrefab;
+    [SerializeField] private GameObject attackRangePrefab;
 
-    public GameObject DashRangePrefab;
+    [SerializeField] private GameObject DashRangePrefab;
 
     //creates atemporary, destructable version of the prefab
     private GameObject attackTemp;
@@ -114,24 +124,74 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int dashSpeed;
 
-    //Variable used to add force or direction to the character
-    Vector3 moveDirection;
-
-    //creates a script accessable variable of the Animator component
-    Animator animator;
-
-    AnimatorClipInfo[] CurrentClipInfo;
-
-    private string animName;
-
-    //Tracks player checkpoints and where they will respawn 
-    public GameObject respawnPoint;
-
     Sword_Script sword;
+
+    #endregion
+
+    #region PickupSystem
+
+    [Header("Pick up System")]
+    //Tracks if GodMode is Active
+    [SerializeField] private bool isGodMode;
+
+    //Sets the length of the Mode
+    [SerializeField] private float timerGodMode;
+
+    //Variable to amplify the jumpBoost
+    [SerializeField] private float jumpBoost;
+
+    //How long the jump boost lasts
+    [SerializeField] private float timerJumpBoost;
+
+    //How much we are boosting the speed by
+    [SerializeField] private float speedBoost;
+
+    //How long the speed boost lasts
+    [SerializeField] private float timerSpeedBoost;
+
+#endregion
+
+    #region IKSystem
+
+    [Header("IK System")]
+
+    [SerializeField] private bool enableFeetIK = true;
+
+    private Vector3 rightFootPos, leftFootPos, rightFootIKPos, leftFootIKPos;
+
+    private Quaternion leftFootIKRot, rightFootIKRot;
+
+    private float lastPelvisPosY, lastRightFootPosY, lastLeftFootPosY;
+
+    [Range(0, 2)] [SerializeField] private float heightFromGroundRaycast = 1.14f;
+
+    [Range(0, 2)] [SerializeField] private float raycastDownDistance = 1.5f;
+
+    [SerializeField] private LayerMask environmentLayer;
+
+    [SerializeField] private float pelvisOffset = 0f;
+
+    [Range(0, 1)] [SerializeField] private float pelvisUpAndDownSpeed = 0.2f;
+
+    [Range(0, 1)] [SerializeField] private float feetToIKPosSpeed = 0.5f;
+
+    [SerializeField] private string leftFootVariableName = "Left Foot Curve";
+
+    [SerializeField] private string rightFootVariableName = "Right Foot Curve";
+
+    public bool useProIKFeatures = true;
+
+    public bool showSolverDebug = true;
+
+    #endregion
+
+    #endregion
 
     // Start is called before the first frame update
     void Start()
     {
+        #region Initialization
+
         currentHealth = maxHealth;
         healthBar.SetMaxHealth(maxHealth);
 
@@ -213,6 +273,8 @@ public class CharacterMechanics : MonoBehaviour
         {
 
         }
+
+        #endregion
     }
 
     // Update is called once per frame
@@ -220,13 +282,17 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (isAlive)
         {
+            #region CheckPlayerHealth
             //If health drops to or below zero, the player dies
             if (currentHealth <= 0)
             {
-                
+
                 animator.SetTrigger("Die");
                 isAlive = false;
             }
+            #endregion
+
+            #region PlayerMovement
 
             //Assign "moveDirection" to track vertical movement
             moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
@@ -243,13 +309,21 @@ public class CharacterMechanics : MonoBehaviour
             //Character controller movement
             controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * speed));
 
+            #endregion
+
+            #region SetAnim
+
             animator.SetFloat("Speed", Input.GetAxis("Vertical"));
             animator.SetBool("isGrounded", controller.isGrounded);
+
+            #endregion
+
+            #region HandleInput
 
             //Enables the player to use Ability 1
             if (Input.GetButtonDown("Fire1"))
             {
-                Attack();
+                attack();
             }
 
             //Enables the player to use Ability 2
@@ -270,17 +344,163 @@ public class CharacterMechanics : MonoBehaviour
             // Jumping is not working with the player when in game
             if (Input.GetButtonDown("Jump") && isGrounded)
             {
-              //  Debug.Log("Jump has been pressed");
+                //  Debug.Log("Jump has been pressed");
                 vSpeed = jumpSpeed;
                 animator.SetTrigger("Jump");
             }
 
+            #endregion
+
+            #region ApplyGravity
             vSpeed -= gravity * Time.deltaTime;
             moveDirection.y = vSpeed;
             controller.Move(moveDirection * Time.deltaTime);
-           // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+            // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+            #endregion
         }
     }
+
+    #region FeetGrounding
+
+    private void FixedUpdate()
+    {
+        if(enableFeetIK == false)
+        {
+            return;
+        }
+
+        if(animator == null)
+        {
+            return;
+        }
+
+        adjustFeetTarget(ref rightFootPos, HumanBodyBones.RightFoot);
+
+        adjustFeetTarget(ref leftFootPos, HumanBodyBones.LeftFoot);
+
+        feetPositionSolver(rightFootPos, ref rightFootIKPos, ref rightFootIKRot); //Handles the solver for the right foot
+
+        feetPositionSolver(leftFootPos, ref leftFootIKPos, ref leftFootIKRot); //Handles the solver for the left foot
+
+    }
+
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (enableFeetIK == false)
+        {
+            return;
+        }
+
+        if (animator == null)
+        {
+            return;
+        }
+
+        movePelvisHeight();
+
+        //right foot ik position & rotation -- utilize pro features here
+        animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
+
+        if(useProIKFeatures)
+        {
+            animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, animator.GetFloat(rightFootVariableName));
+        }
+
+        moveFeetToIKPoint(AvatarIKGoal.RightFoot, rightFootIKPos, rightFootIKRot, ref lastRightFootPosY);
+
+        //left foot ik position & rotation -- utilize pro features here
+        animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
+
+        if (useProIKFeatures)
+        {
+            animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, animator.GetFloat(leftFootVariableName));
+        }
+
+        moveFeetToIKPoint(AvatarIKGoal.LeftFoot, leftFootIKPos, leftFootIKRot, ref lastLeftFootPosY);
+    }
+
+    #endregion
+
+    #region FeetGroundingMethods
+
+    private void moveFeetToIKPoint(AvatarIKGoal foot, Vector3 positionIKHolder, Quaternion rotationIKHolder, ref float lastFootPositionY)
+    {
+        Vector3 targetIKPosition = animator.GetIKPosition(foot);
+
+        if(positionIKHolder != Vector3.zero)
+        {
+            targetIKPosition = transform.InverseTransformPoint(targetIKPosition);
+
+            positionIKHolder = transform.InverseTransformPoint(positionIKHolder);
+
+            float yVariable = Mathf.Lerp(lastFootPositionY, positionIKHolder.y, feetToIKPosSpeed);
+
+            targetIKPosition.y += yVariable;
+
+            lastFootPositionY = yVariable;
+
+            targetIKPosition = transform.TransformPoint(targetIKPosition);
+
+            animator.SetIKPosition(foot, targetIKPosition);
+        }
+
+        animator.SetIKPosition(foot, targetIKPosition);
+    }
+
+    private void movePelvisHeight()
+    {
+        if(rightFootIKPos == Vector3.zero || leftFootIKPos == Vector3.zero || lastPelvisPosY == 0)
+        {
+            lastPelvisPosY = animator.bodyPosition.y;
+            return;
+        }
+
+        float lOffsetPos = leftFootIKPos.y - transform.position.y;
+
+        float rOffsetPos = rightFootIKPos.y - transform.position.y;
+
+        float totalOffset = (lOffsetPos < rOffsetPos) ? lOffsetPos : rOffsetPos;
+
+        Vector3 newPelvisPos = animator.bodyPosition + Vector3.up * totalOffset;
+
+        newPelvisPos.y = Mathf.Lerp(lastPelvisPosY, newPelvisPos.y, pelvisUpAndDownSpeed);
+
+        animator.bodyPosition = newPelvisPos;
+
+        lastPelvisPosY = animator.bodyPosition.y;
+    }
+
+    private void feetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIKPositions, ref Quaternion feetIKRotations)
+    {
+        //raycast handling section
+        RaycastHit feetOutHit;
+
+        if (showSolverDebug)
+            Debug.DrawLine(fromSkyPosition, fromSkyPosition + Vector3.down * (raycastDownDistance + heightFromGroundRaycast), Color.blue);
+   
+        if(Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromGroundRaycast, environmentLayer))
+        {
+            feetIKPositions = fromSkyPosition;
+
+            feetIKPositions.y = feetOutHit.point.y + pelvisOffset;
+
+            feetIKRotations = Quaternion.FromToRotation(Vector3.up, feetOutHit.normal) * transform.rotation;
+
+            return;
+        }
+
+        feetIKPositions = Vector3.zero;
+    }
+
+    private void adjustFeetTarget(ref Vector3 feetPositions, HumanBodyBones foot)
+    {
+        feetPositions = animator.GetBoneTransform(foot).position;
+
+        feetPositions.y = transform.position.y + heightFromGroundRaycast;
+    }
+
+    #endregion
+
 
     //Tracks player collision 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -299,8 +519,8 @@ public class CharacterMechanics : MonoBehaviour
 
         if (hit.gameObject.tag == "Enemy")
         {
-            animator.SetTrigger("Got Hit");
-            TakeDamage(1);
+            //animator.SetTrigger("Got Hit");
+            //takeDamage(1);
         }
 
         if (hit.gameObject.tag == "Projectile")
@@ -349,7 +569,7 @@ public class CharacterMechanics : MonoBehaviour
     }
 
     //Trigger after death animation to fully kill player object
-    public void Die()
+    public void die()
     {
         Lives--;
        // gameObject.transform.position = respawnPoint.transform.position;
@@ -383,13 +603,13 @@ public class CharacterMechanics : MonoBehaviour
         speed -= speedBoost;
     }
 
-    public void TakeDamage(int damage)
+    public void takeDamage(int damage)
     {
         currentHealth -= damage;
         healthBar.SetHealth(currentHealth);
     }
 
-    public void QueueAttack()
+    public void queueAttack()
     {
         int incomingAttack = comboCount;
 
@@ -424,10 +644,10 @@ public class CharacterMechanics : MonoBehaviour
                 queuedAttack2 = -1;
             }
 
-            Attack();
+            attack();
         }
     }
-    public void Attack()
+    public void attack()
     {
         //Debug.LogWarning(isBusy);
 
@@ -485,7 +705,7 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 1;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
                 else if (animName == ("Attack 2"))
@@ -493,7 +713,7 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 2;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
                 else if (animName == ("Attack 3"))
@@ -501,7 +721,7 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
                 break;
@@ -521,26 +741,26 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName == ("Attack 2"))
+                else if (animName == ("attack 2"))
                 {
                     comboCount = 3;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName == ("Attack 3"))
+                else if (animName == ("attack 3"))
                 {
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName != ("Attack 1"))
+                else if (animName != ("attack 1"))
                 {
                     Debug.LogWarning("Error in combo case 1");
 
@@ -560,13 +780,13 @@ public class CharacterMechanics : MonoBehaviour
                 break;
 
             case 2:
-                if (animName == ("Attack 2"))
+                if (animName == ("attack 2"))
                 {
                     Debug.Log("attack 3 start");
                     comboCount = 3;
                     Debug.LogWarning(comboCount);
                     animator.SetInteger("Counter", comboCount);
-                    animator.SetTrigger("Attack");
+                    animator.SetTrigger("attack");
                     //isInCombo = false;
                 }
 
@@ -575,26 +795,26 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                //else if (animName == ("Attack 1"))
+                //else if (animName == ("attack 1"))
                 //{
                 //    comboCount = 1;
                 //    Debug.LogWarning(comboCount);
                 //    isBusy = false;
-                //    Attack();
+                //    attack();
                 //}
 
-                else if (animName == ("Attack 3"))
+                else if (animName == ("attack 3"))
                 {
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName != ("Attack 2") && animName != ("Attack 1"))
+                else if (animName != ("attack 2") && animName != ("attack 1"))
                 {
                     Debug.LogWarning("Error in combo case 2");
 
@@ -613,12 +833,12 @@ public class CharacterMechanics : MonoBehaviour
 
             case 3:
 
-                if (animName == ("Attack 3"))
+                if (animName == ("attack 3"))
                 {
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
                 else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
@@ -626,26 +846,26 @@ public class CharacterMechanics : MonoBehaviour
                     comboCount = 0;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName == ("Attack 1"))
+                else if (animName == ("attack 1"))
                 {
                     comboCount = 1;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName == ("Attack 2"))
+                else if (animName == ("attack 2"))
                 {
                     comboCount = 2;
                     Debug.LogWarning(comboCount);
                     isBusy = false;
-                    Attack();
+                    attack();
                 }
 
-                else if (animName != ("Attack 3"))
+                else if (animName != ("attack 3"))
                 {
                     Debug.LogWarning("Error in combo case 3");
 
@@ -668,26 +888,26 @@ public class CharacterMechanics : MonoBehaviour
 
 //        else if (isBusy)
 //{
-//            Debug.Log("Attack has been pressed, you are too busy to attack");
+//            Debug.Log("attack has been pressed, you are too busy to attack");
 
-//            if (comboCount != currentAttack)
+//            if (comboCount != currentattack)
 //            {
-//                Debug.Log("Attack Queued");
-//                QueueAttack();
+//                Debug.Log("attack Queued");
+//                queueAttack();
 //            }
 //        }
     }
-    public void AttackBegins()
+    public void attackBegins()
     {
         isInCombo = true;
-        sword.SendMessage("activateAttack");
+        sword.SendMessage("activateattack");
         //sends message to the players sword script to start dealing damage on collision
 
     }
-    public void AttackEnd()
+    public void attackEnd()
     { 
         //sends message to the players sword script to stop dealing damage on collision
-        sword.SendMessage("deactivateAttack");
+        sword.SendMessage("deactivateattack");
 
         if (animator.GetInteger("Counter") == comboCount)
         {
