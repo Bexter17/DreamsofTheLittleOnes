@@ -39,6 +39,8 @@ public class EnemyAI1 : MonoBehaviour
 
     // Amount of damage done by enemy to player
     public int dmgDealt;
+
+    //public float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -56,7 +58,7 @@ public class EnemyAI1 : MonoBehaviour
         // Default values
         if (enemyMovement <= 0)
         {
-            enemyMovement = 10f;
+            enemyMovement = 3f;
         }
         if (chaseRange <= 0)
         {
@@ -83,7 +85,7 @@ public class EnemyAI1 : MonoBehaviour
             // Corrects rotation for punch to better connect
             if (myEnemy == EnemyState.Attack)
                 targetPosition.x -= 100;
-            transform.LookAt(targetPosition);
+            
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
@@ -110,11 +112,17 @@ public class EnemyAI1 : MonoBehaviour
             {
                 // so that enemy doesn't move after dying
                 agent.isStopped = true;
-
                 //eAnim.SetTrigger("IsPunching");
                 eAnim.SetBool("IsDying", true);
                 eAnim.SetTrigger("IsDead");
                 Destroy(gameObject, 5);
+            }
+            else
+            {
+                //Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+                //float str = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
+                //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+                transform.LookAt(targetPosition);
             }
             if(myEnemy == EnemyState.Patrol)
             {

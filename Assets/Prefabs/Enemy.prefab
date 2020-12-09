@@ -123,6 +123,7 @@ MonoBehaviour:
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 2
+  rotationSpeed: 1000
 --- !u!54 &942041078614932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -137,7 +138,7 @@ Rigidbody:
   m_UseGravity: 1
   m_IsKinematic: 1
   m_Interpolate: 0
-  m_Constraints: 32
+  m_Constraints: 0
   m_CollisionDetection: 0
 --- !u!195 &6845188008510120403
 NavMeshAgent:
@@ -176,10 +177,10 @@ MonoBehaviour:
   hp: 5
   rb: {fileID: 0}
   target: {fileID: 0}
-  knockDistanceModifier: 5
+  knockDistanceModifier: 400
   knockHeightModifier: 0
   knockDuration: 0.3
-  knockPause: 0.3
+  knockPause: 1
   hpBar: {fileID: 6255862322667623475}
   death: 0
 --- !u!95 &6845188007653863305
