@@ -93,7 +93,7 @@ public class EnemyAI1 : MonoBehaviour
                 agent.isStopped = false;
                 myEnemy = EnemyState.Chase;
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange && (EnemyCombatScript.death != true))
             {
                 agent.isStopped = true;
                 myEnemy = EnemyState.Attack;
@@ -111,7 +111,7 @@ public class EnemyAI1 : MonoBehaviour
                 // so that enemy doesn't move after dying
                 agent.isStopped = true;
 
-                eAnim.SetTrigger("IsPunching");
+                //eAnim.SetTrigger("IsPunching");
                 eAnim.SetBool("IsDying", true);
                 eAnim.SetTrigger("IsDead");
                 Destroy(gameObject, 5);
@@ -119,11 +119,15 @@ public class EnemyAI1 : MonoBehaviour
             if(myEnemy == EnemyState.Patrol)
             {
                 Patrol();
+                agent.speed = enemyMovement;
             }
             else if(myEnemy == EnemyState.Chase)
             {
                 Chase();
+                agent.speed = 2 * enemyMovement;
             }
+
+            
         }
     }
     public void Chase()

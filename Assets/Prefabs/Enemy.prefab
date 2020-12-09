@@ -116,10 +116,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
-  enemyMovement: 0
+  enemyMovement: 3
   rb: {fileID: 942041078614932}
-  chaseRange: 0
-  attackRange: 1
+  chaseRange: 10
+  attackRange: 2
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 2
