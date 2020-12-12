@@ -9,6 +9,7 @@ public class IkFeetAnimScript : MonoBehaviour
     #region Variables
     //IK Feet animations
     Animator anim;
+
     private Vector3 rightFootPosition, leftFootPosition, rightFootIkPosition, leftFootIkPosition;
     private Quaternion leftFootIkRotation, rightFootIkRotation;
     private float lastPelvisPositionY, lastRightFootPositionY, lastLeftFootPositionY;
@@ -32,7 +33,7 @@ public class IkFeetAnimScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -67,6 +68,7 @@ public class IkFeetAnimScript : MonoBehaviour
         if (anim == null) { return; }
 
         MovePelvisHeight();
+        Debug.Log("Moving pelvis height");
 
         //right foot ik position and rotation -- utilise the pro features in here
         anim.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
@@ -83,7 +85,7 @@ public class IkFeetAnimScript : MonoBehaviour
 
         if (useProIkFeature)
         {
-            anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, anim.GetFloat(leftFootAnimVariableName));
+            anim.SetIKRotationWeight(AvatarIKGoal.LeftFoot, anim.GetFloat(leftFootAnimVariableName));        
         }
 
         MoveFeetToIkPoint(AvatarIKGoal.LeftFoot, leftFootIkPosition, leftFootIkRotation, ref lastLeftFootPositionY);
@@ -96,7 +98,7 @@ public class IkFeetAnimScript : MonoBehaviour
     void MoveFeetToIkPoint (AvatarIKGoal foot, Vector3 positionIkHolder, Quaternion rotationIkHolder, ref float lastFootPositionY)
     {
         Vector3 targetIkPosition = anim.GetIKPosition(foot);
-
+        Debug.Log("MoveFeetToIkPoint");
         if(positionIkHolder != Vector3.zero)
         {
             targetIkPosition = transform.InverseTransformPoint(targetIkPosition);
@@ -164,7 +166,7 @@ public class IkFeetAnimScript : MonoBehaviour
         }
 
         feetIkPositions = Vector3.zero; //it didn't work >:(
-
+        Debug.Log("FeetPositionSolver");
     }
 
     /// <summary>
@@ -176,6 +178,7 @@ public class IkFeetAnimScript : MonoBehaviour
     {
         feetPositons = anim.GetBoneTransform(foot).position;
         feetPositons.y = transform.position.y + heightFromTheGroundRaycast;
+        Debug.Log("Adjust feet target");
     }
 
     #endregion
