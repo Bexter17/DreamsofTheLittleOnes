@@ -78,7 +78,6 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log(transform.forward);
         if (agent.enabled)
         {
             Vector3 targetPosition = agent.destination;
