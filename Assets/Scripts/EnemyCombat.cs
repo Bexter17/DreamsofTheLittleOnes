@@ -50,10 +50,10 @@ public class EnemyCombat : MonoBehaviour
         //So it's not backwards to the player
         Vector3 textDirection = transform.position - target.transform.position;
 
-
         if (agent.enabled)
         {
-            transform.rotation = Quaternion.LookRotation(textDirection);
+            //hpBar.transform.rotation = Quaternion.LookRotation(textDirection);
+            //transform.rotation = Quaternion.LookRotation(textDirection);
         }
         
         //Detect when there is no HP to kill enemy and play death animation

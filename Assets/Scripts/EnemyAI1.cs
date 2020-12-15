@@ -40,7 +40,7 @@ public class EnemyAI1 : MonoBehaviour
     // Amount of damage done by enemy to player
     public int dmgDealt;
 
-    //public float rotationSpeed;
+    public float rotationSpeed;
     // Start is called before the first frame update
     void Start()
     {
@@ -78,13 +78,14 @@ public class EnemyAI1 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(transform.forward);
         if (agent.enabled)
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
             // Corrects rotation for punch to better connect
-            if (myEnemy == EnemyState.Attack)
-                targetPosition.x -= 100;
+            //if (myEnemy == EnemyState.Attack)
+            //    targetPosition.x -= 100;
             
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
@@ -119,10 +120,10 @@ public class EnemyAI1 : MonoBehaviour
             }
             else
             {
-                //Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
-                //float str = Mathf.Min(rotationSpeed * Time.deltaTime, 1);
-                //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
-                transform.LookAt(targetPosition);
+                Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+                float str = rotationSpeed * Time.deltaTime;
+                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+                //transform.LookAt(targetPosition);
             }
             if(myEnemy == EnemyState.Patrol)
             {
