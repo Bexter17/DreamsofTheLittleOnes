@@ -32,7 +32,7 @@ public class IkFeetAnimScript : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
+        anim = gameObject.GetComponent<Animator>();
     }
 
     // Update is called once per frame
@@ -63,6 +63,8 @@ public class IkFeetAnimScript : MonoBehaviour
 
     private void OnAnimatorIK(int layerIndex)
     {
+        Debug.Log("Running IK Animation");
+
         if (enableFeetIk == false) { return; }
         if (anim == null) { return; }
 
@@ -95,10 +97,12 @@ public class IkFeetAnimScript : MonoBehaviour
 
     void MoveFeetToIkPoint (AvatarIKGoal foot, Vector3 positionIkHolder, Quaternion rotationIkHolder, ref float lastFootPositionY)
     {
+        Debug.Log("Starting MoveToFeetIkPoint Function");
         Vector3 targetIkPosition = anim.GetIKPosition(foot);
 
         if(positionIkHolder != Vector3.zero)
         {
+            Debug.Log("Executing MoveToFeetIkPoint Function (2)");
             targetIkPosition = transform.InverseTransformPoint(targetIkPosition);
             positionIkHolder = transform.InverseTransformPoint(positionIkHolder);
 
@@ -119,8 +123,10 @@ public class IkFeetAnimScript : MonoBehaviour
     /// </summary>
     private void MovePelvisHeight()
     {
+        Debug.Log("Starting MovePelvisHeight Function");
         if(rightFootIkPosition == Vector3.zero || leftFootIkPosition == Vector3.zero || lastPelvisPositionY == 0)
         {
+            Debug.Log("Executing MovePelvisHeight Function");
             lastPelvisPositionY = anim.bodyPosition.y;
             return;
         }
@@ -147,6 +153,7 @@ public class IkFeetAnimScript : MonoBehaviour
     /// <param name="feetIkRotations"></param>
     private void FeetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIkPositions, ref Quaternion feetIkRotations)
     {
+        Debug.Log("Starting FeetPositionSolver Function");
         //Raycast handling section
         RaycastHit feetOutHit;
 
@@ -155,6 +162,7 @@ public class IkFeetAnimScript : MonoBehaviour
 
     if(Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromTheGroundRaycast, enviromentLayer))
         {
+            Debug.Log("Executing FeetPositionSolver");
             //finding our feet ik positions from our sky position
             feetIkPositions = fromSkyPosition;
             feetIkPositions.y = feetOutHit.point.y + pelvisOffset;
@@ -174,8 +182,10 @@ public class IkFeetAnimScript : MonoBehaviour
     /// <param name="foot"></param>
     private void AdjustFeetTarget (ref Vector3 feetPositons, HumanBodyBones foot)
     {
+        Debug.Log("Starting AdjustFeetTarget Function");
         feetPositons = anim.GetBoneTransform(foot).position;
         feetPositons.y = transform.position.y + heightFromTheGroundRaycast;
+        Debug.Log("Executing AdjustFeetTarget Function");
     }
 
     #endregion

@@ -1733,6 +1733,26 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 9098704165266373741, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: heightFromTheGroundRaycast
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098704165266373741, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: pelvisUpAndDownSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098704165266373741, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: feetToIkPositionSpeed
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098704165266373741, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: raycastDownDistance
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 9098704165266373741, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: useProIkFeature
+      value: 1
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
 --- !u!1001 &1597521997
