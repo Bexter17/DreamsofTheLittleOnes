@@ -22,7 +22,9 @@ public class EnemyAI1 : MonoBehaviour
     Animator eAnim;
 
     // How fast enemy moves
-    public float enemyMovement;
+    [SerializeField] float enemyMovement;
+    // multiplies by walk enemyMovement speed for chasing speed
+    [SerializeField] int enemyRunMultiplier;
     public Rigidbody rb;
 
     // The distance the enemy will begin to chase player
@@ -71,6 +73,10 @@ public class EnemyAI1 : MonoBehaviour
         if (dmgDealt <= 0)
         {
             dmgDealt = 1;
+        }
+        if (enemyRunMultiplier <= 0)
+        {
+            enemyRunMultiplier = 4;
         }
         Patrol();
     }
@@ -132,7 +138,8 @@ public class EnemyAI1 : MonoBehaviour
             else if(myEnemy == EnemyState.Chase)
             {
                 Chase();
-                agent.speed = 2 * enemyMovement;
+                agent.speed = enemyRunMultiplier * enemyMovement;
+                Debug.Log("Run");
             }
 
             
