@@ -517,12 +517,6 @@ public class CharacterMechanics : MonoBehaviour
             respawnPoint = hit.gameObject;
         }
 
-        if (hit.gameObject.tag == "Enemy")
-        {
-            //animator.SetTrigger("Got Hit");
-            //takeDamage(1);
-        }
-
         if (hit.gameObject.tag == "Projectile")
         {
 
@@ -566,6 +560,14 @@ public class CharacterMechanics : MonoBehaviour
            // Debug.Log("Speed Boost Applied");
             StartCoroutine(stopSpeedBoost());
         }
+
+        if (c.gameObject.CompareTag("Punch Zone"))
+        {
+            animator.SetTrigger("Got Hit");
+            Debug.Log("Punch!");
+            //takeDamage(1);
+        }
+
     }
 
     //Trigger after death animation to fully kill player object

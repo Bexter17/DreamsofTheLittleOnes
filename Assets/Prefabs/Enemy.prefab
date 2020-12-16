@@ -930,6 +930,7 @@ Transform:
   - {fileID: 3312839385105742834}
   - {fileID: 4162846367289911383}
   - {fileID: 5592768915197121569}
+  - {fileID: 1231530528174573106}
   m_Father: {fileID: 5794200514610278359}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -2228,6 +2229,50 @@ SkinnedMeshRenderer:
     m_Center: {x: -0.00086933374, y: -0.17680827, z: 0.013878852}
     m_Extent: {x: 1.352946, y: 1.0568523, z: 0.33907917}
   m_DirtyAABB: 0
+--- !u!1 &7537130057603083194
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1231530528174573106}
+  - component: {fileID: 1401707311283116638}
+  m_Layer: 0
+  m_Name: PunchBox
+  m_TagString: Punch Zone
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1231530528174573106
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7537130057603083194}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -0, y: 0.032, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 6818151370329563728}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &1401707311283116638
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7537130057603083194}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.14990857, y: 0.09689463, z: 0.15266314}
+  m_Center: {x: -0.056427497, y: -0.0510452, z: 0.007680617}
 --- !u!1 &7796405876350526493
 GameObject:
   m_ObjectHideFlags: 0
