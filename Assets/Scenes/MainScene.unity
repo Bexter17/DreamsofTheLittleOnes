@@ -597,6 +597,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint1
+      value: 
+      objectReference: {fileID: 976834416}
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint2
+      value: 
+      objectReference: {fileID: 1978559270}
     - target: {fileID: 942041078614933, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_Name
       value: Enemy
@@ -1604,6 +1612,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint1
+      value: 
+      objectReference: {fileID: 1965042099}
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint2
+      value: 
+      objectReference: {fileID: 776037792}
     - target: {fileID: 942041078614933, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_Name
       value: Enemy 2
@@ -1619,6 +1635,10 @@ PrefabInstance:
     - target: {fileID: 942041078614955, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: enemyMovement
       value: 1.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 942041078614955, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1667,6 +1687,10 @@ PrefabInstance:
     - target: {fileID: 1401707311283116638, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_IsTrigger
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3982725400439461287, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
@@ -1734,6 +1758,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1029049458}
     m_Modifications:
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint2
+      value: 
+      objectReference: {fileID: 1978559270}
+    - target: {fileID: -1097867853273601699, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: waypoint1
+      value: 
+      objectReference: {fileID: 1965042099}
     - target: {fileID: 942041078614933, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_Name
       value: Enemy (1)
