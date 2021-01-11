@@ -18,6 +18,7 @@ GameObject:
   - component: {fileID: 3982725400439461287}
   - component: {fileID: 6845188007653863305}
   - component: {fileID: 9098704165266373741}
+  - component: {fileID: -1097867853273601699}
   m_Layer: 0
   m_Name: Enemy
   m_TagString: Enemy
@@ -110,7 +111,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942041078614933}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b042f7faa3637f54793de9ee2171116f, type: 3}
   m_Name: 
@@ -170,7 +171,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 942041078614933}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4695a18f50ebfa144a89a9480deda900, type: 3}
   m_Name: 
@@ -228,6 +229,35 @@ MonoBehaviour:
   rightFootAnimVariableName: RightFootCurve
   useProIkFeature: 1
   showSolverDebug: 1
+--- !u!114 &-1097867853273601699
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942041078614933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: dd823a996768f174c90e011bb44f35f3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hp: 5
+  rb: {fileID: 0}
+  target: {fileID: 0}
+  knockDistanceModifier: 400
+  knockHeightModifier: 0
+  knockDuration: 0.3
+  knockPause: 1
+  hpBar: {fileID: 6255862322667623475}
+  death: 0
+  enemyMovement: 0
+  enemyRunMultiplier: 0
+  chaseRange: 0
+  attackRange: 0
+  waypoint1: {fileID: 0}
+  waypoint2: {fileID: 0}
+  dmgDealt: 0
+  rotationSpeed: 0
 --- !u!1 &86342637511897463
 GameObject:
   m_ObjectHideFlags: 0
