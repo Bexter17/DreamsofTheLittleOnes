@@ -5,26 +5,76 @@ using System;
 using UnityEngine.SceneManagement;
 
 
-// Character Mechanics Prototype #6
+// Character Mechanics Version 7.0
 //Made By Craig Walker
 
 //Changes:
-//fixed combo system, implemented IK foot system
+//Created an input buffer system
+
+#region ActionItem class Creation
+
+public class ActionItem
+{
+
+    public enum InputAction { Jump, Attack, Dash, Ability2, Ability3 };
+    public InputAction Action;
+    public float Timestamp;
+
+    public static float TimeBeforeActionsExpire = 2f;
+
+    //Constructor
+    public ActionItem(InputAction ia, float stamp)
+    {
+        Action = ia;
+        Timestamp = stamp;
+    }
+
+    //returns true if this action hasn't expired due to the timestamp
+    public bool CheckIfValid()
+    {
+        bool returnValue = false;
+        if (Timestamp + TimeBeforeActionsExpire >= Time.time)
+        {
+            returnValue = true;
+        }
+        return returnValue;
+    }
+}
+
+#endregion
 
 [RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {
+    #region Components
+
+    //Creates a charactercontoller variable named "controller"
+    CharacterController controller;
+
+    //creates a script accessable variable of the Animator component
+    Animator animator;
+
+    AnimatorClipInfo[] CurrentClipInfo;
+
+    private string animName;
+
+    #endregion
+
     #region Variables
+
+    #region Debug
+    [Header("Debug Settings")]
+
+    [SerializeField] private bool debugToggle;
+
+    #endregion
 
     #region PlayerStats
 
     [Header("Player Stats")]
     //HealthBar for Player
     public HealthBar healthBar;
-
-    //Creates a charactercontoller variable named "controller"
-    CharacterController controller;
 
     //Tracks player health
     //[SerializeField] private
@@ -77,28 +127,23 @@ public class CharacterMechanics : MonoBehaviour
     //Boolean to track if the player is on the ground or in the air
     [SerializeField] private bool isGrounded;
 
+    private bool isJumping;
+
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
-
-    //creates a script accessable variable of the Animator component
-    Animator animator;
-
-    AnimatorClipInfo[] CurrentClipInfo;
-
-    private string animName;
 
     //Tracks player checkpoints and where they will respawn 
     [SerializeField] private GameObject respawnPoint;
 
 #endregion
 
-    #region AttackSystem
+    #region Attack System
 
     [Header("Attack System")]
     //holds the box collider for the attack range
     [SerializeField] private GameObject attackRangePrefab;
 
-    [SerializeField] private GameObject DashRangePrefab;
+    [SerializeField] private GameObject dashRangePrefab;
 
     //creates atemporary, destructable version of the prefab
     private GameObject attackTemp;
@@ -128,7 +173,17 @@ public class CharacterMechanics : MonoBehaviour
 
     #endregion
 
-    #region PickupSystem
+    #region Input Buffer System
+    
+    //Queue InputBufferQueue = new Queue[];
+
+    private List<ActionItem> inputBuffer = new List<ActionItem>();
+
+    bool actionAllowed = true;
+
+    #endregion
+
+    #region Pickup System
 
     [Header("Pick up System")]
     //Tracks if GodMode is Active
@@ -255,10 +310,10 @@ public class CharacterMechanics : MonoBehaviour
                 attackRangePrefab = GameObject.FindGameObjectWithTag("Attack Zone");
             }
 
-            if (attackSpawn == null)
-            {
-                attackSpawn = GameObject.FindGameObjectWithTag("Attack Spawn").transform;
-            }
+            //if (attackSpawn == null)
+            //{
+            //    attackSpawn = GameObject.FindGameObjectWithTag("Attack Spawn").transform;
+            //}
 
             if (attackTimer <= 0)
             {
@@ -282,17 +337,37 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (isAlive)
         {
-            #region CheckPlayerHealth
+            #region Check Player Health
             //If health drops to or below zero, the player dies
             if (currentHealth <= 0)
             {
+                #region Debug Log
+
+                if (debugToggle)
+                {
+                    Debug.Log("Combat System: health dropped below 0");
+                }
+
+                #endregion
 
                 animator.SetTrigger("Die");
+
                 isAlive = false;
             }
             #endregion
 
-            #region PlayerMovement
+            #region Check Input Buffer
+
+            checkInput();
+
+            if (actionAllowed)
+            {
+                tryBufferedAction();
+            }
+
+            #endregion
+
+            #region Player Movement
 
             //Assign "moveDirection" to track vertical movement
             moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
@@ -311,51 +386,24 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
-            #region SetAnim
+            #region Set Animator
 
             animator.SetFloat("Speed", Input.GetAxis("Vertical"));
+
             animator.SetBool("isGrounded", controller.isGrounded);
 
             #endregion
 
-            #region HandleInput
+            #region Apply Gravity
 
-            //Enables the player to use Ability 1
-            if (Input.GetButtonDown("Fire1"))
-            {
-                attack();
-            }
-
-            //Enables the player to use Ability 2
-            if (Input.GetButtonDown("Fire2"))
-            {
-                Debug.Log("Ability2 has been pressed");
-                Dash();
-            }
-
-            //Enables the player to use Ability 3
-            if (Input.GetButtonDown("Fire3"))
-            {
-                Debug.Log("Ability3 has been pressed");
-                Ability3();
-            }
-
-            //Enables the player to jump
-            // Jumping is not working with the player when in game
-            if (Input.GetButtonDown("Jump") && isGrounded)
-            {
-                //  Debug.Log("Jump has been pressed");
-                vSpeed = jumpSpeed;
-                animator.SetTrigger("Jump");
-            }
-
-            #endregion
-
-            #region ApplyGravity
             vSpeed -= gravity * Time.deltaTime;
+
             moveDirection.y = vSpeed;
+
             controller.Move(moveDirection * Time.deltaTime);
+
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+
             #endregion
         }
     }
@@ -501,31 +549,42 @@ public class CharacterMechanics : MonoBehaviour
 
     #endregion
 
+    #region Collision and Trigger Handling
 
     //Tracks player collision 
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
-       // Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
+       Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
 
         if(hit.gameObject.tag == "Floor")
         {
             isGrounded = true;
+            
+            if(isJumping)
+            {
+                isJumping = false;
+
+                actionAllowed = true;
+            }
         }
 
-        if (hit.gameObject.tag == "Checkpoint")
-        {
-            respawnPoint = hit.gameObject;
-        }
+        //if (hit.gameObject.tag == "Checkpoint")
+        //{
+        //    respawnPoint = hit.gameObject;
+        //}
 
-        if (hit.gameObject.tag == "Projectile")
-        {
+        //if (hit.gameObject.tag == "Projectile")
+        //{
 
-        }
+        //}
     }
 
     //Tracks triggers / pickups
     private void OnTriggerEnter(Collider c)
     {
+
+        #region Pickups
+
         if (c.gameObject.tag == "Teleport Potion")
         {
             speed *= speedBoost;
@@ -561,6 +620,8 @@ public class CharacterMechanics : MonoBehaviour
             StartCoroutine(stopSpeedBoost());
         }
 
+        #endregion
+
         if (c.gameObject.CompareTag("Punch Zone"))
         {
             animator.SetTrigger("Got Hit");
@@ -570,17 +631,9 @@ public class CharacterMechanics : MonoBehaviour
 
     }
 
-    //Trigger after death animation to fully kill player object
-    public void die()
-    {
-        Lives--;
-       // gameObject.transform.position = respawnPoint.transform.position;
-        isAlive = true;
-        if (Lives == 0)
-        {
-            SceneManager.LoadScene("EndScene");
-        }
-    }
+    #endregion
+
+    #region Pickup Coroutines
 
     IEnumerator stopGodmode()
     {
@@ -605,57 +658,208 @@ public class CharacterMechanics : MonoBehaviour
         speed -= speedBoost;
     }
 
+    #endregion
+
+    #region Combat System
+
+    #region Take Damage
+
     public void takeDamage(int damage)
     {
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.Log("Combat System: takeDamage called");
+        }
+
+        #endregion
+
         currentHealth -= damage;
+        
         healthBar.SetHealth(currentHealth);
     }
 
-    public void queueAttack()
+    #endregion
+
+    #region Input Buffer
+
+    private void checkInput()
     {
-        int incomingAttack = comboCount;
+        float x = Input.GetAxisRaw("Horizontal");
 
-        if (incomingAttack != queuedAttack1)
-        {
-            queuedAttack1 = incomingAttack;
-        }
+        float z = Input.GetAxisRaw("Vertical");
 
-        if (incomingAttack != queuedAttack1 && incomingAttack != queuedAttack2)
+        if (x > 0.01f || x < -0.01f )
         {
 
         }
 
-        else
+        if(z > 0.01f || z < -0.01f)
         {
-            wastedClicks += 1;
+
         }
-    }
 
-    public void checkQueue()
-    {
-        isBusy = false;
-
-        if (queuedAttack1 > -1)
+        if (Input.GetButtonDown("Jump") && isGrounded)
         {
-            comboCount = queuedAttack1;
-            queuedAttack1 = -1;
+            #region Debug Log
 
-            if(queuedAttack2 > -1)
+            if (debugToggle)
             {
-                queuedAttack1 = queuedAttack2;
-                queuedAttack2 = -1;
+                Debug.Log("Combat System: Jump has been pressed");
             }
 
-            attack();
+            #endregion
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
+        }
+
+        //Enables the player to use Ability 1
+        if (Input.GetButtonDown("Fire1"))
+        {
+            #region Debug Log
+
+            if (debugToggle)
+            {
+                Debug.Log("Combat System: Attack has been pressed");
+            }
+
+            #endregion
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
+        }
+
+        //Enables the player to use Ability 2
+        if (Input.GetButtonDown("Fire2"))
+        {
+            #region Debug Log
+
+            if (debugToggle)
+            {
+                Debug.Log("Combat System: dash has been pressed");
+            }
+
+            #endregion
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
+        }
+
+        //Enables the player to use Ability 3
+        if (Input.GetButtonDown("Fire3"))
+        {
+            if (debugToggle)
+            {
+                Debug.Log("Combat System: Ability2 has been pressed");
+            }
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ability2, Time.time));
         }
     }
+
+    private void tryBufferedAction()
+    {
+        if (inputBuffer.Count > 0)
+        {
+            foreach (ActionItem ai in inputBuffer.ToArray())  //Using ToArray so we iterate a copy of the list rather than the actual list, since we will be modifying the list in the loop
+            {
+                inputBuffer.Remove(ai);  //Remove it from the buffer
+                if (ai.CheckIfValid())
+                {
+                    //Means the action is still within the allowed time, so we do the action and then break from processing more of the buffer
+                    doAction(ai);
+                    break;  //We probably only want to do 1 action at a time, so we just break here and don't process the rest of the inputBuffer
+                }
+            }
+        }
+    }
+
+    private void doAction(ActionItem ai)
+    {
+        #region Debug.Log
+
+        if(debugToggle)
+        {
+            Debug.Log("doAction called");
+
+            Debug.Log(ai.Action);
+        }
+
+        #endregion
+
+        if (ai.Action == ActionItem.InputAction.Jump)
+        {
+            jump();
+        }
+
+        if (ai.Action == ActionItem.InputAction.Attack)
+        {
+            attack();
+        }
+
+        if (ai.Action == ActionItem.InputAction.Dash)
+        {
+            dash();
+        }
+
+        if (ai.Action == ActionItem.InputAction.Ability2)
+        {
+
+        }
+
+        if (ai.Action == ActionItem.InputAction.Ability3)
+        {
+
+        }
+
+
+        actionAllowed = false;  //Every action probably has some kind of wait period until the next action is allowed, so we set this to false here.
+                                //Some code somewhere else needs to be written to set it back to true
+    }
+
+    #endregion
+
+    #region Jump
+
+    void jump()
+    {
+        #region Debug Log
+
+        if (debugToggle)
+            Debug.Log("jump has been called");
+
+        #endregion
+
+        vSpeed = jumpSpeed;
+
+        animator.SetTrigger("Jump");
+
+        isGrounded = false;
+
+        isJumping = true;
+
+        actionAllowed = false; 
+    }
+
+    #endregion
+
+    #region Basic Attack 
+
     public void attack()
     {
-        //Debug.LogWarning(isBusy);
+        #region Debug Log
 
-        //if (!isBusy || isInCombo)
-        //{
-        Debug.Log("Attack has been pressed");
+        if (debugToggle)
+        {
+            //Debug.LogWarning(isBusy);
+
+            Debug.Log("Attack has been pressed");
+
+            Debug.LogWarning("Combo System animName =" + animName);
+
+            Debug.LogWarning("Combo System: comboCount =" + comboCount);
+        }
+
+        #endregion
 
         isBusy = true;
 
@@ -667,9 +871,7 @@ public class CharacterMechanics : MonoBehaviour
 
         animName = CurrentClipInfo[0].clip.name;
 
-        Debug.LogWarning("animName =" + animName);
-
-        Debug.LogError("comboCount =" + comboCount);
+       
 
         switch (comboCount)
         {
@@ -679,14 +881,20 @@ public class CharacterMechanics : MonoBehaviour
                 if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
                 {
                     Debug.Log("Attack 1 Start");
+                
                     comboCount = 1;
+                    
                     Debug.LogWarning(comboCount);
+                    
                     animator.SetInteger("Counter", comboCount);
+                    
                     animator.SetTrigger("Attack");
                 }
 
                 else if (animName != ("Idle") && animName != ("Run") && animName != ("Walk") && animName != ("Attack 1"))
                 {
+                    #region Debug Log
+
                     Debug.LogWarning("Error in combo case 0");
 
                     Debug.LogWarning("comboCount = " + comboCount);
@@ -696,6 +904,8 @@ public class CharacterMechanics : MonoBehaviour
                     //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
 
                     Debug.LogWarning("comboCount resetting to 0");
+
+                    #endregion
 
                     comboCount = 0;
 
@@ -731,18 +941,32 @@ public class CharacterMechanics : MonoBehaviour
             case 1:
                 if (animName == ("Attack 1"))
                 {
-                    Debug.Log("attack 2 start");
                     comboCount = 2;
-                    Debug.LogWarning(comboCount);
+
+                    #region Debug Log
+
+                    if (debugToggle)
+                    {
+                        Debug.Log("attack 2 start");
+
+                        Debug.LogWarning(comboCount);
+                    }
+
+                    #endregion
+
                     animator.SetInteger("Counter", comboCount);
+
                     animator.SetTrigger("Attack");
                 }
 
                 else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
                 {
                     comboCount = 0;
+
                     Debug.LogWarning(comboCount);
+
                     isBusy = false;
+                    
                     attack();
                 }
 
@@ -764,15 +988,22 @@ public class CharacterMechanics : MonoBehaviour
 
                 else if (animName != ("attack 1"))
                 {
-                    Debug.LogWarning("Error in combo case 1");
+                    #region Debug Log
 
-                    Debug.LogWarning("comboCount = " + comboCount);
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning("Error in combo case 1");
 
-                    Debug.LogWarning("Animation: " + animName);
+                        Debug.LogWarning("comboCount = " + comboCount);
 
-                    //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+                        Debug.LogWarning("Animation: " + animName);
 
-                    Debug.LogWarning("comboCount resetting to 0");
+                        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                        Debug.LogWarning("comboCount resetting to 0");
+                    }
+
+                    #endregion
 
                     comboCount = 0;
 
@@ -818,13 +1049,22 @@ public class CharacterMechanics : MonoBehaviour
 
                 else if (animName != ("attack 2") && animName != ("attack 1"))
                 {
-                    Debug.LogWarning("Error in combo case 2");
+                    #region Debug Log
 
-                    Debug.LogWarning("comboCount = " + comboCount);
+                    if (debugToggle)
+                    {
+                        Debug.Log("Combat System: Jump has been pressed");
 
-                    Debug.LogWarning("Animation: " + animName);
+                        Debug.LogWarning("Error in combo case 2");
 
-                    Debug.LogWarning("comboCount resetting to 0");
+                        Debug.LogWarning("comboCount = " + comboCount);
+
+                        Debug.LogWarning("Animation: " + animName);
+
+                        Debug.LogWarning("comboCount resetting to 0");
+                    }
+
+                    #endregion
 
                     comboCount = 0;
 
@@ -837,47 +1077,96 @@ public class CharacterMechanics : MonoBehaviour
 
                 if (animName == ("attack 3"))
                 {
+                    #region Debug Log
+
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning(comboCount);
+                    }
+
+                    #endregion
+
                     comboCount = 0;
-                    Debug.LogWarning(comboCount);
+
                     isBusy = false;
+
                     attack();
                 }
 
                 else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
                 {
+                    #region Debug Log
+
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning(comboCount);
+                    }
+
+                    #endregion
+
                     comboCount = 0;
-                    Debug.LogWarning(comboCount);
+  
                     isBusy = false;
+
                     attack();
                 }
 
                 else if (animName == ("attack 1"))
                 {
+                    #region Debug Log
+
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning(comboCount);
+                    }
+
+                    #endregion
+
                     comboCount = 1;
-                    Debug.LogWarning(comboCount);
+
                     isBusy = false;
+
                     attack();
                 }
 
                 else if (animName == ("attack 2"))
                 {
+                    #region Debug Log
+
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning(comboCount);
+                    }
+
+                    #endregion
+
                     comboCount = 2;
-                    Debug.LogWarning(comboCount);
+
                     isBusy = false;
+
                     attack();
                 }
 
                 else if (animName != ("attack 3"))
                 {
-                    Debug.LogWarning("Error in combo case 3");
+                    #region Debug Log
 
-                    Debug.LogWarning("comboCount = " + comboCount);
+                    if (debugToggle)
+                    {
+                        Debug.LogWarning(comboCount);
 
-                    Debug.LogWarning("Animation: " + animName);
+                        Debug.LogWarning("Error in combo case 3");
 
-                    //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+                        Debug.LogWarning("comboCount = " + comboCount);
 
-                    Debug.LogWarning("comboCount resetting to 0");
+                        Debug.LogWarning("Animation: " + animName);
+
+                        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
+
+                        Debug.LogWarning("comboCount resetting to 0");
+                    }
+
+                    #endregion
 
                     comboCount = 0;
 
@@ -899,6 +1188,7 @@ public class CharacterMechanics : MonoBehaviour
 //            }
 //        }
     }
+    
     public void AttackBegins()
     {
         isInCombo = true;
@@ -906,8 +1196,20 @@ public class CharacterMechanics : MonoBehaviour
         //sends message to the players sword script to start dealing damage on collision
 
     }
+    
     public void AttackEnd()
-    { 
+    {
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.LogWarning("Combat System: AttackEnd called");
+
+            Debug.LogWarning("Combat System: actionAllowed = " + actionAllowed);
+        }
+
+        #endregion
+
         //sends message to the players sword script to stop dealing damage on collision
         sword.SendMessage("deactivateAttack");
 
@@ -922,44 +1224,111 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         animator.SetInteger("Counter", comboCount);
-        
+
+        actionAllowed = true;
+
         //checkQueue();
     }
 
-    // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
-    public void Dash()
-    {
-        Debug.Log("Dash has been triggered");
-
-        dashTemp = Instantiate(DashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
-
-        animator.SetTrigger("Dash");
-
-        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
-
-        //Rigidbody.addforce();
-    }
     public void comboReset()
     {
-        Debug.LogWarning("comboReset Ran");
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.LogWarning("comboReset Ran");
+        }
+        
+        #endregion
+
         comboCount =  0;
         animator.SetInteger("Counter", comboCount);
 
     }
 
-    private void DashEnds()
+    #endregion
+
+    #region Abilities
+    // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
+    public void dash()
     {
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.Log("dash has been triggered");
+        }
+
+        #endregion
+
+        dashTemp = Instantiate(dashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
+
+        animator.SetTrigger("dash");
+
+        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+
+        //Rigidbody.addforce();
+    }
+   
+    private void dashEnds()
+    {
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.Log("Combat System: dash complete");
+        }
+
+        #endregion
+
         Destroy(dashTemp);
-        Debug.Log("Dash complete");
+
+        actionAllowed = true;
     }
 
     public void Ability2()
     {
-        Debug.Log("Ability 2 has been pressed");
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.Log("Ability 2 has been pressed");
+        }
+
+        #endregion
     }
 
     public void Ability3()
     {
-        Debug.Log("Ability 3 has been pressed");
+        #region Debug Log
+
+        if (debugToggle)
+        {
+            Debug.Log("Ability 3 has been pressed");
+        }
+
+        #endregion
     }
+
+    #endregion
+
+    #region Die
+    //Trigger after death animation to fully kill player object
+    public void die()
+    {
+        Lives--;
+
+       // gameObject.transform.position = respawnPoint.transform.position;
+        
+        isAlive = true;
+        
+        if (Lives == 0)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+    }
+
+    #endregion
+
+    #endregion
 }
