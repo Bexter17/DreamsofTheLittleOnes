@@ -12,10 +12,8 @@ GameObject:
   - component: {fileID: 942041078614952}
   - component: {fileID: 942041078614953}
   - component: {fileID: 942041078614954}
-  - component: {fileID: 942041078614955}
   - component: {fileID: 942041078614932}
   - component: {fileID: 6845188008510120403}
-  - component: {fileID: 3982725400439461287}
   - component: {fileID: 6845188007653863305}
   - component: {fileID: 9098704165266373741}
   - component: {fileID: -1097867853273601699}
@@ -104,28 +102,6 @@ CapsuleCollider:
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0.053785324, y: 0, z: 0}
---- !u!114 &942041078614955
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942041078614933}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b042f7faa3637f54793de9ee2171116f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  enemyMovement: 1.5
-  enemyRunMultiplier: 5
-  rb: {fileID: 942041078614932}
-  chaseRange: 10
-  attackRange: 2
-  waypoint1: {fileID: 0}
-  waypoint2: {fileID: 0}
-  dmgDealt: 2
-  rotationSpeed: 5
 --- !u!54 &942041078614932
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -164,27 +140,6 @@ NavMeshAgent:
   m_BaseOffset: 0.85
   m_WalkableMask: 4294967295
   m_ObstacleAvoidanceType: 4
---- !u!114 &3982725400439461287
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942041078614933}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4695a18f50ebfa144a89a9480deda900, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hp: 5
-  rb: {fileID: 0}
-  target: {fileID: 0}
-  knockDistanceModifier: 400
-  knockHeightModifier: 0
-  knockDuration: 0.3
-  knockPause: 1
-  hpBar: {fileID: 6255862322667623475}
-  death: 0
 --- !u!95 &6845188007653863305
 Animator:
   serializedVersion: 3
@@ -250,10 +205,10 @@ MonoBehaviour:
   knockPause: 1
   hpBar: {fileID: 6255862322667623475}
   death: 0
-  enemyMovement: 0
-  enemyRunMultiplier: 0
-  chaseRange: 0
-  attackRange: 0
+  enemyMovement: 3
+  enemyRunMultiplier: 2
+  chaseRange: 10
+  attackRange: 3
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 0

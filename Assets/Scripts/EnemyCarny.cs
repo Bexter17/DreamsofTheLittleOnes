@@ -8,6 +8,7 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
+    #region Variables
     //Connect EnemyAI1 script with EnemyCombat script
     EnemyAI1 EnemyAI1Script;
 
@@ -59,6 +60,7 @@ public class EnemyCarny : MonoBehaviour
 
     public float rotationSpeed;
     // Start is called before the first frame update
+    #endregion
     void Start()
     {
         EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
@@ -72,9 +74,6 @@ public class EnemyCarny : MonoBehaviour
 
         cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
 
-
-
-
         myEnemy = EnemyState.Start;
 
         eAnim = gameObject.GetComponent<Animator>();
@@ -83,6 +82,8 @@ public class EnemyCarny : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         agent = GetComponent<NavMeshAgent>();
+
+        #region default values
 
         // Default values
         if (enemyMovement <= 0)
@@ -106,6 +107,7 @@ public class EnemyCarny : MonoBehaviour
             enemyRunMultiplier = 4;
         }
         Patrol();
+        #endregion
     }
 
     // Update is called once per frame
@@ -113,7 +115,7 @@ public class EnemyCarny : MonoBehaviour
     {
         //Sets hp text to change based on players perspective
         //So it's not backwards to the player
-        Vector3 textDirection = transform.position - target.transform.position;
+        //Vector3 textDirection = transform.position - target.transform.position;
 
         if (agent.enabled)
         {
@@ -137,7 +139,7 @@ public class EnemyCarny : MonoBehaviour
             hp -= 1;
         }
 
-
+        #region AI States
         if (agent.enabled)
         {
             Vector3 targetPosition = agent.destination;
@@ -195,9 +197,8 @@ public class EnemyCarny : MonoBehaviour
                 agent.speed = enemyRunMultiplier * enemyMovement;
                 Debug.Log("Run");
             }
-
-
         }
+        #endregion
     }
     public void takeDamage(int dmg)
     {
@@ -247,7 +248,7 @@ public class EnemyCarny : MonoBehaviour
         }
     }
 
-
+    #region init States
     public void Chase()
     {
         //agent.isStopped = false;
@@ -305,7 +306,7 @@ public class EnemyCarny : MonoBehaviour
             }
         }
     }
-
+    #endregion
     //Sets enemy to walking animation if player leaves collision
     private void OnTriggerExit(Collider other)
     {
