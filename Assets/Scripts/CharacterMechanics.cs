@@ -159,12 +159,8 @@ public class CharacterMechanics : MonoBehaviour
     //holds the box collider for the attack range
     [SerializeField] private GameObject attackRangePrefab;
 
-    [SerializeField] private GameObject dashRangePrefab;
-
     //creates atemporary, destructable version of the prefab
     private GameObject attackTemp;
-
-    private GameObject dashTemp;
 
     private int comboCount;
 
@@ -177,20 +173,57 @@ public class CharacterMechanics : MonoBehaviour
     //determines how long the attack lasts
     [SerializeField] private Transform attackSpawn;
 
-    [SerializeField] private Transform dashSpawn;
-
     [SerializeField] private int attackTimer;
-
-    [SerializeField] private int dashDamage;
-
-    [SerializeField] private int dashSpeed;
 
     Sword_Script sword;
 
     #endregion
 
+    #region Abilities
+
+    #region Dash
+
+    [Header("Dash Ability")]
+
+    [SerializeField] private GameObject dashRangePrefab;
+
+    [SerializeField] private Transform dashSpawn;
+
+    [SerializeField] private int dashDamage;
+
+    [SerializeField] private int dashSpeed;
+
+    private GameObject dashTemp;
+
+    #endregion
+
+    #region Hammer Smash
+
+    [Header("Hammer Smash Ability")]
+
+
+
+    #endregion
+
+
+    #region Whirlwind 
+
+    [Header("Whirlwind Ability")]
+
+    [SerializeField] private GameObject whirlwindRangePrefab;
+
+    [SerializeField] private Transform whirlwindSpawn;
+
+    [SerializeField] private int whirlwindDamage;
+
+    private GameObject whirlwindTemp;
+
+    #endregion
+
+    #endregion
+
     #region Input Buffer System
-    
+
     //Queue InputBufferQueue = new Queue[];
 
     private List<ActionItem> inputBuffer = new List<ActionItem>();
@@ -221,6 +254,8 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private float timerSpeedBoost;
 
 #endregion
+
+
 
     #region IKSystem
 
@@ -1826,7 +1861,7 @@ public class CharacterMechanics : MonoBehaviour
         actionAllowed = true;
     }
 
-    public void hammerSmash()
+    private void hammerSmash()
     {
         #region Debug Log
 
@@ -1838,25 +1873,43 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
     }
 
-    public void whirlwind()
+    private void whirlwind()
     {
         #region Debug Log
 
         if (whirlwindDebug)
         {
-            Debug.Log("worldwind has been pressed");
+            Debug.Log("worldwind has been called");
+
+            whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.transform.position, whirlwindSpawn.transform.rotation);
+
+            animator.SetTrigger("whirlwind");
         }
 
         #endregion
     }
 
-    public void ranged()
+    private void whirlwindEnd()
     {
         #region Debug Log
 
         if (whirlwindDebug)
         {
-            Debug.Log("ranged attack has been pressed");
+            Debug.Log("whirlwindEnd has been called");
+
+            Destroy(whirlwindTemp);
+        }
+
+        #endregion
+    }
+
+    private void ranged()
+    {
+        #region Debug Log
+
+        if (whirlwindDebug)
+        {
+            Debug.Log("ranged() has been called");
         }
 
         #endregion
