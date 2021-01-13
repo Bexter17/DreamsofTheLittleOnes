@@ -16,7 +16,7 @@ using UnityEngine.SceneManagement;
 public class ActionItem
 {
 
-    public enum InputAction { Jump, Attack, Dash, Ability2, Ability3 };
+    public enum InputAction { Jump, Attack, Dash, HammerSmash, Whirlwind, Ranged };
     public InputAction Action;
     public float Timestamp;
 
@@ -77,6 +77,10 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private bool inputBufferDebug;
 
     [SerializeField] private bool showSolverDebug;
+
+    [SerializeField] private bool hammerDebug;
+
+    [SerializeField] private bool whirlwindDebug;
 
     //[SerializeField] private bool healthDebug;
 
@@ -688,6 +692,10 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        comboCount = 0;
+
+        animator.SetInteger("Counter", comboCount);
+
         currentHealth -= damage;
         
         healthBar.SetHealth(currentHealth);
@@ -762,10 +770,30 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (inputBufferDebug)
             {
-                Debug.Log("Input Buffer System: Ability2 has been pressed");
+                Debug.Log("Input Buffer System: hammerSmash has been pressed");
             }
 
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ability2, Time.time));
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
+        }
+
+        if (Input.GetButtonDown("Fire4"))
+        {
+            if (inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: whirlwind has been pressed");
+            }
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+        }
+
+        if (Input.GetButtonDown("Fire5"))
+        {
+            if (inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: whirlwind has been pressed");
+            }
+
+            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
         }
     }
 
@@ -856,14 +884,19 @@ public class CharacterMechanics : MonoBehaviour
             dash();
         }
 
-        if (ai.Action == ActionItem.InputAction.Ability2)
+        if (ai.Action == ActionItem.InputAction.HammerSmash)
         {
-
+            hammerSmash();
         }
 
-        if (ai.Action == ActionItem.InputAction.Ability3)
+        if (ai.Action == ActionItem.InputAction.Whirlwind)
         {
+            whirlwind();
+        }
 
+        if (ai.Action == ActionItem.InputAction.Ranged)
+        {
+            ranged();
         }
 
         actionAllowed = false; 
@@ -1793,25 +1826,37 @@ public class CharacterMechanics : MonoBehaviour
         actionAllowed = true;
     }
 
-    public void Ability2()
+    public void hammerSmash()
     {
         #region Debug Log
 
-        if (combatDebug)
+        if (hammerDebug)
         {
-            Debug.Log("Ability 2 has been pressed");
+            Debug.Log("hammerSmash has been pressed");
         }
 
         #endregion
     }
 
-    public void Ability3()
+    public void whirlwind()
     {
         #region Debug Log
 
-        if (combatDebug)
+        if (whirlwindDebug)
         {
-            Debug.Log("Ability 3 has been pressed");
+            Debug.Log("worldwind has been pressed");
+        }
+
+        #endregion
+    }
+
+    public void ranged()
+    {
+        #region Debug Log
+
+        if (whirlwindDebug)
+        {
+            Debug.Log("ranged attack has been pressed");
         }
 
         #endregion
