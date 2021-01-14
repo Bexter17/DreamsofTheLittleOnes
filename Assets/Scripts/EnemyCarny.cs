@@ -113,16 +113,6 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Sets hp text to change based on players perspective
-        //So it's not backwards to the player
-        //Vector3 textDirection = transform.position - target.transform.position;
-
-        if (agent.enabled)
-        {
-            //hpBar.transform.rotation = Quaternion.LookRotation(textDirection);
-            //transform.rotation = Quaternion.LookRotation(textDirection);
-        }
-
         //Detect when there is no HP to kill enemy and play death animation
         if (hp <= 0)
         {
@@ -130,13 +120,22 @@ public class EnemyCarny : MonoBehaviour
             Debug.Log("Enemy has been killed");
             agent.isStopped = true;
             AgentStop();
+            // so that enemy doesn't move after dying
+            agent.isStopped = true;
+            //eAnim.SetTrigger("IsPunching");
+            eAnim.SetBool("IsDying", true);
+            eAnim.SetTrigger("IsDead");
+            Destroy(gameObject, 4);
         }
+        //Sets hp text to change based on players perspective
+        //So it's not backwards to the player
+        //Vector3 textDirection = transform.position - target.transform.position;
 
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
         {
             Debug.Log("Enemy has lost 1 hp");
-            hp -= 1;
+            takeDamage(1);
         }
 
         #region AI States
@@ -148,44 +147,31 @@ public class EnemyCarny : MonoBehaviour
             //if (myEnemy == EnemyState.Attack)
             //    targetPosition.x -= 100;
 
-            // If enemy within attackrange stop moving and attack
-            // If enemy within chaserange chase player
-            // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && Vector3.Distance(target.position, gameObject.transform.position) > attackRange)
+                // If enemy within attackrange stop moving and attack
+                // If enemy within chaserange chase player
+                // else go back to patrol route
+            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            {
+                agent.isStopped = true;
+                myEnemy = EnemyState.Attack;
+                eAnim.SetTrigger("isPunching");
+            }
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
                 Chase();
                 agent.isStopped = false;
                 myEnemy = EnemyState.Chase;
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange && (death != true))
-            {
-                agent.isStopped = true;
-                myEnemy = EnemyState.Attack;
-            }
-
             else if (!isPatrolling)
             {
                 Patrol();
                 agent.isStopped = false;
                 myEnemy = EnemyState.Patrol;
             }
-
-            if (death == true)
-            {
-                // so that enemy doesn't move after dying
-                agent.isStopped = true;
-                //eAnim.SetTrigger("IsPunching");
-                eAnim.SetBool("IsDying", true);
-                eAnim.SetTrigger("IsDead");
-                Destroy(gameObject, 5);
-            }
-            else
-            {
                 Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
                 float str = rotationSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
                 //transform.LookAt(targetPosition);
-            }
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
@@ -288,8 +274,8 @@ public class EnemyCarny : MonoBehaviour
     private void OnTriggerEnter(Collider other)
     {
         // Plays punching animation when player enters collision
-        if (other.CompareTag("Player"))
-            eAnim.SetTrigger("isPunching");
+        //if (other.CompareTag("Player"))
+        //    eAnim.SetTrigger("isPunching");
 
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
