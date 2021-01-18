@@ -127,7 +127,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 942041078614933}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 1.5
+  m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -213,6 +213,9 @@ MonoBehaviour:
   waypoint2: {fileID: 0}
   dmgDealt: 0
   rotationSpeed: 0
+  circlePoints: []
+  number: 0
+  circleDist: 0.5
 --- !u!1 &86342637511897463
 GameObject:
   m_ObjectHideFlags: 0

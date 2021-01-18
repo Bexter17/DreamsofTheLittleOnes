@@ -61,6 +61,11 @@ public class EnemyCarny : MonoBehaviour
     public float rotationSpeed;
     // Start is called before the first frame update
     #endregion
+    #region EncircleVariables
+    public Vector3[] circlePoints;
+    public int number;
+    [SerializeField] float circleDist;
+    #endregion
     void Start()
     {
         EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
@@ -107,6 +112,9 @@ public class EnemyCarny : MonoBehaviour
             enemyRunMultiplier = 4;
         }
         Patrol();
+
+        // circle points 4 different points around the player where the enemies will go to attack
+        circlePoints = new Vector3[4];
         #endregion
     }
 
@@ -242,7 +250,9 @@ public class EnemyCarny : MonoBehaviour
         isPatrolling = false;
         myEnemy = EnemyState.Chase;
         // Sets player as destination
-        agent.SetDestination(target.transform.position);
+        //agent.SetDestination(target.transform.position);
+        UpdateCirclePoints();
+        agent.SetDestination(circlePoints[number]);
     }
 
     // Calls Chase() for all enemies
@@ -311,4 +321,12 @@ public class EnemyCarny : MonoBehaviour
             }
         }
     }*/
+
+    private void UpdateCirclePoints()
+    {
+        circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
+        circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
+        circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
+        circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
+    }
 }
