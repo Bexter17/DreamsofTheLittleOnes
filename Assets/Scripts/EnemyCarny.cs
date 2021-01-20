@@ -30,6 +30,9 @@ public class EnemyCarny : MonoBehaviour
 
     CharacterMechanics cm;
 
+    //used to track the player for giveDamage function 
+    private GameObject Player;
+
     [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack };
     EnemyState myEnemy;
     // The player that the enemy will chase
@@ -57,7 +60,7 @@ public class EnemyCarny : MonoBehaviour
     public Transform waypoint2;
 
     // Amount of damage done by enemy to player
-    public int dmgDealt;
+    public int dmgDealt = 2;
 
     public float rotationSpeed;
     // Start is called before the first frame update
@@ -72,6 +75,8 @@ public class EnemyCarny : MonoBehaviour
         EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
 
         rb = GetComponent<Rigidbody>();
+
+        Player = GameObject.FindGameObjectWithTag("Player");
 
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
@@ -341,5 +346,10 @@ public class EnemyCarny : MonoBehaviour
         //circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
         //circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
         //circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
+    }
+
+    private void giveDamage()
+    {
+        Player.SendMessage("takeDamage", dmgDealt);
     }
 }

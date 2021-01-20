@@ -1,8 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
+using TMPro;
 
 
 // Character Mechanics Version 7.0
@@ -55,8 +57,6 @@ public class CharacterMechanics : MonoBehaviour
     //creates a script accessable variable of the Animator component
     Animator animator;
 
-
-
     #endregion
 
     #region Variables
@@ -97,7 +97,11 @@ public class CharacterMechanics : MonoBehaviour
     #region PlayerStats
 
     [Header("Player Stats")]
+
     //HealthBar for Player
+
+    [SerializeField] private GameObject HealthBar;
+
     public HealthBar healthBar;
 
     //Tracks player health
@@ -105,7 +109,7 @@ public class CharacterMechanics : MonoBehaviour
     public int currentHealth = 5;
 
     //Max health
-    //[SerializeField] private
+    //[SerializeField] private 
     public int maxHealth = 50;
 
     //Tracks incoming damage
@@ -115,7 +119,7 @@ public class CharacterMechanics : MonoBehaviour
     private GameObject damageSource;
 
     //Tracks player's lives
-    [SerializeField] private int Lives = 1;
+    [SerializeField] private int Lives = 3;
 
     //Tracks if the player is currently alive or not
     private bool isAlive = true;
@@ -159,7 +163,13 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks player checkpoints and where they will respawn 
     [SerializeField] private GameObject respawnPoint;
 
-#endregion
+    #endregion
+
+    #region HUD
+
+    [SerializeField] TMP_Text playerStats;
+
+    #endregion
 
     #region Attack System
 
@@ -301,8 +311,20 @@ public class CharacterMechanics : MonoBehaviour
     {
         #region Initialization
 
+        #region Health
+
+        if(!HealthBar)
+        {
+            HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
+        }
+
         currentHealth = maxHealth;
+        
         healthBar.SetMaxHealth(maxHealth);
+
+        healthBar.SetHealth(currentHealth);
+        
+        #endregion
 
         comboCount = 0;
 
@@ -333,7 +355,8 @@ public class CharacterMechanics : MonoBehaviour
             //Automatically disables Root Motion (to avoid adding motion twice)
             animator.applyRootMotion = false;
 
-            //Sets variables to a defualt value incase not set in Unity inspector
+            //Sets variables to a default value incase not set in Unity inspector
+
             if (speed <= 0)
             {
                 speed = 6.0f;
@@ -354,7 +377,7 @@ public class CharacterMechanics : MonoBehaviour
                 gravity = 9.81f;
             }
 
-            if (respawnPoint == null)
+            if (!respawnPoint)
             {
                 respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
             }
@@ -410,6 +433,14 @@ public class CharacterMechanics : MonoBehaviour
 
                 isAlive = false;
             }
+
+            #endregion
+
+            #region Update HUD
+
+            playerStats.text = "Lives: " + Lives;
+
+            healthBar.SetHealth(currentHealth);
 
             #endregion
 
@@ -669,7 +700,6 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks triggers / pickups
     private void OnTriggerEnter(Collider c)
     {
-
         #region Pickups
 
         if (c.gameObject.tag == "Teleport Potion")
@@ -708,14 +738,6 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
-
-        if (c.gameObject.CompareTag("Punch Zone"))
-        {
-            animator.SetTrigger("Got Hit");
-            Debug.Log("Punch!");
-            //takeDamage(1);
-        }
-
     }
 
     #endregion
@@ -751,7 +773,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Take Damage
 
-    public void takeDamage(int damage)
+    public void takeDamage(int dmgDealt)
     {
         #region Debug Log
 
@@ -766,7 +788,9 @@ public class CharacterMechanics : MonoBehaviour
 
         animator.SetInteger("Counter", comboCount);
 
-        currentHealth -= damage;
+        animator.SetTrigger("Got Hit");
+
+        currentHealth -= dmgDealt;
         
         healthBar.SetHealth(currentHealth);
     }
@@ -860,7 +884,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (inputBufferDebug)
             {
-                Debug.Log("Input Buffer System: whirlwind has been pressed");
+                Debug.Log("Input Buffer System: ranged attack has been pressed");
             }
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
@@ -1978,7 +2002,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         Lives--;
 
-       // gameObject.transform.position = respawnPoint.transform.position;
+       gameObject.transform.position = respawnPoint.transform.position;
         
         isAlive = true;
         
