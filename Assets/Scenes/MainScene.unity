@@ -1194,6 +1194,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 6892086881295820041, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_Name
+      value: Ability Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: dashSpeed
       value: 500
@@ -1234,6 +1238,22 @@ PrefabInstance:
       propertyPath: inputBufferDebug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: animDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindSpawn
+      value: 
+      objectReference: {fileID: 1061734883}
+    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindDamage
+      value: 10
+      objectReference: {fileID: 0}
+    - target: {fileID: 7174997395230965536, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindRangePrefab
+      value: 
+      objectReference: {fileID: 2264208791280373277, guid: 22b042247f8faf64eadb1f375dec2489, type: 3}
     - target: {fileID: 8139800251834755100, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_Enabled
       value: 1
@@ -1278,6 +1298,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!4 &1061734883 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 8808256718426828856, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 947012291}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1092632284
 GameObject:
   m_ObjectHideFlags: 0

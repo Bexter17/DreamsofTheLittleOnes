@@ -55,9 +55,7 @@ public class CharacterMechanics : MonoBehaviour
     //creates a script accessable variable of the Animator component
     Animator animator;
 
-    AnimatorClipInfo[] CurrentClipInfo;
 
-    private string animName;
 
     #endregion
 
@@ -82,7 +80,17 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private bool whirlwindDebug;
 
-    //[SerializeField] private bool healthDebug;
+    [SerializeField] private bool animDebug;
+
+    #endregion
+
+    #region Animator Variables
+
+    AnimatorClipInfo[] currentClipInfo;
+
+    private string animName;
+
+    float currentAnimLength;
 
     #endregion
 
@@ -205,7 +213,6 @@ public class CharacterMechanics : MonoBehaviour
 
     #endregion
 
-
     #region Whirlwind 
 
     [Header("Whirlwind Ability")]
@@ -254,8 +261,6 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private float timerSpeedBoost;
 
 #endregion
-
-
 
     #region IKSystem
 
@@ -446,6 +451,34 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
+            #region Check Anim Status
+
+            currentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
+
+            currentAnimLength = currentClipInfo[0].clip.length;
+
+            animName = currentClipInfo[0].clip.name;
+
+            if (animName == "Male Attack 1" && actionAllowed|| animName == "Male Attack 2" && actionAllowed || animName == "Male Attack 3" && actionAllowed)
+            {
+                comboCount = 0;
+
+                Debug.Log("Animation System: comboCount reset by update");
+            }
+
+            #region Debug Log
+
+            if(animDebug)
+            {
+                Debug.Log("Animator System: Anim Name" + animName);
+
+                Debug.Log("Animator System: Anim Length" + currentAnimLength);
+            }
+
+            #endregion
+
+            #endregion
+
             #region Apply Gravity
 
             vSpeed -= gravity * Time.deltaTime;
@@ -611,6 +644,8 @@ public class CharacterMechanics : MonoBehaviour
         if(hit.gameObject.tag == "Floor")
         {
             isGrounded = true;
+
+            animator.SetBool("isGrounded", isGrounded);
             
             if(isJumping)
             {
@@ -952,27 +987,36 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        vSpeed = jumpSpeed;
-
-        animator.SetTrigger("Jump");
-
-        isGrounded = false;
-
-        isJumping = true;
-
-        actionAllowed = false;
-
-        #region Debug Log
-
-        if (jumpDebug)
+        if (isGrounded)
         {
-            Debug.Log("jump power: " + vSpeed);
-         
-            Debug.Log("isGrounded = " + isGrounded);
 
-            Debug.Log("isJumping = " + isJumping);
+            comboCount = 0;
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            vSpeed = jumpSpeed;
+
+            animator.SetTrigger("Jump");
+
+            isGrounded = false;
+
+            animator.SetBool("isGrounded", isGrounded);
+
+            isJumping = true;
+
+            actionAllowed = false;
+
+            #region Debug Log
+
+            if (jumpDebug)
+            {
+                Debug.Log("jump power: " + vSpeed);
+
+                Debug.Log("isGrounded = " + isGrounded);
+
+                Debug.Log("isJumping = " + isJumping);
+
+                Debug.Log("actionAllowed = " + actionAllowed);
+            }
+
         }
 
         #endregion
@@ -1711,15 +1755,15 @@ public class CharacterMechanics : MonoBehaviour
         //sends message to the players sword script to stop dealing damage on collision
         sword.SendMessage("deactivateAttack");
 
-        if (animator.GetInteger("Counter") == comboCount)
-        {
-            //Debug.Log(comboCount);
+        //if (animator.GetInteger("Counter") == comboCount)
+        //{
+        //    //Debug.Log(comboCount);
 
-            //comboCount = 0;
+        //    //comboCount = 0;
 
-            isInCombo = false;
-            //animator.SetInteger("Counter", comboCount);
-        }
+        //    isInCombo = false;
+        //    //animator.SetInteger("Counter", comboCount);
+        //}
 
         //if (inputBuffer.Count > 0)
         //{
@@ -1748,6 +1792,7 @@ public class CharacterMechanics : MonoBehaviour
         //}
 
         actionAllowed = true;
+
 
         #region Debug Log
 
@@ -1836,6 +1881,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        comboCount = 0;
+
         dashTemp = Instantiate(dashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
 
         animator.SetTrigger("dash");
@@ -1887,6 +1934,12 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        comboCount = 0;
+
+        animator.SetTrigger("Spin");
+
+        whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.rotation, gameObject.transform);
     }
 
     private void whirlwindEnd()
@@ -1901,6 +1954,8 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        Destroy(whirlwindTemp);
     }
 
     private void ranged()
