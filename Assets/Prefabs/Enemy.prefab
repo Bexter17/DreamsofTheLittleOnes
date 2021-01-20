@@ -207,14 +207,19 @@ MonoBehaviour:
   death: 0
   enemyMovement: 3
   enemyRunMultiplier: 2
+  punchRange: 0
   chaseRange: 50
-  attackRange: 4
+  attackRange: 4.5
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 0
-  rotationSpeed: 0
-  circlePoints: []
-  number: 0
+  rotationSpeed: 3
+  circlePoints:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  number: 2
   circleDist: 0.5
 --- !u!1 &86342637511897463
 GameObject:

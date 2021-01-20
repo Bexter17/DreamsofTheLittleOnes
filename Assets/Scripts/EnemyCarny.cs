@@ -45,6 +45,7 @@ public class EnemyCarny : MonoBehaviour
     [SerializeField] int enemyRunMultiplier;
 
     // The distance the enemy will begin to chase player
+    public float punchRange;
     public float chaseRange;
     public float attackRange;
 
@@ -62,7 +63,7 @@ public class EnemyCarny : MonoBehaviour
     // Start is called before the first frame update
     #endregion
     #region EncircleVariables
-    public Vector3[] circlePoints;
+    [SerializeField] GameObject[] circlePoints;
     public int number;
     [SerializeField] float circleDist;
     #endregion
@@ -95,6 +96,10 @@ public class EnemyCarny : MonoBehaviour
         {
             enemyMovement = 3f;
         }
+        if (punchRange <= 0)
+        {
+            punchRange = 2;
+        }
         if (chaseRange <= 0)
         {
             chaseRange = 5f;
@@ -112,10 +117,14 @@ public class EnemyCarny : MonoBehaviour
             enemyRunMultiplier = 4;
         }
         Patrol();
-
-        // circle points 4 different points around the player where the enemies will go to attack
-        circlePoints = new Vector3[4];
         #endregion
+
+        circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
+        circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
+        circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
+        circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
+        // circle points 4 different points around the player where the enemies will go to attack
+        //circlePoints = new Vector3[4];
     }
 
     // Update is called once per frame
@@ -155,14 +164,18 @@ public class EnemyCarny : MonoBehaviour
             //if (myEnemy == EnemyState.Attack)
             //    targetPosition.x -= 100;
 
-                // If enemy within attackrange stop moving and attack
-                // If enemy within chaserange chase player
-                // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            // If enemy within attackrange stop moving and attack
+            // If enemy within chaserange chase player
+            // else go back to patrol route
+            if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
             {
                 agent.isStopped = true;
-                myEnemy = EnemyState.Attack;
                 eAnim.SetTrigger("isPunching");
+            }
+                else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            {
+                agent.SetDestination(target.transform.position);
+                myEnemy = EnemyState.Attack;
             }
             else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
@@ -251,8 +264,8 @@ public class EnemyCarny : MonoBehaviour
         myEnemy = EnemyState.Chase;
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
-        UpdateCirclePoints();
-        agent.SetDestination(circlePoints[number]);
+        //UpdateCirclePoints();
+        agent.SetDestination(circlePoints[number].transform.position);
     }
 
     // Calls Chase() for all enemies
@@ -324,9 +337,9 @@ public class EnemyCarny : MonoBehaviour
 
     private void UpdateCirclePoints()
     {
-        circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
-        circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
-        circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
-        circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
+        //circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
+        //circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
+        //circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
+        //circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
     }
 }
