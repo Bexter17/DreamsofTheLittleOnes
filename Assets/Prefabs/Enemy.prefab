@@ -208,10 +208,11 @@ MonoBehaviour:
   enemyMovement: 3
   enemyRunMultiplier: 2
   punchRange: 0
-  chaseRange: 50
+  chaseRange: 10
   attackRange: 4.5
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
+  patrolWait: 0
   dmgDealt: 0
   rotationSpeed: 3
   circlePoints:

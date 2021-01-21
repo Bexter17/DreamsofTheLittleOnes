@@ -59,6 +59,8 @@ public class EnemyCarny : MonoBehaviour
     public Transform waypoint1;
     public Transform waypoint2;
 
+    [SerializeField] float patrolWait;
+
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
 
@@ -120,6 +122,10 @@ public class EnemyCarny : MonoBehaviour
         if (enemyRunMultiplier <= 0)
         {
             enemyRunMultiplier = 4;
+        }
+        if (patrolWait <= 0)
+        {
+            patrolWait = 3;
         }
         Patrol();
         #endregion
@@ -312,13 +318,26 @@ public class EnemyCarny : MonoBehaviour
             if (other.CompareTag("WayPoint1"))
             {
                 //Debug.Log("Waypoint");
-                agent.SetDestination(waypoint2.position);
+                eAnim.SetTrigger("IsIdle");
+                Invoke("PatrolWaitOne", patrolWait);
             }
             else if (other.CompareTag("WayPoint2"))
             {
-                agent.SetDestination(waypoint1.position);
+                eAnim.SetTrigger("IsIdle");
+                Invoke("PatrolWaitTwo", patrolWait);
             }
         }
+    }
+
+    private void PatrolWaitOne()
+    {
+        agent.SetDestination(waypoint2.position);
+        eAnim.ResetTrigger("IsIdle");
+    }
+    private void PatrolWaitTwo()
+    {
+        agent.SetDestination(waypoint1.position);
+        eAnim.ResetTrigger("IsIdle");
     }
     #endregion
     //Sets enemy to walking animation if player leaves collision
