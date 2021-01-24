@@ -10,7 +10,6 @@ public class EnemyCarny : MonoBehaviour
 {
     #region Variables
     //Connect EnemyAI1 script with EnemyCombat script
-    EnemyAI1 EnemyAI1Script;
 
     [SerializeField] int hp = 5;
     private int maxHP;
@@ -72,7 +71,6 @@ public class EnemyCarny : MonoBehaviour
     #endregion
     void Start()
     {
-        EnemyAI1Script = gameObject.GetComponent<EnemyAI1>();
 
         rb = GetComponent<Rigidbody>();
 
