@@ -9,7 +9,6 @@ using UnityEngine.AI;
 public class EnemyCarny : MonoBehaviour
 {
     #region Variables
-    //Connect EnemyAI1 script with EnemyCombat script
 
     [SerializeField] int hp = 5;
     private int maxHP;
@@ -66,8 +65,11 @@ public class EnemyCarny : MonoBehaviour
     #endregion
     #region EncircleVariables
     [SerializeField] GameObject[] circlePoints;
-    public int number;
+    private int encircleNum;
     [SerializeField] float circleDist;
+    private bool onStack = false;
+    EnemyStack stackTracker;
+    
     #endregion
     void Start()
     {
@@ -128,6 +130,8 @@ public class EnemyCarny : MonoBehaviour
         circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
         // circle points 4 different points around the player where the enemies will go to attack
         //circlePoints = new Vector3[4];
+
+        stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
     }
 
     // Update is called once per frame
@@ -177,8 +181,15 @@ public class EnemyCarny : MonoBehaviour
             }
                 else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
             {
-                agent.SetDestination(target.transform.position);
-                myEnemy = EnemyState.Attack;
+                if (!onStack)
+                {
+                    encircleNum = stackTracker.AddStack(gameObject);
+                    onStack = true;
+                }
+                else {
+                    agent.SetDestination(target.transform.position);
+                    myEnemy = EnemyState.Attack;
+                }
             }
             else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
@@ -268,7 +279,15 @@ public class EnemyCarny : MonoBehaviour
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
-        agent.SetDestination(circlePoints[number].transform.position);
+        if (encircleNum == 5)
+        {
+            //Idle
+        }
+        else
+        {
+            agent.SetDestination(circlePoints[encircleNum].transform.position);
+        }
+
     }
 
     // Calls Chase() for all enemies
