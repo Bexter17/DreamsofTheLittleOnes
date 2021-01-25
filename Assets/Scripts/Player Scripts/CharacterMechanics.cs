@@ -130,7 +130,9 @@ public class CharacterMechanics : MonoBehaviour
 
     //Determines how fast the character moves
     //[SerializeField] private 
-    public float speed;
+    [SerializeField] private float movementSpeed;
+
+    [SerializeField] private float currentSpeed; 
 
     //Variable for how high the character will jump
     [SerializeField ] private float jumpSpeed;
@@ -263,6 +265,10 @@ public class CharacterMechanics : MonoBehaviour
     #region Pickup System
 
     [Header("Pick up System")]
+
+    //Variable to track how much health the health pickup heals
+    [SerializeField] private int healthBoost;
+
     //Tracks if GodMode is Active
     [SerializeField] private bool isGodMode;
 
@@ -368,9 +374,9 @@ public class CharacterMechanics : MonoBehaviour
 
             //Sets variables to a default value incase not set in Unity inspector
 
-            if (speed <= 0)
+            if (movementSpeed <= 0)
             {
-                speed = 6.0f;
+                movementSpeed = 6.0f;
             }
 
             if (jumpSpeed <= 0)
@@ -440,9 +446,13 @@ public class CharacterMechanics : MonoBehaviour
 
                 #endregion
 
-                animator.SetTrigger("Die");
-
                 isAlive = false;
+
+                actionAllowed = false;
+
+                comboCount = 0;
+
+                animator.SetTrigger("Die");
             }
 
             #endregion
@@ -474,14 +484,17 @@ public class CharacterMechanics : MonoBehaviour
             //Character rotation
             transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
 
+            //track any applied speed boosts
+            currentSpeed = movementSpeed + speedBoost;
+
             //Character movement
             Vector3 forward = transform.TransformDirection(Vector3.forward);
 
             //Movement speed
-            float curSpeed = Input.GetAxis("Vertical") * speed;
+            float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
 
             //Character controller movement
-            controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * speed));
+            controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
 
             #endregion
 
@@ -497,7 +510,7 @@ public class CharacterMechanics : MonoBehaviour
 
             currentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
 
-            currentAnimLength = currentClipInfo[0].clip.length;
+            //currentAnimLength = currentClipInfo[0].clip.length;
 
             animName = currentClipInfo[0].clip.name;
 
@@ -539,7 +552,28 @@ public class CharacterMechanics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        if(enableFeetIK == false)
+        #region Speed Pickup Timer Check
+
+        if (timerSpeedBoost > 0)
+        {
+            timerSpeedBoost--;
+        }
+
+        else if (timerSpeedBoost < 0)
+        {
+            timerSpeedBoost = 0;
+        }
+
+        if (timerSpeedBoost == 0)
+        {
+            speedBoost = 0;
+        }
+
+        #endregion
+
+        #region IK System Check
+
+        if (enableFeetIK == false)
         {
             return;
         }
@@ -557,6 +591,7 @@ public class CharacterMechanics : MonoBehaviour
 
         feetPositionSolver(leftFootPos, ref leftFootIKPos, ref leftFootIKRot); //Handles the solver for the left foot
 
+        #endregion
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -713,42 +748,78 @@ public class CharacterMechanics : MonoBehaviour
     {
         #region Pickups
 
-        if (c.gameObject.tag == "Teleport Potion")
+        //if (c.gameObject.tag == "Teleport Potion")
+        //{
+        //    //speed *= speedBoost;
+        //    Destroy(c.gameObject);
+        //  //  Debug.Log("Drank Teleportation Potion");
+        //    StartCoroutine(stopSpeedBoost());
+        //}
+
+        //if (c.gameObject.tag == "Jump Boost")
+        //{
+        //    jumpSpeed += jumpBoost;
+        //    Destroy(c.gameObject);
+        //   // Debug.Log("Jump Boost Applied");
+        //    StartCoroutine(stopJumpBoost());
+        //}
+
+        //if (c.gameObject.tag == "GodMode Pickup")
+        //{
+        //    isGodMode = true;
+
+        //    GetComponentInChildren<Renderer>().material.color = Color.blue;
+
+        //    Destroy(c.gameObject);
+
+        //    StartCoroutine(stopGodmode());
+        //}
+
+        if (c.gameObject.tag == "Speed Pickup")
         {
-            speed *= speedBoost;
+            //speed *= speedBoost;
             Destroy(c.gameObject);
-          //  Debug.Log("Drank Teleportation Potion");
-            StartCoroutine(stopSpeedBoost());
+            // Debug.Log("Speed Boost Applied");
+            //StartCoroutine(stopSpeedBoost());
+            pickupSpeed();
         }
 
-        if (c.gameObject.tag == "Jump Boost")
+        if (c.gameObject.tag == "Health Pickup")
         {
-            jumpSpeed += jumpBoost;
             Destroy(c.gameObject);
-           // Debug.Log("Jump Boost Applied");
-            StartCoroutine(stopJumpBoost());
+          
+            pickupHealth();
         }
 
-        if (c.gameObject.tag == "GodMode Pickup")
+        if (c.gameObject.tag == "Max Health Pickup")
         {
-            isGodMode = true;
-
-            GetComponentInChildren<Renderer>().material.color = Color.blue;
-
             Destroy(c.gameObject);
 
-            StartCoroutine(stopGodmode());
-        }
-
-        if (c.gameObject.tag == "Speed Boost")
-        {
-            speed *= speedBoost;
-            Destroy(c.gameObject);
-           // Debug.Log("Speed Boost Applied");
-            StartCoroutine(stopSpeedBoost());
+            pickupMaxHealth();
         }
 
         #endregion
+    }
+
+    #endregion
+
+    #region Pickup Functions
+
+    private void pickupHealth()
+    {
+        currentHealth += healthBoost;
+    }
+
+    private void pickupMaxHealth()
+    {
+        currentHealth = maxHealth;
+    }
+
+    private void pickupSpeed()
+    {
+        speedBoost = 4;
+
+        timerSpeedBoost = 10;
     }
 
     #endregion
@@ -775,7 +846,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         yield return new WaitForSeconds(timerSpeedBoost);
 
-        speed -= speedBoost;
+   //     speed -= speedBoost;
     }
 
     #endregion
@@ -2002,10 +2073,11 @@ public class CharacterMechanics : MonoBehaviour
             Debug.Log("ranged() has been called");
         }
 
-        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-
         #endregion
+
+        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
     }
 
     #endregion
@@ -2015,15 +2087,29 @@ public class CharacterMechanics : MonoBehaviour
     public void die()
     {
         Lives--;
-
-       gameObject.transform.position = respawnPoint.transform.position;
         
-        isAlive = true;
-        
-        if (Lives == 0)
+        if (Lives <= 0)
         {
             SceneManager.LoadScene("EndScene");
         }
+
+        else
+        {
+            gameObject.transform.position = respawnPoint.transform.position;
+
+            animator.SetTrigger("Respawn");
+        }
+    }
+
+    private void respawn()
+    {
+        currentHealth = maxHealth;
+
+        isAlive = true;
+
+        actionAllowed = true;
+
+        comboCount = 0;
     }
 
     #endregion

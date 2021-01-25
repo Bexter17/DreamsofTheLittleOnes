@@ -3481,6 +3481,7 @@ Transform:
   - {fileID: 5569241192695624106}
   - {fileID: 5569241193991019072}
   - {fileID: 5569241193833624288}
+  - {fileID: 936549532401749641}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 389.372, z: 0}
@@ -3584,6 +3585,7 @@ MonoBehaviour:
   hammerDebug: 0
   whirlwindDebug: 0
   animDebug: 1
+  HealthBar: {fileID: 0}
   healthBar: {fileID: 2778099231981181032, guid: b3aec9d629df5944696f9dba201bc3d8, type: 3}
   currentHealth: 5
   maxHealth: 50
@@ -3597,6 +3599,7 @@ MonoBehaviour:
   isBusy: 0
   isGrounded: 1
   respawnPoint: {fileID: 0}
+  playerStats: {fileID: 0}
   attackRangePrefab: {fileID: 0}
   attackSpawn: {fileID: 0}
   attackTimer: 3
@@ -3607,6 +3610,8 @@ MonoBehaviour:
   whirlwindRangePrefab: {fileID: 2264208791280373277, guid: 22b042247f8faf64eadb1f375dec2489, type: 3}
   whirlwindSpawn: {fileID: 5569241193991019072}
   whirlwindDamage: 10
+  RangePrefab: {fileID: 0}
+  RangedSpawn: {fileID: 0}
   isGodMode: 0
   timerGodMode: 0
   jumpBoost: 0
@@ -4817,4 +4822,34 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5569241193994325804}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &8867646090398252309
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 936549532401749641}
+  m_Layer: 0
+  m_Name: Projectile Spawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &936549532401749641
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8867646090398252309}
+  m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
+  m_LocalPosition: {x: 0, y: 1.2, z: 0.5}
+  m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
+  m_Children: []
+  m_Father: {fileID: 5569241194072409854}
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}

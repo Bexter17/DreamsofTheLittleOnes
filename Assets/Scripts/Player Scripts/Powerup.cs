@@ -38,7 +38,7 @@ public class Powerup : MonoBehaviour
                 Destroy(gameObject);
                 break;
             case CollectibleType.SPEED:
-                instance.speed++;
+                //instance.speed++;
                 Destroy(gameObject);
                 break;
              case CollectibleType.MAXHEALTH:
