@@ -237,6 +237,17 @@ public class CharacterMechanics : MonoBehaviour
 
     #endregion
 
+    #region Ranged
+
+    [Header("Ranged Ability")]
+
+    [SerializeField] private GameObject RangePrefab;
+
+    [SerializeField] private Transform RangedSpawn;
+
+
+    #endregion
+
     #endregion
 
     #region Input Buffer System
@@ -1990,6 +2001,9 @@ public class CharacterMechanics : MonoBehaviour
         {
             Debug.Log("ranged() has been called");
         }
+
+        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
 
         #endregion
     }
