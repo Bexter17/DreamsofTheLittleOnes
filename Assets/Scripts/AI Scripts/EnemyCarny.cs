@@ -137,19 +137,6 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Detect when there is no HP to kill enemy and play death animation
-        if (hp <= 0)
-        {
-            death = true;
-            Debug.Log("Enemy has been killed");
-            enemyMovement = 0;
-            AgentStop();
-            // so that enemy doesn't move after dying
-            //eAnim.SetTrigger("IsPunching");
-            eAnim.SetBool("IsDying", true);
-            eAnim.SetTrigger("IsDead");
-            Destroy(gameObject, 4);
-        }
         //Sets hp text to change based on players perspective
         //So it's not backwards to the player
         //Vector3 textDirection = transform.position - target.transform.position;
@@ -228,6 +215,16 @@ public class EnemyCarny : MonoBehaviour
         if (hp <= 0)
         {
             death = true;
+            Debug.Log("Enemy has been killed");
+            enemyMovement = 0;
+            rotationSpeed = 0;
+            AgentStop();
+            // so that enemy doesn't move after dying
+            //eAnim.SetTrigger("IsPunching");
+            eAnim.SetBool("IsDying", true);
+            eAnim.SetTrigger("IsDead");
+            Destroy(gameObject, 4);
+
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
