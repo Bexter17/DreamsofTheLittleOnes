@@ -221,7 +221,15 @@ public class CharacterMechanics : MonoBehaviour
 
     [Header("Hammer Smash Ability")]
 
+    [SerializeField] private GameObject hammerSmashPrefab;
 
+    [SerializeField] private Transform hammerSmashSpawn;
+
+    [SerializeField] private int hammerSmashDamage;
+
+    private GameObject hammerSmashTemp;
+
+    Quaternion H_rotation = Quaternion.Euler(90f, 40f, 90f);
 
     #endregion
 
@@ -2024,6 +2032,13 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        comboCount = 0;
+
+        animator.SetTrigger("HammerSmash");
+
+        hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, H_rotation, gameObject.transform);
+        Destroy(hammerSmashTemp, 4);
     }
 
     private void whirlwind()

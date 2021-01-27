@@ -263,6 +263,13 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
+        if (collision.gameObject.CompareTag("HammerSmashAOE"))
+        {
+            rb.velocity = Vector3.zero;
+            agent.isStopped = true;
+            //Stop attacking
+            AgentStop();
+        }
     }
 
     #region init States

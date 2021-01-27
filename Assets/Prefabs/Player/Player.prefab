@@ -3093,7 +3093,8 @@ Transform:
   m_LocalRotation: {x: -0, y: 0.7071068, z: -0, w: -0.7071068}
   m_LocalPosition: {x: 0, y: 1, z: 0}
   m_LocalScale: {x: 1.01, y: 1.01, z: 1.01}
-  m_Children: []
+  m_Children:
+  - {fileID: 7912307640733443988}
   m_Father: {fileID: 5569241194072409854}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -3590,7 +3591,8 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 50
   Lives: 1
-  speed: 0
+  movementSpeed: 0
+  currentSpeed: 0
   jumpSpeed: 0
   rotationSpeed: 2
   gravity: 0
@@ -3607,11 +3609,15 @@ MonoBehaviour:
   dashSpawn: {fileID: 5569241193991019072}
   dashDamage: 1
   dashSpeed: 500
+  hammerSmashPrefab: {fileID: 3399353032465245422, guid: 3bba464e5124fc34ca30b169a41fc997, type: 3}
+  hammerSmashSpawn: {fileID: 7912307640733443988}
+  hammerSmashDamage: 5
   whirlwindRangePrefab: {fileID: 2264208791280373277, guid: 22b042247f8faf64eadb1f375dec2489, type: 3}
   whirlwindSpawn: {fileID: 5569241193991019072}
   whirlwindDamage: 10
   RangePrefab: {fileID: 0}
   RangedSpawn: {fileID: 0}
+  healthBoost: 0
   isGodMode: 0
   timerGodMode: 0
   jumpBoost: 0
@@ -4822,6 +4828,36 @@ Transform:
   m_Children: []
   m_Father: {fileID: 5569241193994325804}
   m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &6300707668775809807
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7912307640733443988}
+  m_Layer: 0
+  m_Name: HammerSmashAoeSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7912307640733443988
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6300707668775809807}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0.14, y: -0.891, z: -0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 5569241193991019072}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8867646090398252309
 GameObject:
