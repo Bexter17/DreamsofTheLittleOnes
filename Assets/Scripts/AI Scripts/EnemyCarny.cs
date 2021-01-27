@@ -280,11 +280,16 @@ public class EnemyCarny : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "HammerSmashAOE")
+        {
+            #region Debug Log
+            Debug.Log("Enemy has been hit by hammer smash!");
+            #endregion
             //Give enemies back their speed after hammer smash AOE
             enemyMovement += 2;
+        }
     }
 
     #region init States
