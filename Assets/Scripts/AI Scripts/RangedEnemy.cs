@@ -1,12 +1,10 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using TMPro;
 using UnityEngine.UI;
 using UnityEngine.AI;
 
-//Combat Script
-public class EnemyCarny : MonoBehaviour
+public class RangedEnemy : MonoBehaviour
 {
     #region Variables
 
@@ -14,6 +12,10 @@ public class EnemyCarny : MonoBehaviour
     private int maxHP;
     public Rigidbody rb;
     public Transform target;
+    [SerializeField] Rigidbody projectilePrefab;
+    [SerializeField] Transform projectileSpawnPoint;
+    [SerializeField] float attackTimer = 0;
+    [SerializeField] float callingRange;
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockHeightModifier;
     [SerializeField] float knockDuration;
@@ -30,7 +32,6 @@ public class EnemyCarny : MonoBehaviour
 
     //used to track the player for giveDamage function 
     private GameObject Player;
-
     [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack };
     EnemyState myEnemy;
     // The player that the enemy will chase
@@ -46,7 +47,6 @@ public class EnemyCarny : MonoBehaviour
     [SerializeField] int enemyRunMultiplier;
 
     // The distance the enemy will begin to chase player
-    public float punchRange;
     public float chaseRange;
     public float attackRange;
 
@@ -58,23 +58,15 @@ public class EnemyCarny : MonoBehaviour
     public Transform waypoint1;
     public Transform waypoint2;
 
-    // Amount of damage done by enemy to player
-    public int dmgDealt = 2;
 
     public float rotationSpeed;
+    #endregion
+
+
+
     // Start is called before the first frame update
-    #endregion
-    #region EncircleVariables
-    [SerializeField] GameObject[] circlePoints;
-    private int encircleNum;
-    [SerializeField] float circleDist;
-    private bool onStack = false;
-    EnemyStack stackTracker;
-    
-    #endregion
     void Start()
     {
-
         rb = GetComponent<Rigidbody>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -102,10 +94,6 @@ public class EnemyCarny : MonoBehaviour
         {
             enemyMovement = 3f;
         }
-        if (punchRange <= 0)
-        {
-            punchRange = 2;
-        }
         if (chaseRange <= 0)
         {
             chaseRange = 5f;
@@ -114,41 +102,26 @@ public class EnemyCarny : MonoBehaviour
         {
             attackRange = 3f;
         }
-        if (dmgDealt <= 0)
-        {
-            dmgDealt = 1;
-        }
         if (enemyRunMultiplier <= 0)
         {
             enemyRunMultiplier = 4;
         }
+        if (callingRange <= 0)
+        {
+            callingRange = 10f;
+        }
         Patrol();
         #endregion
-
-        circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
-        circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
-        circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
-        circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
-        // circle points 4 different points around the player where the enemies will go to attack
-        //circlePoints = new Vector3[4];
-
-        stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
     }
 
     // Update is called once per frame
     void Update()
     {
-        //Sets hp text to change based on players perspective
-        //So it's not backwards to the player
-        //Vector3 textDirection = transform.position - target.transform.position;
-
-        //Used for testing enemy death
         if (Input.GetKeyDown("t"))
         {
             Debug.Log("Enemy has lost 1 hp");
             takeDamage(1);
         }
-
         #region AI States
         if (agent.enabled)
         {
@@ -161,29 +134,32 @@ public class EnemyCarny : MonoBehaviour
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
+            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
             {
                 agent.isStopped = true;
-                eAnim.SetTrigger("isPunching");
-            }
-                else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
-            {
-                if (!onStack)
+                myEnemy = EnemyState.Attack;
+                if (Time.time - attackTimer > 2.0f)
                 {
-                    encircleNum = stackTracker.AddStack(gameObject);
-                    onStack = true;
-                }
-                else {
-                    agent.SetDestination(target.transform.position);
-                    myEnemy = EnemyState.Attack;
+                    eAnim.SetTrigger("isPunching");
+                    attackTimer = Time.time;
+                    if (projectilePrefab)
+                    {
+                        transform.LookAt(Player.transform.position);
+                        Rigidbody rb = Instantiate(projectilePrefab,
+                            projectileSpawnPoint.position,
+                            projectileSpawnPoint.rotation) as Rigidbody;
+
+                        rb.AddForce(transform.forward * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);
+                    }
                 }
             }
             else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
                 Chase();
+                LookingForAllies();
                 agent.isStopped = false;
                 myEnemy = EnemyState.Chase;
-                if(Vector3.Distance(target.position, gameObject.transform.position) < chaseRange - (enemyMovement*enemyRunMultiplier*0.5))
+                if(Vector3.Distance(target.position, gameObject.transform.position) < chaseRange - (enemyMovement * enemyRunMultiplier * 0.5))
                 {
                     getCalled = false;
                 }
@@ -194,10 +170,10 @@ public class EnemyCarny : MonoBehaviour
                 agent.isStopped = false;
                 myEnemy = EnemyState.Patrol;
             }
-                Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
-                float str = rotationSpeed * Time.deltaTime;
-                transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
-                //transform.LookAt(targetPosition);
+            Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+            float str = rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+            //transform.LookAt(targetPosition);
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
@@ -276,7 +252,6 @@ public class EnemyCarny : MonoBehaviour
             AgentStop();
         }
     }
-
     #region init States
     public void Chase()
     {
@@ -287,20 +262,7 @@ public class EnemyCarny : MonoBehaviour
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
-        if (encircleNum == 5)
-        {
-            //Idle
-        }
-        else
-        {
-            agent.SetDestination(circlePoints[encircleNum].transform.position);
-        }
-
-    }
-    public void Called()
-    {
-        getCalled = true;
-        Chase();
+        agent.SetDestination(Player.transform.position);
     }
 
     // Calls Chase() for all enemies
@@ -327,13 +289,25 @@ public class EnemyCarny : MonoBehaviour
             isPatrolling = true;
         }
     }
+    private void LookingForAllies()
+    {
+        GameObject[] Enemies = GameObject.FindGameObjectsWithTag("Enemy");
+        for(int i = 0; i < Enemies.Length; i++)
+        {
+            if(Enemies[i] != gameObject)
+            {
+                if(Vector3.Distance(Enemies[i].transform.position,gameObject.transform.position) < callingRange)
+                {
+                    Enemies[i].GetComponent<EnemyCarny>().Called();
+                    Debug.Log("calling1");
+                }
+            }
+        }
+    }
 
     // Used for enemy animations and patrolling between waypoints
     private void OnTriggerEnter(Collider other)
     {
-        // Plays punching animation when player enters collision
-        //if (other.CompareTag("Player"))
-        //    eAnim.SetTrigger("isPunching");
 
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
@@ -351,35 +325,4 @@ public class EnemyCarny : MonoBehaviour
         }
     }
     #endregion
-    //Sets enemy to walking animation if player leaves collision
-    private void OnTriggerExit(Collider other)
-    {
-        // eAnim.ResetTrigger("isPunching");
-    }
-
-
-
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (!isPatrolling)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                //Debug.Log("Player Hit");
-            }
-        }
-    }*/
-
-    private void UpdateCirclePoints()
-    {
-        //circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
-        //circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
-        //circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
-        //circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
-    }
-
-    private void giveDamage()
-    {
-        Player.SendMessage("takeDamage", dmgDealt);
-    }
 }
