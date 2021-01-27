@@ -39,12 +39,12 @@ public class HammerGame : MonoBehaviour
         }
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void OnTriggerEnter(Collider other)
     {
-        isHit = true;
-        Debug.Log("Trigger has been hit!");
+        //isHit = true;
+       // Debug.Log("Trigger has been hit!");
         //Check if player has used the hammer smash to play game
-        if (other.gameObject.CompareTag("HammerSmashAOE")) {
+        if (other.gameObject.tag == "HammerSmashAOE") {
             Debug.Log("Box is heading to bell");
             #region Debug Log
             Debug.Log("Hit Hammer Game with hammer smashAOE!");
