@@ -244,12 +244,27 @@ public class RangedEnemy : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.CompareTag("HammerSmashAOE"))
+        if (collision.gameObject.tag=="HammerSmashAOE")
         {
+            #region Debug Log
+            Debug.Log("Ranged enemy has been hit by hammer smash!");
+            #endregion
             rb.velocity = Vector3.zero;
             agent.isStopped = true;
             //Stop attacking
             AgentStop();
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "HammerSmashAOE")
+        {
+            #region Debug Log
+            Debug.Log("Ranged enemy has regained it's speed!");
+            #endregion
+            //Give enemies back their speed after hammer smash AOE
+            enemyMovement += 2;
         }
     }
     #region init States

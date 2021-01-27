@@ -268,13 +268,23 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.CompareTag("HammerSmashAOE"))
+        if (collision.gameObject.tag=="HammerSmashAOE")
         {
-            rb.velocity = Vector3.zero;
-            agent.isStopped = true;
+            #region Debug Log
+            Debug.Log("Enemy has been hit by hammer smash!");
+            #endregion
+            //Slow down enemies in contact with hammer smash AOE 
+            enemyMovement -= 2;
             //Stop attacking
             AgentStop();
         }
+    }
+
+    private void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "HammerSmashAOE")
+            //Give enemies back their speed after hammer smash AOE
+            enemyMovement += 2;
     }
 
     #region init States

@@ -178,6 +178,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy
       objectReference: {fileID: 0}
+    - target: {fileID: 942041078614954, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.x
       value: 30.613602
@@ -247,6 +251,10 @@ PrefabInstance:
     - target: {fileID: 942041078614933, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_Name
       value: Enemy
+      objectReference: {fileID: 0}
+    - target: {fileID: 942041078614954, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.x
@@ -1772,6 +1780,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Enemy (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 942041078614954, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 942041078614955, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: waypoint1
       value: 
@@ -2583,6 +2595,10 @@ PrefabInstance:
     - target: {fileID: 942041078614933, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_Name
       value: Enemy (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 942041078614954, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
+      propertyPath: m_IsTrigger
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.x

@@ -229,7 +229,8 @@ public class CharacterMechanics : MonoBehaviour
 
     private GameObject hammerSmashTemp;
 
-    Quaternion H_rotation = Quaternion.Euler(90f, 40f, 90f);
+    //Original Quaternion.Euler(90f, 40f, 90f);  Testing for new correct rotation
+    Quaternion H_rotation = Quaternion.Euler(90f, 0f, 0f);
 
     #endregion
 
