@@ -2038,8 +2038,8 @@ public class CharacterMechanics : MonoBehaviour
 
         animator.SetTrigger("HammerSmash");
 
-        hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, H_rotation, gameObject.transform);
-        Destroy(hammerSmashTemp, 4);
+        hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+        Destroy(hammerSmashTemp, 2);
     }
 
     private void whirlwind()
