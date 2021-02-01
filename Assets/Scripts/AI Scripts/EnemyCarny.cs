@@ -31,11 +31,30 @@ public class EnemyCarny : MonoBehaviour
     //used to track the player for giveDamage function 
     private GameObject Player;
 
-    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack };
+    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun };
     EnemyState myEnemy;
     // The player that the enemy will chase
     //public Vector3 initialPos;
     //bool isInitPos = true;
+
+    //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
+    //Had to use IEnumerator because I couldn't get yield return new WaitForSeconds() to work anywhere else in script. Would like to 
+    //plug this into an official state as you can see I have inerted Stun into the enemyState and began the other necessary fields.
+    IEnumerator Stun()
+    {
+        Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
+        //Stop enemy movement
+        enemyMovement = 0;
+        //Stop enemy attack
+        agent.isStopped = true;
+        AgentStop();
+        //WAIT for AOE
+        yield return new WaitForSeconds(6);
+        //Return enemy movement and attack to normal
+        AgentStart();
+        enemyMovement = 5;
+    }
+
 
     //Animations
     Animator eAnim;
@@ -209,6 +228,10 @@ public class EnemyCarny : MonoBehaviour
                 agent.speed = enemyRunMultiplier * enemyMovement;
                 Debug.Log("Run");
             }
+            //else if (myEnemy == EnemyState.Stun)
+            //{
+                //Stun();
+            //}
         }
         #endregion
     }
@@ -260,6 +283,7 @@ public class EnemyCarny : MonoBehaviour
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -268,15 +292,18 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.tag=="HammerSmashAOE")
+        if (collision.gameObject.tag =="HammerSmashAOE")
         {
             #region Debug Log
             Debug.Log("Enemy has been hit by hammer smash!");
             #endregion
             //Slow down enemies in contact with hammer smash AOE 
-            enemyMovement -= 2;
-            //Stop attacking
-            AgentStop();
+            //enemyMovement = 0;
+            //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
+            //AgentStop();
+            //yield return new WaitForSeconds(5);
+            //enemyMovement = 5;
+            StartCoroutine(Stun());
         }
     }
 
@@ -285,10 +312,10 @@ public class EnemyCarny : MonoBehaviour
         if (collision.gameObject.tag == "HammerSmashAOE")
         {
             #region Debug Log
-            Debug.Log("Enemy has been hit by hammer smash!");
+            //Debug.Log("Enemy has been hit by hammer smash!");
             #endregion
             //Give enemies back their speed after hammer smash AOE
-            enemyMovement += 2;
+            //enemyMovement = 5;
         }
     }
 
@@ -365,14 +392,22 @@ public class EnemyCarny : MonoBehaviour
             }
         }
     }
+
+    //private void Stun()
+    //{
+        //myEnemy = EnemyState.Stun;
+        //enemyMovement = 0;
+        //yield return new WaitForSeconds(4);
+        //enemyMovement = 5;
+        //Chase();
+    //}
+
     #endregion
     //Sets enemy to walking animation if player leaves collision
     private void OnTriggerExit(Collider other)
     {
         // eAnim.ResetTrigger("isPunching");
     }
-
-
 
     /*private void OnCollisionEnter(Collision collision)
     {

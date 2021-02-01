@@ -38,6 +38,20 @@ public class RangedEnemy : MonoBehaviour
     //public Vector3 initialPos;
     //bool isInitPos = true;
 
+    IEnumerator Stun()
+    {
+        Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
+        //Stop enemy movement
+        enemyMovement = 0;
+        //Stop enemy attack
+        AgentStop();
+        //WAIT for AOE
+        yield return new WaitForSeconds(6);
+        //Return enemy movement and attack to normal
+        AgentStart();
+        enemyMovement = 5;
+    }
+
     //Animations
     Animator eAnim;
 
@@ -249,10 +263,12 @@ public class RangedEnemy : MonoBehaviour
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
             #endregion
+            StartCoroutine(Stun());
+            //enemyMovement = 1;
             rb.velocity = Vector3.zero;
-            agent.isStopped = true;
+            //agent.isStopped = true;
             //Stop attacking
-            AgentStop();
+            //AgentStop();
         }
     }
 
@@ -261,10 +277,10 @@ public class RangedEnemy : MonoBehaviour
         if (collision.gameObject.tag == "HammerSmashAOE")
         {
             #region Debug Log
-            Debug.Log("Ranged enemy has regained it's speed!");
+            //Debug.Log("Ranged enemy has regained it's speed!");
             #endregion
             //Give enemies back their speed after hammer smash AOE
-            enemyMovement += 2;
+            //enemyMovement = 5;
         }
     }
     #region init States
