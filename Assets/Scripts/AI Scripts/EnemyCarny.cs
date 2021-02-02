@@ -47,6 +47,10 @@ public class EnemyCarny : MonoBehaviour
         enemyMovement = 0;
         //Stop enemy attack
         agent.isStopped = true;
+        //Damage enemy
+        hp -= 2;
+        //takeDamage(1); - Had to change the hp variable alone because takeDamage was applying knockback.
+        //> There's a BUG where this method seems to stack effect and instant kill or send enemy flying.
         AgentStop();
         //WAIT for AOE
         yield return new WaitForSeconds(6);

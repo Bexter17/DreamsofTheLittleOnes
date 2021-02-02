@@ -45,6 +45,10 @@ public class RangedEnemy : MonoBehaviour
         enemyMovement = 0;
         //Stop enemy attack
         AgentStop();
+        //Damage Enemy - Had to change hp variable instead of takeDamage because it applies knockback when we want a stun effect
+        hp -= 2;
+        //takeDamage(1); 
+        //-> There's a BUG where this method seems to stack effect and instant kill or send enemy flying.
         //WAIT for AOE
         yield return new WaitForSeconds(6);
         //Return enemy movement and attack to normal
