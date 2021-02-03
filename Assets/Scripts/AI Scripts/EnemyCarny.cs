@@ -33,9 +33,8 @@ public class EnemyCarny : MonoBehaviour
 
     [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun };
     EnemyState myEnemy;
-    // The player that the enemy will chase
-    //public Vector3 initialPos;
-    //bool isInitPos = true;
+
+    [SerializeField] GameObject attackBoxRange;
 
     //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
     //Had to use IEnumerator because I couldn't get yield return new WaitForSeconds() to work anywhere else in script. Would like to 
@@ -72,6 +71,10 @@ public class EnemyCarny : MonoBehaviour
     public float punchRange;
     public float chaseRange;
     public float attackRange;
+
+    private int punches = 0;
+    private int punchCooldown = 100;
+    //Punches once for every 100 physics updates
 
     //bool isMoving = true;
     bool isPatrolling = false;
@@ -117,7 +120,6 @@ public class EnemyCarny : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
         agent = GetComponent<NavMeshAgent>();
-
         #region default values
 
         // Default values
@@ -184,12 +186,11 @@ public class EnemyCarny : MonoBehaviour
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
-            {
-                agent.isStopped = true;
-                eAnim.SetTrigger("isPunching");
-            }
-                else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            //if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
+            //{
+            //    eAnim.SetTrigger("isPunching");
+            //}
+                if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
             {
                 if (!onStack)
                 {
@@ -252,7 +253,6 @@ public class EnemyCarny : MonoBehaviour
             rotationSpeed = 0;
             AgentStop();
             // so that enemy doesn't move after dying
-            //eAnim.SetTrigger("IsPunching");
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
             Destroy(gameObject, 4);
@@ -269,7 +269,7 @@ public class EnemyCarny : MonoBehaviour
         rb.AddForce(-transform.forward * knockDistanceModifier);
         //rb.AddForce(transform.up * knockHeightModifier);
 
-        Debug.Log("Knockback");
+        //Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
@@ -320,6 +320,26 @@ public class EnemyCarny : MonoBehaviour
             #endregion
             //Give enemies back their speed after hammer smash AOE
             //enemyMovement = 5;
+        }
+    }
+    void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            punches++;
+            enemyMovement = 0;
+            if (punches % punchCooldown == 0)
+            {
+                eAnim.SetTrigger("isPunching");
+                Invoke("ResetMovement", 1);
+            }
+        }
+    }
+    private void OnTriggerExit(Collider othern)
+    {
+        if (othern.CompareTag("Player"))
+        {
+            punches = 0;
         }
     }
 
@@ -407,11 +427,6 @@ public class EnemyCarny : MonoBehaviour
     //}
 
     #endregion
-    //Sets enemy to walking animation if player leaves collision
-    private void OnTriggerExit(Collider other)
-    {
-        // eAnim.ResetTrigger("isPunching");
-    }
 
     /*private void OnCollisionEnter(Collision collision)
     {
@@ -430,6 +445,10 @@ public class EnemyCarny : MonoBehaviour
         //circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
         //circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
         //circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
+    }
+    private void ResetMovement()
+    {
+        enemyMovement = 3;
     }
 
     private void giveDamage()
