@@ -468,9 +468,7 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Update HUD
 
-            playerStats.text = "Lives: " + Lives;
-
-            healthBar.SetHealth(currentHealth);
+            updateHud();
 
             #endregion
 
@@ -561,25 +559,6 @@ public class CharacterMechanics : MonoBehaviour
 
     private void FixedUpdate()
     {
-        #region Speed Pickup Timer Check
-
-        if (timerSpeedBoost > 0)
-        {
-            timerSpeedBoost--;
-        }
-
-        else if (timerSpeedBoost < 0)
-        {
-            timerSpeedBoost = 0;
-        }
-
-        if (timerSpeedBoost == 0)
-        {
-            speedBoost = 0;
-        }
-
-        #endregion
-
         #region IK System Check
 
         if (enableFeetIK == false)
@@ -601,6 +580,15 @@ public class CharacterMechanics : MonoBehaviour
         feetPositionSolver(leftFootPos, ref leftFootIKPos, ref leftFootIKRot); //Handles the solver for the left foot
 
         #endregion
+    }
+
+    private void updateHud()
+    {
+        playerStats.text = "Lives: " + Lives;
+
+        healthBar.SetHealth(currentHealth);
+
+        healthBar.SetMaxHealth(maxHealth);
     }
 
     private void OnAnimatorIK(int layerIndex)
@@ -816,19 +804,21 @@ public class CharacterMechanics : MonoBehaviour
 
     private void pickupHealth()
     {
-        currentHealth += healthBoost;
+        currentHealth = maxHealth;
+
+        updateHud();
     }
 
     private void pickupMaxHealth()
     {
-        currentHealth = maxHealth;
+        maxHealth += 50;
+
+        updateHud();
     }
 
     private void pickupSpeed()
     {
-        speedBoost = 4;
-
-        timerSpeedBoost = 10;
+        speedBoost += 2;
     }
 
     #endregion
@@ -879,6 +869,7 @@ public class CharacterMechanics : MonoBehaviour
 
         animator.SetInteger("Counter", comboCount);
 
+        if(actionAllowed)
         animator.SetTrigger("Got Hit");
 
         currentHealth -= dmgDealt;
@@ -1140,587 +1131,6 @@ public class CharacterMechanics : MonoBehaviour
     #endregion
 
     #region Basic Attack 
-
-//    public void attack()
-//    {
-//        #region Debug Log
-
-//        if (combatDebug)
-//        {
-//            //Debug.Log(isBusy);
-
-//            Debug.Log("Attack has been pressed");
-
-//            Debug.Log("Combo System animName =" + animName);
-
-//            Debug.Log("Combo System: comboCount =" + comboCount);
-//        }
-
-//        #endregion
-
-//        //isBusy = true;
-
-//        //isInCombo = true;
-
-//        if (actionAllowed)
-//            actionAllowed = false;
-
-//        currentAttack = comboCount;
-
-//        CurrentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
-
-//        animName = CurrentClipInfo[0].clip.name;  
-
-//        switch (comboCount)
-//        {
-//            case 0:
-
-//                #region Debug Log
-
-//                if (comboDebug)
-//                {
-//                    Debug.Log("Combo System: case 0");
-//                }
-
-//                #endregion
-
-//                //if (animator.GetCurrentAnimatorStateInfo(0).IsName("Idle") || animator.GetCurrentAnimatorStateInfo(0).IsName("Run"))
-//                if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
-//                {
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Attack 1 Start");
-//                    }
-
-//                    #endregion
-
-//                    if (actionAllowed)
-//                        actionAllowed = false;
-
-//                    comboCount = 1;
-                    
-//                    animator.SetInteger("Counter", comboCount);
-                    
-//                    animator.SetTrigger("Attack");
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: animator set");
-                        
-//                        Debug.Log("Combo System: comboCount: " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                else if (animName != ("Idle") && animName != ("Run") && animName != ("Walk") && animName != ("Attack 1"))
-//                {
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Error in combo case 0");
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-//                    }
-
-//                    #endregion
-
-//                    comboCount = 0;
-
-//                    actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: comboCount reset to: " + comboCount);
-
-//                        Debug.Log("Combo System: actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                else if (animName == ("Attack 1"))
-//                {
-//                    comboCount = 1;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("Attack 2"))
-//                {
-//                    comboCount = 2;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion 
-
-//                    attack();
-//                }
-
-//                else if (animName == ("Attack 3"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                break;
-
-//            case 1:
-
-//                #region Debug Log
-
-//                if (comboDebug)
-//                {
-//                    Debug.Log("Combo System: case 1");
-//                }
-
-//                #endregion
-
-//                if (animName == ("Attack 1"))
-//                {
-//                    comboCount = 2;
-
-//                    animator.SetInteger("Counter", comboCount);
-
-//                    animator.SetTrigger("Attack");
-
-//                    if (actionAllowed)
-//                        actionAllowed = false;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: Animations set");
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("attack 2"))
-//                {
-//                    comboCount = 3;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("attack 3"))
-//                {
-//                    comboCount = 0;
-                    
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName != ("attack 1"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-                    
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.LogWarning("Error in combo case 1");
-
-//                        Debug.LogWarning("comboCount = " + comboCount);
-
-//                        Debug.LogWarning("Animation: " + animName);
-
-//                        //Debug.Log(animator.GetCurrentAnimatorStateInfo(0).nameHash);
-
-//                        Debug.LogWarning("comboCount resetting to 0");
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                break;
-
-//            case 2:
-
-//                #region Debug Log
-
-//                if (comboDebug)
-//                {
-//                    Debug.Log("Combo System: case 2");
-//                }
-
-//                #endregion
-
-//                if (animName == ("attack 2"))
-//                {
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("attack 3 start");
-//                    }
-
-//                    #endregion
-
-//                    if (actionAllowed)
-//                        actionAllowed = false;
-
-//                    comboCount = 3;
-                 
-//                    animator.SetInteger("Counter", comboCount);
-
-//                    animator.SetTrigger("attack");
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                }
-
-//                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                //else if (animName == ("attack 1"))
-//                //{
-//                //    comboCount = 1;
-//                //    Debug.LogWarning(comboCount);
-//                //    isBusy = false;
-//                //    attack();
-//                //}
-
-//                else if (animName == ("attack 3"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName != ("attack 2") && animName != ("attack 1"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                break;
-
-//            case 3:
-
-//                #region Debug Log
-
-//                if (comboDebug)
-//                {
-//                    Debug.Log("Combo System: case 3");
-//                }
-
-//                #endregion
-
-//                if (animName == ("attack 3"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("Idle") || animName == ("Run") || animName == ("Walk"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("attack 1"))
-//                {
-//                    comboCount = 1;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName == ("attack 2"))
-//                { 
-//                    comboCount = 2;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-
-//                    attack();
-//                }
-
-//                else if (animName != ("attack 3"))
-//                {
-//                    comboCount = 0;
-
-//                    if (!actionAllowed)
-//                        actionAllowed = true;
-
-//                    #region Debug Log
-
-//                    if (comboDebug)
-//                    {
-//                        Debug.Log("Combo System: Animation: " + animName);
-
-//                        Debug.Log("Combo System: comboCount = " + comboCount);
-
-//                        Debug.Log("actionAllowed = " + actionAllowed);
-//                    }
-
-//                    #endregion
-//                }
-
-//                break;
-//        }
-    
-
-////        else if (isBusy)
-////{
-////            Debug.Log("attack has been pressed, you are too busy to attack");
-
-////            if (comboCount != currentattack)
-////            {
-////                Debug.Log("attack Queued");
-////                queueAttack();
-////            }
-////        }
-//    }
     
     private void comboAttack1()
     {
