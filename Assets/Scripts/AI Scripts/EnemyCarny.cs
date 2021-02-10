@@ -71,6 +71,7 @@ public class EnemyCarny : MonoBehaviour
     public float punchRange;
     public float chaseRange;
     public float attackRange;
+    private float checkStackRange = 6;
 
 
     //bool isMoving = true;
@@ -189,18 +190,29 @@ public class EnemyCarny : MonoBehaviour
             {
                 eAnim.SetBool("isAttacking", false);
             }
-            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            if (onStack)
             {
-
+                ResetMovement();
+                agent.SetDestination(target.transform.position);
+                myEnemy = EnemyState.Attack;
+            }
+            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
+            {
                 if (!onStack)
                 {
-                    encircleNum = stackTracker.AddStack(gameObject);
-                    onStack = true;
+                    int stackNum = stackTracker.AddStack(gameObject);
+                    if (stackNum == 5)
+                    {
+                        onStack = false;
+                    }
+                    else
+                    {
+                        encircleNum = stackNum;
+                        onStack = true;
+                    }
+                    enemyMovement = 0;
                 }
-                else {
-                    agent.SetDestination(target.transform.position);
-                    myEnemy = EnemyState.Attack;
-                }
+
             }
             else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
