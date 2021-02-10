@@ -206,11 +206,12 @@ MonoBehaviour:
   knockPause: 1
   hpBar: {fileID: 6255862322667623475}
   death: 0
+  attackBoxRange: {fileID: 0}
   enemyMovement: 3
   enemyRunMultiplier: 2
   punchRange: 0
   chaseRange: 10
-  attackRange: 4.5
+  attackRange: 2
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 0

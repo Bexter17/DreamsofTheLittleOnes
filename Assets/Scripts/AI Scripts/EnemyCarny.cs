@@ -72,9 +72,6 @@ public class EnemyCarny : MonoBehaviour
     public float chaseRange;
     public float attackRange;
 
-    private int punches = 0;
-    private int punchCooldown = 100;
-    //Punches once for every 100 physics updates
 
     //bool isMoving = true;
     bool isPatrolling = false;
@@ -163,6 +160,7 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        //Debug.DrawRay()
         //Sets hp text to change based on players perspective
         //So it's not backwards to the player
         //Vector3 textDirection = transform.position - target.transform.position;
@@ -179,19 +177,21 @@ public class EnemyCarny : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
-            // Corrects rotation for punch to better connect
-            //if (myEnemy == EnemyState.Attack)
-            //    targetPosition.x -= 100;
 
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
-            //if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
-            //{
-            //    eAnim.SetTrigger("isPunching");
-            //}
-                if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
             {
+                eAnim.SetBool("isAttacking", true);
+            }
+            else
+            {
+                eAnim.SetBool("isAttacking", false);
+            }
+            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            {
+
                 if (!onStack)
                 {
                     encircleNum = stackTracker.AddStack(gameObject);
@@ -231,11 +231,11 @@ public class EnemyCarny : MonoBehaviour
             {
                 Chase();
                 agent.speed = enemyRunMultiplier * enemyMovement;
-                Debug.Log("Run");
+                //Debug.Log("Run");
             }
             //else if (myEnemy == EnemyState.Stun)
             //{
-                //Stun();
+            //Stun();
             //}
         }
         #endregion
@@ -322,26 +322,21 @@ public class EnemyCarny : MonoBehaviour
             //enemyMovement = 5;
         }
     }
-    void OnTriggerStay(Collider other)
-    {
-        if (other.CompareTag("Player"))
-        {
-            punches++;
-            enemyMovement = 0;
-            if (punches % punchCooldown == 0)
-            {
-                eAnim.SetTrigger("isPunching");
-                Invoke("ResetMovement", 1);
-            }
-        }
-    }
-    private void OnTriggerExit(Collider othern)
-    {
-        if (othern.CompareTag("Player"))
-        {
-            punches = 0;
-        }
-    }
+    //void OnTriggerEnter(Collider other)
+    //{
+    //    if (other.CompareTag("Player"))
+    //    {
+    //        Debug.LogWarning("ENEMY STARTED ATTACKING");
+    //        isPunching = true;
+    //        //punches++;
+    //        //enemyMovement = 0;
+    //        //if (punches % punchCooldown == 0)
+    //        //{
+    //        //    eAnim.SetTrigger("isPunching");
+    //        //    Invoke("ResetMovement", 1);
+    //        //}
+    //    }
+    //}
 
     #region init States
     public void Chase()
@@ -415,6 +410,14 @@ public class EnemyCarny : MonoBehaviour
                 agent.SetDestination(waypoint1.position);
             }
         }
+        //else
+        //{
+        //    if (other.CompareTag("Player"))
+        //    {
+        //        Debug.LogWarning("ENEMY STARTED ATTACKING");
+        //        isPunching = true;
+        //    }
+        //}
     }
 
     //private void Stun()
@@ -455,4 +458,5 @@ public class EnemyCarny : MonoBehaviour
     {
         Player.SendMessage("takeDamage", dmgDealt);
     }
+
 }
