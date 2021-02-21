@@ -1501,6 +1501,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        animator.SetTrigger("Throw");
+
         GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
