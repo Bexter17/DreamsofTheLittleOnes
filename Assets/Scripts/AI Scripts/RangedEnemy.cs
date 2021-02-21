@@ -8,7 +8,7 @@ public class RangedEnemy : MonoBehaviour
 {
     #region Variables
 
-    [SerializeField] int hp = 5;
+    public int hp = 5;
     private int maxHP;
     public Rigidbody rb;
     public Transform target;
@@ -357,6 +357,13 @@ public class RangedEnemy : MonoBehaviour
             {
                 agent.SetDestination(waypoint1.position);
             }
+        }
+
+
+        if (other.gameObject.tag == "PlayerRanged")
+        {
+            Debug.Log("Hit with Ranged");
+            takeDamage(1);
         }
     }
     #endregion

@@ -10,7 +10,7 @@ public class EnemyCarny : MonoBehaviour
 {
     #region Variables
 
-    [SerializeField] int hp = 5;
+    public  int hp = 5;
     private int maxHP;
     public Rigidbody rb;
     public Transform target;
@@ -335,22 +335,7 @@ public class EnemyCarny : MonoBehaviour
             //enemyMovement = 5;
         }
     }
-    //void OnTriggerEnter(Collider other)
-    //{
-    //    if (other.CompareTag("Player"))
-    //    {
-    //        Debug.LogWarning("ENEMY STARTED ATTACKING");
-    //        isPunching = true;
-    //        //punches++;
-    //        //enemyMovement = 0;
-    //        //if (punches % punchCooldown == 0)
-    //        //{
-    //        //    eAnim.SetTrigger("isPunching");
-    //        //    Invoke("ResetMovement", 1);
-    //        //}
-    //    }
-    //}
-
+  
     #region init States
     public void Chase()
     {
@@ -424,6 +409,27 @@ public class EnemyCarny : MonoBehaviour
                 agent.SetDestination(waypoint1.position);
             }
         }
+
+
+        if (other.gameObject.tag == "PlayerRanged")
+        {
+            Debug.Log("Hit with Ranged");
+            takeDamage(1);
+        }
+
+        //if (other.CompareTag("Player"))
+        //{
+        //    Debug.LogWarning("ENEMY STARTED ATTACKING");
+        //    isPunching = true;
+        //    punches++;
+        //    enemyMovement = 0;
+        //    if (punches % punchCooldown == 0)
+        //    {
+        //        eAnim.SetTrigger("isPunching");
+        //        Invoke("ResetMovement", 1);
+        //    }
+        //}
+
         //else
         //{
         //    if (other.CompareTag("Player"))
@@ -436,11 +442,11 @@ public class EnemyCarny : MonoBehaviour
 
     //private void Stun()
     //{
-        //myEnemy = EnemyState.Stun;
-        //enemyMovement = 0;
-        //yield return new WaitForSeconds(4);
-        //enemyMovement = 5;
-        //Chase();
+    //myEnemy = EnemyState.Stun;
+    //enemyMovement = 0;
+    //yield return new WaitForSeconds(4);
+    //enemyMovement = 5;
+    //Chase();
     //}
 
     #endregion
@@ -472,5 +478,7 @@ public class EnemyCarny : MonoBehaviour
     {
         Player.SendMessage("takeDamage", dmgDealt);
     }
+
+
 
 }
