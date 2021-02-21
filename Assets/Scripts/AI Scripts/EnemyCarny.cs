@@ -174,7 +174,7 @@ public class EnemyCarny : MonoBehaviour
         }
 
         #region AI States
-        if (agent.enabled)
+        if (agent.enabled && !death)
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
@@ -259,13 +259,12 @@ public class EnemyCarny : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
+            death = true;
             stackTracker.RemoveStack(gameObject);
             agent.speed = 0;
-            death = true;
             Debug.Log("Enemy has been killed");
             enemyMovement = 0;
             rotationSpeed = 0;
-            AgentStop();
             // so that enemy doesn't move after dying
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
