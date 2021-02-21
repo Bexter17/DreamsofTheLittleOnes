@@ -32,4 +32,14 @@ public class EnemyStack : MonoBehaviour
         }
         return 5;
     }
+    public void RemoveStack(GameObject enemy)
+    {
+        for (int i = 0; i < EnemyQueue.Length; i++)
+        {
+            if(EnemyQueue[i] == enemy)
+            {
+                EnemyQueue[i] = null;
+            }
+        }
+    }
 }

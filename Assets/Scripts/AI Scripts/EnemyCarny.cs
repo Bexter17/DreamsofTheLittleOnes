@@ -259,6 +259,8 @@ public class EnemyCarny : MonoBehaviour
         hp -= dmg;
         if (hp <= 0)
         {
+            stackTracker.RemoveStack(gameObject);
+            agent.speed = 0;
             death = true;
             Debug.Log("Enemy has been killed");
             enemyMovement = 0;
@@ -366,6 +368,7 @@ public class EnemyCarny : MonoBehaviour
         }
         else
         {
+            ResetMovement();
             agent.SetDestination(circlePoints[encircleNum].transform.position);
         }
 
