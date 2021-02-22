@@ -90,7 +90,7 @@ public class EnemyCarny : MonoBehaviour
     #endregion
     #region EncircleVariables
     [SerializeField] GameObject[] circlePoints;
-    private int encircleNum;
+    private int encircleNum = -1;
     [SerializeField] float circleDist;
     private bool onStack = false;
     EnemyStack stackTracker;
@@ -346,11 +346,10 @@ public class EnemyCarny : MonoBehaviour
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
-        if (encircleNum == 5)
-        {
-            //Idle
-        }
-        else
+
+        // doesn't work if stack call returns 5 which means not on stack
+        // or -1 which means still not changed
+        if (encircleNum < 4 && encircleNum >= 0)
         {
             ResetMovement();
             agent.SetDestination(circlePoints[encircleNum].transform.position);
