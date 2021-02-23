@@ -16,6 +16,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] float attackTimer = 0;
     [SerializeField] float callingRange;
+    [SerializeField] float RunawayRange;
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockHeightModifier;
     [SerializeField] float knockDuration;
@@ -32,7 +33,7 @@ public class RangedEnemy : MonoBehaviour
 
     //used to track the player for giveDamage function 
     private GameObject Player;
-    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack };
+    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Run };
     EnemyState myEnemy;
     // The player that the enemy will chase
     //public Vector3 initialPos;
@@ -152,17 +153,24 @@ public class RangedEnemy : MonoBehaviour
             // If enemy within attackrange stop moving and attack
             // If enemy within chaserange chase player
             // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
+            if (Vector3.Distance(target.position, gameObject.transform.position) < RunawayRange)
+            {
+                if(myEnemy != EnemyState.Run)
+                {
+                    Run();
+                }
+            }
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
             {
                 agent.isStopped = true;
+                agent.SetDestination(Player.transform.position);
                 myEnemy = EnemyState.Attack;
-                if (Time.time - attackTimer > 2.0f)
+                if (Time.time - attackTimer > 4.0f)
                 {
                     eAnim.SetTrigger("isPunching");
                     attackTimer = Time.time;
                     if (projectilePrefab)
                     {
-                        transform.LookAt(Player.transform.position);
                         Rigidbody rb = Instantiate(projectilePrefab,
                             projectileSpawnPoint.position,
                             projectileSpawnPoint.rotation) as Rigidbody;
@@ -262,7 +270,7 @@ public class RangedEnemy : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        else if (collision.gameObject.tag=="HammerSmashAOE")
+        if (collision.gameObject.tag=="HammerSmashAOE")
         {
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
@@ -273,14 +281,6 @@ public class RangedEnemy : MonoBehaviour
             //agent.isStopped = true;
             //Stop attacking
             //AgentStop();
-        }
-        else if (collision.gameObject.tag == "WhirlwindAOE")
-        {
-            //Deals small knockback from takeDamage function
-            #region Debug Log
-            Debug.Log("Enemy has been hit by whirlwind!");
-            #endregion
-            takeDamage(3);
         }
     }
 
@@ -296,6 +296,18 @@ public class RangedEnemy : MonoBehaviour
         }
     }
     #region init States
+    public void Run()
+    {
+        myEnemy = EnemyState.Run;
+        Transform Currenttransform = transform;
+        Currenttransform.Rotate(0, 180, 0);
+        Vector3 runTo = Currenttransform.position + transform.forward * 10;
+        float turning = Time.time;
+        agent.SetDestination(runTo);
+        agent.isStopped = false;
+
+
+    }
     public void Chase()
     {
         //agent.isStopped = false;
