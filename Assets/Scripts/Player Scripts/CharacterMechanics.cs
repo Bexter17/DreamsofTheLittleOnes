@@ -1472,6 +1472,7 @@ public class CharacterMechanics : MonoBehaviour
         animator.SetTrigger("Spin");
 
         whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.rotation, gameObject.transform);
+        Destroy(whirlwindTemp, 2);
     }
 
     private void whirlwindEnd()

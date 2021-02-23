@@ -1117,6 +1117,36 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &548965030
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 548965031}
+  m_Layer: 0
+  m_Name: WhirlwindAoeSpawn
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &548965031
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 548965030}
+  m_LocalRotation: {x: 0.7071068, y: 0, z: 0, w: 0.7071068}
+  m_LocalPosition: {x: 1.101, y: -0.891, z: 0.009}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1631228579}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 90, y: 0, z: 0}
 --- !u!1 &705507993
 GameObject:
   m_ObjectHideFlags: 0
@@ -1906,6 +1936,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: af9a4d1e8d255444ab03a60e381da2b8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!4 &1631228579 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5569241193991019072, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 5569241194103722915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!4 &1638398011 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
@@ -3043,7 +3078,7 @@ PrefabInstance:
       objectReference: {fileID: 1020740261}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: hammerSmashDamage
-      value: 10
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: hammerSmashPrefab
@@ -3065,6 +3100,14 @@ PrefabInstance:
       propertyPath: hammerDebug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindRangePrefab
+      value: 
+      objectReference: {fileID: 3399353032465245422, guid: bc0c7f0485d74da4c8bf5484be1ea18a, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindSpawn
+      value: 
+      objectReference: {fileID: 548965031}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -23.54
