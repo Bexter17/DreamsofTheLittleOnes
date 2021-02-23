@@ -262,7 +262,7 @@ public class RangedEnemy : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.tag=="HammerSmashAOE")
+        else if (collision.gameObject.tag=="HammerSmashAOE")
         {
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
@@ -273,6 +273,14 @@ public class RangedEnemy : MonoBehaviour
             //agent.isStopped = true;
             //Stop attacking
             //AgentStop();
+        }
+        else if (collision.gameObject.tag == "WhirlwindAOE")
+        {
+            //Deals small knockback from takeDamage function
+            #region Debug Log
+            Debug.Log("Enemy has been hit by whirlwind!");
+            #endregion
+            takeDamage(3);
         }
     }
 

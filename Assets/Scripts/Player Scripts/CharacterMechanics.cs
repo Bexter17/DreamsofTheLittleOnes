@@ -728,6 +728,10 @@ public class CharacterMechanics : MonoBehaviour
                 actionAllowed = true;
             }
         }
+        else if(hit.gameObject.tag =="Killbox")
+        {
+            Killbox();
+        }
 
         //if (hit.gameObject.tag == "Checkpoint")
         //{
@@ -1539,6 +1543,14 @@ public class CharacterMechanics : MonoBehaviour
         actionAllowed = true;
 
         comboCount = 0;
+    }
+
+    private void Killbox()
+    {
+        Lives -= 1;
+        gameObject.transform.position = respawnPoint.transform.position;
+
+        animator.SetTrigger("Respawn");
     }
 
     #endregion

@@ -309,7 +309,7 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.tag =="HammerSmashAOE")
+        else if (collision.gameObject.tag =="HammerSmashAOE")
         {
             #region Debug Log
             Debug.Log("Enemy has been hit by hammer smash!");
@@ -321,6 +321,14 @@ public class EnemyCarny : MonoBehaviour
             //yield return new WaitForSeconds(5);
             //enemyMovement = 5;
             StartCoroutine(Stun());
+        }
+        else if (collision.gameObject.tag == "WhirlwindAOE")
+        {
+            //Deals small knockback from takeDamage function
+            #region Debug Log
+            Debug.Log("Enemy has been hit by whirlwind!");
+            #endregion
+            takeDamage(3);
         }
     }
 
