@@ -199,9 +199,11 @@ MonoBehaviour:
   hp: 5
   rb: {fileID: 0}
   target: {fileID: 0}
-  projectilePrefab: {fileID: 6882968560295412819, guid: e0d50ace27769c34bbc6cd86a46e02b8, type: 3}
+  projectilePrefab: {fileID: 3891002260391394033, guid: e0328625862d86e44a2d8bfc3faf6ac2, type: 3}
   projectileSpawnPoint: {fileID: 6130972610350208278}
   attackTimer: 0
+  callingRange: 0
+  RunawayRange: 0
   knockDistanceModifier: 400
   knockHeightModifier: 0
   knockDuration: 0.3
