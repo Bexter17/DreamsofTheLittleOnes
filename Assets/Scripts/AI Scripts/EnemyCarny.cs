@@ -82,6 +82,7 @@ public class EnemyCarny : MonoBehaviour
     //bool isMoving = true;
     bool isPatrolling = false;
     bool getCalled = false;
+    
 
 
     public Transform waypoint1;
@@ -160,7 +161,6 @@ public class EnemyCarny : MonoBehaviour
 
         stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
     }
-
     // Update is called once per frame
     void Update()
     {
@@ -490,4 +490,9 @@ public class EnemyCarny : MonoBehaviour
     {
         Player.SendMessage("takeDamage", dmgDealt);
     }
+    public void changeStackrange(float i)
+    {
+        checkStackRange = i;
+    }
+
 }
