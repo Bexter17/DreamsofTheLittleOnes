@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 3313b47d0b1ea8f4a92550294415aa9a
+guid: 01978f1fa28f73046a4c562aa46fc0e6
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: Run
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: Take 001
+      name: Run
       takeName: Take 001
       internalID: 0
-      firstFrame: 0
-      lastFrame: 62
+      firstFrame: 100
+      lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -104,10 +104,7 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips:
-  - dfc44c6fd0564d143bf453ba90448b6b
-  - 52c43d3004c433e46858c4f200e894f2
-  - 56dce7e14231aaf43800f99817d0465c
+  referencedClips: []
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
