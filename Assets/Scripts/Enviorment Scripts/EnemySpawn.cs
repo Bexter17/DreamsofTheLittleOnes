@@ -19,6 +19,7 @@ public class EnemySpawn : MonoBehaviour
             Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2").transform;
             Enemy.GetComponent<EnemyCarny>().chaseRange = 30;
             Enemy.GetComponent<EnemyCarny>().changeStackrange(Enemy.GetComponent<EnemyCarny>().chaseRange);
+            Enemy.GetComponent<EnemyCarny>().Chase();
         }
     }
 
