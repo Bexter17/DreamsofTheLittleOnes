@@ -191,7 +191,7 @@ public class CharacterMechanics : MonoBehaviour
     private int currentAttack;
 
     //determines how long the attack lasts
-    [SerializeField] private Transform attackSpawn;
+    //[SerializeField] private Transform attackSpawn;
 
     [SerializeField] private int attackTimer;
 
@@ -201,13 +201,13 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
+    [SerializeField] private GameObject abilitySpawn;
+
     #region Dash
 
     [Header("Dash Ability")]
 
     [SerializeField] private GameObject dashRangePrefab;
-
-    [SerializeField] private Transform dashSpawn;
 
     [SerializeField] private int dashDamage;
 
@@ -349,19 +349,38 @@ public class CharacterMechanics : MonoBehaviour
         healthBar.SetMaxHealth(maxHealth);
 
         healthBar.SetHealth(currentHealth);
-        
+
         #endregion
+
+        #region Combat
 
         comboCount = 0;
 
         sword = GetComponentInChildren<Sword_Script>();
 
+        #endregion
+
+        #region Dash
+
+        if(!dashRangePrefab)
+        dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
+
+        if(!abilitySpawn)
+        abilitySpawn = GameObject.FindGameObjectWithTag("Attack Spawn");
+
+        if (dashSpeed == 0)
+            dashSpeed = 5;
+
+        #endregion
+
         try
         {
             //Accesses the CharacterController component on the character object 
-            controller = GetComponent<CharacterController>();
+            controller = GetComponent<CharacterController>();          
 
             isAlive = true;
+
+            #region Animation
 
             //Accesses the Animator component
             animator = GetComponent<Animator>();
@@ -380,6 +399,8 @@ public class CharacterMechanics : MonoBehaviour
 
             //Automatically disables Root Motion (to avoid adding motion twice)
             animator.applyRootMotion = false;
+
+            #endregion
 
             //Sets variables to a default value incase not set in Unity inspector
 
@@ -1412,7 +1433,7 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        dashTemp = Instantiate(dashRangePrefab, dashSpawn.transform.position, dashSpawn.transform.rotation);
+        dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation);
 
         animator.SetTrigger("dash");
 

@@ -1402,6 +1402,11 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1 &1233954211 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5569241193991019073, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 5569241194103722915}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1260886500
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2502,6 +2507,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.y
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5569241193991019073, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_TagString
+      value: Attack Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409844, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -2530,6 +2539,14 @@ PrefabInstance:
       propertyPath: RangedSpawn
       value: 
       objectReference: {fileID: 5569241194103722916}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: dashRangePrefab
+      value: 
+      objectReference: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: abilitySpawn
+      value: 
+      objectReference: {fileID: 1233954211}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.11
