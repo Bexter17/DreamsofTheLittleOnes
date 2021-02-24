@@ -9,11 +9,12 @@ using UnityEngine.AI;
 public class EnemyCarny : MonoBehaviour
 {
     #region Variables
-
-    public  int hp = 5;
+    //TODO removed most of serializefields to a minimum
+    public int hp = 5;
     private int maxHP;
     public Rigidbody rb;
     public Transform target;
+    //TODO remove
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockHeightModifier;
     [SerializeField] float knockDuration;
@@ -21,6 +22,7 @@ public class EnemyCarny : MonoBehaviour
 
     NavMeshAgent agent;
 
+    //TODO get hpBar
     [SerializeField] private Image hpBar;
 
     //Death
@@ -39,17 +41,20 @@ public class EnemyCarny : MonoBehaviour
     //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
     //Had to use IEnumerator because I couldn't get yield return new WaitForSeconds() to work anywhere else in script. Would like to 
     //plug this into an official state as you can see I have inerted Stun into the enemyState and began the other necessary fields.
+    //TODO does enumerator need to be here?
     IEnumerator Stun()
     {
         Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
         //Stop enemy movement
         enemyMovement = 0;
         //Stop enemy attack
+        //TODO check between agent.isStopped and setting enemyMovement = 0 see which one works and put it in an easily accessible function
         agent.isStopped = true;
         //Damage enemy
         hp -= 2;
         //takeDamage(1); - Had to change the hp variable alone because takeDamage was applying knockback.
         //> There's a BUG where this method seems to stack effect and instant kill or send enemy flying.
+        //TODO rename functions to be more descriptive
         AgentStop();
         //WAIT for AOE
         yield return new WaitForSeconds(6);
@@ -98,11 +103,9 @@ public class EnemyCarny : MonoBehaviour
     #endregion
     void Start()
     {
-
+        //TODO reorder for aesthetics
         rb = GetComponent<Rigidbody>();
-
         Player = GameObject.FindGameObjectWithTag("Player");
-
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
         agent = GetComponent<NavMeshAgent>();
@@ -286,6 +289,7 @@ public class EnemyCarny : MonoBehaviour
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
+    //TODO rename to be more descriptive
     private void AgentStop()
     {
         //Enemy briefly pauses after being knocked back
@@ -417,7 +421,8 @@ public class EnemyCarny : MonoBehaviour
             }
         }
 
-
+        //TODO + parameter to take damage to edit knockback
+        //So that ranged attack doesn't knockback as much as melee
         if (other.gameObject.tag == "PlayerRanged")
         {
             Debug.Log("Hit with Ranged");
@@ -485,7 +490,4 @@ public class EnemyCarny : MonoBehaviour
     {
         Player.SendMessage("takeDamage", dmgDealt);
     }
-
-
-
 }
