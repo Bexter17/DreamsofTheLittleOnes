@@ -5,7 +5,7 @@ ModelImporter:
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: Take 001
+    second: Idle
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -19,9 +19,15 @@ ModelImporter:
     optimizeGameObjects: 0
     motionNodeName: 
     rigImportErrors: 
-    rigImportWarnings: 
+    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
+      rotation in copied configuration does not match rotation in animation file:\n\t'Bear_lf_Knee2_jnt'
+      : rotation error = 7.100624 deg\n"
     animationImportErrors: 
-    animationImportWarnings: 
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar
+      to improve retargeting quality.\n\t'Bear_rt_Knee2_jnt' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n\t'Bear_lf_Knee2_jnt'
+      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -33,7 +39,36 @@ ModelImporter:
     animationWrapMode: 0
     extraExposedTransformPaths: []
     extraUserProperties: []
-    clipAnimations: []
+    clipAnimations:
+    - serializedVersion: 16
+      name: Idle
+      takeName: Take 001
+      internalID: 0
+      firstFrame: 0
+      lastFrame: 60
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 1
+      loopBlend: 0
+      loopBlendOrientation: 0
+      loopBlendPositionY: 0
+      loopBlendPositionXZ: 0
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events: []
+      transformMask: []
+      maskType: 3
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     isReadable: 0
   meshes:
     lODScreenPercentages: []
@@ -79,8 +114,831 @@ ModelImporter:
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
-    human: []
-    skeleton: []
+    human:
+    - boneName: Bear_c_Pelvis_jnt
+      humanName: Hips
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Hip_jnt
+      humanName: LeftUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Hip_jnt
+      humanName: RightUpperLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Knee1_jnt
+      humanName: LeftLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Knee1_jnt
+      humanName: RightLowerLeg
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Foot_jnt
+      humanName: LeftFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Foot_jnt
+      humanName: RightFoot
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Spine1_jnt
+      humanName: Spine
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Spine2_jnt
+      humanName: Chest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Neck1_jnt
+      humanName: Neck
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Neck3_jnt
+      humanName: Head
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Clavicle_jnt
+      humanName: LeftShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Clavicle1_jnt
+      humanName: RightShoulder
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Shoulder_jnt
+      humanName: LeftUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Shoulder_jnt
+      humanName: RightUpperArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Elbow_jnt
+      humanName: LeftLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Elbow_jnt
+      humanName: RightLowerArm
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Wrist_jnt
+      humanName: LeftHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Wrist_jnt
+      humanName: RightHand
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Eye_jnt
+      humanName: LeftEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Eye_jnt
+      humanName: RightEye
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Jaw1_jnt
+      humanName: Jaw
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Thumb1_jnt
+      humanName: Left Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Thumb2_jnt
+      humanName: Left Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Thumb3_jnt
+      humanName: Left Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Index1_jnt
+      humanName: Left Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Index2_jnt
+      humanName: Left Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Index3_jnt
+      humanName: Left Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Pinky1_jnt
+      humanName: Left Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Pinky2_jnt
+      humanName: Left Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_lf_Pinky3_jnt
+      humanName: Left Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Thumb1_jnt
+      humanName: Right Thumb Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Thumb2_jnt
+      humanName: Right Thumb Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Thumb3_jnt
+      humanName: Right Thumb Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Index1_jnt
+      humanName: Right Index Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Index2_jnt
+      humanName: Right Index Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Index3_jnt
+      humanName: Right Index Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Pinky1_jnt
+      humanName: Right Little Proximal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Pinky2_jnt
+      humanName: Right Little Intermediate
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_rt_Pinky3_jnt
+      humanName: Right Little Distal
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    - boneName: Bear_c_Spine4_jnt
+      humanName: UpperChest
+      limit:
+        min: {x: 0, y: 0, z: 0}
+        max: {x: 0, y: 0, z: 0}
+        value: {x: 0, y: 0, z: 0}
+        length: 0
+        modified: 0
+    skeleton:
+    - name: Bjorn(Clone)
+      parentName: 
+      position: {x: 0, y: 0, z: 0}
+      rotation: {x: 0, y: 0, z: 0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Geo_Grp
+      parentName: Bjorn(Clone)
+      position: {x: 0.00094716845, y: 0.0013036862, z: -0.0055773905}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_GEO_Eyes_low_MESH
+      parentName: Bear_Geo_Grp
+      position: {x: -0.00094716845, y: -0.0013036862, z: 0.0055773905}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_GEO_Body_low_MESH
+      parentName: Bear_Geo_Grp
+      position: {x: -0.00094716845, y: -0.0013036862, z: 0.0055773905}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_GEO_ArmourMESH
+      parentName: Bear_Geo_Grp
+      position: {x: 0.26730427, y: 0.6069896, z: 0.09595516}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 0.5278678, y: 0.5278678, z: 0.5278678}
+    - name: Bear_c_JNTSkel_Grp
+      parentName: Bjorn(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_Pelvis_jnt
+      parentName: Bear_c_JNTSkel_Grp
+      position: {x: 6.6910578e-18, y: 0.5091962, z: -0.06302588}
+      rotation: {x: 0.6515139, y: -0.27482677, z: -0.6515139, w: 0.27482677}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000001}
+    - name: Bear_c_Spine1_jnt
+      parentName: Bear_c_Pelvis_jnt
+      position: {x: -0.050458115, y: -7.105427e-17, z: 1.03437265e-17}
+      rotation: {x: -0, y: 0.000000029802322, z: 0.22756791, w: 0.9737623}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1}
+    - name: Bear_c_Spine2_jnt
+      parentName: Bear_c_Spine1_jnt
+      position: {x: -0.061298322, y: 0, z: 1.03983e-17}
+      rotation: {x: -0.0000000137768446, y: -0.00000002642682, z: 0.24835229, w: 0.9686698}
+      scale: {x: 1.0000004, y: 1.0000007, z: 1.0000004}
+    - name: Bear_c_Spine3_jnt
+      parentName: Bear_c_Spine2_jnt
+      position: {x: -0.041597687, y: -5.3290704e-17, z: 2.1333084e-17}
+      rotation: {x: -0, y: -1.7763566e-15, z: 0.11528659, w: 0.9933323}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000004}
+    - name: Bear_c_Spine4_jnt
+      parentName: Bear_c_Spine3_jnt
+      position: {x: -0.046097584, y: 0, z: 2.4189282e-17}
+      rotation: {x: -0.00000004095884, y: 0.000000045794447, z: -0.045723755, w: 0.9989541}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999998}
+    - name: Bear_c_CSpine_jnt
+      parentName: Bear_c_Spine4_jnt
+      position: {x: -0.034706965, y: 7.105427e-17, z: 1.3131118e-17}
+      rotation: {x: -0.00000004970947, y: 0.00000003610716, z: 0.16636196, w: -0.9860648}
+      scale: {x: 1.0000005, y: 0.9999998, z: 1.0000001}
+    - name: Bear_c_Neck1_jnt
+      parentName: Bear_c_CSpine_jnt
+      position: {x: -0.15415795, y: 1.5987211e-16, z: 6.920663e-17}
+      rotation: {x: -0, y: 3.5527128e-15, z: -0.027357869, w: 0.99962574}
+      scale: {x: 1.0000011, y: 1.0000008, z: 1.0000007}
+    - name: Bear_c_Neck2_jnt
+      parentName: Bear_c_Neck1_jnt
+      position: {x: -0.030871708, y: 0, z: 1.1925818e-17}
+      rotation: {x: 9.2868904e-17, y: -3.5514988e-15, z: 0.0012180242, w: 0.9999993}
+      scale: {x: 0.99999946, y: 1.0000001, z: 0.9999998}
+    - name: Bear_c_Neck3_jnt
+      parentName: Bear_c_Neck2_jnt
+      position: {x: -0.031046178, y: -1.4210854e-15, z: 1.2017756e-17}
+      rotation: {x: 5.2376668e-15, y: 3.681714e-15, z: -0.0017206757, w: -0.9999985}
+      scale: {x: 1.0000004, y: 1, z: 1.0000002}
+    - name: Bear_c_Head_jnt
+      parentName: Bear_c_Neck3_jnt
+      position: {x: -0.18759456, y: -6.483702e-15, z: 7.282527e-17}
+      rotation: {x: -0.000000048834714, y: -0.00000004534383, z: -0.009552415, w: 0.9999544}
+      scale: {x: 0.9999996, y: 0.9999996, z: 1}
+    - name: Bear_c_HeadTip_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: -0.20013152, y: 2.842171e-16, z: 7.60924e-17}
+      rotation: {x: -0, y: -0, z: -2.214353e-15, w: 1}
+      scale: {x: 1, y: 1.0000005, z: 1.0000004}
+    - name: Bear_rt_Eye_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: -0.06166603, y: 0.27560875, z: -0.101464}
+      rotation: {x: -0, y: -0, z: -2.214353e-15, w: 1}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000005}
+    - name: Bear_lf_Eye_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: -0.06166407, y: 0.27560854, z: 0.101463966}
+      rotation: {x: -0, y: -0, z: -2.214353e-15, w: 1}
+      scale: {x: 1.0000001, y: 1.0000004, z: 1.0000005}
+    - name: Bear_rt_Ear1_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: -0.17675027, y: 0.018809646, z: -0.169027}
+      rotation: {x: -0.013416322, y: 0.3627367, z: -0.03444016, w: -0.9311585}
+      scale: {x: 1.0000005, y: 1.0000006, z: 1}
+    - name: Bear_rt_Ear2_jnt
+      parentName: Bear_rt_Ear1_jnt
+      position: {x: -0.058887895, y: 6.5378697e-18, z: 2.842171e-16}
+      rotation: {x: 0.000000104308114, y: 0.07927694, z: 0.000000018393619, w: 0.9968527}
+      scale: {x: 1.000001, y: 1.0000005, z: 1.0000006}
+    - name: Bear_rt_Ear3_jnt
+      parentName: Bear_rt_Ear2_jnt
+      position: {x: -0.065804, y: 1.0265803e-17, z: -1.4210854e-16}
+      rotation: {x: -0, y: -0, z: 1.7763564e-15, w: 1}
+      scale: {x: 1.0000005, y: 0.99999994, z: 1.0000001}
+    - name: Bear_lf_Ear1_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: -0.17674637, y: 0.018809937, z: 0.16902678}
+      rotation: {x: -0.01341509, y: 0.36270535, z: 0.03444067, w: 0.9311706}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1.0000001}
+    - name: Bear_lf_Ear2_jnt
+      parentName: Bear_lf_Ear1_jnt
+      position: {x: -0.058892176, y: 0, z: 2.842171e-16}
+      rotation: {x: 0.000000026077029, y: -0.07921662, z: -0.000000043306496, w: 0.9968574}
+      scale: {x: 0.99999994, y: 1.0000005, z: 1.0000005}
+    - name: Bear_lf_Ear3_jnt
+      parentName: Bear_lf_Ear2_jnt
+      position: {x: -0.06579881, y: 1.4298103e-32, z: 0}
+      rotation: {x: -0, y: -0, z: -1.7763566e-15, w: 1}
+      scale: {x: 1, y: 1.0000001, z: 1.0000005}
+    - name: Bear_c_Jaw1_jnt
+      parentName: Bear_c_Head_jnt
+      position: {x: 0.11309202, y: 0.07091956, z: -2.3867993e-16}
+      rotation: {x: -0.57234, y: 0.8200165, z: 0.00000009390932, w: 3.354507e-10}
+      scale: {x: 1, y: 0.9999998, z: 1.0000004}
+    - name: Bear_c_Jaw2_jnt
+      parentName: Bear_c_Jaw1_jnt
+      position: {x: -0.21671931, y: 0, z: -9.624271e-17}
+      rotation: {x: 0.0000000115830785, y: 0.000000027459258, z: -0.2114038, w: 0.9773989}
+      scale: {x: 1.0000012, y: 0.9999997, z: 1.0000004}
+    - name: Bear_c_Jaw3_jnt
+      parentName: Bear_c_Jaw2_jnt
+      position: {x: -0.15613495, y: 2.842171e-16, z: -6.672196e-17}
+      rotation: {x: -0, y: -0, z: -3.180627e-16, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1.0000002}
+    - name: Bear_rt_Clavicle1_jnt
+      parentName: Bear_c_CSpine_jnt
+      position: {x: -0.11103066, y: 0.046036914, z: -0.104406}
+      rotation: {x: 0.7670296, y: 0.07901097, z: -0.63508415, w: 0.04572682}
+      scale: {x: 1.0000001, y: 1.0000013, z: 1.0000006}
+    - name: Bear_rt_Shoulder_jnt
+      parentName: Bear_rt_Clavicle1_jnt
+      position: {x: 0.051340654, y: -0.0000000033901173, z: 0.0000005357305}
+      rotation: {x: 0.7070733, y: 0.056498837, z: 0.03483776, w: -0.7040182}
+      scale: {x: 0.99999994, y: 1.0000008, z: 1.0000005}
+    - name: Bear_rt_Elbow_jnt
+      parentName: Bear_rt_Shoulder_jnt
+      position: {x: 0.13114315, y: 0.000001012234, z: -0.00000004622085}
+      rotation: {x: 0.0514416, y: 0.030631714, z: -0.02861818, w: 0.9977958}
+      scale: {x: 1.0000001, y: 1.0000015, z: 1.0000018}
+    - name: Bear_rt_Wrist_jnt
+      parentName: Bear_rt_Elbow_jnt
+      position: {x: 0.096904695, y: -0.0000005481449, z: 0.00000001879316}
+      rotation: {x: -0.00000006332993, y: 0.24220411, z: 0.17515123, w: 0.9542847}
+      scale: {x: 0.9999992, y: 1.0000018, z: 1.0000027}
+    - name: Bear_rt_Index1_jnt
+      parentName: Bear_rt_Wrist_jnt
+      position: {x: 0.034250636, y: -0.021661852, z: 0.042311568}
+      rotation: {x: 0.031781536, y: -0.35132548, z: -0.13763468, w: 0.92553616}
+      scale: {x: 1.0000013, y: 0.999999, z: 0.9999992}
+    - name: Bear_rt_Index2_jnt
+      parentName: Bear_rt_Index1_jnt
+      position: {x: 0.026447892, y: 0.0000001717084, z: -0.000000087913875}
+      rotation: {x: -0, y: -0, z: -1.2980905e-10, w: 1}
+      scale: {x: 1.0000002, y: 1.0000001, z: 0.9999998}
+    - name: Bear_rt_Index3_jnt
+      parentName: Bear_rt_Index2_jnt
+      position: {x: 0.02158132, y: -0.00000013698471, z: 0.00000008609598}
+      rotation: {x: -0.000028679127, y: 0.000006616111, z: 0.000003551932, w: -1}
+      scale: {x: 1.0000021, y: 0.9999997, z: 0.9999991}
+    - name: Bear_rt_Index4_jnt
+      parentName: Bear_rt_Index3_jnt
+      position: {x: 0.023116179, y: 0.000000072726934, z: -0.00000003249377}
+      rotation: {x: -0.00000006304991, y: 0.00000002774015, z: 0.45212325, w: 0.89195544}
+      scale: {x: 1.0000007, y: 1.0000001, z: 1.000001}
+    - name: Bear_rt_Thumb1_jnt
+      parentName: Bear_rt_Wrist_jnt
+      position: {x: 0.04528582, y: 0.0000003888537, z: 0.000000100745474}
+      rotation: {x: 0.017963376, y: 0.06516754, z: -0.10455867, w: 0.9922188}
+      scale: {x: 1.0000007, y: 1.0000013, z: 1.0000001}
+    - name: Bear_rt_Thumb2_jnt
+      parentName: Bear_rt_Thumb1_jnt
+      position: {x: 0.026964022, y: -0.00000037667377, z: 0.00000008493645}
+      rotation: {x: 0.065913305, y: -0.015892364, z: 0.020531118, w: 0.9974875}
+      scale: {x: 0.9999977, y: 1.0000032, z: 1.0000011}
+    - name: Bear_rt_Thumb3_jnt
+      parentName: Bear_rt_Thumb2_jnt
+      position: {x: 0.02182614, y: 4.0500935e-14, z: -3.569589e-14}
+      rotation: {x: -0.06591109, y: 0.015889864, z: -0.020539539, w: -0.99748755}
+      scale: {x: 1.0000004, y: 1.0000021, z: 1.0000006}
+    - name: Bear_rt_Thumb4_jnt
+      parentName: Bear_rt_Thumb3_jnt
+      position: {x: 0.021380223, y: -0.00000006509716, z: 0.00000003816221}
+      rotation: {x: 0.061860327, y: -0.21169311, z: 0.27358064, w: 0.93622273}
+      scale: {x: 1.0000004, y: 1.0000015, z: 0.9999997}
+    - name: CupJoint 1
+      parentName: Bear_rt_Wrist_jnt
+      position: {x: 0.001469036, y: -0.00041587686, z: 0.0310377}
+      rotation: {x: 0.000000077475484, y: -0.68812484, z: -0.14929992, w: 0.710066}
+      scale: {x: 1.0000007, y: 0.99999875, z: 1.0000013}
+    - name: Bear_rt_Pinky1_jnt
+      parentName: CupJoint 1
+      position: {x: 0.02965378, y: 0.00000040201036, z: -0.0000003340602}
+      rotation: {x: -0.024453752, y: 0.39417472, z: 0.01267657, w: 0.9186227}
+      scale: {x: 1.0000011, y: 1.0000002, z: 0.999999}
+    - name: Bear_rt_Pinky2_jnt
+      parentName: Bear_rt_Pinky1_jnt
+      position: {x: 0.02642658, y: -0.000000022924961, z: 0.000000113899205}
+      rotation: {x: 0.00000004984257, y: 0.00000081956375, z: 0.000010934834, w: 1}
+      scale: {x: 1.0000001, y: 1.0000002, z: 1.0000006}
+    - name: Bear_rt_Pinky3_jnt
+      parentName: Bear_rt_Pinky2_jnt
+      position: {x: 0.02146159, y: 1.7053025e-15, z: -2.3092638e-16}
+      rotation: {x: 0.000031774474, y: 0.0000069286907, z: 0.000008030066, w: -1}
+      scale: {x: 1.000002, y: 1.0000002, z: 0.99999994}
+    - name: Bear_rt_Pinky4_jnt
+      parentName: Bear_rt_Pinky3_jnt
+      position: {x: 0.023296738, y: 0.0000003926146, z: -0.00000022333536}
+      rotation: {x: -0.000000042058737, y: -0.00000018295518, z: 0.45212337, w: 0.89195544}
+      scale: {x: 1.0000006, y: 1.0000004, z: 1.0000001}
+    - name: Bear_lf_Clavicle_jnt
+      parentName: Bear_c_CSpine_jnt
+      position: {x: -0.1110308, y: 0.04603691, z: 0.104405604}
+      rotation: {x: 0.07901467, y: -0.76703006, z: -0.045734763, w: -0.63508254}
+      scale: {x: 1.0000004, y: 1.000001, z: 1.0000006}
+    - name: Bear_lf_Shoulder_jnt
+      parentName: Bear_lf_Clavicle_jnt
+      position: {x: -0.05134069, y: -2.220446e-18, z: -1.4210854e-16}
+      rotation: {x: -0.70707387, y: -0.056494545, z: -0.034838144, w: 0.704018}
+      scale: {x: 0.9999997, y: 1, z: 1}
+    - name: Bear_lf_Elbow_jnt
+      parentName: Bear_lf_Shoulder_jnt
+      position: {x: -0.1311434, y: -1.4210854e-16, z: 8.881784e-18}
+      rotation: {x: 0.051441435, y: 0.030631924, z: -0.028624073, w: 0.9977957}
+      scale: {x: 1.0000005, y: 0.99999994, z: 0.9999998}
+    - name: Bear_lf_Wrist_jnt
+      parentName: Bear_lf_Elbow_jnt
+      position: {x: -0.09690484, y: 1.4210854e-16, z: 6.217249e-17}
+      rotation: {x: -0.0000000074505797, y: 0.24220413, z: 0.17515127, w: 0.9542847}
+      scale: {x: 0.9999998, y: 1.0000008, z: 1.0000012}
+    - name: Bear_lf_Index1_jnt
+      parentName: Bear_lf_Wrist_jnt
+      position: {x: -0.03425046, y: 0.02166168, z: -0.042311173}
+      rotation: {x: 0.031780362, y: -0.35132712, z: -0.13763106, w: 0.92553604}
+      scale: {x: 1.0000002, y: 0.99999994, z: 0.99999994}
+    - name: Bear_lf_Index2_jnt
+      parentName: Bear_lf_Index1_jnt
+      position: {x: -0.026448142, y: 0, z: 7.105427e-17}
+      rotation: {x: -3.5527128e-15, y: -0, z: 8.0087387e-10, w: 1}
+      scale: {x: 1.0000005, y: 1.0000001, z: 0.99999994}
+    - name: Bear_lf_Index3_jnt
+      parentName: Bear_lf_Index2_jnt
+      position: {x: -0.02158132, y: 0.00000013698471, z: -0.00000008609598}
+      rotation: {x: 0.0000000033979617, y: -0.0000067949277, z: -0.000021040432, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
+    - name: Bear_lf_Index4_jnt
+      parentName: Bear_lf_Index3_jnt
+      position: {x: -0.023116553, y: -3.2684964e-15, z: 9.947598e-16}
+      rotation: {x: -0, y: -0, z: 2.3088905e-14, w: 1}
+      scale: {x: 0.9999998, y: 1, z: 0.99999994}
+    - name: Bear_lf_Thumb1_jnt
+      parentName: Bear_lf_Wrist_jnt
+      position: {x: -0.045285538, y: 0, z: -1.3544721e-16}
+      rotation: {x: 0.028642269, y: 0.040530503, z: -0.1314081, w: 0.9900853}
+      scale: {x: 1.0000002, y: 0.99999994, z: 0.9999998}
+    - name: Bear_lf_Thumb2_jnt
+      parentName: Bear_lf_Thumb1_jnt
+      position: {x: -0.026964054, y: 0, z: -8.881784e-18}
+      rotation: {x: 0.00000003124117, y: 0.0000055581318, z: 0.000006387793, w: 1}
+      scale: {x: 1.0000001, y: 0.99999994, z: 0.99999994}
+    - name: Bear_lf_Thumb3_jnt
+      parentName: Bear_lf_Thumb2_jnt
+      position: {x: -0.02182614, y: -4.0643043e-14, z: 3.5815795e-14}
+      rotation: {x: -0.0000000036817438, y: 0.000007659194, z: 0.00000092387097, w: 1}
+      scale: {x: 1.0000004, y: 1.0000002, z: 1.0000002}
+    - name: Bear_lf_Thumb4_jnt
+      parentName: Bear_lf_Thumb3_jnt
+      position: {x: -0.021380998, y: -6.252776e-15, z: 4.705125e-14}
+      rotation: {x: -0, y: -0, z: 2.819919e-14, w: 1}
+      scale: {x: 1, y: 0.99999994, z: 0.9999998}
+    - name: CupJoint
+      parentName: Bear_lf_Wrist_jnt
+      position: {x: -0.0014689694, y: 0.00041557866, z: -0.031037427}
+      rotation: {x: -0.00000017977936, y: -0.688125, z: -0.1493, w: 0.7100659}
+      scale: {x: 1.0000004, y: 0.9999996, z: 1.0000004}
+    - name: Bear_lf_Pinky1_jnt
+      parentName: CupJoint
+      position: {x: -0.029653484, y: 0, z: -1.0658141e-16}
+      rotation: {x: -0.024453662, y: 0.39417195, z: 0.012678534, w: 0.91862386}
+      scale: {x: 1, y: 1.0000004, z: 0.9999997}
+    - name: Bear_lf_Pinky2_jnt
+      parentName: Bear_lf_Pinky1_jnt
+      position: {x: -0.026427157, y: 1.4210854e-16, z: -3.5527136e-17}
+      rotation: {x: 0.00000020264241, y: 0.0000010430808, z: 0.00001088433, w: 1}
+      scale: {x: 1.0000006, y: 0.99999994, z: 1.0000001}
+    - name: Bear_lf_Pinky3_jnt
+      parentName: Bear_lf_Pinky2_jnt
+      position: {x: -0.02146159, y: -2.131628e-15, z: 2.3092638e-16}
+      rotation: {x: -0, y: -0, z: -2.1137241e-13, w: 1}
+      scale: {x: 0.99999994, y: 1.0000004, z: 1.0000001}
+    - name: Bear_lf_Pinky4_jnt
+      parentName: Bear_lf_Pinky3_jnt
+      position: {x: -0.023296976, y: -0.00000016386919, z: 0.0000001523206}
+      rotation: {x: -0, y: -0, z: -0, w: 1}
+      scale: {x: 1.0000002, y: 1, z: 1.0000001}
+    - name: Bear_rt_Hip_jnt
+      parentName: Bear_c_Pelvis_jnt
+      position: {x: -0.03514729, y: 0.11139279, z: -0.141048}
+      rotation: {x: -0.44868457, y: 0.89369017, z: 0.00000026822087, w: 0.00000102818}
+      scale: {x: 1.0000005, y: 1.0000005, z: 1.0000004}
+    - name: Bear_rt_Knee1_jnt
+      parentName: Bear_rt_Hip_jnt
+      position: {x: -0.19295809, y: -3.5527136e-17, z: 1.5987211e-16}
+      rotation: {x: -0.0000001089453, y: 0.000000007258791, z: 0.14303938, w: 0.98971707}
+      scale: {x: 1.0000008, y: 1.0000007, z: 1.0000011}
+    - name: Bear_rt_Knee2_jnt
+      parentName: Bear_rt_Knee1_jnt
+      position: {x: -0.044723094, y: -3.5527136e-17, z: -1.7763568e-17}
+      rotation: {x: 0.00000007647644, y: -0.00000009518467, z: 0.11836484, w: 0.9929702}
+      scale: {x: 1.0000004, y: 1.0000004, z: 1.0000004}
+    - name: Bear_rt_Foot_jnt
+      parentName: Bear_rt_Knee2_jnt
+      position: {x: -0.18121007, y: -8.042178e-17, z: 1.7763567e-16}
+      rotation: {x: -0, y: -0, z: 7.279383e-15, w: 1}
+      scale: {x: 1.0000006, y: 1.0000007, z: 1.0000005}
+    - name: Bear_lf_Hip_jnt
+      parentName: Bear_c_Pelvis_jnt
+      position: {x: -0.03514762, y: 0.11139251, z: 0.14104757}
+      rotation: {x: -0.44868448, y: 0.8936902, z: -0, w: 0.000000014901159}
+      scale: {x: 1.0000004, y: 1, z: 1}
+    - name: Bear_lf_Knee1_jnt
+      parentName: Bear_lf_Hip_jnt
+      position: {x: -0.19295809, y: -7.105427e-17, z: -3.5527136e-17}
+      rotation: {x: -0.000000038141923, y: 0.000000080721534, z: 0.14303848, w: 0.9897172}
+      scale: {x: 1.0000002, y: 1.0000001, z: 1.0000002}
+    - name: Bear_lf_Knee2_jnt
+      parentName: Bear_lf_Knee1_jnt
+      position: {x: -0.044723246, y: -8.881784e-18, z: 0}
+      rotation: {x: -0.0000000047123203, y: 0.000000014136432, z: 0.11836518, w: 0.99297017}
+      scale: {x: 1.0000006, y: 1.0000002, z: 1.0000004}
+    - name: Bear_lf_Foot_jnt
+      parentName: Bear_lf_Knee2_jnt
+      position: {x: -0.18121031, y: -1.2136125e-16, z: -5.3290704e-17}
+      rotation: {x: -0, y: -0, z: 6.661539e-17, w: 1}
+      scale: {x: 1.0000004, y: 1.0000006, z: 1}
+    - name: Bear_c_Tail1_jnt
+      parentName: Bear_c_Pelvis_jnt
+      position: {x: 0.0852601, y: -0.055068526, z: 0}
+      rotation: {x: -0.000000029802319, y: 0.000000014901159, z: 0.86562335, w: 0.50069577}
+      scale: {x: 1.0000006, y: 1.0000001, z: 1.0000004}
+    - name: Bear_c_Tail2_jnt
+      parentName: Bear_c_Tail1_jnt
+      position: {x: -0.056121673, y: 0, z: -6.2307574e-18}
+      rotation: {x: 0.000000006737631, y: 0.0000000011108678, z: -0.203861, w: 0.9789999}
+      scale: {x: 0.9999998, y: 1.0000004, z: 0.9999998}
+    - name: Bear_c_Tail3_jnt
+      parentName: Bear_c_Tail2_jnt
+      position: {x: -0.06487564, y: 1.0658141e-16, z: -2.6369623e-17}
+      rotation: {x: -0, y: -0, z: -7.484616e-18, w: 1}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1.0000002}
+    - name: Bear_DONOTTOUCH
+      parentName: Bjorn(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_Root_jntctrl
+      parentName: Bear_DONOTTOUCH
+      position: {x: -0, y: 0.465647, z: -0.03598879}
+      rotation: {x: 0.6502492, y: 0.27780572, z: 0.6502492, w: 0.27780572}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_loSpine_jntctrl
+      parentName: Bear_c_Root_jntctrl
+      position: {x: 0.0117406715, y: 0.000083586536, z: -3.6573096e-18}
+      rotation: {x: 0.28101155, y: 0.9597044, z: 4.005158e-17, w: 8.111646e-17}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_midSpine_jntctrl
+      parentName: Bear_c_loSpine_jntctrl
+      position: {x: -0.07913688, y: -3.5527136e-17, z: 1.6992029e-17}
+      rotation: {x: -5.551115e-17, y: -2.7755576e-17, z: 0.2664697, w: 0.9638433}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_hiSpine_jntctrl
+      parentName: Bear_c_midSpine_jntctrl
+      position: {x: -0.06761537, y: 1.7763567e-16, z: 8.613386e-17}
+      rotation: {x: 5.551115e-17, y: -5.551115e-17, z: -0.008791032, w: 0.9999614}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_CSpine_jntctrl
+      parentName: Bear_c_hiSpine_jntctrl
+      position: {x: -0.034706946, y: -7.105427e-17, z: 2.8362064e-17}
+      rotation: {x: 0, y: 0, z: -0.166362, w: 0.98606473}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_hiHip_jntctrl
+      parentName: Bear_c_Root_jntctrl
+      position: {x: -0.009148911, y: -7.105427e-17, z: 3.9443044e-33}
+      rotation: {x: 0.99997956, y: 0.006397125, z: -4.212768e-17, w: 2.8355225e-16}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_loHip_jntctrl
+      parentName: Bear_c_hiHip_jntctrl
+      position: {x: -0.029568817, y: 1.4210854e-16, z: 1.3131193e-17}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Translate_Ctrl
+      parentName: Bjorn(Clone)
+      position: {x: -0, y: 0, z: 0}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_COG_Ctrl
+      parentName: Bear_Translate_Ctrl
+      position: {x: -0, y: 0.465647, z: -0.03598879}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_loSpine_Ctrl
+      parentName: Bear_COG_Ctrl
+      position: {x: -3.6526695e-18, y: 0.008425695, z: 0.008176676}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_midSpine_Ctrl
+      parentName: Bear_loSpine_Ctrl
+      position: {x: 6.0908667e-18, y: 0.07765869, z: 0.015224215}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_hiSpine_Ctrl
+      parentName: Bear_midSpine_Ctrl
+      position: {x: -7.0835916e-17, y: 0.06361118, z: -0.022922754}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Neck_Ctrl
+      parentName: Bear_hiSpine_Ctrl
+      position: {x: -7.351337e-17, y: 0.1870086, z: -0.010267161}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Neck2_Ctrl
+      parentName: Bear_Neck_Ctrl
+      position: {x: -1.1925818e-17, y: 0.03081483, z: 0.0018731126}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Neck3_Ctrl
+      parentName: Bear_Neck2_Ctrl
+      position: {x: -1.2017756e-17, y: 0.030993475, z: 0.0018082}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_c_Head_Ctrl
+      parentName: Bear_Neck3_Ctrl
+      position: {x: -1.001001e-17, y: 0.000000023911147, z: -3.9672854e-10}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_lf_ear_ctrl1
+      parentName: Bear_c_Head_Ctrl
+      position: {x: 0.16902678, y: 0.3621865, z: 0.0420965}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_lf_ear_ctrl
+      parentName: Bear_c_Head_Ctrl
+      position: {x: -0.16902678, y: 0.3621865, z: 0.0420965}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_lf_Hand_Ctrl
+      parentName: Bear_hiSpine_Ctrl
+      position: {x: -0.28311965, y: -0.010750567, z: 0.086916275}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_rt_Hand_Ctrl
+      parentName: Bear_hiSpine_Ctrl
+      position: {x: 0.3451581, y: 0.03652824, z: 0.09838896}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Hammer
+      parentName: Bear_rt_Hand_Ctrl
+      position: {x: 0.020949082, y: -0.026697798, z: 0.080190696}
+      rotation: {x: 0.40846398, y: 0.58619297, z: 0.440422, w: 0.5436575}
+      scale: {x: 5.2339973, y: 5.2339973, z: 5.2339973}
+    - name: Bear_Hip_Ctrl
+      parentName: Bear_COG_Ctrl
+      position: {x: -3.1974422e-16, y: -0.0066107353, z: -0.006324607}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_lf_hip_Ctrl
+      parentName: Bear_Hip_Ctrl
+      position: {x: -0.14104757, y: -0.07366787, z: 0.08359723}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_rt_hip_Ctrl
+      parentName: Bear_Hip_Ctrl
+      position: {x: 0.14104757, y: -0.07366787, z: 0.08359722}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
+    - name: Bear_Tail_Ctrl
+      parentName: Bear_COG_Ctrl
+      position: {x: -0.00045220746, y: -0.053294413, z: -0.12693167}
+      rotation: {x: 0, y: -0, z: -0, w: 1}
+      scale: {x: 1, y: 1, z: 1}
     armTwist: 0.5
     foreArmTwist: 0.5
     upperLegTwist: 0.5
@@ -91,13 +949,13 @@ ModelImporter:
     globalScale: 1
     rootMotionBoneName: 
     hasTranslationDoF: 0
-    hasExtraRoot: 0
+    hasExtraRoot: 1
     skeletonHasParents: 1
-  lastHumanDescriptionAvatarSource: {instanceID: 0}
+  lastHumanDescriptionAvatarSource: {fileID: 9000000, guid: ab3208099407596459279593137b7647, type: 3}
   autoGenerateAvatarMappingIfUnspecified: 1
-  animationType: 2
+  animationType: 3
   humanoidOversampling: 1
-  avatarSetup: 0
+  avatarSetup: 2
   additionalBone: 0
   userData: 
   assetBundleName: 
