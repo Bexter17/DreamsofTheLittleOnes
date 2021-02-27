@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 4349b3f1f39872d4cb500c59979ec418
+guid: b7e2e6a3924d84b468656d9326528fcb
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: HammerSpin
+    second: Take 001
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -17,20 +17,11 @@ ModelImporter:
     bakeSimulation: 0
     resampleCurves: 1
     optimizeGameObjects: 0
-    motionNodeName: 
+    motionNodeName: <Root Transform>
     rigImportErrors: 
-    rigImportWarnings: "Copied Avatar Rig Configuration mis-match. Inbetween bone
-      rotation in copied configuration does not match rotation in animation file:\n\t'Bear_lf_Knee2_jnt'
-      : rotation error = 13.073998 deg\n"
+    rigImportWarnings: 
     animationImportErrors: 
-    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
-      might lower retargeting quality:\nNote: Activate translation DOF on avatar
-      to improve retargeting quality.\n\t'Bear_c_Spine3_jnt' is inbetween humanoid
-      transforms and has rotation animation that will be discarded.\n\t'Bear_c_CSpine_jnt'
-      has translation animation that will be discarded.\n\t'Bear_c_CSpine_jnt' is
-      inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Bear_rt_Knee2_jnt'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n\t'Bear_lf_Knee2_jnt'
-      is inbetween humanoid transforms and has rotation animation that will be discarded.\n"
+    animationImportWarnings: 
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     importAnimatedCustomProperties: 0
@@ -44,11 +35,11 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: HammerSpin
+      name: Take 001
       takeName: Take 001
       internalID: 0
-      firstFrame: 173
-      lastFrame: 192
+      firstFrame: 154
+      lastFrame: 170
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
@@ -59,7 +50,7 @@ ModelImporter:
       loopBlend: 0
       loopBlendOrientation: 1
       loopBlendPositionY: 1
-      loopBlendPositionXZ: 0
+      loopBlendPositionXZ: 1
       keepOriginalOrientation: 0
       keepOriginalPositionY: 1
       keepOriginalPositionXZ: 0
@@ -113,7 +104,15 @@ ModelImporter:
     legacyComputeAllNormalsFromSmoothingGroupsWhenMeshHasBlendShapes: 0
     blendShapeNormalImportMode: 1
     normalSmoothingSource: 0
-  referencedClips: []
+  referencedClips:
+  - eaa985036761fff4688edd49f971d6ca
+  - a8826f8fc36a0834baf502545e5e2cac
+  - c1a2fb9bea6820241bf92aaaa7026d63
+  - 4349b3f1f39872d4cb500c59979ec418
+  - a1660be1837c031479153a98e3aaa8fc
+  - 214cabb0d7bef0b48bf0a443f4ef6c94
+  - 4bf2312972e8e954cb8a44fe0896bc37
+  - 01978f1fa28f73046a4c562aa46fc0e6
   importAnimation: 1
   humanDescription:
     serializedVersion: 3
