@@ -90,7 +90,7 @@ public class CharacterMechanics : MonoBehaviour
 
     private string animName;
 
-    float currentAnimLength;
+//    float currentAnimLength;
 
     #endregion
 
@@ -113,10 +113,10 @@ public class CharacterMechanics : MonoBehaviour
     public int maxHealth = 50;
 
     //Tracks incoming damage
-    private int Damage = 0;
+//    private int Damage = 0;
 
     //Tracks what is damaging the player
-    private GameObject damageSource;
+    //private GameObject damageSource;
 
     //Tracks player's lives
     [SerializeField] private int Lives = 3;
@@ -126,7 +126,7 @@ public class CharacterMechanics : MonoBehaviour
 
     private bool isInCombo = false;
 
-    private int wastedClicks = 0;
+//    private int wastedClicks = 0;
 
     //Determines how fast the character moves
     //[SerializeField] private 
@@ -146,13 +146,13 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private float gravity;
 
     //Allows you to toggle hold to crouch or press to crouch
-    [SerializeField] private bool crouchIsToggle;
+   // [SerializeField] private bool crouchIsToggle;
 
     //Tracks if the player is actively hold crouch key
-    [SerializeField] private bool isCrouched = false;
+  //  [SerializeField] private bool isCrouched = false;
 
     //Tracks if player is too busy to attack
-    [SerializeField] private bool isBusy = false;
+    //[SerializeField] private bool isBusy = false;
 
     //Boolean to track if the player is on the ground or in the air
     [SerializeField] private bool isGrounded;
@@ -169,6 +169,8 @@ public class CharacterMechanics : MonoBehaviour
 
     #region HUD
 
+    Canvas Canvas;
+
     [SerializeField] TMP_Text playerStats;
 
     #endregion
@@ -180,15 +182,15 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private GameObject attackRangePrefab;
 
     //creates atemporary, destructable version of the prefab
-    private GameObject attackTemp;
+    //private GameObject attackTemp;
 
     private int comboCount;
 
-    private int queuedAttack1 = -1;
+   // private int queuedAttack1 = -1;
 
-    private int queuedAttack2 = -1;
+  //  private int queuedAttack2 = -1;
 
-    private int currentAttack;
+   // private int currentAttack;
 
     //determines how long the attack lasts
     //[SerializeField] private Transform attackSpawn;
@@ -279,7 +281,7 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private int healthBoost;
 
     //Tracks if GodMode is Active
-    [SerializeField] private bool isGodMode;
+    //[SerializeField] private bool isGodMode;
 
     //Sets the length of the Mode
     [SerializeField] private float timerGodMode;
@@ -314,7 +316,7 @@ public class CharacterMechanics : MonoBehaviour
 
     [Range(0, 2)] [SerializeField] private float raycastDownDistance = 1.5f;
 
-    [SerializeField] private LayerMask environmentLayer;
+    //[SerializeField] private LayerMask environmentLayer;
 
     [SerializeField] private float pelvisOffset = 0f;
 
@@ -339,13 +341,13 @@ public class CharacterMechanics : MonoBehaviour
 
         #region Health
 
-        if(!HealthBar)
+        if (!HealthBar)
         {
             HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
         }
 
         currentHealth = maxHealth;
-        
+
         healthBar.SetMaxHealth(maxHealth);
 
         healthBar.SetHealth(currentHealth);
@@ -362,23 +364,69 @@ public class CharacterMechanics : MonoBehaviour
 
         #region Dash
 
-        if(!dashRangePrefab)
-        dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
+        if (!dashRangePrefab)
+            dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
 
-        if(!abilitySpawn)
-        abilitySpawn = GameObject.FindGameObjectWithTag("Attack Spawn");
+        if (!abilitySpawn)
+            abilitySpawn = GameObject.FindGameObjectWithTag("Attack Spawn");
+
+        if (!hammerSmashSpawn)
+            hammerSmashSpawn = abilitySpawn.transform;
+
+        if (!whirlwindSpawn)
+            whirlwindSpawn = abilitySpawn.transform;
+
+        if (!RangedSpawn)
+            RangedSpawn = gameObject.transform.GetChild(2).transform;
 
         if (dashSpeed == 0)
             dashSpeed = 5;
+
+        if (!Canvas)
+            Canvas = GameObject.FindGameObjectWithTag("HUD Canvas").GetComponent<Canvas>();
+
+        if (!playerStats)
+            playerStats = Canvas.transform.GetChild(0).GetChild(2).transform.GetComponent<TMP_Text>();
 
         #endregion
 
         try
         {
             //Accesses the CharacterController component on the character object 
-            controller = GetComponent<CharacterController>();          
+            controller = GetComponent<CharacterController>();
 
             isAlive = true;
+
+            #region Debug
+
+            if (!movementDebug)
+                movementDebug = false;
+
+            if (!jumpDebug)
+                jumpDebug = false;
+
+            if (!combatDebug)
+                combatDebug = false;
+
+            if (!comboDebug)
+                comboDebug = false;
+
+            if (!inputBufferDebug)
+                inputBufferDebug = false;
+
+            if (!showSolverDebug)
+                showSolverDebug = false;
+
+            if (!hammerDebug)
+                hammerDebug = false;
+
+            if (!whirlwindDebug)
+                whirlwindDebug = false;
+
+            if (!animDebug)
+                animDebug = false;
+
+            #endregion
 
             #region Animation
 
@@ -404,37 +452,44 @@ public class CharacterMechanics : MonoBehaviour
 
             //Sets variables to a default value incase not set in Unity inspector
 
+            #region Movement
+
             if (movementSpeed <= 0)
-            {
                 movementSpeed = 6.0f;
-            }
 
             if (jumpSpeed <= 0)
-            {
                 jumpSpeed = 10.0f;
-            }
 
             if (rotationSpeed <= 0)
-            {
                 rotationSpeed = 4.0f;
-            }
 
             if (gravity <= 0)
-            {
                 gravity = 9.81f;
-            }
+
+            #endregion
+
+            #region Respawn
 
             if (!respawnPoint)
-            {
                 respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
-            }
 
-            if (attackRangePrefab == null)
-            {
+            #endregion
+
+            #region Combat
+
+            if (!attackRangePrefab)
                 attackRangePrefab = GameObject.FindGameObjectWithTag("Attack Zone");
-            }
+            
+            if (!whirlwindRangePrefab)
+                whirlwindRangePrefab = Resources.Load("whirlwindAttack", typeof(GameObject)) as GameObject;
 
+            if (!hammerSmashPrefab)
+                hammerSmashPrefab = Resources.Load("hammerSmashPrefab", typeof(GameObject)) as GameObject;
 
+            if (!RangePrefab)
+                RangePrefab = Resources.Load("ThrowingWeapon", typeof(GameObject)) as GameObject;
+
+            #endregion
 
             //{
             //    attackSpawn = GameObject.FindGameObjectWithTag("Attack Spawn").transform;
@@ -555,7 +610,7 @@ public class CharacterMechanics : MonoBehaviour
             {
                 Debug.Log("Animator System: Anim Name" + animName);
 
-                Debug.Log("Animator System: Anim Length" + currentAnimLength);
+                //Debug.Log("Animator System: Anim Length" + currentAnimLength);
             }
 
             #endregion
@@ -706,7 +761,7 @@ public class CharacterMechanics : MonoBehaviour
         if (showSolverDebug)
             Debug.DrawLine(fromSkyPosition, fromSkyPosition + Vector3.down * (raycastDownDistance + heightFromGroundRaycast), Color.blue);
    
-        if(Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromGroundRaycast, environmentLayer))
+        if(Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromGroundRaycast))
         {
             feetIKPositions = fromSkyPosition;
 
@@ -850,28 +905,28 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Pickup Coroutines
 
-    IEnumerator stopGodmode()
-    {
-        yield return new WaitForSeconds(timerGodMode);
+    //IEnumerator stopGodmode()
+    //{
+    //    yield return new WaitForSeconds(timerGodMode);
 
-        GetComponentInChildren<Renderer>().material.color = Color.white;
+    //    GetComponentInChildren<Renderer>().material.color = Color.white;
 
-        isGodMode = false;
-    }
+    //    isGodMode = false;
+    //}
 
-    IEnumerator stopJumpBoost()
-    {
-        yield return new WaitForSeconds(timerJumpBoost);
+    //IEnumerator stopJumpBoost()
+    //{
+    //    yield return new WaitForSeconds(timerJumpBoost);
 
-        jumpSpeed -= jumpBoost;
-    }
+    //    jumpSpeed -= jumpBoost;
+    //}
 
-    IEnumerator stopSpeedBoost()
-    {
-        yield return new WaitForSeconds(timerSpeedBoost);
+   // IEnumerator stopSpeedBoost()
+   // {
+   //     yield return new WaitForSeconds(timerSpeedBoost);
 
-   //     speed -= speedBoost;
-    }
+   ////     speed -= speedBoost;
+   // }
 
     #endregion
 
@@ -1303,7 +1358,7 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
 
         //sends message to the players sword script to stop dealing damage on collision
-        sword.SendMessage("deactivateAttack");
+     //   sword.SendMessage("deactivateAttack");
 
         //if (animator.GetInteger("Counter") == comboCount)
         //{
