@@ -3794,6 +3794,11 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: 913998362734042012, guid: 31979c85dcdece24c9d3a30c43814407, type: 3}
+--- !u!4 &145002313 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 5450041580228792285, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 782025089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &146330126
 GameObject:
   m_ObjectHideFlags: 0
@@ -18771,7 +18776,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637973821188910275, guid: f6ca1434d2fd9e341bd0cc314000b369, type: 3}
       propertyPath: m_RootOrder
-      value: 1
+      value: 2
       objectReference: {fileID: 0}
     - target: {fileID: 2637973821188910275, guid: f6ca1434d2fd9e341bd0cc314000b369, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -22781,6 +22786,10 @@ PrefabInstance:
       propertyPath: m_RenderPostProcessing
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5450041580228792285, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624294, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_Depth
       value: 0
@@ -22825,6 +22834,10 @@ PrefabInstance:
       propertyPath: showSolverDebug
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: hammerSmashSpawn
+      value: 
+      objectReference: {fileID: 145002313}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -22883,7 +22896,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 6300707668775809807, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_Name
-      value: HammerSmash_Whirlwind_Spawn
+      value: Whirlwind_Spawn
       objectReference: {fileID: 0}
     - target: {fileID: 7912307640733443988, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalRotation.y

@@ -231,9 +231,6 @@ public class CharacterMechanics : MonoBehaviour
 
     private GameObject hammerSmashTemp;
 
-    //Original Quaternion.Euler(90f, 40f, 90f);  Testing for new correct rotation
-    Quaternion H_rotation = Quaternion.Euler(90f, 0f, 0f);
-
     #endregion
 
     #region Whirlwind 
@@ -1533,7 +1530,7 @@ public class CharacterMechanics : MonoBehaviour
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
         AttackEnd();
-        hammerSmashEnd();
+        //hammerSmashEnd();
     }
 
     private void whirlwind()
