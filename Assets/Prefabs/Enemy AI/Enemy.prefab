@@ -198,24 +198,15 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   hp: 5
-  rb: {fileID: 0}
-  target: {fileID: 0}
-  knockDistanceModifier: 400
-  knockHeightModifier: 0
-  knockDuration: 0.3
-  knockPause: 1
-  hpBar: {fileID: 6255862322667623475}
+  hpBar: {fileID: 0}
   death: 0
   attackBoxRange: {fileID: 5036709876244259790}
-  enemyMovement: 3
-  enemyRunMultiplier: 2
   punchRange: 3
   chaseRange: 10
   attackRange: 3
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 0
-  rotationSpeed: 3
   circlePoints:
   - {fileID: 0}
   - {fileID: 0}
@@ -757,7 +748,7 @@ GameObject:
   - component: {fileID: 2896251291304765516}
   - component: {fileID: 9138263105896280630}
   m_Layer: 0
-  m_Name: vampire_a_lusth
+  m_Name: vampire
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
