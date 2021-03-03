@@ -17,22 +17,22 @@ public class EnemyCarny : MonoBehaviour
     NavMeshAgent agent;
     Animator eAnim;
     CharacterMechanics cm;
-    //used to track the player for giveDamage function 
+    //used to track the player for giveDamage function
     private GameObject Player;
 
     //HP
     public int hp = 5;
     private int maxHP;
-    private Image hpBar;
+    public Image hpBar;
     public bool death = false;
 
     //STATES
     [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun };
     EnemyState myEnemy;
     //TODO remove
-    [SerializeField] float knockDistanceModifier;
-    [SerializeField] float knockDuration;
-    [SerializeField] float knockPause;
+    private float knockDistanceModifier = 400;
+    private float knockDuration = .3f;
+    private float knockPause = 1;
     [SerializeField] GameObject attackBoxRange;
 
     // The distance the enemy will begin to chase player
@@ -44,8 +44,9 @@ public class EnemyCarny : MonoBehaviour
     bool isPatrolling = false;
     bool getCalled = false;
 
-    public Transform waypoint1;
-    public Transform waypoint2;
+    public GameObject waypoint1;
+    public GameObject waypoint2;
+    private GameObject[] potentialWaypoints;
 
     // How fast enemy moves
     private float enemyMovement = 3;
@@ -100,7 +101,7 @@ public class EnemyCarny : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
         target = GameObject.Find("Player").transform;
-        hpBar = GameObject.FindGameObjectWithTag("Enemy HP Bar").GetComponent<Image>();
+        hpBar = transform.Find("vampire/Canvas/Enemy HP Bar").GetComponent<Image>();
         cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
 
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
@@ -108,6 +109,29 @@ public class EnemyCarny : MonoBehaviour
         myEnemy = EnemyState.Start;
         eAnim = gameObject.GetComponent<Animator>();
 
+        //STATES
+        #region SetWaypoints
+        potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint1");
+        waypoint1 = potentialWaypoints[0];
+        for(int i = 0; i < potentialWaypoints.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint1.transform.position))
+            {
+                waypoint1 = potentialWaypoints[i];
+            }
+        }
+        potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint2");
+        waypoint2 = potentialWaypoints[0];
+        for (int i = 0; i < potentialWaypoints.Length; i++)
+        {
+            if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint2.transform.position))
+            {
+                waypoint2 = potentialWaypoints[i];
+            }
+        }
+        //waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
+        //waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
+        #endregion
         #region default values
 
         // Default values
@@ -380,7 +404,7 @@ public class EnemyCarny : MonoBehaviour
         if (myEnemy != EnemyState.Patrol)
         {
             myEnemy = EnemyState.Patrol;
-            agent.SetDestination(waypoint1.position);
+            agent.SetDestination(waypoint1.transform.position);
             isPatrolling = true;
         }
     }
@@ -394,16 +418,16 @@ public class EnemyCarny : MonoBehaviour
 
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
+        // Patrolling now works regardless of what order waypoints are in
         if (isPatrolling)
         {
-            if (other.CompareTag("WayPoint1"))
+            if (other.gameObject.transform == waypoint1.transform)
             {
-                //Debug.Log("Waypoint");
-                agent.SetDestination(waypoint2.position);
+                agent.SetDestination(waypoint2.transform.position);
             }
-            else if (other.CompareTag("WayPoint2"))
+            else if(other.gameObject.transform == waypoint2.transform)
             {
-                agent.SetDestination(waypoint1.position);
+                agent.SetDestination(waypoint1.transform.position);
             }
         }
 
@@ -480,5 +504,4 @@ public class EnemyCarny : MonoBehaviour
     {
         checkStackRange = i;
     }
-
 }
