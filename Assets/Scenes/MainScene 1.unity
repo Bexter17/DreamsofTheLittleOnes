@@ -2557,6 +2557,26 @@ PrefabInstance:
       propertyPath: abilitySpawn
       value: 
       objectReference: {fileID: 1233954211}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: movementDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: inputBufferDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: comboDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: jumpDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: animDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.11
