@@ -15,8 +15,9 @@ public class EnemySpawn : MonoBehaviour
         if (!Enemy)
         {
             Enemy = Instantiate(EnemyPrefab, transform.position, transform.rotation);
-            Enemy.GetComponent<EnemyCarny>().waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
-            Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
+            // I commented these lines out because on the enemy waypoints are now automatically gotten
+            //Enemy.GetComponent<EnemyCarny>().waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
+            //Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
             Enemy.GetComponent<EnemyCarny>().chaseRange = 30;
             Enemy.GetComponent<EnemyCarny>().changeStackrange(Enemy.GetComponent<EnemyCarny>().chaseRange);
             Enemy.GetComponent<EnemyCarny>().Chase();
