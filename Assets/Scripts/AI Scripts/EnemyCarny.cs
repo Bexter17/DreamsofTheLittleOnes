@@ -23,7 +23,7 @@ public class EnemyCarny : MonoBehaviour
     //HP
     public int hp = 5;
     private int maxHP;
-    public Image hpBar;
+    private Image hpBar;
     public bool death = false;
 
     //STATES
@@ -33,19 +33,17 @@ public class EnemyCarny : MonoBehaviour
     private float knockDistanceModifier = 400;
     private float knockDuration = .3f;
     private float knockPause = 1;
-    [SerializeField] GameObject attackBoxRange;
 
     // The distance the enemy will begin to chase player
-    public float punchRange;
-    public float chaseRange;
-    public float attackRange;
+    private float punchRange = 3;
+    public float chaseRange = 10;
     private float checkStackRange = 6;
 
     bool isPatrolling = false;
     bool getCalled = false;
 
-    public GameObject waypoint1;
-    public GameObject waypoint2;
+    private GameObject waypoint1;
+    private GameObject waypoint2;
     private GameObject[] potentialWaypoints;
 
     // How fast enemy moves
@@ -87,7 +85,7 @@ public class EnemyCarny : MonoBehaviour
     #region EncircleVariables
     [SerializeField] GameObject[] circlePoints;
     private int encircleNum = -1;
-    [SerializeField] float circleDist;
+    private float circleDist = .5f;
     private bool onStack = false;
     EnemyStack stackTracker;
     
@@ -146,10 +144,6 @@ public class EnemyCarny : MonoBehaviour
         if (chaseRange <= 0)
         {
             chaseRange = 5f;
-        }
-        if (attackRange <= 0)
-        {
-            attackRange = 3f;
         }
         if (dmgDealt <= 0)
         {
@@ -265,6 +259,76 @@ public class EnemyCarny : MonoBehaviour
         }
         #endregion
     }
+    //COLLISIONS
+    #region Collisions
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Player"))
+        {
+            rb.velocity = Vector3.zero;
+            agent.isStopped = true;
+            AgentStop();
+        }
+        else if (collision.gameObject.tag == "HammerSmashAOE")
+        {
+            #region Debug Log
+            Debug.Log("Enemy has been hit by hammer smash!");
+            #endregion
+            //Slow down enemies in contact with hammer smash AOE 
+            //enemyMovement = 0;
+            //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
+            //AgentStop();
+            //yield return new WaitForSeconds(5);
+            //enemyMovement = 5;
+            StartCoroutine(Stun());
+        }
+        else if (collision.gameObject.tag == "WhirlwindAOE")
+        {
+            //Deals small knockback from takeDamage function
+            #region Debug Log
+            Debug.Log("Enemy has been hit by whirlwind!");
+            #endregion
+            takeDamage(3);
+        }
+    }
+
+    void OnCollisionExit(Collision collision)
+    {
+        if (collision.gameObject.tag == "HammerSmashAOE")
+        {
+            #region Debug Log
+            //Debug.Log("Enemy has been hit by hammer smash!");
+            #endregion
+            //Give enemies back their speed after hammer smash AOE
+            //enemyMovement = 5;
+        }
+    }
+    private void OnTriggerEnter(Collider other)
+    {
+        // During patrol alternate going between Waypoint1 and Waypoint2
+        // On colliding with waypoint sets other as destination
+        // Patrolling now works regardless of what order waypoints are in
+        if (isPatrolling)
+        {
+            if (other.gameObject.transform == waypoint1.transform)
+            {
+                agent.SetDestination(waypoint2.transform.position);
+            }
+            else if (other.gameObject.transform == waypoint2.transform)
+            {
+                agent.SetDestination(waypoint1.transform.position);
+            }
+        }
+
+        //TODO + parameter to take damage to edit knockback
+        //So that ranged attack doesn't knockback as much as melee
+        if (other.gameObject.tag == "PlayerRanged")
+        {
+            Debug.Log("Hit with Ranged");
+            takeDamage(1);
+        }
+    }
+    #endregion
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
@@ -314,49 +378,6 @@ public class EnemyCarny : MonoBehaviour
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }
-
-    void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.CompareTag("Player"))
-        {
-            rb.velocity = Vector3.zero;
-            agent.isStopped = true;
-            AgentStop();
-        }
-        else if (collision.gameObject.tag =="HammerSmashAOE")
-        {
-            #region Debug Log
-            Debug.Log("Enemy has been hit by hammer smash!");
-            #endregion
-            //Slow down enemies in contact with hammer smash AOE 
-            //enemyMovement = 0;
-            //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
-            //AgentStop();
-            //yield return new WaitForSeconds(5);
-            //enemyMovement = 5;
-            StartCoroutine(Stun());
-        }
-        else if (collision.gameObject.tag == "WhirlwindAOE")
-        {
-            //Deals small knockback from takeDamage function
-            #region Debug Log
-            Debug.Log("Enemy has been hit by whirlwind!");
-            #endregion
-            takeDamage(3);
-        }
-    }
-
-    void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "HammerSmashAOE")
-        {
-            #region Debug Log
-            //Debug.Log("Enemy has been hit by hammer smash!");
-            #endregion
-            //Give enemies back their speed after hammer smash AOE
-            //enemyMovement = 5;
-        }
-    }
   
     #region init States
     public void Chase()
@@ -384,17 +405,7 @@ public class EnemyCarny : MonoBehaviour
         Chase();
     }
 
-    // Calls Chase() for all enemies
-    // Currently not being used
-    //private void Honk()
-    //{
-    //    GameObject[] enemies;
-    //    enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    //    for(int i = 0; i < enemies.Length; i++)
-    //    {
-    //        enemies[i].GetComponent<EnemyAI1>().Chase();
-    //    }
-    //}
+
 
     // Turns around and continues
     private void Patrol()
@@ -410,87 +421,9 @@ public class EnemyCarny : MonoBehaviour
     }
 
     // Used for enemy animations and patrolling between waypoints
-    private void OnTriggerEnter(Collider other)
-    {
-        // Plays punching animation when player enters collision
-        //if (other.CompareTag("Player"))
-        //    eAnim.SetTrigger("isPunching");
-
-        // During patrol alternate going between Waypoint1 and Waypoint2
-        // On colliding with waypoint sets other as destination
-        // Patrolling now works regardless of what order waypoints are in
-        if (isPatrolling)
-        {
-            if (other.gameObject.transform == waypoint1.transform)
-            {
-                agent.SetDestination(waypoint2.transform.position);
-            }
-            else if(other.gameObject.transform == waypoint2.transform)
-            {
-                agent.SetDestination(waypoint1.transform.position);
-            }
-        }
-
-        //TODO + parameter to take damage to edit knockback
-        //So that ranged attack doesn't knockback as much as melee
-        if (other.gameObject.tag == "PlayerRanged")
-        {
-            Debug.Log("Hit with Ranged");
-            takeDamage(1);
-        }
-
-        //if (other.CompareTag("Player"))
-        //{
-        //    Debug.LogWarning("ENEMY STARTED ATTACKING");
-        //    isPunching = true;
-        //    punches++;
-        //    enemyMovement = 0;
-        //    if (punches % punchCooldown == 0)
-        //    {
-        //        eAnim.SetTrigger("isPunching");
-        //        Invoke("ResetMovement", 1);
-        //    }
-        //}
-
-        //else
-        //{
-        //    if (other.CompareTag("Player"))
-        //    {
-        //        Debug.LogWarning("ENEMY STARTED ATTACKING");
-        //        isPunching = true;
-        //    }
-        //}
-    }
-
-    //private void Stun()
-    //{
-    //myEnemy = EnemyState.Stun;
-    //enemyMovement = 0;
-    //yield return new WaitForSeconds(4);
-    //enemyMovement = 5;
-    //Chase();
-    //}
-
     #endregion
 
-    /*private void OnCollisionEnter(Collision collision)
-    {
-        if (!isPatrolling)
-        {
-            if (collision.gameObject.CompareTag("Player"))
-            {
-                //Debug.Log("Player Hit");
-            }
-        }
-    }*/
 
-    private void UpdateCirclePoints()
-    {
-        //circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
-        //circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
-        //circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
-        //circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
-    }
     private void ResetMovement()
     {
         enemyMovement = 3;
@@ -504,4 +437,32 @@ public class EnemyCarny : MonoBehaviour
     {
         checkStackRange = i;
     }
+    #region depreciated
+    // Calls Chase() for all enemies
+    // Currently not being used
+    //private void Honk()
+    //{
+    //    GameObject[] enemies;
+    //    enemies = GameObject.FindGameObjectsWithTag("Enemy");
+    //    for(int i = 0; i < enemies.Length; i++)
+    //    {
+    //        enemies[i].GetComponent<EnemyAI1>().Chase();
+    //    }
+    //}
+    //private void UpdateCirclePoints()
+    //{
+    //    circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
+    //    circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
+    //    circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
+    //    circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
+    //}
+    //private void Stun()
+    //{
+    //myEnemy = EnemyState.Stun;
+    //enemyMovement = 0;
+    //yield return new WaitForSeconds(4);
+    //enemyMovement = 5;
+    //Chase();
+    //}
+    #endregion
 }
