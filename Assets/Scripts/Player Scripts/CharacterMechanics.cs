@@ -1030,6 +1030,7 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
+            AttackEnd();
         }
 
         if (Input.GetButtonDown("Fire4"))
@@ -1040,6 +1041,7 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+            AttackEnd();
         }
 
         if (Input.GetButtonDown("Fire5"))
@@ -1530,6 +1532,8 @@ public class CharacterMechanics : MonoBehaviour
 
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
+        AttackEnd();
+        hammerSmashEnd();
     }
 
     private void whirlwind()
@@ -1553,6 +1557,8 @@ public class CharacterMechanics : MonoBehaviour
 
         whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.rotation, gameObject.transform);
         Destroy(whirlwindTemp, 2);
+        AttackEnd();
+        whirlwindEnd();
     }
 
     private void whirlwindEnd()
@@ -1570,6 +1576,23 @@ public class CharacterMechanics : MonoBehaviour
 
         Destroy(whirlwindTemp);
     }
+
+    private void hammerSmashEnd()
+    {
+        #region Debug Log
+
+        if (whirlwindDebug)
+        {
+            Debug.Log("HammerSmash has been called");
+
+            Destroy(hammerSmashTemp);
+        }
+
+        #endregion
+
+        Destroy(hammerSmashTemp);
+    }
+
 
     private void ranged()
     {
