@@ -209,9 +209,9 @@ MonoBehaviour:
   attackBoxRange: {fileID: 5036709876244259790}
   enemyMovement: 3
   enemyRunMultiplier: 2
-  punchRange: 0
+  punchRange: 3
   chaseRange: 10
-  attackRange: 4.5
+  attackRange: 3
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
   dmgDealt: 0
@@ -1829,7 +1829,7 @@ GameObject:
   - component: {fileID: 2899055472640333486}
   m_Layer: 5
   m_Name: Enemy HP Bar
-  m_TagString: Untagged
+  m_TagString: Enemy HP Bar
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

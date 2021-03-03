@@ -10,33 +10,51 @@ public class EnemyCarny : MonoBehaviour
 {
     #region Variables
     //TODO removed most of serializefields to a minimum
-    public int hp = 5;
-    private int maxHP;
-    public Rigidbody rb;
-    public Transform target;
-    //TODO remove
-    [SerializeField] float knockDistanceModifier;
-    [SerializeField] float knockHeightModifier;
-    [SerializeField] float knockDuration;
-    [SerializeField] float knockPause;
 
+    //ESSENTIALS
+    private Rigidbody rb;
+    private Transform target;
     NavMeshAgent agent;
-
-    //TODO get hpBar
-    [SerializeField] private Image hpBar;
-
-    //Death
-    public bool death = false;
-
+    Animator eAnim;
     CharacterMechanics cm;
-
     //used to track the player for giveDamage function 
     private GameObject Player;
 
+    //HP
+    public int hp = 5;
+    private int maxHP;
+    private Image hpBar;
+    public bool death = false;
+
+    //STATES
     [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun };
     EnemyState myEnemy;
-
+    //TODO remove
+    [SerializeField] float knockDistanceModifier;
+    [SerializeField] float knockDuration;
+    [SerializeField] float knockPause;
     [SerializeField] GameObject attackBoxRange;
+
+    // The distance the enemy will begin to chase player
+    public float punchRange;
+    public float chaseRange;
+    public float attackRange;
+    private float checkStackRange = 6;
+
+    bool isPatrolling = false;
+    bool getCalled = false;
+
+    public Transform waypoint1;
+    public Transform waypoint2;
+
+    // How fast enemy moves
+    private float enemyMovement = 3;
+    // multiplies by walk enemyMovement speed for chasing speed
+    private int enemyRunMultiplier = 2;
+    private float rotationSpeed = 3;
+
+    // Amount of damage done by enemy to player
+    public int dmgDealt = 2;
 
     //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
     //Had to use IEnumerator because I couldn't get yield return new WaitForSeconds() to work anywhere else in script. Would like to 
@@ -63,35 +81,6 @@ public class EnemyCarny : MonoBehaviour
         enemyMovement = 5;
     }
 
-
-    //Animations
-    Animator eAnim;
-
-    // How fast enemy moves
-    [SerializeField] float enemyMovement;
-    // multiplies by walk enemyMovement speed for chasing speed
-    [SerializeField] int enemyRunMultiplier;
-
-    // The distance the enemy will begin to chase player
-    public float punchRange;
-    public float chaseRange;
-    public float attackRange;
-    private float checkStackRange = 6;
-
-
-    //bool isMoving = true;
-    bool isPatrolling = false;
-    bool getCalled = false;
-    
-
-
-    public Transform waypoint1;
-    public Transform waypoint2;
-
-    // Amount of damage done by enemy to player
-    public int dmgDealt = 2;
-
-    public float rotationSpeed;
     // Start is called before the first frame update
     #endregion
     #region EncircleVariables
@@ -105,23 +94,20 @@ public class EnemyCarny : MonoBehaviour
     void Start()
     {
         //TODO reorder for aesthetics
-        rb = GetComponent<Rigidbody>();
-        Player = GameObject.FindGameObjectWithTag("Player");
-        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
-        int maxHP = hp;
-        agent = GetComponent<NavMeshAgent>();
-        target = GameObject.Find("Player").transform;
-
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
-
-        myEnemy = EnemyState.Start;
-
-        eAnim = gameObject.GetComponent<Animator>();
-
-        target = GameObject.Find("Player").transform;
+        //ESSENTIALS
         rb = GetComponent<Rigidbody>();
         rb.isKinematic = true;
+        Player = GameObject.FindGameObjectWithTag("Player");
         agent = GetComponent<NavMeshAgent>();
+        target = GameObject.Find("Player").transform;
+        hpBar = GameObject.FindGameObjectWithTag("Enemy HP Bar").GetComponent<Image>();
+        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+
+        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
+        int maxHP = hp;
+        myEnemy = EnemyState.Start;
+        eAnim = gameObject.GetComponent<Animator>();
+
         #region default values
 
         // Default values
