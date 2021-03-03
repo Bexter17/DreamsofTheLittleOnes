@@ -22301,7 +22301,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 18
+  m_RootOrder: 19
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &763353082
 GameObject:
@@ -22959,6 +22959,42 @@ PrefabInstance:
       propertyPath: m_Name
       value: Player
       objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindRangePrefab
+      value: 
+      objectReference: {fileID: 3399353032465245422, guid: bc0c7f0485d74da4c8bf5484be1ea18a, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindSpawn
+      value: 
+      objectReference: {fileID: 782025090}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: hammerDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: animDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: whirlwindDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: movementDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: jumpDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: combatDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: showSolverDebug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -23017,6 +23053,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+--- !u!4 &782025090 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 7912307640733443988, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 782025089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &782851766
 GameObject:
   m_ObjectHideFlags: 0
@@ -32654,7 +32695,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_RootOrder
-      value: 19
+      value: 18
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
