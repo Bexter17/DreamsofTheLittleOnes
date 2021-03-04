@@ -36,7 +36,7 @@ MonoBehaviour:
     m_Value: 0.2
   contrast:
     m_OverrideState: 1
-    m_Value: -6
+    m_Value: 0
     min: -100
     max: 100
   colorFilter:
@@ -68,10 +68,10 @@ MonoBehaviour:
   m_Name: Post-Processing Profile
   m_EditorClassIdentifier: 
   components:
-  - {fileID: 9123541336119647779}
   - {fileID: -1661905323246378883}
   - {fileID: -8831403385482543445}
---- !u!114 &9123541336119647779
+  - {fileID: 8245308697091367695}
+--- !u!114 &8245308697091367695
 MonoBehaviour:
   m_ObjectHideFlags: 3
   m_CorrespondingSourceObject: {fileID: 0}
@@ -87,15 +87,15 @@ MonoBehaviour:
   m_AdvancedMode: 0
   threshold:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0.51
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.06
+    m_Value: 4.1
     min: 0
   scatter:
     m_OverrideState: 1
-    m_Value: 0.182
+    m_Value: 0.403
     min: 0
     max: 1
   clamp:
