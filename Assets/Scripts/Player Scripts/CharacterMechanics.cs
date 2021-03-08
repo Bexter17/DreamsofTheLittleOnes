@@ -105,18 +105,10 @@ public class CharacterMechanics : MonoBehaviour
     public HealthBar healthBar;
 
     //Tracks player health
-    //[SerializeField] private
     public int currentHealth = 5;
 
-    //Max health
-    //[SerializeField] private 
+  //[SerializeField] private 
     public int maxHealth = 50;
-
-    //Tracks incoming damage
-//    private int Damage = 0;
-
-    //Tracks what is damaging the player
-    //private GameObject damageSource;
 
     //Tracks player's lives
     [SerializeField] private int Lives = 3;
@@ -126,44 +118,50 @@ public class CharacterMechanics : MonoBehaviour
 
     private bool isInCombo = false;
 
+    private Vector3 playerSize; 
+
 //    private int wastedClicks = 0;
 
+    //Tracks player checkpoints and where they will respawn 
+    [SerializeField] private GameObject respawnPoint;
+
+    #endregion
+
+    #region Movement
+
     //Determines how fast the character moves
-    //[SerializeField] private 
     [SerializeField] private float movementSpeed;
 
-    [SerializeField] private float currentSpeed; 
+    [SerializeField] private float currentSpeed;
+
+    //Rotation speed of the character
+    [SerializeField] private float rotationSpeed;
+
+    //Variable used to add force or direction to the character
+    Vector3 moveDirection;
+
+    #endregion
+
+    #region Jumping and Falling
+
+    RaycastHit groundHit;
+
+    public float groundSearchLength = 0.6f;
 
     //Variable for how high the character will jump
-    [SerializeField ] private float jumpSpeed;
+    [SerializeField] private float jumpSpeed;
 
     private float vSpeed = 0;
 
-    //Rotation speed of the character
-    [SerializeField] private float rotationSpeed; // Used when not using MouseLook.CS to rotate character
-
     //Amount of gravity set on the player
     [SerializeField] private float gravity;
-
-    //Allows you to toggle hold to crouch or press to crouch
-   // [SerializeField] private bool crouchIsToggle;
-
-    //Tracks if the player is actively hold crouch key
-  //  [SerializeField] private bool isCrouched = false;
-
-    //Tracks if player is too busy to attack
-    //[SerializeField] private bool isBusy = false;
 
     //Boolean to track if the player is on the ground or in the air
     [SerializeField] private bool isGrounded;
 
     private bool isJumping;
 
-    //Variable used to add force or direction to the character
-    Vector3 moveDirection;
-
-    //Tracks player checkpoints and where they will respawn 
-    [SerializeField] private GameObject respawnPoint;
+    private bool isFalling;
 
     #endregion
 
@@ -335,6 +333,14 @@ public class CharacterMechanics : MonoBehaviour
     void Start()
     {
         #region Initialization
+
+        #region Set Ground Search Length
+
+        playerSize = gameObject.transform.localScale;
+
+        groundSearchLength = 0.5f * playerSize.y;
+
+        #endregion
 
         #region Health
 
@@ -576,13 +582,24 @@ public class CharacterMechanics : MonoBehaviour
             //Character controller movement
             controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
 
-            #endregion
+            isGrounded = groundCheck(isGrounded);
 
-            #region Set Animator
+            if(isGrounded)
+            {
+                if (isFalling)
+                    isFalling = false;
 
-            animator.SetFloat("Speed", Input.GetAxis("Vertical"));
+                if (isJumping)
+                    isJumping = false;
+            }
 
-            animator.SetBool("isGrounded", controller.isGrounded);
+
+            else if (!isGrounded)
+            { 
+                if (!isJumping)
+                    if (!isFalling)
+                        isFalling = true;
+            }
 
             #endregion
 
@@ -622,7 +639,23 @@ public class CharacterMechanics : MonoBehaviour
 
             controller.Move(moveDirection * Time.deltaTime);
 
+            if (!isGrounded && !isJumping)
+                isFalling = true;
+
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+
+            #endregion
+
+
+            #region Set Animator
+
+            animator.SetFloat("Speed", Input.GetAxis("Vertical"));
+
+            animator.SetBool("isGrounded", isGrounded);
+
+            animator.SetBool("isJumping", isJumping);
+
+            animator.SetBool("isFalling", isFalling);
 
             #endregion
         }
@@ -792,11 +825,17 @@ public class CharacterMechanics : MonoBehaviour
         {
             isGrounded = true;
 
+            isFalling = false;
+
             animator.SetBool("isGrounded", isGrounded);
-            
-            if(isJumping)
+
+            animator.SetBool("isFalling", isFalling);
+
+            if (isJumping)
             {
                 isJumping = false;
+
+                animator.SetBool("isJumping", isJumping);
 
                 actionAllowed = true;
             }
@@ -818,6 +857,25 @@ public class CharacterMechanics : MonoBehaviour
     }
 
     //Tracks triggers / pickups
+
+    private bool groundCheck(bool isGrounded)
+    {
+        Vector3 lineStart = transform.position;
+        Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y - groundSearchLength, lineStart.z);
+
+        Debug.DrawLine(lineStart, vectorToSearch);
+
+        return Physics.Linecast(lineStart, vectorToSearch, out groundHit);
+    }
+
+    private void JumpEnd()
+    {
+        if (jumpDebug)
+            Debug.Log("JumpEnd Called");
+
+        isJumping = false;
+    }
+
     private void OnTriggerEnter(Collider c)
     {
         #region Pickups
@@ -1186,6 +1244,12 @@ public class CharacterMechanics : MonoBehaviour
             animator.SetBool("isGrounded", isGrounded);
 
             isJumping = true;
+
+            animator.SetBool("isJumping", isJumping);
+
+            isJumping = true;
+
+            animator.SetBool("isFalling", isFalling);
 
             actionAllowed = false;
 
