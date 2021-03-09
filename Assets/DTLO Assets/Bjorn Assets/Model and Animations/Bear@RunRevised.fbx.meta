@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: dfc44c6fd0564d143bf453ba90448b6b
+guid: 23e0d09d48cc68f4b81f274ff846c780
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: BackHand
+    second: RunRevised
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,18 +35,18 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: BackHand
+      name: RunRevised
       takeName: Take 001
       internalID: 0
-      firstFrame: 148
-      lastFrame: 167
+      firstFrame: 100
+      lastFrame: 122
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 0
+      loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
@@ -58,14 +58,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.6350975
-        functionName: AttackEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}

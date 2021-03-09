@@ -1,11 +1,11 @@
 fileFormatVersion: 2
-guid: 52c43d3004c433e46858c4f200e894f2
+guid: 14c8a21e264cb29428ebd632b0947f43
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
   - first:
       74: 1827226128182048838
-    second: LeftSlash
+    second: Throw
   externalObjects: {}
   materials:
     materialImportMode: 1
@@ -35,19 +35,19 @@ ModelImporter:
     extraUserProperties: []
     clipAnimations:
     - serializedVersion: 16
-      name: LeftSlash
+      name: Throw
       takeName: Take 001
       internalID: 0
-      firstFrame: 124
-      lastFrame: 141
+      firstFrame: 135
+      lastFrame: 165
       wrapMode: 0
       orientationOffsetY: 0
       level: 0
       cycleOffset: 0
       loop: 0
       hasAdditiveReferencePose: 0
-      loopTime: 1
-      loopBlend: 1
+      loopTime: 0
+      loopBlend: 0
       loopBlendOrientation: 0
       loopBlendPositionY: 0
       loopBlendPositionXZ: 0
@@ -59,10 +59,10 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: 0.53974897
-        functionName: AttackEnd
+      - time: 0.73
+        functionName: Throw
         data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
+        objectReferenceParameter: {fileID: 6882968560295412820, guid: e0d50ace27769c34bbc6cd86a46e02b8, type: 3}
         floatParameter: 0
         intParameter: 0
         messageOptions: 0

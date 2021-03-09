@@ -5,6 +5,7 @@ using UnityEngine.UI;
 using System;
 using UnityEngine.SceneManagement;
 using TMPro;
+using Random = UnityEngine.Random;
 
 /*
 
@@ -558,7 +559,7 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
-            Che
+            //Che
 
             #region Player Movement
 
@@ -658,6 +659,14 @@ public class CharacterMechanics : MonoBehaviour
             #endregion
         }
     }
+
+    //void FunIdle()
+    //{
+    //    if(Random.Range(1, 5) == 1)
+    //    {
+    //        animator.SetFloat("Idle_Fun", 1);
+    //    }
+    //}
 
     #region FeetGrounding
 
