@@ -1610,9 +1610,9 @@ public class CharacterMechanics : MonoBehaviour
 
         if (whirlwindDebug)
         {
-            Debug.Log("worldwind has been called");
+            Debug.Log("whirlwind has been called");
 
-            whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.transform.position, whirlwindSpawn.transform.rotation);
+            //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.transform.position, whirlwindSpawn.transform.rotation);
 
             animator.SetTrigger("whirlwind");
         }
@@ -1623,10 +1623,10 @@ public class CharacterMechanics : MonoBehaviour
 
         animator.SetTrigger("Spin");
 
-        whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.rotation, gameObject.transform);
+        whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
         Destroy(whirlwindTemp, 2);
         AttackEnd();
-        whirlwindEnd();
+        //whirlwindEnd();
     }
 
     private void whirlwindEnd()
