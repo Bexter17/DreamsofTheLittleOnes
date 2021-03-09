@@ -1,5 +1,5 @@
 fileFormatVersion: 2
-guid: dfc44c6fd0564d143bf453ba90448b6b
+guid: 5e3a4bb4d94e03f4090d8cedc97599b2
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable:
@@ -58,14 +58,7 @@ ModelImporter:
       mirror: 0
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
-      events:
-      - time: 0.6350975
-        functionName: AttackEnd
-        data: 
-        objectReferenceParameter: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
-        floatParameter: 0
-        intParameter: 0
-        messageOptions: 0
+      events: []
       transformMask: []
       maskType: 3
       maskSource: {instanceID: 0}
@@ -133,7 +126,7 @@ ModelImporter:
   autoGenerateAvatarMappingIfUnspecified: 1
   animationType: 2
   humanoidOversampling: 1
-  avatarSetup: 1
+  avatarSetup: 0
   additionalBone: 0
   userData: 
   assetBundleName: 
