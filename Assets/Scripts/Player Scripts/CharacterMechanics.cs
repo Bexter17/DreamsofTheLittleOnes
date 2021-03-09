@@ -6,12 +6,23 @@ using System;
 using UnityEngine.SceneManagement;
 using TMPro;
 
+/*
 
-// Character Mechanics Version 7.0
-//Made By Craig Walker
+Character Mechanics Version 8.0
+Made By Craig Walker
 
-//Changes:
-//Created an input buffer system
+Features:
+Combo Counter
+Created an input buffer system
+IK Foot Placement
+
+Recent Changes:
+Seperated jumping and falling
+isGround() check each frame
+adjusted attack & combo reseting
+
+*/
+
 
 #region ActionItem class Creation
 
@@ -183,15 +194,6 @@ public class CharacterMechanics : MonoBehaviour
     //private GameObject attackTemp;
 
     private int comboCount;
-
-   // private int queuedAttack1 = -1;
-
-  //  private int queuedAttack2 = -1;
-
-   // private int currentAttack;
-
-    //determines how long the attack lasts
-    //[SerializeField] private Transform attackSpawn;
 
     [SerializeField] private int attackTimer;
 
@@ -453,8 +455,6 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
-            //Sets variables to a default value incase not set in Unity inspector
-
             #region Movement
 
             if (movementSpeed <= 0)
@@ -493,10 +493,6 @@ public class CharacterMechanics : MonoBehaviour
                 RangePrefab = Resources.Load("ThrowingWeapon", typeof(GameObject)) as GameObject;
 
             #endregion
-
-            //{
-            //    attackSpawn = GameObject.FindGameObjectWithTag("Attack Spawn").transform;
-            //}
 
             if (attackTimer <= 0)
             {
@@ -561,6 +557,8 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             #endregion
+
+            Che
 
             #region Player Movement
 
@@ -1633,6 +1631,8 @@ public class CharacterMechanics : MonoBehaviour
             Destroy(whirlwindTemp);
         }
 
+        AttackEnd();
+
         #endregion
 
         Destroy(whirlwindTemp);
@@ -1648,6 +1648,8 @@ public class CharacterMechanics : MonoBehaviour
 
             Destroy(hammerSmashTemp);
         }
+
+        AttackEnd();
 
         #endregion
 
