@@ -25,6 +25,7 @@ adjusted attack & combo reseting
 */
 
 
+
 #region ActionItem class Creation
 
 public class ActionItem
@@ -62,6 +63,7 @@ public class ActionItem
 public class CharacterMechanics : MonoBehaviour
 {
     #region Components
+
 
     //Creates a charactercontoller variable named "controller"
     CharacterController controller;
@@ -205,6 +207,8 @@ public class CharacterMechanics : MonoBehaviour
     #region Abilities
 
     [SerializeField] private GameObject abilitySpawn;
+
+    AbilitiesCooldown cooldown;
 
     #region Dash
 
@@ -365,6 +369,8 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 0;
 
         sword = GetComponentInChildren<Sword_Script>();
+
+        cooldown = GetComponentInChildren<AbilitiesCooldown>();
 
         #endregion
 
@@ -1051,8 +1057,9 @@ public class CharacterMechanics : MonoBehaviour
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
         }
 
+
         //Enables the player to use Ability 1
-        if (Input.GetButtonDown("Fire1"))
+        if (Input.GetButtonDown("Fire1") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
         {
             #region Debug Log
 
@@ -1064,10 +1071,11 @@ public class CharacterMechanics : MonoBehaviour
             #endregion
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
+            AttackEnd();
         }
 
         //Enables the player to use Ability 2
-        if (Input.GetButtonDown("Fire2"))
+        if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
 
@@ -1079,26 +1087,33 @@ public class CharacterMechanics : MonoBehaviour
             #endregion
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
+            AttackEnd();
         }
 
         //Enables the player to use Ability 3
+        //if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         if (Input.GetButtonDown("Fire3"))
         {
+            #region Debug Log
             if (inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: hammerSmash has been pressed");
             }
 
+            #endregion
+
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
             AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire4"))
+        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
         {
+            #region Debug Log
             if (inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: whirlwind has been pressed");
             }
+            #endregion
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
             AttackEnd();
@@ -1542,6 +1557,10 @@ public class CharacterMechanics : MonoBehaviour
     #endregion
 
     #region Abilities
+
+    
+
+
     // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
     public void dash()
     {
@@ -1567,6 +1586,7 @@ public class CharacterMechanics : MonoBehaviour
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
 
         //Rigidbody.addforce();
+        actionAllowed = true;
     }
    
     private void dashEnds()
@@ -1607,20 +1627,17 @@ public class CharacterMechanics : MonoBehaviour
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
         AttackEnd();
+        actionAllowed = true;
         //hammerSmashEnd();
     }
 
     private void whirlwind()
     {
         #region Debug Log
-
+        
         if (whirlwindDebug)
         {
             Debug.Log("whirlwind has been called");
-
-            //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.transform.position, whirlwindSpawn.transform.rotation);
-
-            animator.SetTrigger("whirlwind");
         }
 
         #endregion
