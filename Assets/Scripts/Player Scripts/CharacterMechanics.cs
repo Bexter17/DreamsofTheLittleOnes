@@ -1622,7 +1622,7 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        animator.SetTrigger("HammerSmash");
+        animator.SetTrigger("Hammer Smash");
 
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
