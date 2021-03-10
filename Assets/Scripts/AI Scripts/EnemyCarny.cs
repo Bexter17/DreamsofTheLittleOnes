@@ -27,7 +27,7 @@ public class EnemyCarny : MonoBehaviour
     public bool death = false;
 
     //STATES
-    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun };
+    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
     EnemyState myEnemy;
     //TODO remove
     private float knockDistanceModifier = 400;
@@ -221,6 +221,11 @@ public class EnemyCarny : MonoBehaviour
                 }
 
             }
+            else if (myEnemy == EnemyState.lockChase)
+            {
+                editChase();
+                Debug.Log("1111111111111111111111111111111111111");
+            }
             else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
             {
                 Chase();
@@ -398,6 +403,35 @@ public class EnemyCarny : MonoBehaviour
             agent.SetDestination(circlePoints[encircleNum].transform.position);
         }
 
+    }
+    //using this funciton to set a chase destination to spawned enemy
+    public void editChase()
+    {
+        isPatrolling = false;
+        agent.isStopped = false;
+        myEnemy = EnemyState.lockChase;
+        agent.SetDestination(Player.transform.position);
+
+    }
+    public int getstatus()
+    {
+        if (myEnemy == EnemyState.Patrol)
+        {
+            return 1;
+        }
+        else if (myEnemy == EnemyState.Chase)
+        {
+            return 2;
+        }
+        else if (myEnemy == EnemyState.lockChase)
+        {
+            return 3;
+        }
+        else if (myEnemy == EnemyState.Attack)
+        {
+            return 4;
+        }
+        return 0;
     }
     public void Called()
     {
