@@ -668,7 +668,7 @@ public class CharacterMechanics : MonoBehaviour
     //{
     //    if(Random.Range(1, 5) == 1)
     //    {
-    //        animator.SetFloat("Idle_Fun", 1);
+    //        animator.SetFloat("Idle_Fun", 2);
     //    }
     //}
 
