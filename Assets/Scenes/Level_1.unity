@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 504033087}
-  m_IndirectSpecularColor: {r: 0.0029181743, g: 0.0008074619, b: 0.0000009586025, a: 1}
+  m_IndirectSpecularColor: {r: 0.0029114287, g: 0.0008041196, b: 0.000001188248, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -23615,6 +23615,10 @@ PrefabInstance:
       propertyPath: m_Depth
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5569241193991019073, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_TagString
+      value: Attack Spawn
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409844, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_Name
       value: Player
@@ -23659,6 +23663,10 @@ PrefabInstance:
       propertyPath: hammerSmashSpawn
       value: 
       objectReference: {fileID: 145002313}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: dashRangePrefab
+      value: 
+      objectReference: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
       value: 0

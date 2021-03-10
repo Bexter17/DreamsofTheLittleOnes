@@ -216,7 +216,7 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int dashSpeed;
 
-    private GameObject dashTemp;
+    private GameObject dashTemp = null;
 
     #endregion
 
@@ -386,7 +386,7 @@ public class CharacterMechanics : MonoBehaviour
             RangedSpawn = gameObject.transform.GetChild(2).transform;
 
         if (dashSpeed == 0)
-            dashSpeed = 5;
+            dashSpeed = 10;
 
         if (!Canvas)
             Canvas = GameObject.FindGameObjectWithTag("HUD Canvas").GetComponent<Canvas>();
@@ -558,8 +558,6 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             #endregion
-
-            //Che
 
             #region Player Movement
 
@@ -1558,9 +1556,13 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation);
+        if (dashRangePrefab && abilitySpawn)
+            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation);
 
-        animator.SetTrigger("dash");
+        else
+            Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
+
+        animator.SetTrigger("Dash");
 
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
 
@@ -1580,7 +1582,11 @@ public class CharacterMechanics : MonoBehaviour
 
         Destroy(dashTemp);
 
+        dashTemp = null;
+
         actionAllowed = true;
+
+        AttackEnd();
     }
 
     private void hammerSmash()
