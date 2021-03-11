@@ -6,7 +6,12 @@ ModelImporter:
   - first:
       74: 1827226128182048838
     second: Walk
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: hairlow
+    second: {fileID: 2100000, guid: cd3de2e08e5401748996e1345bacc0b2, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0
