@@ -24381,6 +24381,14 @@ PrefabInstance:
       propertyPath: dashRangePrefab
       value: 
       objectReference: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: RangePrefab
+      value: 
+      objectReference: {fileID: 6882968560295412820, guid: e0d50ace27769c34bbc6cd86a46e02b8, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: RangedSpawn
+      value: 
+      objectReference: {fileID: 1724179384}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
       value: 0
@@ -55056,6 +55064,11 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 2.5280867, y: 2.5786388, z: 2.5909097}
   m_Center: {x: 0.7440295, y: -0.044719066, z: 6.3148694}
+--- !u!4 &1724179384 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 936549532401749641, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 782025089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &1725087273
 GameObject:
   m_ObjectHideFlags: 0

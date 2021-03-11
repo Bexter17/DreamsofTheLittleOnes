@@ -1059,7 +1059,7 @@ public class CharacterMechanics : MonoBehaviour
 
 
         //Enables the player to use Ability 1
-        if (Input.GetButtonDown("Fire1") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
+        if (Input.GetButtonDown("Fire1"))
         {
             #region Debug Log
 
@@ -1075,7 +1075,7 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         //Enables the player to use Ability 2
-        if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
+        if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
         {
             #region Debug Log
 
@@ -1091,8 +1091,7 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         //Enables the player to use Ability 3
-        //if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
-        if (Input.GetButtonDown("Fire3"))
+        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
             if (inputBufferDebug)
@@ -1106,7 +1105,7 @@ public class CharacterMechanics : MonoBehaviour
             AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
+        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         {
             #region Debug Log
             if (inputBufferDebug)
@@ -1119,7 +1118,7 @@ public class CharacterMechanics : MonoBehaviour
             AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire5"))
+        if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false) 
         {
             if (inputBufferDebug)
             {
@@ -1127,6 +1126,7 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
+            AttackEnd();
         }
     }
 
@@ -1688,7 +1688,6 @@ public class CharacterMechanics : MonoBehaviour
         Destroy(hammerSmashTemp);
     }
 
-
     private void ranged()
     {
         #region Debug Log
@@ -1701,10 +1700,13 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
 
         animator.SetTrigger("Throw");
-
+        //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
         GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
         bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+
+        Destroy(bullet, 2);
+        AttackEnd();
     }
 
     #endregion
