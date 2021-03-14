@@ -45,6 +45,10 @@ public class EnemyCarny : MonoBehaviour
     private GameObject waypoint1;
     private GameObject waypoint2;
     private GameObject[] potentialWaypoints;
+    public GameObject[] waypoints;
+    public bool advancedPatrol;
+    private int patrolNumber = 0;
+    private int patrolIterator = 1;
 
     // How fast enemy moves
     private float enemyMovement = 3;
@@ -109,26 +113,44 @@ public class EnemyCarny : MonoBehaviour
 
         //STATES
         #region SetWaypoints
-        potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint1");
-        waypoint1 = potentialWaypoints[0];
-        for(int i = 0; i < potentialWaypoints.Length; i++)
+        if (advancedPatrol)
         {
-            if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint1.transform.position))
+            for(int i = 0; i < waypoints.Length; i++)
             {
-                waypoint1 = potentialWaypoints[i];
+                if (waypoints[i] == null)
+                {
+                    Debug.Log(gameObject + "Missing PatrolNode:" + i);
+                }
+            }
+            for(int i = 0; i < waypoints.Length - 1; i++)
+            {
+                Debug.DrawLine(waypoints[i].transform.position, waypoints[i + 1].transform.position, Color.cyan, 999);
             }
         }
-        potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint2");
-        waypoint2 = potentialWaypoints[0];
-        for (int i = 0; i < potentialWaypoints.Length; i++)
+        else
         {
-            if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint2.transform.position))
+            potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint1");
+            waypoint1 = potentialWaypoints[0];
+            for (int i = 0; i < potentialWaypoints.Length; i++)
             {
-                waypoint2 = potentialWaypoints[i];
+                if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint1.transform.position))
+                {
+                    waypoint1 = potentialWaypoints[i];
+                }
             }
+            potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint2");
+            waypoint2 = potentialWaypoints[0];
+            for (int i = 0; i < potentialWaypoints.Length; i++)
+            {
+                if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint2.transform.position))
+                {
+                    waypoint2 = potentialWaypoints[i];
+                }
+            }
+            //waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
+            //waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
         }
-        //waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
-        //waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
+
         #endregion
         #region default values
 
@@ -315,14 +337,35 @@ public class EnemyCarny : MonoBehaviour
         // Patrolling now works regardless of what order waypoints are in
         if (isPatrolling)
         {
-            if (other.gameObject.transform == waypoint1.transform)
+            if (advancedPatrol)
             {
-                agent.SetDestination(waypoint2.transform.position);
+                if(other.gameObject.transform == waypoints[patrolNumber].transform)
+                {
+                    if(patrolNumber == waypoints.Length - 1 && patrolIterator == 1)
+                    {
+                        patrolIterator = -1;
+                    }
+                    else if(patrolNumber == 0 && patrolIterator == -1)
+                    {
+                        patrolIterator = 1;
+                    }
+                    patrolNumber += patrolIterator;
+                    agent.SetDestination(waypoints[patrolNumber].transform.position);
+                }
             }
-            else if (other.gameObject.transform == waypoint2.transform)
+            else
             {
-                agent.SetDestination(waypoint1.transform.position);
+                if (other.gameObject.transform == waypoint1.transform)
+                {
+                    agent.SetDestination(waypoint2.transform.position);
+                }
+                else if (other.gameObject.transform == waypoint2.transform)
+                {
+                    agent.SetDestination(waypoint1.transform.position);
+                }
+
             }
+
         }
 
         //TODO + parameter to take damage to edit knockback
@@ -446,12 +489,25 @@ public class EnemyCarny : MonoBehaviour
     {
         //Debug.Log("PATROL");
         // At the beginning of patrolling sets first patrol destination
-        if (myEnemy != EnemyState.Patrol)
+        if (advancedPatrol)
         {
-            myEnemy = EnemyState.Patrol;
-            agent.SetDestination(waypoint1.transform.position);
-            isPatrolling = true;
+            if (myEnemy != EnemyState.Patrol)
+            {
+                myEnemy = EnemyState.Patrol;
+                agent.SetDestination(waypoints[0].transform.position);
+                isPatrolling = true;
+            }
         }
+        else
+        {
+            if (myEnemy != EnemyState.Patrol)
+            {
+                myEnemy = EnemyState.Patrol;
+                agent.SetDestination(waypoint1.transform.position);
+                isPatrolling = true;
+            }
+        }
+
     }
 
     // Used for enemy animations and patrolling between waypoints
