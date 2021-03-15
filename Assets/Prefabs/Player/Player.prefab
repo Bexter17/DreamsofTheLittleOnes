@@ -187,7 +187,6 @@ GameObject:
   m_Component:
   - component: {fileID: 5569241194072409854}
   - component: {fileID: 5569241194072409855}
-  - component: {fileID: 5569241194072409848}
   - component: {fileID: 5569241194072409849}
   - component: {fileID: 5569241194072409850}
   - component: {fileID: 5569241194072409851}
@@ -212,7 +211,7 @@ Transform:
   - {fileID: 5569241193991019072}
   - {fileID: 5569241193833624288}
   - {fileID: 936549532401749641}
-  - {fileID: 6162402573550668313}
+  - {fileID: 4962679399738818902}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 389.372, z: 0}
@@ -235,48 +234,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &5569241194072409848
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5569241194072409844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63cbfa81008c7294a85576892c8f674a, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  characterRoot: {fileID: 5569241194072409854}
-  itemGroups:
-  - name: Legs
-    items:
-    - prefab: {fileID: 100000, guid: 17e8ecbc4e6bcea40878ead9b50712be, type: 3}
-    - prefab: {fileID: 100000, guid: d7739944e3990de4bbb0cfdc16f876fa, type: 3}
-    - prefab: {fileID: 100000, guid: a48c0a1c97d48e7419d41fe8e176ae51, type: 3}
-    - prefab: {fileID: 100022, guid: a21dffdbb678b38439d8c5954c371701, type: 3}
-    slots: 4
-  - name: Torsos
-    items:
-    - prefab: {fileID: 100000, guid: 0785e19d7558bf542ac3ec73faaf7709, type: 3}
-    - prefab: {fileID: 100000, guid: fba03d136e511a9438a9e19a8c96fc65, type: 3}
-    - prefab: {fileID: 100000, guid: a54c56bf4e395ac4c940603b7b12ee75, type: 3}
-    - prefab: {fileID: 100000, guid: e8eb09b19391bfe4eab8554eac44634f, type: 3}
-    slots: 4
-  - name: Heads
-    items:
-    - prefab: {fileID: 100000, guid: 3ed30173e52bad9469c5720c7646c3de, type: 3}
-    - prefab: {fileID: 100000, guid: 284b2fec4918654439cf2eb3a1bb5c44, type: 3}
-    - prefab: {fileID: 100000, guid: ac9e5936b8a63bf4f977287e27381de6, type: 3}
-    slots: 3
-  - name: Hairs
-    items:
-    - prefab: {fileID: 100000, guid: f72746b6ba199774992e6eda7be20f4d, type: 3}
-    - prefab: {fileID: 100000, guid: 6a11a3d001e91bb4abc2cc119ccefdc1, type: 3}
-    - prefab: {fileID: 100000, guid: ba81bc73c9f97274688f3affce011d50, type: 3}
-    - prefab: {fileID: 100000, guid: 790f4551bb671cc43bea7a0943c1162f, type: 3}
-    slots: 4
-  disabledGraySkeleton: {fileID: 0}
 --- !u!143 &5569241194072409849
 CharacterController:
   m_ObjectHideFlags: 0
@@ -307,27 +264,28 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDebug: 0
-  jumpDebug: 0
-  combatDebug: 0
+  movementDebug: 1
+  jumpDebug: 1
+  combatDebug: 1
   comboDebug: 1
   inputBufferDebug: 1
-  showSolverDebug: 0
-  hammerDebug: 0
-  whirlwindDebug: 0
+  showSolverDebug: 1
+  hammerDebug: 1
+  whirlwindDebug: 1
   animDebug: 1
   HealthBar: {fileID: 0}
   healthBar: {fileID: 2778099231981181032, guid: b3aec9d629df5944696f9dba201bc3d8, type: 3}
   currentHealth: 5
   maxHealth: 50
   Lives: 1
+  respawnPoint: {fileID: 0}
   movementSpeed: 0
   currentSpeed: 0
-  jumpSpeed: 0
   rotationSpeed: 2
+  groundSearchLength: 0.6
+  jumpSpeed: 0
   gravity: 0
   isGrounded: 1
-  respawnPoint: {fileID: 0}
   playerStats: {fileID: 0}
   attackRangePrefab: {fileID: 0}
   attackTimer: 3
@@ -432,7 +390,7 @@ Transform:
   m_Father: {fileID: 5569241194072409854}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!1001 &5913218617810202098
+--- !u!1001 &4851577343458256573
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -483,25 +441,9 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ab3208099407596459279593137b7647, type: 3}
-      propertyPath: m_LocalScale.x
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ab3208099407596459279593137b7647, type: 3}
-      propertyPath: m_LocalScale.y
-      value: 1.5
-      objectReference: {fileID: 0}
-    - target: {fileID: -8679921383154817045, guid: ab3208099407596459279593137b7647, type: 3}
-      propertyPath: m_LocalScale.z
-      value: 1.5
-      objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: ab3208099407596459279593137b7647, type: 3}
       propertyPath: m_Name
       value: Bjorn
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: ab3208099407596459279593137b7647, type: 3}
-      propertyPath: m_TagString
-      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 5866666021909216657, guid: ab3208099407596459279593137b7647, type: 3}
       propertyPath: m_Controller
@@ -509,8 +451,8 @@ PrefabInstance:
       objectReference: {fileID: 9100000, guid: 3ccaf917d30940c409bc2eb6c11c4a8f, type: 2}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ab3208099407596459279593137b7647, type: 3}
---- !u!4 &6162402573550668313 stripped
+--- !u!4 &4962679399738818902 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab3208099407596459279593137b7647, type: 3}
-  m_PrefabInstance: {fileID: 5913218617810202098}
+  m_PrefabInstance: {fileID: 4851577343458256573}
   m_PrefabAsset: {fileID: 0}
