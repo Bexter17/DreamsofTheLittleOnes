@@ -7,7 +7,7 @@ public class Destructable : MonoBehaviour
     public GameObject destroyedVersion;
     public GameObject[] pickUps;
     public int index;
-   
+    public float waitTime = 2f;
 
     private void Start()
     {
@@ -23,18 +23,19 @@ public class Destructable : MonoBehaviour
     }
     private void OnMouseDown()
     {
-
+      
+        
+        GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
         GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
         brokenVersion.transform.localScale = new Vector3(2, 2, 2);
         Object.Destroy(brokenVersion, 5f);
-        
-     
-
-
-        GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-        randomPickup.transform.localScale = new Vector3(1, 1, 1);
+  
+        //randomPickup.transform.localScale = new Vector3(1, 1, 1);
 
        // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
         Destroy(gameObject);
     }
+
+
+
 }
