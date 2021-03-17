@@ -1674,18 +1674,18 @@ public class CharacterMechanics : MonoBehaviour
     {
         #region Debug Log
 
-        if (whirlwindDebug)
+        if (hammerDebug)
         {
             Debug.Log("HammerSmash has been called");
 
             Destroy(hammerSmashTemp);
         }
 
-        AttackEnd();
-
         #endregion
-
-        Destroy(hammerSmashTemp);
+       
+        AttackEnd();
+    
+       Destroy(hammerSmashTemp);
     }
 
     private void ranged()
