@@ -12,44 +12,39 @@ public class EnemySpawn : MonoBehaviour
     GameObject minigame;
     float spawntimer = 0;
     public int status;
+    public bool spawn = false;
     // Start is called before the first frame update
     void Start()
     {
-        if (!Enemy)
-        {
-            minigame = GameObject.Find("MovingBox");
-            Enemy = Instantiate(EnemyPrefab, transform.position, transform.rotation);
-            Enemy.GetComponent<EnemyCarny>().chaseRange = 300;
-            Enemy.GetComponent<EnemyCarny>().editChase();
-            // I commented these lines out because on the enemy waypoints are now automatically gotten
-            //Enemy.GetComponent<EnemyCarny>().waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
-            //Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
-        }
+        minigame = GameObject.Find("MovingBox");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if (Enemy)
+        if (spawn == true)
         {
-            status = Enemy.GetComponent<EnemyCarny>().getstatus();
-            if (status == 1)
+            if (Enemy)
             {
-                Enemy.GetComponent<EnemyCarny>().editChase();
+                status = Enemy.GetComponent<EnemyCarny>().getstatus();
+                if (status == 1)
+                {
+                    Enemy.GetComponent<EnemyCarny>().editChase();
+                }
             }
-        }
-        if (minigame.GetComponent<HammerGame>().isHit == false)
-        {
-
-            if (!Enemy && (Time.time - spawntimer > 10))
+            if (minigame.GetComponent<HammerGame>().isHit == false)
             {
-                spawntimer = Time.time;
-                Enemy = Instantiate(EnemyPrefab, transform.position, transform.rotation);
-                Enemy.GetComponent<EnemyCarny>().chaseRange = 300;
-                Enemy.GetComponent<EnemyCarny>().editChase();
-                // I commented these lines out because on the enemy waypoints are now automatically gotten
-                //Enemy.GetComponent<EnemyCarny>().waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
-                //Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
+
+                if (!Enemy && (Time.time - spawntimer > 10))
+                {
+                    spawntimer = Time.time;
+                    Enemy = Instantiate(EnemyPrefab, transform.position, transform.rotation);
+                    Enemy.GetComponent<EnemyCarny>().chaseRange = 300;
+                    Enemy.GetComponent<EnemyCarny>().editChase();
+                    // I commented these lines out because on the enemy waypoints are now automatically gotten
+                    //Enemy.GetComponent<EnemyCarny>().waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
+                    //Enemy.GetComponent<EnemyCarny>().waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
+                }
             }
         }
     }
