@@ -367,6 +367,14 @@ public class EnemyCarny : MonoBehaviour
             }
 
         }
+        else
+        {
+            if (other.CompareTag("Player"))
+            {
+                //Debug.LogWarning("Enemy Start Collision With Player");
+                rb.isKinematic = false;
+            }
+        }
 
         //TODO + parameter to take damage to edit knockback
         //So that ranged attack doesn't knockback as much as melee
@@ -520,7 +528,7 @@ public class EnemyCarny : MonoBehaviour
     }
 
     private void giveDamage()
-    {
+    {   
         Player.SendMessage("takeDamage", dmgDealt);
     }
     public void changeStackrange(float i)
