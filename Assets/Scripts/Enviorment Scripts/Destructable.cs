@@ -9,31 +9,64 @@ public class Destructable : MonoBehaviour
     public int index;
     public float waitTime = 2f;
 
+    public Animator hammerAnimations;
+    public GameObject Hammer;
+
+    CharacterMechanics character;
+
+   
+    
     private void Start()
     {
-      
+        GameObject CharacterMechanics = GameObject.Find("Bjorn");
+        character = CharacterMechanics.GetComponent<CharacterMechanics>();
+
+  
     }
 
     private void Update()
     {
         index = Random.Range(0, pickUps.Length);
 
-      
+    
 
     }
-    private void OnMouseDown()
-    {
-      
-        
-        GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-        GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-        brokenVersion.transform.localScale = new Vector3(2, 2, 2);
-        Object.Destroy(brokenVersion, 5f);
-  
-        //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+    //private void OnMouseDown()
+    //{
 
-       // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-        Destroy(gameObject);
+
+    //    GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+    //    GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+    //    brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+    //    Object.Destroy(brokenVersion, 5f);
+
+    //    Destroy(gameObject);
+
+    //    randomPickup.transform.localScale = new Vector3(1, 1, 1);
+
+    //    Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+
+    //}
+
+    public void OnTriggerEnter(Collider other)
+    {
+            if (other.gameObject.tag == "Hammer")
+            {
+                Debug.Log("Working Hammer");
+                GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+                GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+                Object.Destroy(brokenVersion, 5f);
+
+                Destroy(gameObject);
+
+                //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+
+                // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            }
+      
+    
+
     }
 
 

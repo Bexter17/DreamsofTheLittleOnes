@@ -210,6 +210,8 @@ public class CharacterMechanics : MonoBehaviour
 
     AbilitiesCooldown cooldown;
 
+    
+
     #region Dash
 
     [Header("Dash Ability")]
@@ -1406,6 +1408,7 @@ public class CharacterMechanics : MonoBehaviour
     public void AttackBegins()
     {
         isInCombo = true;
+       
 
         sword.SendMessage("activateAttack");
         //sends message to the players sword script to start dealing damage on collision
@@ -1480,6 +1483,7 @@ public class CharacterMechanics : MonoBehaviour
         //}
 
         actionAllowed = true;
+     
 
 
         #region Debug Log
