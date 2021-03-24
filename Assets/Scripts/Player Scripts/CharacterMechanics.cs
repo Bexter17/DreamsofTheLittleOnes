@@ -299,6 +299,12 @@ public class CharacterMechanics : MonoBehaviour
     //How long the speed boost lasts
     [SerializeField] private float timerSpeedBoost;
 
+    [SerializeField] private GameObject healthEffect;
+
+    private GameObject heTemp;
+
+    [SerializeField] private int healthEffectTimer;
+
 #endregion
 
     #region IKSystem
@@ -306,6 +312,10 @@ public class CharacterMechanics : MonoBehaviour
     [Header("IK System")]
 
     [SerializeField] private bool enableFeetIK = true;
+
+    [SerializeField] private Transform rightFoot;
+
+    [SerializeField] private Transform leftFoot;
 
     private Vector3 rightFootPos, leftFootPos, rightFootIKPos, leftFootIKPos;
 
@@ -505,6 +515,9 @@ public class CharacterMechanics : MonoBehaviour
                 attackTimer = 3;
             }
 
+            if (healthEffectTimer <= 0)
+                healthEffectTimer = 2;
+
             //Assigns a value to the variable
             moveDirection = Vector3.zero;
         }
@@ -687,9 +700,9 @@ public class CharacterMechanics : MonoBehaviour
             return;
         }
 
-        adjustFeetTarget(ref rightFootPos, HumanBodyBones.RightFoot);
+        adjustFeetTarget(ref rightFootPos, rightFoot);
 
-        adjustFeetTarget(ref leftFootPos, HumanBodyBones.LeftFoot);
+        adjustFeetTarget(ref leftFootPos, leftFoot);
 
         feetPositionSolver(rightFootPos, ref rightFootIKPos, ref rightFootIKRot); //Handles the solver for the right foot
 
@@ -815,9 +828,9 @@ public class CharacterMechanics : MonoBehaviour
         feetIKPositions = Vector3.zero;
     }
 
-    private void adjustFeetTarget(ref Vector3 feetPositions, HumanBodyBones foot)
+    private void adjustFeetTarget(ref Vector3 feetPositions, Transform foot)
     {
-        feetPositions = animator.GetBoneTransform(foot).position;
+        feetPositions = foot.position;
 
         feetPositions.y = transform.position.y + heightFromGroundRaycast;
     }
@@ -947,11 +960,20 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Pickup Functions
 
+    void createHealthEffect()
+    {
+        heTemp = Instantiate(healthEffect, abilitySpawn.transform.position, abilitySpawn.transform.rotation, gameObject.transform);
+
+        Destroy(heTemp, healthEffectTimer);
+    }
+
     private void pickupHealth()
     {
         currentHealth = maxHealth;
 
         updateHud();
+
+        createHealthEffect();
     }
 
     private void pickupMaxHealth()
