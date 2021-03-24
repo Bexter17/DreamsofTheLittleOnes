@@ -1,6 +1,6 @@
 ﻿using Cinemachine;
 using UnityEngine;
-using UnityEngine.InputSystem;
+//using UnityEngine.InputSystem;
 
 /*  Cinemachine State Switcher by Ross Curry
  *  2021 - 03 - 24
