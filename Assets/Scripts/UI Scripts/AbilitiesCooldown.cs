@@ -5,7 +5,6 @@ using UnityEngine.UI;
 
 public class AbilitiesCooldown : MonoBehaviour
 {
-
     [Header("Ability 1")]
     public Image abilityImage1;
     public float cooldown1 = 5;
@@ -30,7 +29,6 @@ public class AbilitiesCooldown : MonoBehaviour
     public bool isCooldown4 = false;
     public KeyCode ability4;
 
-    // Start is called before the first frame update
     void Start()
     {
         abilityImage1.fillAmount = 0;
@@ -39,7 +37,6 @@ public class AbilitiesCooldown : MonoBehaviour
         abilityImage4.fillAmount = 0;
     }
 
-    // Update is called once per frame
     void Update()
     {
         Ability1();
@@ -127,5 +124,4 @@ public class AbilitiesCooldown : MonoBehaviour
             }
         }
     }
-
 }

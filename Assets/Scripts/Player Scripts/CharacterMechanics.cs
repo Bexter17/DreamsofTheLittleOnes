@@ -210,8 +210,6 @@ public class CharacterMechanics : MonoBehaviour
 
     AbilitiesCooldown cooldown;
 
-    
-
     #region Dash
 
     [Header("Dash Ability")]
@@ -261,7 +259,6 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private GameObject RangePrefab;
 
     [SerializeField] private Transform RangedSpawn;
-
 
     #endregion
 
@@ -1073,7 +1070,7 @@ public class CharacterMechanics : MonoBehaviour
             #endregion
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
-            AttackEnd();
+            //AttackEnd();
         }
 
         //Enables the player to use Ability 2
@@ -1122,10 +1119,12 @@ public class CharacterMechanics : MonoBehaviour
 
         if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false) 
         {
+            #region Debug Log
             if (inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: ranged attack has been pressed");
             }
+            #endregion
 
             inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
             AttackEnd();
@@ -1409,7 +1408,6 @@ public class CharacterMechanics : MonoBehaviour
     {
         isInCombo = true;
        
-
         sword.SendMessage("activateAttack");
         //sends message to the players sword script to start dealing damage on collision
 
@@ -1484,8 +1482,6 @@ public class CharacterMechanics : MonoBehaviour
 
         actionAllowed = true;
      
-
-
         #region Debug Log
 
         if (comboDebug)
@@ -1562,9 +1558,6 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
-    
-
-
     // Dash now has animation tested and animation plays when hitting the left alt, spawns the dashTemp but player doesnt move forward.
     public void dash()
     {
@@ -1631,8 +1624,6 @@ public class CharacterMechanics : MonoBehaviour
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
         AttackEnd();
-        actionAllowed = true;
-        //hammerSmashEnd();
     }
 
     private void whirlwind()
@@ -1653,7 +1644,6 @@ public class CharacterMechanics : MonoBehaviour
         whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
         Destroy(whirlwindTemp, 2);
         AttackEnd();
-        //whirlwindEnd();
     }
 
     private void whirlwindEnd()
