@@ -34,7 +34,7 @@ public class GameManager : MonoBehaviour
 
         public void StartGame()
         {
-            SceneManager.LoadScene("MainScene");
+            SceneManager.LoadScene("Level_1");
         }
 
         public void Return()
