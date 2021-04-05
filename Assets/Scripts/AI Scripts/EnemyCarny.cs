@@ -8,6 +8,7 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
+    //remaining Distance instead of vector3.distance
     #region Variables
     //TODO removed most of serializefields to a minimum
 
