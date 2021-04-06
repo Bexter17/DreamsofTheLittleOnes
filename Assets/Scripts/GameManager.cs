@@ -42,6 +42,11 @@ public class GameManager : MonoBehaviour
             SceneManager.LoadScene("MainMenu");
         }
 
+        public void TryAgain()
+    {
+        SceneManager.LoadScene("Level_1");
+    }
+
         public void QuitGame()
         {
 #if UNITY_EDITOR

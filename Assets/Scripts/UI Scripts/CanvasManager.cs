@@ -10,6 +10,7 @@ public class CanvasManager : MonoBehaviour
     public Button startButton;
     public Button quitButton;
     public Button returnButton;
+    public Button tryAgainButton;
 
     public GameObject pauseMenu;
    
@@ -31,6 +32,12 @@ public class CanvasManager : MonoBehaviour
         {
             returnButton.onClick.AddListener(gm.Return);
         }
+
+        if(tryAgainButton)
+        {
+            tryAgainButton.onClick.AddListener(gm.TryAgain);
+        }
+        
     }
 
     private void Update()
