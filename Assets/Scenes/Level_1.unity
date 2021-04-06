@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 504033087}
-  m_IndirectSpecularColor: {r: 0.0029181743, g: 0.0008074619, b: 0.0000009586025, a: 1}
+  m_IndirectSpecularColor: {r: 0.0029184278, g: 0.0008070726, b: 0.0000011865794, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -30028,6 +30028,10 @@ PrefabInstance:
       propertyPath: waypoint2
       value: 
       objectReference: {fileID: 280333371}
+    - target: {fileID: -1176448609775156762, guid: c868064414033f346acfca5efd25c9ea, type: 3}
+      propertyPath: isStationary
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 942041078614933, guid: c868064414033f346acfca5efd25c9ea, type: 3}
       propertyPath: m_Name
       value: ClownEnemy
@@ -68452,7 +68456,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057025612}
-  m_LocalRotation: {x: 0.07054128, y: 0.50304794, z: -0.041243818, w: 0.8603869}
+  m_LocalRotation: {x: 0.07054128, y: 0.503048, z: -0.041243825, w: 0.8603869}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:

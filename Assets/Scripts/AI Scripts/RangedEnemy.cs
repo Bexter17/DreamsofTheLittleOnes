@@ -19,6 +19,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockDuration;
     [SerializeField] float knockPause;
+    [SerializeField] bool isStationary;
 
     NavMeshAgent agent;
 
@@ -117,7 +118,12 @@ public class RangedEnemy : MonoBehaviour
         {
             enemyRunMultiplier = 4;
         }
-        Patrol();
+        if (!isStationary)
+        {
+            Patrol();
+        }
+        eAnim.SetBool("Stationary", isStationary);
+
         #endregion
     }
 
@@ -135,39 +141,54 @@ public class RangedEnemy : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
-            if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            if (!isStationary)
             {
-                myEnemyClown = EnemyState.Chase;
-                Chase();
-            }
-            // If enemy within attackrange stop moving and attack
-            // If enemy within chaserange chase player
-            // else go back to patrol route
-            if (myEnemyClown == EnemyState.Patrol)
-            {
-                Patrol();
-                agent.isStopped = false;
-            }
-            else
-            {
-                eAnim.SetBool("PlayerSpotted", true);
-                if (Vector3.Distance(target.position, gameObject.transform.position) > attackRange)
+                if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
                 {
+                    myEnemyClown = EnemyState.Chase;
+                    Chase();
+                }
+                // If enemy within attackrange stop moving and attack
+                // If enemy within chaserange chase player
+                // else go back to patrol route
+                if (myEnemyClown == EnemyState.Patrol)
+                {
+                    Patrol();
+                    agent.isStopped = false;
+                }
+                else
+                {
+                    eAnim.SetBool("PlayerSpotted", true);
+                    if (Vector3.Distance(target.position, gameObject.transform.position) > attackRange)
+                    {
                         myEnemyClown = EnemyState.Chase;
                         Chase();
                         Debug.LogWarning("");
- 
+
+                    }
+                    else if (Vector3.Distance(target.position, gameObject.transform.position) <= attackRange)
+                    {
+                        eAnim.SetBool("Chase", false);
+                        agent.isStopped = true;
+                        myEnemyClown = EnemyState.Attack;
+                        Attack();
+                    }
                 }
-                else if (Vector3.Distance(target.position, gameObject.transform.position) <= attackRange)
+            }
+            //IsStationary
+            else
+            {
+                if (Vector3.Distance(target.position, gameObject.transform.position) <= attackRange)
                 {
                     eAnim.SetBool("Chase", false);
                     agent.isStopped = true;
+                    //Sets Destination to player so that the enemy will turn towards player
+                    //Will not move is agent.isStopped = true
+                    agent.SetDestination(Player.transform.position);
                     myEnemyClown = EnemyState.Attack;
                     Attack();
                 }
             }
-
-
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             float str = rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
@@ -302,8 +323,6 @@ public class RangedEnemy : MonoBehaviour
                 agent.SetDestination(waypoint1.position);
             }
         }
-
-
         if (other.gameObject.tag == "PlayerRanged")
         {
             Debug.Log("Hit with Ranged");
