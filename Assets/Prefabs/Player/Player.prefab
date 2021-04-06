@@ -190,6 +190,7 @@ GameObject:
   - component: {fileID: 5569241194072409849}
   - component: {fileID: 5569241194072409850}
   - component: {fileID: 5569241194072409851}
+  - component: {fileID: 7989571477359376727}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -269,7 +270,6 @@ MonoBehaviour:
   combatDebug: 1
   comboDebug: 1
   inputBufferDebug: 1
-  showSolverDebug: 1
   hammerDebug: 1
   whirlwindDebug: 1
   animDebug: 1
@@ -307,15 +307,8 @@ MonoBehaviour:
   timerJumpBoost: 0
   speedBoost: 0
   timerSpeedBoost: 0
-  enableFeetIK: 1
-  heightFromGroundRaycast: 1.14
-  raycastDownDistance: 1.5
-  pelvisOffset: 0
-  pelvisUpAndDownSpeed: 0.2
-  feetToIKPosSpeed: 0.5
-  leftFootVariableName: Left Foot Curve
-  rightFootVariableName: Right Foot Curve
-  useProIKFeatures: 1
+  healthEffect: {fileID: 162536, guid: e8eccc730fd61eb438de7f0466e0ab3f, type: 3}
+  healthEffectTimer: 2
 --- !u!136 &5569241194072409851
 CapsuleCollider:
   m_ObjectHideFlags: 0
@@ -330,6 +323,30 @@ CapsuleCollider:
   m_Height: 2.1
   m_Direction: 1
   m_Center: {x: 0, y: 1, z: 0}
+--- !u!114 &7989571477359376727
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 78f478cf043740642bd9738e54402e6d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  showSolverDebug: 0
+  enableFeetIK: 1
+  rightFoot: {fileID: 2407618729583579293}
+  leftFoot: {fileID: 8195955502742521657}
+  heightFromGroundRaycast: 1.14
+  raycastDownDistance: 1.5
+  pelvisOffset: 0
+  pelvisUpAndDownSpeed: 0.2
+  feetToIKPosSpeed: 0.5
+  leftFootVariableName: Left Foot Curve
+  rightFootVariableName: Right Foot Curve
+  useProIKFeatures: 1
 --- !u!1 &6300707668775809807
 GameObject:
   m_ObjectHideFlags: 0
@@ -532,6 +549,16 @@ Transform:
 --- !u!4 &8595504099618055895 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -7624602487080407315, guid: ab3208099407596459279593137b7647, type: 3}
+  m_PrefabInstance: {fileID: 7018478623462443066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8195955502742521657 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1214642608367111939, guid: ab3208099407596459279593137b7647, type: 3}
+  m_PrefabInstance: {fileID: 7018478623462443066}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &2407618729583579293 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -4607409583306123097, guid: ab3208099407596459279593137b7647, type: 3}
   m_PrefabInstance: {fileID: 7018478623462443066}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4877721827455339288 stripped

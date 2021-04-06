@@ -14,14 +14,15 @@ public class Destructable : MonoBehaviour
 
     CharacterMechanics character;
 
+
+
    
     
     private void Start()
     {
-        GameObject CharacterMechanics = GameObject.Find("Bjorn");
-        character = CharacterMechanics.GetComponent<CharacterMechanics>();
+        GameObject Player = GameObject.FindGameObjectWithTag("Player");
 
-  
+        character = Player.GetComponent<CharacterMechanics>();
     }
 
     private void Update()
@@ -50,7 +51,9 @@ public class Destructable : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-            if (other.gameObject.tag == "Hammer")
+        if (other.gameObject.tag == "Hammer")
+        {
+            if (character.isAttacking)
             {
                 Debug.Log("Working Hammer");
                 GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
@@ -64,6 +67,7 @@ public class Destructable : MonoBehaviour
 
                 // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
             }
+        }
       
     
 
