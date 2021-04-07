@@ -10469,35 +10469,6 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 5569241193833624289, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
   m_PrefabInstance: {fileID: 782025089}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &274304430
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274304429}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ab00cd6176b0c994d8a2c199bd5fd689, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
---- !u!114 &274304431
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 274304429}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: f5552f19552280d40b7281b7e2e61542, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  PlayerTransform: {fileID: 778270632}
-  SmoothFactor: 0.5
-  LookAtPlayer: 0
-  RotateAroundPlayer: 0
-  RotationsSpeed: 5
 --- !u!114 &274304432
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10578,6 +10549,11 @@ MonoBehaviour:
   m_CameraActivatedEvent:
     m_PersistentCalls:
       m_Calls: []
+--- !u!20 &274304437 stripped
+Camera:
+  m_CorrespondingSourceObject: {fileID: 5569241193833624294, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 782025089}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1 &277469803
 GameObject:
   m_ObjectHideFlags: 0
@@ -19976,6 +19952,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 573267038}
+  - component: {fileID: 573267039}
   - component: {fileID: 573267037}
   m_Layer: 0
   m_Name: CM FreeLook1
@@ -20102,6 +20079,21 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 30
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &573267039
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 573267036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 43135e450e1d1e141b8d30911b63a66e, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hitForce: 100
+  FreeAim: {fileID: 274304437}
+  rangePrefab: {fileID: 6882968560295412820, guid: e0d50ace27769c34bbc6cd86a46e02b8, type: 3}
 --- !u!1 &574357053
 GameObject:
   m_ObjectHideFlags: 0
@@ -20703,8 +20695,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.000047136007, y: 0}
-  m_SizeDelta: {x: 64.792694, y: 64.792694}
+  m_AnchoredPosition: {x: 0, y: 0}
+  m_SizeDelta: {x: 32, y: 32}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &593665951
 MonoBehaviour:
@@ -26033,27 +26025,27 @@ PrefabInstance:
       objectReference: {fileID: 782025090}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: hammerDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: animDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: whirlwindDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: movementDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: jumpDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: combatDebug
-      value: 1
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: showSolverDebug
@@ -26079,6 +26071,14 @@ PrefabInstance:
       propertyPath: healthEffect
       value: 
       objectReference: {fileID: 162536, guid: e8eccc730fd61eb438de7f0466e0ab3f, type: 3}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: comboDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5569241194072409850, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: inputBufferDebug
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5569241194072409854, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
       value: 0
