@@ -15,7 +15,6 @@ GameObject:
   - component: {fileID: 942041078614932}
   - component: {fileID: 6845188008510120403}
   - component: {fileID: 6845188007653863305}
-  - component: {fileID: 9098704165266373741}
   - component: {fileID: -1176448609775156762}
   m_Layer: 0
   m_Name: ClownEnemy
@@ -159,31 +158,6 @@ Animator:
   m_HasTransformHierarchy: 1
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorControllerStateOnDisable: 0
---- !u!114 &9098704165266373741
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 942041078614933}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d8c34302bb321714d807e2907e71716d, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enableFeetIk: 1
-  heightFromTheGroundRaycast: 2
-  raycastDownDistance: 2
-  enviromentLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  pelvisOffset: 0
-  pelvisUpAndDownSpeed: 1
-  feetToIkPositionSpeed: 1
-  leftFootAnimVariableName: LeftFootCurve
-  rightFootAnimVariableName: RightFootCurve
-  useProIkFeature: 1
-  showSolverDebug: 1
 --- !u!114 &-1176448609775156762
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -206,6 +180,7 @@ MonoBehaviour:
   knockDistanceModifier: 400
   knockDuration: 0.3
   knockPause: 1
+  isStationary: 0
   hpBar: {fileID: 0}
   death: 0
   enemyMovement: 3
