@@ -516,6 +516,8 @@ public class CharacterMechanics : MonoBehaviour
                 comboCount = 0;
 
                 animator.SetTrigger("Die");
+
+                Invoke("TryAgain", 2);
             }
 
             #endregion
@@ -1599,4 +1601,9 @@ public class CharacterMechanics : MonoBehaviour
     #endregion
 
     #endregion
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene("EndScene");
+    }
 }
