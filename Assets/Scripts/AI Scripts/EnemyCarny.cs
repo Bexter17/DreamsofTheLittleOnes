@@ -530,7 +530,7 @@ public class EnemyCarny : MonoBehaviour
 
     private void giveDamage()
     {   
-        Player.SendMessage("takeDamage", dmgDealt);
+        cm.takeDamage(this.transform, dmgDealt);
     }
     public void changeStackrange(float i)
     {

@@ -6,14 +6,21 @@ public class Projectiles : MonoBehaviour
 {
     public float projectileSpeed;
     public float lifeTime;
-    public float dmgDealt;
+    public int dmgDealt;
     private GameObject Player;
+    private CharacterMechanics cm;
     // Start is called before the first frame update
     void Start()
     {
         Player = GameObject.FindGameObjectWithTag("Player");
+        cm = Player.GetComponent<CharacterMechanics>();
+
         if (lifeTime <= 0)
             lifeTime = 3.0f;
+
+        if (dmgDealt <= 0)
+            dmgDealt = 3;
+
         Destroy(gameObject, lifeTime);
     }
 
@@ -27,7 +34,7 @@ public class Projectiles : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Destroy(gameObject);
-            Player.SendMessage("takeDamage", dmgDealt);
+            cm.takeDamage(this.transform, dmgDealt);
         }
     }
 }

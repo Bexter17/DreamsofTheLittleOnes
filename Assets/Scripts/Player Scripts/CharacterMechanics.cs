@@ -843,7 +843,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Take Damage
 
-    public void takeDamage(int dmgDealt)
+    public void takeDamage(Transform dmgSource,  int dmgDealt)
     {
         #region Debug Log
 
@@ -852,6 +852,8 @@ public class CharacterMechanics : MonoBehaviour
             Debug.Log("Combat System: takeDamage called");
 
             Debug.Log("Combat System: damage dealt = " + dmgDealt);
+
+            Debug.Log("Combat System: damage source = " + dmgSource);
         }
 
         #endregion
