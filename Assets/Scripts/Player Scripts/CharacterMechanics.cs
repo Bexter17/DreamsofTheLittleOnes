@@ -853,7 +853,7 @@ public class CharacterMechanics : MonoBehaviour
 
             Debug.Log("Combat System: damage dealt = " + dmgDealt);
 
-            Debug.Log("Combat System: damage source = " + dmgSource);
+            Debug.Log("Combat System: damage source = " + dmgSource.name);
         }
 
         #endregion
