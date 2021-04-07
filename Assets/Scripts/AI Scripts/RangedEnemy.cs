@@ -130,7 +130,7 @@ public class RangedEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Enemy State:" + myEnemyClown);
+        //Debug.Log("Enemy State:" + myEnemyClown);
         if (Input.GetKeyDown("t"))
         {
             Debug.Log("Enemy has lost 1 hp");
@@ -205,15 +205,9 @@ public class RangedEnemy : MonoBehaviour
         {
             death = true;
             Debug.Log("Enemy has been killed");
-            enemyMovement = 0;
-            rotationSpeed = 0;
-            AgentStop();
+            agent.isStopped = true;
             // so that enemy doesn't move after dying
-            //eAnim.SetTrigger("IsPunching");
-            eAnim.SetBool("IsDying", true);
-            eAnim.SetTrigger("IsDead");
-            Destroy(gameObject, 4);
-
+            eAnim.SetTrigger("Death");
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
@@ -229,6 +223,10 @@ public class RangedEnemy : MonoBehaviour
         Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
+    }
+    public void Die()
+    {
+        Destroy(gameObject);
     }
     private void AgentStop()
     {
