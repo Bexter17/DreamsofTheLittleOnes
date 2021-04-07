@@ -100,7 +100,7 @@ public class EnemyCarny : MonoBehaviour
         #region Components
         //ESSENTIALS
         rb = GetComponent<Rigidbody>();
-        hpBar = transform.Find("vampire/Canvas/Enemy HP Bar").GetComponent<Image>();
+        hpBar = transform.Find("Carny/Canvas/Enemy HP Bar").GetComponent<Image>();
         cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
         agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
