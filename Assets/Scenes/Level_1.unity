@@ -2293,6 +2293,11 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 782025091}
     m_Modifications:
+    - target: {fileID: 5182045300969157645, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
+      propertyPath: m_text
+      value: "Controls: \nLft Ctrl: Basic Attack\nLft Shft: Dash \nLft Alt: Hammer
+        Ability\nX: Whirlwind Ability \nZ: Ranged Ability\nRight Click: Free Aim"
+      objectReference: {fileID: 0}
     - target: {fileID: 6451124443655699045, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_Type
       value: 3
@@ -2607,7 +2612,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9197482368406256329, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.000049985265
+      value: -0
       objectReference: {fileID: 0}
     - target: {fileID: 9197482368406256329, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_AnchorMin.x
@@ -2627,11 +2632,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 9197482368406256329, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -77.00003
+      value: -77
       objectReference: {fileID: 0}
     - target: {fileID: 9197482368406256329, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 91.999954
+      value: 100.2
       objectReference: {fileID: 0}
     - target: {fileID: 9197482368406256329, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
       propertyPath: m_Pivot.x
