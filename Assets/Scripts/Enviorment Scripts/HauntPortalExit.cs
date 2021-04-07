@@ -3,14 +3,12 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class Portal : MonoBehaviour
+public class HauntPortalExit : MonoBehaviour
 {
-    
-
     // Start is called before the first frame update
     void Start()
     {
-
+        
     }
 
     // Update is called once per frame
@@ -18,11 +16,12 @@ public class Portal : MonoBehaviour
     {
         
     }
+
     private void OnTriggerEnter(Collider other)
     {
-        if (other.gameObject.tag == "Player")
+        if(other.gameObject.tag == "Player")
         {
-         //SceneManager.LoadScene();
+            SceneManager.LoadScene("Level_1");
         }
     }
 }
