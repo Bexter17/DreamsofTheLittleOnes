@@ -79,27 +79,21 @@ public class RangedEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Get Components
         rb = GetComponent<Rigidbody>();
-
-        Player = GameObject.FindGameObjectWithTag("Player");
-
-        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
-        int maxHP = hp;
         agent = GetComponent<NavMeshAgent>();
-        target = GameObject.Find("Player").transform;
-
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
-
-        myEnemyClown = EnemyState.Start;
-
         eAnim = gameObject.GetComponent<Animator>();
 
+        Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.Find("Player").transform;
-        rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        agent = GetComponent<NavMeshAgent>();
+        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        #endregion
 
         #region default values
+        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
+        int maxHP = hp;
+        myEnemyClown = EnemyState.Start;
+        rb.isKinematic = true;
 
         // Default values
         if (enemyMovement <= 0)
@@ -196,6 +190,7 @@ public class RangedEnemy : MonoBehaviour
         }
         #endregion
     }
+    #region health/death
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
@@ -228,6 +223,9 @@ public class RangedEnemy : MonoBehaviour
     {
         Destroy(gameObject);
     }
+    #endregion
+
+    #region stun/knockback
     private void AgentStop()
     {
         //Enemy briefly pauses after being knocked back
@@ -275,7 +273,8 @@ public class RangedEnemy : MonoBehaviour
             //enemyMovement = 5;
         }
     }
-    #region init States
+    #endregion
+    #region States Chase, Patrol, Attack (Ranged)
     public void Chase()
     {
         agent.isStopped = false;

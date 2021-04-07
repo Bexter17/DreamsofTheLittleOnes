@@ -97,23 +97,19 @@ public class EnemyCarny : MonoBehaviour
     #endregion
     void Start()
     {
-        //TODO reorder for aesthetics
+        #region Components
         //ESSENTIALS
         rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        Player = GameObject.FindGameObjectWithTag("Player");
-        agent = GetComponent<NavMeshAgent>();
-        target = GameObject.Find("Player").transform;
         hpBar = transform.Find("vampire/Canvas/Enemy HP Bar").GetComponent<Image>();
         cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
-
-        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
-        int maxHP = hp;
-        myEnemy = EnemyState.Start;
+        agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
 
-        //STATES
+        Player = GameObject.FindGameObjectWithTag("Player");
+        target = GameObject.Find("Player").transform;
+        #endregion
         #region SetWaypoints
+        //STATES
         if (advancedPatrol)
         {
             for(int i = 0; i < waypoints.Length; i++)
@@ -154,6 +150,10 @@ public class EnemyCarny : MonoBehaviour
 
         #endregion
         #region default values
+        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
+        int maxHP = hp;
+        myEnemy = EnemyState.Start;
+        rb.isKinematic = true;
 
         // Default values
         if (enemyMovement <= 0)
@@ -178,7 +178,7 @@ public class EnemyCarny : MonoBehaviour
         }
         Patrol();
         #endregion
-
+        #region stackTracker
         circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
         circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
         circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
@@ -187,14 +187,11 @@ public class EnemyCarny : MonoBehaviour
         //circlePoints = new Vector3[4];
 
         stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+        #endregion
     }
     // Update is called once per frame
     void Update()
     {
-        //Debug.DrawRay()
-        //Sets hp text to change based on players perspective
-        //So it's not backwards to the player
-        //Vector3 textDirection = transform.position - target.transform.position;
 
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
@@ -386,6 +383,7 @@ public class EnemyCarny : MonoBehaviour
         }
     }
     #endregion
+    #region damage
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
@@ -420,6 +418,11 @@ public class EnemyCarny : MonoBehaviour
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
+    private void giveDamage()
+    {
+        cm.takeDamage(this.transform, dmgDealt);
+    }
+    #endregion
     //TODO rename to be more descriptive
     private void AgentStop()
     {
@@ -528,40 +531,8 @@ public class EnemyCarny : MonoBehaviour
         enemyMovement = 3;
     }
 
-    private void giveDamage()
-    {   
-        cm.takeDamage(this.transform, dmgDealt);
-    }
     public void changeStackrange(float i)
     {
         checkStackRange = i;
     }
-    #region depreciated
-    // Calls Chase() for all enemies
-    // Currently not being used
-    //private void Honk()
-    //{
-    //    GameObject[] enemies;
-    //    enemies = GameObject.FindGameObjectsWithTag("Enemy");
-    //    for(int i = 0; i < enemies.Length; i++)
-    //    {
-    //        enemies[i].GetComponent<EnemyAI1>().Chase();
-    //    }
-    //}
-    //private void UpdateCirclePoints()
-    //{
-    //    circlePoints[0] = target.position + new Vector3(circleDist, 0, 0);
-    //    circlePoints[1] = target.position + new Vector3(0, 0, circleDist);
-    //    circlePoints[2] = target.position + new Vector3(-circleDist, 0, 0);
-    //    circlePoints[3] = target.position + new Vector3(0, 0, -circleDist);
-    //}
-    //private void Stun()
-    //{
-    //myEnemy = EnemyState.Stun;
-    //enemyMovement = 0;
-    //yield return new WaitForSeconds(4);
-    //enemyMovement = 5;
-    //Chase();
-    //}
-    #endregion
 }
