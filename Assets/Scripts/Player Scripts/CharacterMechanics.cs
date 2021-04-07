@@ -324,10 +324,10 @@ public class CharacterMechanics : MonoBehaviour
         #region Health
 
         if (!HealthBar)
-        {
             HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
-        }
 
+        healthBar = HealthBar.GetComponent<HealthBar>();
+       
         currentHealth = maxHealth;
 
         healthBar.SetMaxHealth(maxHealth);
@@ -524,7 +524,7 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Update HUD
 
-            updateHud();
+            //updateHud();
 
             #endregion
 
@@ -648,14 +648,14 @@ public class CharacterMechanics : MonoBehaviour
 
     #region HUD
 
-    private void updateHud()
-    {
-        playerStats.text = "Lives: " + Lives;
+    //private void updateHud()
+    //{
+    //    playerStats.text = "Lives: " + Lives;
 
-        healthBar.SetHealth(currentHealth);
+    //    healthBar.SetHealth(currentHealth);
 
-        healthBar.SetMaxHealth(maxHealth);
-    }
+    //    healthBar.SetMaxHealth(maxHealth);
+    //}
 
     #endregion
 
@@ -793,7 +793,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         currentHealth = maxHealth;
 
-        updateHud();
+        //updateHud();
 
         createHealthEffect();
     }
@@ -802,7 +802,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         maxHealth += 50;
 
-        updateHud();
+       // updateHud();
     }
 
     private void pickupSpeed()
@@ -830,12 +830,12 @@ public class CharacterMechanics : MonoBehaviour
     //    jumpSpeed -= jumpBoost;
     //}
 
-   // IEnumerator stopSpeedBoost()
-   // {
-   //     yield return new WaitForSeconds(timerSpeedBoost);
+    // IEnumerator stopSpeedBoost()
+    // {
+    //     yield return new WaitForSeconds(timerSpeedBoost);
 
-   ////     speed -= speedBoost;
-   // }
+    ////     speed -= speedBoost;
+    // }
 
     #endregion
 
@@ -850,6 +850,8 @@ public class CharacterMechanics : MonoBehaviour
         if (combatDebug)
         {
             Debug.Log("Combat System: takeDamage called");
+
+            Debug.Log("Combat System: damage dealt = " + dmgDealt);
         }
 
         #endregion
@@ -858,13 +860,19 @@ public class CharacterMechanics : MonoBehaviour
 
         animator.SetInteger("Counter", comboCount);
 
-        if(actionAllowed)
-        animator.SetTrigger("Got Hit");
+        if (actionAllowed)
+            animator.SetTrigger("Got Hit");
 
         currentHealth -= dmgDealt;
-        
+
         healthBar.SetHealth(currentHealth);
+
+        if (combatDebug)
+        {
+            Debug.Log("Combat System: remaining health = " + currentHealth);
+        }
     }
+    
 
     #endregion
 

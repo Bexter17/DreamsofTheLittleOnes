@@ -5,14 +5,19 @@ using UnityEngine.UI;
 
 public class HealthBar : MonoBehaviour
 {
-	CharacterMechanics cs;
+	//CharacterMechanics cs;
 
+	GameObject canvas;
 	public Slider slider;
 	public Image fill;
 
     public void Start()
     {
-		cs = GetComponent<CharacterMechanics>();
+		//cs = GetComponent<CharacterMechanics>();
+
+		canvas = GameObject.FindGameObjectWithTag("HUD Canvas");
+
+		slider = canvas.transform.GetChild(0).GetChild(0).GetComponent<Slider>();
 	}
     public void SetMaxHealth(int health)
 	{
@@ -24,8 +29,8 @@ public class HealthBar : MonoBehaviour
 
 	public void SetHealth(int health)
 	{
+		Debug.Log("SetHealth called");
 		slider.value = health;
-
 	}
 
 }
