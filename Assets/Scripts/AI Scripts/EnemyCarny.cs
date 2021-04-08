@@ -17,6 +17,7 @@ public class EnemyCarny : MonoBehaviour
     private Transform target;
     NavMeshAgent agent;
     Animator eAnim;
+    CombatManager CombatScript;
     CharacterMechanics cm;
     //used to track the player for giveDamage function
     private GameObject Player;
@@ -107,6 +108,7 @@ public class EnemyCarny : MonoBehaviour
 
         Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.Find("Player").transform;
+        CombatScript = GameObject.Find("GameManager").GetComponent<CombatManager>();
         #endregion
         #region SetWaypoints
         //STATES
@@ -433,7 +435,7 @@ public class EnemyCarny : MonoBehaviour
     }
     private void giveDamage()
     {
-        cm.takeDamage(this.transform, dmgDealt);
+        CombatScript.GivePlayerDamage(this.transform, dmgDealt);
     }
     #endregion
     //TODO rename to be more descriptive
