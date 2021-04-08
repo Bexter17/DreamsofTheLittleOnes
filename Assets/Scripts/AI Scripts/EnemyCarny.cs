@@ -374,6 +374,14 @@ public class EnemyCarny : MonoBehaviour
             }
         }
 
+        if(other.CompareTag("Hammer"))
+        {
+            if(cm.isAttacking)
+            {
+                takeDamage(2);
+            }
+        }
+
         //TODO + parameter to take damage to edit knockback
         //So that ranged attack doesn't knockback as much as melee
         if (other.gameObject.tag == "PlayerRanged")
