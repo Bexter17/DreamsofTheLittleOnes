@@ -305,6 +305,7 @@ public class EnemyCarny : MonoBehaviour
             //AgentStop();
             //yield return new WaitForSeconds(5);
             //enemyMovement = 5;
+            takeDamage(3);
             StartCoroutine(Stun());
         }
         else if (collision.gameObject.tag == "WhirlwindAOE")
@@ -314,6 +315,10 @@ public class EnemyCarny : MonoBehaviour
             Debug.Log("Enemy has been hit by whirlwind!");
             #endregion
             takeDamage(3);
+        }
+        else if (collision.gameObject.tag == "Attack Zone")
+        {
+            takeDamage(1);
         }
     }
 

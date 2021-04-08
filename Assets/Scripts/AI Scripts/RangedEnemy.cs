@@ -259,6 +259,15 @@ public class RangedEnemy : MonoBehaviour
             //agent.isStopped = true;
             //Stop attacking
             //AgentStop();
+            takeDamage(3);
+        }
+        if(collision.gameObject.tag== "WhirlwindAOE")
+        {
+            takeDamage(3);
+        }
+        if(collision.gameObject.tag== "Attack Zone")
+        {
+            takeDamage(3);
         }
     }
 
@@ -273,6 +282,8 @@ public class RangedEnemy : MonoBehaviour
             //enemyMovement = 5;
         }
     }
+
+   
     #endregion
     #region States Chase, Patrol, Attack (Ranged)
     public void Chase()
@@ -324,6 +335,14 @@ public class RangedEnemy : MonoBehaviour
         {
             Debug.Log("Hit with Ranged");
             takeDamage(1);
+        }
+
+        if (other.CompareTag("Hammer"))
+        {
+            if (cm.isAttacking)
+            {
+                takeDamage(2);
+            }
         }
     }
 
