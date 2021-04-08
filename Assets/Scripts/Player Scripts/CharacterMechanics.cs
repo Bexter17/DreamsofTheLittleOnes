@@ -64,10 +64,11 @@ public class CharacterMechanics : MonoBehaviour
 {
     #region Components
 
-    //Creates a charactercontoller variable named "controller"
-    CharacterController controller;
-
     AnimController ac;
+
+    InputControl ic;
+
+    InputBuffer ib;
 
     #endregion
 
@@ -76,21 +77,21 @@ public class CharacterMechanics : MonoBehaviour
     #region Debug Toggles
     [Header("Debug Settings")]
 
-    [SerializeField] private bool movementDebug;
+    [SerializeField] public bool movementDebug;
 
-    [SerializeField] private bool jumpDebug;
+    [SerializeField] public bool jumpDebug;
 
-    [SerializeField] private bool combatDebug;
+    [SerializeField] public bool combatDebug;
 
-    [SerializeField] private bool comboDebug;
+    [SerializeField] public bool comboDebug;
 
-    [SerializeField] private bool inputBufferDebug;
+    [SerializeField] public bool inputBufferDebug;
 
-    [SerializeField] private bool hammerDebug;
+    [SerializeField] public bool hammerDebug;
 
-    [SerializeField] private bool whirlwindDebug;
+    [SerializeField] public bool whirlwindDebug;
 
-    [SerializeField] private bool animDebug;
+    [SerializeField] public bool animDebug;
 
     #endregion
 
@@ -120,7 +121,7 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private int Lives = 3;
 
     //Tracks if the player is currently alive or not
-    private bool isAlive = true;
+    public bool isAlive = true;
 
     private bool isInCombo = false;
 
@@ -130,44 +131,6 @@ public class CharacterMechanics : MonoBehaviour
 
     //Tracks player checkpoints and where they will respawn 
     [SerializeField] private GameObject respawnPoint;
-
-    #endregion
-
-    #region Movement
-
-    //Determines how fast the character moves
-    [SerializeField] private float movementSpeed;
-
-    [SerializeField] private float currentSpeed;
-
-    //Rotation speed of the character
-    [SerializeField] private float rotationSpeed;
-
-    //Variable used to add force or direction to the character
-    Vector3 moveDirection;
-
-    #endregion
-
-    #region Jumping and Falling
-
-    RaycastHit groundHit;
-
-    public float groundSearchLength = 0.6f;
-
-    //Variable for how high the character will jump
-    [SerializeField] private float jumpSpeed;
-
-    private float vSpeed = 0;
-
-    //Amount of gravity set on the player
-    [SerializeField] private float gravity;
-
-    //Boolean to track if the player is on the ground or in the air
-    [SerializeField] private bool isGrounded;
-
-    private bool isJumping;
-
-    private bool isFalling;
 
     #endregion
 
@@ -201,8 +164,6 @@ public class CharacterMechanics : MonoBehaviour
     #region Abilities
 
     [SerializeField] private GameObject abilitySpawn;
-
-    AbilitiesCooldown cooldown;
 
     #region Dash
 
@@ -262,10 +223,6 @@ public class CharacterMechanics : MonoBehaviour
 
     //Queue InputBufferQueue = new Queue[];
 
-    private List<ActionItem> inputBuffer = new List<ActionItem>();
-
-    public bool actionAllowed = true;
-
     #endregion
 
     #region Pickup System
@@ -311,15 +268,10 @@ public class CharacterMechanics : MonoBehaviour
         #region Components
 
         ac = this.transform.GetComponent<AnimController>();
+        
+        ib = this.transform.GetComponent<InputBuffer>();
 
-        #endregion
-
-        #region Set Ground Search Length
-
-        playerSize = gameObject.transform.localScale;
-
-        groundSearchLength = 0.5f * playerSize.y;
-
+        ic = this.transform.GetComponent<InputControl>();
         #endregion
 
         #region Health
@@ -342,8 +294,6 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 0;
 
         sword = GetComponentInChildren<Sword_Script>();
-
-        cooldown = GetComponentInChildren<AbilitiesCooldown>();
 
         #endregion
 
@@ -377,9 +327,6 @@ public class CharacterMechanics : MonoBehaviour
 
         try
         {
-            //Accesses the CharacterController component on the character object 
-            controller = GetComponent<CharacterController>();
-
             isAlive = true;
 
             #region Debug
@@ -407,22 +354,6 @@ public class CharacterMechanics : MonoBehaviour
 
             if (!animDebug)
                 animDebug = false;
-
-            #endregion
-
-            #region Movement
-
-            if (movementSpeed <= 0)
-                movementSpeed = 6.0f;
-
-            if (jumpSpeed <= 0)
-                jumpSpeed = 10.0f;
-
-            if (rotationSpeed <= 0)
-                rotationSpeed = 4.0f;
-
-            if (gravity <= 0)
-                gravity = 9.81f;
 
             #endregion
 
@@ -456,9 +387,6 @@ public class CharacterMechanics : MonoBehaviour
 
             if (healthEffectTimer <= 0)
                 healthEffectTimer = 2;
-
-            //Assigns a value to the variable
-            moveDirection = Vector3.zero;
         }
 
         finally
@@ -490,7 +418,7 @@ public class CharacterMechanics : MonoBehaviour
 
                 isAlive = false;
 
-                actionAllowed = false;
+                ib.actionAllowed = false;
 
                 comboCount = 0;
 
@@ -503,76 +431,22 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Update HUD
 
-            //updateHud();
+            ////updateHud();
 
             #endregion
 
             #region Check Input Buffer
 
-            checkInput();
+            ic.checkKeyboardInput();
 
-            if (actionAllowed)
+            if (ib.actionAllowed)
             {
-                tryBufferedAction();
+                ib.tryBufferedAction();
             }
 
             #endregion
-
-            #region Player Movement
-
-            //Assign "moveDirection" to track vertical movement
-            moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-
-            //Character rotation
-            transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
-
-            //track any applied speed boosts
-            currentSpeed = movementSpeed + speedBoost;
-
-            //Character movement
-            Vector3 forward = transform.TransformDirection(Vector3.forward);
-
-            //Movement speed
-            float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
-
-            //Character controller movement
-            controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
-
-            isGrounded = groundCheck(isGrounded);
-
-            if(isGrounded)
-            {
-                if (isFalling)
-                    isFalling = false;
-
-                if (isJumping)
-                    isJumping = false;
-            }
-
-
-            else if (!isGrounded)
-            { 
-                if (!isJumping)
-                    if (!isFalling)
-                        isFalling = true;
-            }
-
-            #endregion
-
-            #region Apply Gravity
-
-            vSpeed -= gravity * Time.deltaTime;
-
-            moveDirection.y = vSpeed;
-
-            controller.Move(moveDirection * Time.deltaTime);
-
-            if (!isGrounded && !isJumping)
-                isFalling = true;
 
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
-
-            #endregion
         }
     }
 
@@ -600,61 +474,10 @@ public class CharacterMechanics : MonoBehaviour
     #region Collision and Trigger Handling
 
     //Tracks player collision 
-    void OnControllerColliderHit(ControllerColliderHit hit)
-    {
-       Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
-
-        if(hit.gameObject.tag == "Floor")
-        {
-            isGrounded = true;
-
-            isFalling = false;
-
-            if (isJumping)
-            {
-                isJumping = false;
-
-                actionAllowed = true;
-            }
-
-            ac.hitGround();
-        }
-
-        else if(hit.gameObject.tag =="Killbox")
-        {
-            Killbox();
-        }
-
-        //if (hit.gameObject.tag == "Checkpoint")
-        //{
-        //    respawnPoint = hit.gameObject;
-        //}
-
-        //if (hit.gameObject.tag == "Projectile")
-        //{
-
-        //}
-    }
 
     //Tracks triggers / pickups
 
-    private bool groundCheck(bool isGrounded)
-    {
-        Vector3 lineStart = transform.position;
-        Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y - groundSearchLength, lineStart.z);
-
-        Debug.DrawLine(lineStart, vectorToSearch);
-
-        return Physics.Linecast(lineStart, vectorToSearch, out groundHit);
-    }
-
-    private void JumpEnd()
-    {
-        if (jumpDebug)
-            Debug.Log("JumpEnd Called");
-
-        isJumping = false;
-    }
+ 
 
     private void OnTriggerEnter(Collider c)
     {
@@ -717,10 +540,6 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Pickup Functions
 
-    public void updateValues()
-    {
-        ac.updateValues(isGrounded, isJumping, isFalling, Input.GetAxis("Vertical"));
-    }
     void createHealthEffect()
     {
         heTemp = Instantiate(healthEffect, abilitySpawn.transform.position, abilitySpawn.transform.rotation, gameObject.transform);
@@ -814,273 +633,13 @@ public class CharacterMechanics : MonoBehaviour
 
     #endregion
 
-    #region Input Buffer
-
-    private void checkInput()
-    {
-        float x = Input.GetAxisRaw("Horizontal");
-
-        float z = Input.GetAxisRaw("Vertical");
-
-        if (x > 0.01f || x < -0.01f )
-        {
-
-        }
-
-        if(z > 0.01f || z < -0.01f)
-        {
-
-        }
-
-        if (Input.GetButtonDown("Jump") && isGrounded)
-        {
-            #region Debug Log
-
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: Jump has been pressed");
-            }
-
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
-        }
-
-
-        //Enables the player to use Ability 1
-        if (Input.GetButtonDown("Fire1"))
-        {
-            #region Debug Log
-
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: Attack has been pressed");
-            }
-
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
-            //AttackEnd();
-        }
-
-        //Enables the player to use Ability 2
-        if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
-        {
-            #region Debug Log
-
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: dash has been pressed");
-            }
-
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
-            AttackEnd();
-        }
-
-        //Enables the player to use Ability 3
-        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
-        {
-            #region Debug Log
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: hammerSmash has been pressed");
-            }
-
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
-            AttackEnd();
-        }
-
-        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
-        {
-            #region Debug Log
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: whirlwind has been pressed");
-            }
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
-            AttackEnd();
-        }
-
-        if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false) 
-        {
-            #region Debug Log
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: ranged attack has been pressed");
-            }
-            #endregion
-
-            inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
-            AttackEnd();
-        }
-    }
-
-    private void tryBufferedAction()
-    {
-        if (inputBuffer.Count > 0)
-        {
-            foreach (ActionItem ai in inputBuffer.ToArray()) 
-            {
-                inputBuffer.Remove(ai);
-                if (ai.CheckIfValid())
-                {
-                    doAction(ai);
-                    break;
-                }
-            }
-        }
-
-        else
-        {
-            comboCount = 0;
-
-            ac.resetCounter();
-
-            Debug.Log("comboCount set to 0 by tryBufferedAction()");
-        }
-    }
-
-    private void doAction(ActionItem ai)
-    {
-        #region Debug.Log
-
-        if(inputBufferDebug)
-        {
-            Debug.Log("doAction called");
-
-            Debug.Log(ai.Action);
-        }
-
-        #endregion
-
-        if (ai.Action == ActionItem.InputAction.Jump)
-        {
-            jump();
-        }
-
-        if (ai.Action == ActionItem.InputAction.Attack)
-        {
-            #region Debug.Log
-
-            if (inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: Attack Input Detected");
-
-                Debug.Log("Input Buffer System: comboCount during input = " + comboCount);
-            }
-
-            #endregion
-
-            if (comboCount == 0)
-            {
-                comboAttack1();
-            }
-
-            else if (comboCount == 1)
-            {
-                comboAttack2();
-            }
-
-            else if (comboCount == 2)
-            {
-                comboAttack3();
-            }
-
-            else if(comboCount < 0 || comboCount >= 3)
-            {
-                comboCount = 0;
-
-                if(comboDebug)
-                Debug.Log("Combo System: comboCount reset to 0 because combo was either < 0 or >= 3");
-
-                comboAttack1();
-            }
-        }
-
-        if (ai.Action == ActionItem.InputAction.Dash)
-        {
-            dash();
-        }
-
-        if (ai.Action == ActionItem.InputAction.HammerSmash)
-        {
-            hammerSmash();
-        }
-
-        if (ai.Action == ActionItem.InputAction.Whirlwind)
-        {
-            whirlwind();
-        }
-
-        if (ai.Action == ActionItem.InputAction.Ranged)
-        {
-            ranged();
-        }
-
-        actionAllowed = false; 
-    }
-
-    #endregion
-
-    #region Jump
-
-    void jump()
-    {
-        #region Debug Log
-
-        if (jumpDebug)
-        {
-            Debug.Log("jump has been called");
-        }
-
-        #endregion
-
-        if (isGrounded)
-        {
-
-            comboCount = 0;
-
-            vSpeed = jumpSpeed;
-
-            isGrounded = false;
-
-            isJumping = true;
-
-            isJumping = true;
-
-            ac.jump(isGrounded, isJumping, isFalling);
-
-            actionAllowed = false;
-
-            #region Debug Log
-
-            if (jumpDebug)
-            {
-                Debug.Log("jump power: " + vSpeed);
-
-                Debug.Log("isGrounded = " + isGrounded);
-
-                Debug.Log("isJumping = " + isJumping);
-
-                Debug.Log("actionAllowed = " + actionAllowed);
-            }
-
-        }
-
-        #endregion
-    }
+  
 
     #endregion
 
     #region Basic Attack 
     
-    private void comboAttack1()
+    public void comboAttack1()
     {
         #region Debug Log
 
@@ -1091,8 +650,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (actionAllowed)
-            actionAllowed = false;
+        if (ib.actionAllowed)
+            ib.setBufferFalse();
 
         comboCount = 1;
 
@@ -1110,13 +669,13 @@ public class CharacterMechanics : MonoBehaviour
 
             Debug.Log("Combo System: comboCount: " + comboCount);
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            Debug.Log("actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
     }
 
-    private void comboAttack2()
+    public void comboAttack2()
     {
         #region Debug Log
 
@@ -1127,8 +686,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (actionAllowed)
-            actionAllowed = false;
+        if (ib.actionAllowed)
+            ib.setBufferTrue();
 
         comboCount = 2;
 
@@ -1146,13 +705,13 @@ public class CharacterMechanics : MonoBehaviour
 
             Debug.Log("Combo System: comboCount: " + comboCount);
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            Debug.Log("actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
     }
 
-    private void comboAttack3()
+    public void comboAttack3()
     {
         #region Debug Log
 
@@ -1163,8 +722,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (actionAllowed)
-            actionAllowed = false;
+        if (ib.actionAllowed)
+            ib.setBufferFalse();
 
         comboCount = 3;
 
@@ -1183,7 +742,7 @@ public class CharacterMechanics : MonoBehaviour
 
             Debug.Log("Combo System: comboCount: " + comboCount);
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            Debug.Log("actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
@@ -1196,8 +755,8 @@ public class CharacterMechanics : MonoBehaviour
         sword.SendMessage("activateAttack");
         //sends message to the players sword script to start dealing damage on collision
 
-        if (actionAllowed)
-            actionAllowed = false;
+        if (ib.actionAllowed)
+            ib.setBufferFalse();
 
         if (!isAttacking)
             isAttacking = true;
@@ -1210,7 +769,7 @@ public class CharacterMechanics : MonoBehaviour
             
             Debug.Log("Combo System: isInCombo = " + isInCombo);
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            Debug.Log("actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
@@ -1224,7 +783,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             Debug.Log("Combat System: AttackEnd called");
 
-            Debug.Log("Combat System: actionAllowed = " + actionAllowed);
+            Debug.Log("Combat System: actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
@@ -1268,7 +827,7 @@ public class CharacterMechanics : MonoBehaviour
             ac.setComboCount(comboCount);
         //}
 
-        actionAllowed = true;
+        ib.setBufferTrue();
 
         isAttacking = false;
 
@@ -1278,14 +837,14 @@ public class CharacterMechanics : MonoBehaviour
         {
             Debug.Log("Combo System: comboCount set to " + comboCount + " by AttackEnd()");
 
-            Debug.Log("Input Buffer System: inputbuffer count = " + inputBuffer.Count);
+            Debug.Log("Input Buffer System: inputbuffer count = " + ib.inputBuffer.Count);
 
-            Debug.Log("actionAllowed = " + actionAllowed);
+            Debug.Log("actionAllowed = " + ib.actionAllowed);
         }
 
         #endregion
 
-        tryBufferedAction();
+        ib.tryBufferedAction();
 
         //comboCount = 0;
 
@@ -1305,7 +864,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (actionAllowed)
+        if (ib.actionAllowed)
         {
             comboCount = 0;
 
@@ -1314,11 +873,11 @@ public class CharacterMechanics : MonoBehaviour
 
             ac.setComboCount(comboCount);
         }
-        if (!actionAllowed)
+        else if (!ib.actionAllowed)
         {
-            if (!isJumping)
+            if (!ic.isJumping)
             {
-                actionAllowed = true;
+                ib.setBufferTrue();
 
                 #region Debug Log
 
@@ -1370,13 +929,11 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.dash();
 
-        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
-
         //Rigidbody.addforce();
-        actionAllowed = true;
+        ib.setBufferTrue();
     }
    
-    private void dashEnds()
+    public void dashEnds()
     {
         #region Debug Log
 
@@ -1391,12 +948,12 @@ public class CharacterMechanics : MonoBehaviour
 
         dashTemp = null;
 
-        actionAllowed = true;
+        ib.setBufferTrue();
 
         AttackEnd();
     }
 
-    private void hammerSmash()
+    public void hammerSmash()
     {
         #region Debug Log
 
@@ -1416,7 +973,7 @@ public class CharacterMechanics : MonoBehaviour
         AttackEnd();
     }
 
-    private void whirlwind()
+    public void whirlwind()
     {
         #region Debug Log
         
@@ -1436,7 +993,7 @@ public class CharacterMechanics : MonoBehaviour
         AttackEnd();
     }
 
-    private void whirlwindEnd()
+    public void whirlwindEnd()
     {
         #region Debug Log
 
@@ -1454,7 +1011,7 @@ public class CharacterMechanics : MonoBehaviour
         Destroy(whirlwindTemp);
     }
 
-    private void hammerSmashEnd()
+    public void hammerSmashEnd()
     {
         #region Debug Log
 
@@ -1472,7 +1029,7 @@ public class CharacterMechanics : MonoBehaviour
        Destroy(hammerSmashTemp);
     }
 
-    private void ranged()
+    public void ranged()
     {
         #region Debug Log
 
@@ -1521,20 +1078,18 @@ public class CharacterMechanics : MonoBehaviour
 
         isAlive = true;
 
-        actionAllowed = true;
+        ib.setBufferTrue();
 
         comboCount = 0;
     }
 
-    private void Killbox()
-    {
+    public void kill()
+    { 
         Lives -= 1;
         gameObject.transform.position = respawnPoint.transform.position;
 
         ac.respawn();
     }
-
-    #endregion
 
     #endregion
 

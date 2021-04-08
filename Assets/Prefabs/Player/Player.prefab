@@ -191,6 +191,11 @@ GameObject:
   - component: {fileID: 5569241194072409850}
   - component: {fileID: 5569241194072409851}
   - component: {fileID: 7989571477359376727}
+  - component: {fileID: -293167464647820046}
+  - component: {fileID: 1584377351929823892}
+  - component: {fileID: -7785673775302490695}
+  - component: {fileID: 7653521966553312458}
+  - component: {fileID: 1886505772124679703}
   m_Layer: 0
   m_Name: Player
   m_TagString: Player
@@ -278,17 +283,13 @@ MonoBehaviour:
   currentHealth: 5
   maxHealth: 50
   Lives: 1
+  isAlive: 1
   respawnPoint: {fileID: 0}
-  movementSpeed: 0
-  currentSpeed: 0
-  rotationSpeed: 2
-  groundSearchLength: 0.6
-  jumpSpeed: 0
-  gravity: 0
-  isGrounded: 1
   playerStats: {fileID: 0}
   attackRangePrefab: {fileID: 0}
+  comboCount: 0
   attackTimer: 3
+  isAttacking: 0
   abilitySpawn: {fileID: 0}
   dashRangePrefab: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
   dashDamage: 1
@@ -347,6 +348,95 @@ MonoBehaviour:
   leftFootVariableName: Left Foot Curve
   rightFootVariableName: Right Foot Curve
   useProIKFeatures: 1
+--- !u!114 &-293167464647820046
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9f4a050bd9db96949a28da06a713d882, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &1584377351929823892
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 28888a37c4a755c4a9ad8224d25bd95a, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  animDebug: 0
+--- !u!114 &-7785673775302490695
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8adafb20d498c6542b692f71fda6a7d8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  movementSpeed: 0
+  currentSpeed: 0
+  rotationSpeed: 0
+  speedBoost: 0
+  dashSpeed: 0
+  groundSearchLength: 0.6
+  jumpSpeed: 0
+  gravity: 0
+  isGrounded: 0
+  isJumping: 0
+  isFalling: 0
+--- !u!114 &7653521966553312458
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6ea063dd2b22eb648b7962ef2fed41fe, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  actionAllowed: 1
+--- !u!114 &1886505772124679703
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5569241194072409844}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 34021057ff8dcff4cb9e0623ecd0fd45, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  abilityImage1: {fileID: 0}
+  cooldown1: 5
+  isCooldown1: 0
+  ability1: 0
+  abilityImage2: {fileID: 0}
+  cooldown2: 5
+  isCooldown2: 0
+  ability2: 0
+  abilityImage3: {fileID: 0}
+  cooldown3: 5
+  isCooldown3: 0
+  ability3: 0
+  abilityImage4: {fileID: 0}
+  cooldown4: 5
+  isCooldown4: 0
+  ability4: 0
 --- !u!1 &6300707668775809807
 GameObject:
   m_ObjectHideFlags: 0

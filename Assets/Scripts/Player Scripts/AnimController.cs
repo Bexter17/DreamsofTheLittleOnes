@@ -4,17 +4,39 @@ using UnityEngine;
 
 public class AnimController : MonoBehaviour
 {
+    #region Player
+
     GameObject Player;
+
+    #region Scripts
 
     CharacterMechanics cm;
 
+    InputControl ic;
+
+    InputBuffer ib;
+
+    #endregion
+
+    #endregion
+
+    #region Components
+
     Animator animator;
+
+    #endregion
+
+    #region Animator Variables
 
     AnimatorClipInfo[] currentClipInfo;
 
     private string animName;
 
     [SerializeField] bool animDebug;
+
+    #endregion
+
+    #region Movement
 
     bool isFalling;
 
@@ -24,12 +46,28 @@ public class AnimController : MonoBehaviour
 
     float Speed;
 
+    #endregion
+
     // Start is called before the first frame update
     void Start()
     {
+        #region Player
+
         Player = GameObject.FindGameObjectWithTag("Player");
 
+        #region Scripts
+
         cm = Player.GetComponent<CharacterMechanics>();
+
+        ic = Player.GetComponent<InputControl>();
+
+        ib = Player.GetComponent<InputBuffer>();
+
+        #endregion
+
+        #endregion
+
+        #region Animator
 
         animator = Player.GetComponent<Animator>();
 
@@ -47,12 +85,14 @@ public class AnimController : MonoBehaviour
 
         //Automatically disables Root Motion (to avoid adding motion twice)
         animator.applyRootMotion = false;
+
+        #endregion
     }
 
     // Update is called once per frame
     void Update()
     {
-        cm.updateValues();
+        ic.updateValues();
 
         updateParameters();
 
@@ -62,7 +102,7 @@ public class AnimController : MonoBehaviour
 
         animName = currentClipInfo[0].clip.name;
 
-        if (animName == "Male Attack 1" && cm.actionAllowed || animName == "Male Attack 2" && cm.actionAllowed || animName == "Male Attack 3" && cm.actionAllowed)
+        if (animName == "Male Attack 1" && ib.actionAllowed || animName == "Male Attack 2" && ib.actionAllowed || animName == "Male Attack 3" && ib.actionAllowed)
         {
             cm.comboCount = 0;
 
@@ -125,7 +165,7 @@ public class AnimController : MonoBehaviour
     {
         animator.SetInteger("Counter", cm.comboCount);
 
-        if (cm.actionAllowed)
+        if (ib.actionAllowed)
             animator.SetTrigger("Got Hit");
     }
 
