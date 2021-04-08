@@ -165,6 +165,8 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private GameObject abilitySpawn;
 
+    [SerializeField] public bool IsAimOn = false;
+
     #region Dash
 
     [Header("Dash Ability")]
@@ -448,6 +450,12 @@ public class CharacterMechanics : MonoBehaviour
 
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
         }
+
+        if (Input.GetMouseButtonDown(1))
+            IsAimOn = true;
+
+        if (Input.GetMouseButtonUp(1))
+            IsAimOn = false;
     }
 
     //void FunIdle()
@@ -1042,13 +1050,17 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.throw_();
 
-        //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
-        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+        if (!IsAimOn)
+        {
+            //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+            GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
-        bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
 
-        Destroy(bullet, 2);
-        AttackEnd();
+            Destroy(bullet, 2);
+            AttackEnd();
+        }
+        
     }
 
     #endregion
