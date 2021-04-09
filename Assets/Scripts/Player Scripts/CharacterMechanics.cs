@@ -67,8 +67,7 @@ public class CharacterMechanics : MonoBehaviour
     //Creates a charactercontoller variable named "controller"
     CharacterController controller;
 
-    //creates a script accessable variable of the Animator component
-    Animator animator;
+    AnimController ac;
 
     #endregion
 
@@ -96,10 +95,6 @@ public class CharacterMechanics : MonoBehaviour
     #endregion
 
     #region Animator Variables
-
-    AnimatorClipInfo[] currentClipInfo;
-
-    private string animName;
 
 //    float currentAnimLength;
 
@@ -193,7 +188,7 @@ public class CharacterMechanics : MonoBehaviour
     //creates atemporary, destructable version of the prefab
     //private GameObject attackTemp;
 
-    private int comboCount;
+    public int comboCount;
 
     [SerializeField] private int attackTimer;
 
@@ -269,7 +264,7 @@ public class CharacterMechanics : MonoBehaviour
 
     private List<ActionItem> inputBuffer = new List<ActionItem>();
 
-    bool actionAllowed = true;
+    public bool actionAllowed = true;
 
     #endregion
 
@@ -312,6 +307,12 @@ public class CharacterMechanics : MonoBehaviour
     void Start()
     {
         #region Initialization
+
+        #region Components
+
+        ac = this.transform.GetComponent<AnimController>();
+
+        #endregion
 
         #region Set Ground Search Length
 
@@ -409,28 +410,6 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
-            #region Animation
-
-            //Accesses the Animator component
-            animator = GetComponent<Animator>();
-
-            int idleId = Animator.StringToHash("Idle");
-
-            int runId = Animator.StringToHash("Run");
-
-            int attack1Id = Animator.StringToHash("Attack 1");
-
-            int attack2Id = Animator.StringToHash("Attack 2");
-
-            int attack3Id = Animator.StringToHash("Attack 3");
-
-            AnimatorStateInfo animStateInfo = animator.GetCurrentAnimatorStateInfo(0);
-
-            //Automatically disables Root Motion (to avoid adding motion twice)
-            animator.applyRootMotion = false;
-
-            #endregion
-
             #region Movement
 
             if (movementSpeed <= 0)
@@ -515,7 +494,7 @@ public class CharacterMechanics : MonoBehaviour
 
                 comboCount = 0;
 
-                animator.SetTrigger("Die");
+                ac.Die();         
 
                 Invoke("TryAgain", 2);
             }
@@ -580,34 +559,6 @@ public class CharacterMechanics : MonoBehaviour
 
             #endregion
 
-            #region Check Anim Status
-
-            currentClipInfo = this.animator.GetCurrentAnimatorClipInfo(0);
-
-            //currentAnimLength = currentClipInfo[0].clip.length;
-
-            animName = currentClipInfo[0].clip.name;
-
-            if (animName == "Male Attack 1" && actionAllowed|| animName == "Male Attack 2" && actionAllowed || animName == "Male Attack 3" && actionAllowed)
-            {
-                comboCount = 0;
-
-                Debug.Log("Animation System: comboCount reset by update");
-            }
-
-            #region Debug Log
-
-            if(animDebug)
-            {
-                Debug.Log("Animator System: Anim Name" + animName);
-
-                //Debug.Log("Animator System: Anim Length" + currentAnimLength);
-            }
-
-            #endregion
-
-            #endregion
-
             #region Apply Gravity
 
             vSpeed -= gravity * Time.deltaTime;
@@ -620,19 +571,6 @@ public class CharacterMechanics : MonoBehaviour
                 isFalling = true;
 
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
-
-            #endregion
-
-
-            #region Set Animator
-
-            animator.SetFloat("Speed", Input.GetAxis("Vertical"));
-
-            animator.SetBool("isGrounded", isGrounded);
-
-            animator.SetBool("isJumping", isJumping);
-
-            animator.SetBool("isFalling", isFalling);
 
             #endregion
         }
@@ -672,19 +610,16 @@ public class CharacterMechanics : MonoBehaviour
 
             isFalling = false;
 
-            animator.SetBool("isGrounded", isGrounded);
-
-            animator.SetBool("isFalling", isFalling);
-
             if (isJumping)
             {
                 isJumping = false;
 
-                animator.SetBool("isJumping", isJumping);
-
                 actionAllowed = true;
             }
+
+            ac.hitGround();
         }
+
         else if(hit.gameObject.tag =="Killbox")
         {
             Killbox();
@@ -782,6 +717,10 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Pickup Functions
 
+    public void updateValues()
+    {
+        ac.updateValues(isGrounded, isJumping, isFalling, Input.GetAxis("Vertical"));
+    }
     void createHealthEffect()
     {
         heTemp = Instantiate(healthEffect, abilitySpawn.transform.position, abilitySpawn.transform.rotation, gameObject.transform);
@@ -860,10 +799,7 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        animator.SetInteger("Counter", comboCount);
-
-        if (actionAllowed)
-            animator.SetTrigger("Got Hit");
+        ac.takeDamage();
 
         currentHealth -= dmgDealt;
 
@@ -1004,7 +940,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             comboCount = 0;
 
-            animator.SetInteger("Counter", comboCount);
+            ac.resetCounter();
 
             Debug.Log("comboCount set to 0 by tryBufferedAction()");
         }
@@ -1112,19 +1048,13 @@ public class CharacterMechanics : MonoBehaviour
 
             vSpeed = jumpSpeed;
 
-            animator.SetTrigger("Jump");
-
             isGrounded = false;
 
-            animator.SetBool("isGrounded", isGrounded);
+            isJumping = true;
 
             isJumping = true;
 
-            animator.SetBool("isJumping", isJumping);
-
-            isJumping = true;
-
-            animator.SetBool("isFalling", isFalling);
+            ac.jump(isGrounded, isJumping, isFalling);
 
             actionAllowed = false;
 
@@ -1168,9 +1098,7 @@ public class CharacterMechanics : MonoBehaviour
 
         isAttacking = true;
 
-        animator.SetInteger("Counter", comboCount);
-
-        animator.SetTrigger("Attack");
+        ac.attack(comboCount);
 
         #region Debug Log
 
@@ -1206,9 +1134,7 @@ public class CharacterMechanics : MonoBehaviour
 
         isAttacking = true;
 
-        animator.SetInteger("Counter", comboCount);
-
-        animator.SetTrigger("Attack");
+        ac.attack(comboCount);
 
         #region Debug Log
 
@@ -1244,9 +1170,8 @@ public class CharacterMechanics : MonoBehaviour
 
         isAttacking = true;
 
-        animator.SetInteger("Counter", comboCount);
+        ac.attack(comboCount);
 
-        animator.SetTrigger("Attack");
 
         #region Debug Log
 
@@ -1340,7 +1265,7 @@ public class CharacterMechanics : MonoBehaviour
         //        animator.SetInteger("Counter", comboCount);
         //    }
 
-            animator.SetInteger("Counter", comboCount);
+            ac.setComboCount(comboCount);
         //}
 
         actionAllowed = true;
@@ -1387,7 +1312,7 @@ public class CharacterMechanics : MonoBehaviour
             if(comboDebug)
             Debug.Log("Combo System: comboCount set to 0 by comboReset()");
 
-            animator.SetInteger("Counter", comboCount);
+            ac.setComboCount(comboCount);
         }
         if (!actionAllowed)
         {
@@ -1443,7 +1368,7 @@ public class CharacterMechanics : MonoBehaviour
         else
             Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
 
-        animator.SetTrigger("Dash");
+        ac.dash();
 
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
 
@@ -1484,7 +1409,7 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        animator.SetTrigger("Hammer Smash");
+        ac.smash();
 
         hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         Destroy(hammerSmashTemp, 2);
@@ -1504,7 +1429,7 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        animator.SetTrigger("Spin");
+        ac.spin();
 
         whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
         Destroy(whirlwindTemp, 2);
@@ -1558,7 +1483,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        animator.SetTrigger("Throw");
+        ac.throw_();
+
         //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
         GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
@@ -1585,7 +1511,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             gameObject.transform.position = respawnPoint.transform.position;
 
-            animator.SetTrigger("Respawn");
+            ac.respawn();
         }
     }
 
@@ -1605,7 +1531,7 @@ public class CharacterMechanics : MonoBehaviour
         Lives -= 1;
         gameObject.transform.position = respawnPoint.transform.position;
 
-        animator.SetTrigger("Respawn");
+        ac.respawn();
     }
 
     #endregion

@@ -79,27 +79,21 @@ public class RangedEnemy : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Get Components
         rb = GetComponent<Rigidbody>();
-
-        Player = GameObject.FindGameObjectWithTag("Player");
-
-        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
-        int maxHP = hp;
         agent = GetComponent<NavMeshAgent>();
-        target = GameObject.Find("Player").transform;
-
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
-
-        myEnemyClown = EnemyState.Start;
-
         eAnim = gameObject.GetComponent<Animator>();
 
+        Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.Find("Player").transform;
-        rb = GetComponent<Rigidbody>();
-        rb.isKinematic = true;
-        agent = GetComponent<NavMeshAgent>();
+        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        #endregion
 
         #region default values
+        //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
+        int maxHP = hp;
+        myEnemyClown = EnemyState.Start;
+        rb.isKinematic = true;
 
         // Default values
         if (enemyMovement <= 0)
@@ -130,7 +124,7 @@ public class RangedEnemy : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Enemy State:" + myEnemyClown);
+        //Debug.Log("Enemy State:" + myEnemyClown);
         if (Input.GetKeyDown("t"))
         {
             Debug.Log("Enemy has lost 1 hp");
@@ -196,6 +190,7 @@ public class RangedEnemy : MonoBehaviour
         }
         #endregion
     }
+    #region health/death
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
@@ -205,15 +200,9 @@ public class RangedEnemy : MonoBehaviour
         {
             death = true;
             Debug.Log("Enemy has been killed");
-            enemyMovement = 0;
-            rotationSpeed = 0;
-            AgentStop();
+            agent.isStopped = true;
             // so that enemy doesn't move after dying
-            //eAnim.SetTrigger("IsPunching");
-            eAnim.SetBool("IsDying", true);
-            eAnim.SetTrigger("IsDead");
-            Destroy(gameObject, 4);
-
+            eAnim.SetTrigger("Death");
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
@@ -230,6 +219,13 @@ public class RangedEnemy : MonoBehaviour
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
+    public void Die()
+    {
+        Destroy(gameObject);
+    }
+    #endregion
+
+    #region stun/knockback
     private void AgentStop()
     {
         //Enemy briefly pauses after being knocked back
@@ -277,7 +273,8 @@ public class RangedEnemy : MonoBehaviour
             //enemyMovement = 5;
         }
     }
-    #region init States
+    #endregion
+    #region States Chase, Patrol, Attack (Ranged)
     public void Chase()
     {
         agent.isStopped = false;
