@@ -937,6 +937,8 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.dash();
 
+        ic.dash();
+
         //Rigidbody.addforce();
         ib.setBufferTrue();
     }

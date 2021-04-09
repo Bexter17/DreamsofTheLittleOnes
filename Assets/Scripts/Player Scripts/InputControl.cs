@@ -272,7 +272,9 @@ public class InputControl : MonoBehaviour
 
     public void dash()
     {
-        controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * dashSpeed));
+        Debug.Log("input control dash called");
+
+        controller.Move(transform.TransformDirection(Vector3.forward) * Input.GetAxis("Vertical") * dashSpeed);
     }
 
     public bool groundCheck(bool isGrounded)
