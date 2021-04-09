@@ -68,11 +68,32 @@ public class Destructable : MonoBehaviour
                 // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
             }
         }
+
       
-    
+
 
     }
 
+    private void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.tag == "HammerSmashAOE")
+        {
+            GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+            GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+            Object.Destroy(brokenVersion, 5f);
 
+            Destroy(gameObject);
+        }
+        if (collision.gameObject.tag == "WhirlwindAOE")
+        {
+            GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+            GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+            Object.Destroy(brokenVersion, 5f);
+
+            Destroy(gameObject);
+        }
+    }
 
 }
