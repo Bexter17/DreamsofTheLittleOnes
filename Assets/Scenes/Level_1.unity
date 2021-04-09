@@ -21099,6 +21099,10 @@ MonoBehaviour:
   hitForce: 100
   FreeAim: {fileID: 274304437}
   rangePrefab: {fileID: 6882968560295412820, guid: e0d50ace27769c34bbc6cd86a46e02b8, type: 3}
+  abilityImage1: {fileID: 727995445}
+  ability1: 122
+  cooldown1: 3
+  isCooldown1: 0
 --- !u!1 &574357053
 GameObject:
   m_ObjectHideFlags: 0
@@ -28808,7 +28812,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-166750
+  m_Name: pb_Mesh-11450
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
