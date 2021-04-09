@@ -628,6 +628,7 @@ MonoBehaviour:
   startButton: {fileID: 0}
   quitButton: {fileID: 7641996451395876493}
   returnButton: {fileID: 7641996451197416261}
+  tryAgainButton: {fileID: 0}
   pauseMenu: {fileID: 7641996452729407081}
 --- !u!1 &7641996452729407081
 GameObject:
@@ -760,6 +761,10 @@ PrefabInstance:
       propertyPath: m_Value
       value: 50
       objectReference: {fileID: 0}
+    - target: {fileID: 3714111555277864311, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
+      propertyPath: m_TagString
+      value: Ability 4
+      objectReference: {fileID: 0}
     - target: {fileID: 3714111555726791933, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
       propertyPath: m_AnchorMax.x
       value: 0
@@ -767,6 +772,18 @@ PrefabInstance:
     - target: {fileID: 3714111555726791933, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714111556004826920, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
+      propertyPath: m_TagString
+      value: Ability 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714111556699485793, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
+      propertyPath: m_TagString
+      value: Ability 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 3714111557124323469, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
+      propertyPath: m_TagString
+      value: Ability 1
       objectReference: {fileID: 0}
     - target: {fileID: 3714111557176818664, guid: eaaa9c827ad037b41bf8ae7ddcb6280b, type: 3}
       propertyPath: m_Name

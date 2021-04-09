@@ -6,24 +6,28 @@ using UnityEngine.UI;
 public class AbilitiesCooldown : MonoBehaviour
 {
     [Header("Ability 1")]
+    GameObject abilityObject1;
     public Image abilityImage1;
     public float cooldown1 = 5;
     public bool isCooldown1 = false;
     public KeyCode ability1;
 
     [Header("Ability 2")]
+    GameObject abilityObject2;
     public Image abilityImage2;
     public float cooldown2 = 5;
     public bool isCooldown2 = false;
     public KeyCode ability2;
 
     [Header("Ability 3")]
+    GameObject abilityObject3;
     public Image abilityImage3;
     public float cooldown3 = 5;
     public bool isCooldown3 = false;
     public KeyCode ability3;
 
     [Header("Ability 4")]
+    GameObject abilityObject4;
     public Image abilityImage4;
     public float cooldown4 = 5;
     public bool isCooldown4 = false;
@@ -31,9 +35,20 @@ public class AbilitiesCooldown : MonoBehaviour
 
     void Start()
     {
+        abilityObject1 = GameObject.FindGameObjectWithTag("Ability 1");
+        abilityImage1 = abilityObject1.GetComponent<Image>();
         abilityImage1.fillAmount = 0;
+
+        abilityObject2 = GameObject.FindGameObjectWithTag("Ability 2");
+        abilityImage2 = abilityObject1.GetComponent<Image>();
         abilityImage2.fillAmount = 0;
+
+        abilityObject3 = GameObject.FindGameObjectWithTag("Ability 3");
+        abilityImage3 = abilityObject1.GetComponent<Image>();
         abilityImage3.fillAmount = 0;
+
+        abilityObject4 = GameObject.FindGameObjectWithTag("Ability 4");
+        abilityImage4 = abilityObject1.GetComponent<Image>();
         abilityImage4.fillAmount = 0;
     }
 
