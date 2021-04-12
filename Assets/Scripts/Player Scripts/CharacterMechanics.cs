@@ -68,6 +68,10 @@ public class CharacterMechanics : MonoBehaviour
 
     InputBuffer ib;
 
+    AimShoot aims;
+
+    GameObject Aimshoot;
+
     #endregion
 
     #region Variables
@@ -262,6 +266,10 @@ public class CharacterMechanics : MonoBehaviour
         #region Initialization
 
         #region Components
+
+        Aimshoot = GameObject.FindGameObjectWithTag("FreeAimer");
+
+        aims = Aimshoot.transform.GetComponent<AimShoot>();
 
         ac = this.transform.GetComponent<AnimController>();
         
@@ -1044,7 +1052,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (!IsAimOn)
+        if (!IsAimOn && aims.isCooldown1 == false)
         {
             ac.throw_();
             GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
