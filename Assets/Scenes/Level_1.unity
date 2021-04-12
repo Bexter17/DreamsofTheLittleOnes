@@ -123,39 +123,6 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 23800000, guid: d0316ccad25cf3b4dafb9985b72fe473, type: 2}
---- !u!1 &6016049
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 6016050}
-  m_Layer: 0
-  m_Name: -------Cameras---------
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &6016050
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6016049}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 14.953982, y: -5.4060426, z: 18.170753}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1322321279}
-  - {fileID: 573267038}
-  - {fileID: 948439655}
-  m_Father: {fileID: 0}
-  m_RootOrder: 1
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &8249258
 GameObject:
   m_ObjectHideFlags: 0
@@ -2352,11 +2319,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 15
-=======
-  m_RootOrder: 12
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 32.481, y: 168.965, z: 5.266}
 --- !u!1 &77383644
 GameObject:
@@ -5843,11 +5806,7 @@ Transform:
   - {fileID: 2064007821}
   - {fileID: 1214498141}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 24
-=======
-  m_RootOrder: 22
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &173860550
 GameObject:
@@ -14684,11 +14643,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 6
-=======
-      value: 4
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -15466,11 +15421,7 @@ Transform:
   - {fileID: 1948116600}
   - {fileID: 1566659225}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 21
-=======
-  m_RootOrder: 18
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &412168487 stripped
 Transform:
@@ -17428,11 +17379,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5877587758282234193, guid: e2a10996a6520c24990b33ee122bb605, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 9
-=======
-      value: 7
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 5877587758282234193, guid: e2a10996a6520c24990b33ee122bb605, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -18667,11 +18614,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 13
-=======
-  m_RootOrder: 11
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 50, y: -30, z: 0}
 --- !u!1 &504826767
 GameObject:
@@ -19529,11 +19472,7 @@ Transform:
   - {fileID: 815259023}
   - {fileID: 1000471209}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 33
-=======
-  m_RootOrder: 31
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &528618138
 GameObject:
@@ -20874,20 +20813,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 573267036}
-  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: -7.709857, y: 10.560491, z: -13.614729}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 7.2441254, y: 5.1544476, z: 4.5560246}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 2057025614}
   - {fileID: 419872527}
   - {fileID: 1247467673}
-<<<<<<< Updated upstream
   m_Father: {fileID: 0}
   m_RootOrder: 37
-=======
-  m_Father: {fileID: 6016050}
-  m_RootOrder: 1
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &573267039
 MonoBehaviour:
@@ -21377,11 +21311,7 @@ Transform:
   - {fileID: 1939071405}
   - {fileID: 1355593062}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 18
-=======
-  m_RootOrder: 16
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &592429851 stripped
 Transform:
@@ -22495,11 +22425,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2637973821188910275, guid: f6ca1434d2fd9e341bd0cc314000b369, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 12
-=======
-      value: 10
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 2637973821188910275, guid: f6ca1434d2fd9e341bd0cc314000b369, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -23531,11 +23457,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 30
-=======
-  m_RootOrder: 28
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &659706183
 GameObject:
@@ -27131,11 +27053,7 @@ Transform:
   - {fileID: 1040459951}
   - {fileID: 1249881565}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 20
-=======
-  m_RootOrder: 17
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &777373076
 PrefabInstance:
@@ -27537,35 +27455,23 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalRotation.x
-<<<<<<< Updated upstream
       value: -0.103494234
-=======
-      value: -0.10349426
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.070360035
+      value: 0.070360094
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalRotation.z
-<<<<<<< Updated upstream
       value: -0.007339768
-=======
-      value: -0.0073397644
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalRotation.w
-      value: -0.9921112
+      value: -0.99211115
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalPosition.x
-<<<<<<< Updated upstream
       value: 0.7043952
-=======
-      value: 1.8483942
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 5569241193833624288, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_LocalPosition.y
@@ -27745,7 +27651,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7416333894168588241, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_RootOrder
-      value: 5
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7720952513044620267, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_IsTrigger
@@ -28764,11 +28670,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
   m_Name: pb_Mesh-12148
-=======
-  m_Name: pb_Mesh-38088
->>>>>>> Stashed changes
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -29729,11 +29631,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 8
-=======
-      value: 6
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -32294,11 +32192,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 28
-=======
-  m_RootOrder: 25
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &914059849
 MonoBehaviour:
@@ -32460,11 +32354,7 @@ Transform:
   - {fileID: 1048888301}
   - {fileID: 676725896}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 43
-=======
-  m_RootOrder: 39
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &917797764
 GameObject:
@@ -32762,11 +32652,7 @@ Transform:
   - {fileID: 1231165539}
   - {fileID: 2093267199}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 16
-=======
-  m_RootOrder: 13
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 36.879, z: 0}
 --- !u!1 &923271356
 GameObject:
@@ -33500,11 +33386,7 @@ Transform:
   - {fileID: 967923288}
   - {fileID: 1404684119}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 22
-=======
-  m_RootOrder: 20
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &945547058
 GameObject:
@@ -33703,39 +33585,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 948101498}
   m_Mesh: {fileID: 10206, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &948439654
-GameObject:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  serializedVersion: 6
-  m_Component:
-  - component: {fileID: 948439655}
-  m_Layer: 0
-  m_Name: ------FollowPoints-------
-  m_TagString: Untagged
-  m_Icon: {fileID: 0}
-  m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
-  m_IsActive: 1
---- !u!4 &948439655
-Transform:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 948439654}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1991773820}
-  - {fileID: 1060362656}
-  - {fileID: 1700289056}
-  m_Father: {fileID: 6016050}
-  m_RootOrder: 2
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &952267071
 GameObject:
   m_ObjectHideFlags: 0
@@ -34818,11 +34667,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 38
-=======
-  m_RootOrder: 34
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!114 &980667593
 MonoBehaviour:
@@ -35069,11 +34914,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 34
-=======
-  m_RootOrder: 32
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 13.81, y: 304.4, z: -0.001}
 --- !u!1 &989085945
 GameObject:
@@ -38030,7 +37871,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1060362656}
   m_Layer: 0
-  m_Name: CURRENT_FreeAimRanged
+  m_Name: PlayerCinemachineAimer (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -38043,12 +37884,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1060362655}
-  m_LocalRotation: {x: -0.03807419, y: -0.33313772, z: -0.013464728, w: -0.94201297}
-  m_LocalPosition: {x: -2.6570768, y: 9.690491, z: -9.785236}
-  m_LocalScale: {x: 1.637917, y: 1.6379168, z: 1.6379168}
+  m_LocalRotation: {x: 0.03140639, y: -0.00000005960465, z: 0.02538861, w: 0.99918425}
+  m_LocalPosition: {x: -0.007, y: 2.512, z: 0.297}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 948439655}
-  m_RootOrder: 1
+  m_Father: {fileID: 778270632}
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 3.598, y: 0.092, z: 2.914}
 --- !u!1001 &1061055033
 PrefabInstance:
@@ -42221,11 +42062,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac4669c776f777b419a0084680b149fe, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 10
-=======
-      value: 8
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: ac4669c776f777b419a0084680b149fe, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -43585,11 +43422,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db952063b5f00a468eab7f37b3337c1, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 11
-=======
-      value: 9
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 8db952063b5f00a468eab7f37b3337c1, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -48934,7 +48767,6 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1322321277}
-<<<<<<< Updated upstream
   m_LocalRotation: {x: 0.10001965, y: 0.2644453, z: -0.027586186, w: 0.9588033}
   m_LocalPosition: {x: 7.8226547, y: 5.9177837, z: 0.9972906}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -48942,15 +48774,6 @@ Transform:
   - {fileID: 1940289285}
   m_Father: {fileID: 0}
   m_RootOrder: 36
-=======
-  m_LocalRotation: {x: 0.10001967, y: 0.26444536, z: -0.027586197, w: 0.9588033}
-  m_LocalPosition: {x: -3.815526, y: 9.238758, z: -16.052288}
-  m_LocalScale: {x: 1, y: 1, z: 1}
-  m_Children:
-  - {fileID: 1940289285}
-  m_Father: {fileID: 6016050}
-  m_RootOrder: 0
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &1322399116
 PrefabInstance:
@@ -53006,11 +52829,7 @@ Transform:
   m_LocalScale: {x: 0.55318, y: 1, z: 0.583174}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 47
-=======
-  m_RootOrder: 42
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1434592730 stripped
 Transform:
@@ -53693,11 +53512,7 @@ Transform:
   - {fileID: 1349955353}
   - {fileID: 936666813}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 46
-=======
-  m_RootOrder: 41
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!4 &1452751630 stripped
 Transform:
@@ -55558,11 +55373,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 39
-=======
-  m_RootOrder: 35
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1521882234
 GameObject:
@@ -57692,11 +57503,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 7
-=======
-      value: 5
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 8500794167085109296, guid: 5d36961d5e736a540a99355a04953625, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -58286,11 +58093,7 @@ Transform:
   - {fileID: 306949787}
   - {fileID: 1615566954}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 44
-=======
-  m_RootOrder: 40
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1604111656
 GameObject:
@@ -61164,18 +60967,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1700289055}
-<<<<<<< Updated upstream
   m_LocalRotation: {x: 0.102745846, y: -0.07144847, z: 0.01781078, w: 0.9919784}
   m_LocalPosition: {x: 0.286, y: 2.673, z: -1.005}
   m_LocalScale: {x: 1, y: 1, z: 1}
-=======
-  m_LocalRotation: {x: -0.102805234, y: -0.26337495, z: 0.017464783, w: -0.95904106}
-  m_LocalPosition: {x: -0.30873203, y: 7.8691263, z: -10.624212}
-  m_LocalScale: {x: 1.637917, y: 1.6379172, z: 1.6379169}
->>>>>>> Stashed changes
   m_Children: []
-  m_Father: {fileID: 948439655}
-  m_RootOrder: 2
+  m_Father: {fileID: 778270632}
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 11.911, y: -8.113, z: 1.21}
 --- !u!1 &1700479671
 GameObject:
@@ -61466,11 +61263,7 @@ Transform:
   - {fileID: 2106259249}
   - {fileID: 574357054}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 40
-=======
-  m_RootOrder: 36
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1716541586
 GameObject:
@@ -62068,11 +61861,7 @@ Transform:
   - {fileID: 2048796414}
   - {fileID: 329802093}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 32
-=======
-  m_RootOrder: 30
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1725090478
 GameObject:
@@ -64677,11 +64466,7 @@ Transform:
   - {fileID: 1006024801}
   - {fileID: 2090367778}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 29
-=======
-  m_RootOrder: 26
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!43 &1770003259
 Mesh:
@@ -64689,11 +64474,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-<<<<<<< Updated upstream
   m_Name: pb_Mesh25150
-=======
-  m_Name: pb_Mesh31268
->>>>>>> Stashed changes
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -66700,11 +66481,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 26
-=======
-  m_RootOrder: 24
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1821712544
 GameObject:
@@ -67227,11 +67004,7 @@ Transform:
   - {fileID: 243841070}
   - {fileID: 173860554}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 25
-=======
-  m_RootOrder: 23
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1832904943
 GameObject:
@@ -71374,11 +71147,7 @@ Transform:
   - {fileID: 876236726}
   - {fileID: 664188345}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 31
-=======
-  m_RootOrder: 29
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1958327395
 GameObject:
@@ -71451,11 +71220,7 @@ Transform:
   - {fileID: 319273390}
   - {fileID: 694982401}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 23
-=======
-  m_RootOrder: 21
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1959091796
 GameObject:
@@ -72515,12 +72280,12 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1991773819}
-  m_LocalRotation: {x: -0.10381201, y: -0.33326417, z: 0.009848945, w: -0.93704915}
-  m_LocalPosition: {x: -2.2528753, y: 8.737222, z: -10.632214}
-  m_LocalScale: {x: 1.637917, y: 1.6379169, z: 1.6379168}
+  m_LocalRotation: {x: 0.10115583, y: 0.0017741324, z: 0.02532653, w: 0.9945466}
+  m_LocalPosition: {x: 0.51000005, y: 1.9299996, z: 0.049999937}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 948439655}
-  m_RootOrder: 0
+  m_Father: {fileID: 778270632}
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 11.602, y: 0.506, z: 2.969}
 --- !u!1 &1991859780
 GameObject:
@@ -74106,11 +73871,7 @@ Transform:
   - {fileID: 488802265}
   - {fileID: 870564716}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 42
-=======
-  m_RootOrder: 38
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2031465313
 GameObject:
@@ -75914,15 +75675,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalRotation.x
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalRotation.y
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalRotation.w
@@ -75930,11 +75691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 4
-=======
-      value: 3
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: 7ccb02c783fbcfe4db3ddab900a8bf6d, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -76314,11 +76071,7 @@ Transform:
   - {fileID: 866412169}
   - {fileID: 1095949896}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 17
-=======
-  m_RootOrder: 15
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2103852131
 GameObject:
@@ -77036,11 +76789,7 @@ Transform:
   - {fileID: 1073998187}
   - {fileID: 326225665}
   m_Father: {fileID: 0}
-<<<<<<< Updated upstream
   m_RootOrder: 41
-=======
-  m_RootOrder: 37
->>>>>>> Stashed changes
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2120683890
 GameObject:
@@ -77910,11 +77659,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3114429012052633973, guid: 234909927e91640419a86dd3be137d7c, type: 3}
       propertyPath: m_RootOrder
-<<<<<<< Updated upstream
       value: 35
-=======
-      value: 33
->>>>>>> Stashed changes
       objectReference: {fileID: 0}
     - target: {fileID: 3114429012052633973, guid: 234909927e91640419a86dd3be137d7c, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
