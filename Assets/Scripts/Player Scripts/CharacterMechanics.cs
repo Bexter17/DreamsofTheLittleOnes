@@ -91,6 +91,8 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] public bool whirlwindDebug;
 
+    [SerializeField] public bool rangedDebug;
+
     [SerializeField] public bool animDebug;
 
     #endregion
@@ -1052,7 +1054,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         #region Debug Log
 
-        if (whirlwindDebug)
+        if (rangedDebug)
         {
             Debug.Log("ranged() has been called");
         }
@@ -1063,7 +1065,6 @@ public class CharacterMechanics : MonoBehaviour
 
         if (!IsAimOn)
         {
-            //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
             GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
             bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
