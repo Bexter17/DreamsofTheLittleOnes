@@ -8,6 +8,7 @@ public class RangedEnemy : MonoBehaviour
 {
     #region Variables
 
+    [Header("Essentials")]
     public int hp = 5;
     private int maxHP;
     public Rigidbody rb;
@@ -15,11 +16,12 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] float attackTimer = 0;
-    [SerializeField] float RunawayRange;
+
+    [Header("Knockback")]
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockDuration;
     [SerializeField] float knockPause;
-    [SerializeField] bool isStationary;
+    
 
     NavMeshAgent agent;
 
@@ -32,7 +34,7 @@ public class RangedEnemy : MonoBehaviour
 
     //used to track the player for giveDamage function 
     private GameObject Player;
-    [SerializeField] enum EnemyState { Start, Patrol, Attack, Chase};
+    enum EnemyState { Start, Patrol, Attack, Chase};
     EnemyState myEnemyClown;
     // The player that the enemy will chase
     //public Vector3 initialPos;
@@ -58,20 +60,23 @@ public class RangedEnemy : MonoBehaviour
 
     //Animations
     Animator eAnim;
-
+    [Header("Speed")]
     // How fast enemy moves
     [SerializeField] float enemyMovement;
     // multiplies by walk enemyMovement speed for chasing speed
     [SerializeField] int enemyRunMultiplier;
+    public float rotationSpeed;
 
+    [Header("Ranges")]
     // The distance the enemy will begin to chase player
     public float chaseRange;
     public float attackRange;
 
+    [Header("Patrol (only need waypoints if !isStationary)")]
+    [SerializeField] bool isStationary;
     public Transform waypoint1;
     public Transform waypoint2;
 
-    public float rotationSpeed;
     #endregion
 
 

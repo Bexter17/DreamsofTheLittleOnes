@@ -7,6 +7,24 @@ using UnityEngine.UI;
 
 public class AimShoot : MonoBehaviour
 {
+    #region Player
+
+    GameObject Player;
+
+    #endregion
+
+    #region Scripts
+
+    AnimController ac;
+
+    CharacterMechanics cm;
+
+    InputBuffer ib;
+
+    InputControl ic;
+
+    #endregion
+
     public float hitForce = 1000f;
 
     public Camera FreeAim;
@@ -23,6 +41,20 @@ public class AimShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        #region Scripts
+
+        ac = Player.GetComponent<AnimController>();
+
+        cm = Player.GetComponent<CharacterMechanics>();
+
+        ic = Player.GetComponent<InputControl>();
+
+        ib = Player.GetComponent<InputBuffer>();
+
+        #endregion
+
         abilityObject1 = GameObject.FindGameObjectWithTag("Ability 4");
         abilityImage1 = abilityObject1.GetComponent<Image>();
         abilityImage1.fillAmount = 0;
@@ -32,28 +64,9 @@ public class AimShoot : MonoBehaviour
     void Update()
     {
         Ability1();
-        //Ray ray = FreeAim.ScreenPointToRay(Input.mousePosition);
-        //100 shoots fairly far, if we wanted to do a sniper like shot double this value
-
-            
-                //if (Input.GetMouseButton(1) && Input.GetButtonDown("Fire5") &! isCooldown1)
-                //{
-                 //   RaycastHit hit;
-                 //   if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
-                  //  {
-                  //      Debug.Log(hit.collider.gameObject.name);
-                  //  }
-
-                 //   Vector3 lookdirection = hit.point - transform.position;
-                 //   GameObject bullet = Instantiate(rangePrefab, transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
-                //    bullet.GetComponent<Rigidbody>().AddForce(lookdirection * hitForce);
-                //    Destroy(bullet, 5);
-              //  }
-
-            
     }
 
-    void Ability1()
+    public void Ability1()
     {
         if (Input.GetKey(ability1) && isCooldown1 == false)
         {
@@ -67,7 +80,7 @@ public class AimShoot : MonoBehaviour
                 {
                     Debug.Log(hit.collider.gameObject.name);
                 }
-
+                ac.throw_();
                 Vector3 lookdirection = hit.point - transform.position;
                 GameObject bullet = Instantiate(rangePrefab, transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
                 bullet.GetComponent<Rigidbody>().AddForce(lookdirection * hitForce);

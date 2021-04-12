@@ -12,7 +12,7 @@ public class EnemyCarny : MonoBehaviour
     #region Variables
     //TODO removed most of serializefields to a minimum
 
-    //ESSENTIALS
+    //Essentials
     private Rigidbody rb;
     private Transform target;
     NavMeshAgent agent;
@@ -23,15 +23,16 @@ public class EnemyCarny : MonoBehaviour
     private GameObject Player;
 
     //HP
+    [Header("Essentials")]
     public int hp = 5;
     private int maxHP;
     private Image hpBar;
     public bool death = false;
 
     //STATES
-    [SerializeField] enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
+    enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
     EnemyState myEnemy;
-    //TODO remove
+    
     private float knockDistanceModifier = 400;
     private float knockDuration = .3f;
     private float knockPause = 1;
@@ -41,12 +42,16 @@ public class EnemyCarny : MonoBehaviour
     public float chaseRange = 10;
     private float checkStackRange = 6;
 
-    bool isPatrolling = false;
+    // Amount of damage done by enemy to player
+    public int dmgDealt = 2;
+
+    //bool isPatrolling = false;
     bool getCalled = false;
 
     private GameObject waypoint1;
     private GameObject waypoint2;
     private GameObject[] potentialWaypoints;
+    [Header("Patrol (Only needs waypoints if Advanced)")]
     public GameObject[] waypoints;
     public bool advancedPatrol;
     private int patrolNumber = 0;
@@ -58,8 +63,7 @@ public class EnemyCarny : MonoBehaviour
     private int enemyRunMultiplier = 2;
     private float rotationSpeed = 3;
 
-    // Amount of damage done by enemy to player
-    public int dmgDealt = 2;
+
 
     //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
     //Had to use IEnumerator because I couldn't get yield return new WaitForSeconds() to work anywhere else in script. Would like to 
@@ -69,9 +73,7 @@ public class EnemyCarny : MonoBehaviour
     {
         Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
         //Stop enemy movement
-        enemyMovement = 0;
         //Stop enemy attack
-        //TODO check between agent.isStopped and setting enemyMovement = 0 see which one works and put it in an easily accessible function
         agent.isStopped = true;
         //Damage enemy
         hp -= 2;
@@ -89,11 +91,11 @@ public class EnemyCarny : MonoBehaviour
     // Start is called before the first frame update
     #endregion
     #region EncircleVariables
-    [SerializeField] GameObject[] circlePoints;
+    private GameObject[] circlePoints;
     private int encircleNum = -1;
     private float circleDist = .5f;
     private bool onStack = false;
-    EnemyStack stackTracker;
+    public EnemyStack stackTracker;
     
     #endregion
     void Start()
@@ -181,6 +183,8 @@ public class EnemyCarny : MonoBehaviour
         Patrol();
         #endregion
         #region stackTracker
+        stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+
         circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
         circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
         circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
@@ -188,13 +192,12 @@ public class EnemyCarny : MonoBehaviour
         // circle points 4 different points around the player where the enemies will go to attack
         //circlePoints = new Vector3[4];
 
-        stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+        
         #endregion
     }
     // Update is called once per frame
     void Update()
     {
-
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
         {
@@ -221,12 +224,13 @@ public class EnemyCarny : MonoBehaviour
             }
             if (onStack)
             {
-                ResetMovement();
+                agent.isStopped = false;
                 agent.SetDestination(target.transform.position);
                 myEnemy = EnemyState.Attack;
             }
             if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
             {
+                Debug.Log("Enemy To Stack");
                 if (!onStack)
                 {
                     int stackNum = stackTracker.AddStack(gameObject);
@@ -239,7 +243,7 @@ public class EnemyCarny : MonoBehaviour
                         encircleNum = stackNum;
                         onStack = true;
                     }
-                    enemyMovement = 0;
+                    agent.isStopped = true;
                 }
 
             }
@@ -258,7 +262,7 @@ public class EnemyCarny : MonoBehaviour
                     getCalled = false;
                 }
             }
-            else if (!isPatrolling && !getCalled)
+            else if (myEnemy != EnemyState.Patrol && !getCalled)
             {
                 Patrol();
                 agent.isStopped = false;
@@ -340,7 +344,7 @@ public class EnemyCarny : MonoBehaviour
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
-        if (isPatrolling)
+        if (myEnemy == EnemyState.Patrol)
         {
             if (advancedPatrol)
             {
@@ -450,6 +454,7 @@ public class EnemyCarny : MonoBehaviour
         rb.isKinematic = true;
         //Enemy continues moving
         //agent.enabled = true;
+        enemyMovement = 3;
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }
@@ -459,7 +464,6 @@ public class EnemyCarny : MonoBehaviour
     {
         //agent.isStopped = false;
         //Debug.Log("CHASE");
-        isPatrolling = false;
         myEnemy = EnemyState.Chase;
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
@@ -469,7 +473,7 @@ public class EnemyCarny : MonoBehaviour
         // or -1 which means still not changed
         if (encircleNum < 4 && encircleNum >= 0)
         {
-            ResetMovement();
+            agent.isStopped = false;
             agent.SetDestination(circlePoints[encircleNum].transform.position);
         }
 
@@ -477,7 +481,6 @@ public class EnemyCarny : MonoBehaviour
     //using this funciton to set a chase destination to spawned enemy
     public void editChase()
     {
-        isPatrolling = false;
         agent.isStopped = false;
         myEnemy = EnemyState.lockChase;
         agent.SetDestination(Player.transform.position);
@@ -522,7 +525,6 @@ public class EnemyCarny : MonoBehaviour
             {
                 myEnemy = EnemyState.Patrol;
                 agent.SetDestination(waypoints[0].transform.position);
-                isPatrolling = true;
             }
         }
         else
@@ -531,7 +533,6 @@ public class EnemyCarny : MonoBehaviour
             {
                 myEnemy = EnemyState.Patrol;
                 agent.SetDestination(waypoint1.transform.position);
-                isPatrolling = true;
             }
         }
 
@@ -539,12 +540,6 @@ public class EnemyCarny : MonoBehaviour
 
     // Used for enemy animations and patrolling between waypoints
     #endregion
-
-
-    private void ResetMovement()
-    {
-        enemyMovement = 3;
-    }
 
     public void changeStackrange(float i)
     {

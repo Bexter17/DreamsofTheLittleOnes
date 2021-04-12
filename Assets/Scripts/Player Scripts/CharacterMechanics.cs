@@ -24,8 +24,6 @@ adjusted attack & combo reseting
 
 */
 
-
-
 #region ActionItem class Creation
 
 public class ActionItem
@@ -77,10 +75,6 @@ public class CharacterMechanics : MonoBehaviour
     #region Debug Toggles
     [Header("Debug Settings")]
 
-    [SerializeField] public bool movementDebug;
-
-    [SerializeField] public bool jumpDebug;
-
     [SerializeField] public bool combatDebug;
 
     [SerializeField] public bool comboDebug;
@@ -91,7 +85,7 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] public bool whirlwindDebug;
 
-    [SerializeField] public bool animDebug;
+    [SerializeField] public bool rangedDebug;
 
     #endregion
 
@@ -333,12 +327,6 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Debug
 
-            if (!movementDebug)
-                movementDebug = false;
-
-            if (!jumpDebug)
-                jumpDebug = false;
-
             if (!combatDebug)
                 combatDebug = false;
 
@@ -353,9 +341,6 @@ public class CharacterMechanics : MonoBehaviour
 
             if (!whirlwindDebug)
                 whirlwindDebug = false;
-
-            if (!animDebug)
-                animDebug = false;
 
             #endregion
 
@@ -1052,18 +1037,16 @@ public class CharacterMechanics : MonoBehaviour
     {
         #region Debug Log
 
-        if (whirlwindDebug)
+        if (rangedDebug)
         {
             Debug.Log("ranged() has been called");
         }
 
         #endregion
 
-        ac.throw_();
-
         if (!IsAimOn)
         {
-            //Previous line before Ross' Update: GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+            ac.throw_();
             GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
             bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
