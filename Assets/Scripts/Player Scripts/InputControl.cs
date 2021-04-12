@@ -319,18 +319,7 @@ public class InputControl : MonoBehaviour
         {
             cm.kill();
         }
-
-        //if (hit.gameObject.tag == "Checkpoint")
-        //{
-        //    respawnPoint = hit.gameObject;
-        //}
-
-        //if (hit.gameObject.tag == "Projectile")
-        //{
-
-        //}
     }
-
 
     #region Jump
 
@@ -381,7 +370,6 @@ public class InputControl : MonoBehaviour
     }
 
     #endregion
-
 
     public void updateValues()
     {

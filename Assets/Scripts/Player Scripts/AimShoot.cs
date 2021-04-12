@@ -7,6 +7,12 @@ using UnityEngine.UI;
 
 public class AimShoot : MonoBehaviour
 {
+    #region Player
+
+    GameObject Player;
+
+    #endregion
+
     #region Scripts
 
     AnimController ac;
@@ -35,6 +41,20 @@ public class AimShoot : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        #region Scripts
+
+        ac = Player.GetComponent<AnimController>();
+
+        cm = Player.GetComponent<CharacterMechanics>();
+
+        ic = Player.GetComponent<InputControl>();
+
+        ib = Player.GetComponent<InputBuffer>();
+
+        #endregion
+
         abilityObject1 = GameObject.FindGameObjectWithTag("Ability 4");
         abilityImage1 = abilityObject1.GetComponent<Image>();
         abilityImage1.fillAmount = 0;
