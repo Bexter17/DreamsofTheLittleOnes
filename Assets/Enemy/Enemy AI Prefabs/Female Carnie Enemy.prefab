@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6845188008510120403}
   - component: {fileID: 6845188007653863305}
   - component: {fileID: -1097867853273601699}
+  - component: {fileID: 7803178029895098646}
   m_Layer: 0
   m_Name: Female Carnie Enemy
   m_TagString: Enemy
@@ -173,14 +174,23 @@ MonoBehaviour:
   hp: 5
   death: 0
   chaseRange: 10
+  dmgDealt: 0
   waypoints: []
   advancedPatrol: 0
-  dmgDealt: 0
-  circlePoints:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  stackTracker: {fileID: 0}
+--- !u!65 &7803178029895098646
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942041078614933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2, y: 2, z: 2}
+  m_Center: {x: 0, y: 0, z: 1}
 --- !u!1 &1071054115192360592
 GameObject:
   m_ObjectHideFlags: 0
