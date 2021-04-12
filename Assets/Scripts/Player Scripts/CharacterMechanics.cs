@@ -485,7 +485,16 @@ public class CharacterMechanics : MonoBehaviour
 
     //Tracks triggers / pickups
 
- 
+
+    private void OnCollisionEnter(Collision collision)
+    {
+        if(collision.gameObject.tag == "Max Health Pickup")
+        {
+            Destroy(collision.gameObject);
+            Debug.Log("Health Pickup Worked");
+        }
+    }
+
 
     private void OnTriggerEnter(Collider c)
     {

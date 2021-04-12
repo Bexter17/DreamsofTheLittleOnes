@@ -22,6 +22,7 @@ public class HauntPortalExit : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             SceneManager.LoadScene("Level_1");
+            
         }
     }
 }

@@ -12,7 +12,8 @@ GameObject:
   - component: {fileID: 3500678824759918289}
   - component: {fileID: 2654702578346451572}
   - component: {fileID: 3411778261260202269}
-  - component: {fileID: 5327390809544904478}
+  - component: {fileID: 1260060103}
+  - component: {fileID: 1260060104}
   m_Layer: 0
   m_Name: MaxHealth
   m_TagString: Max Health Pickup
@@ -27,7 +28,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743928427607976405}
-  m_LocalRotation: {x: -0.7071867, y: -0, z: -0, w: 0.70702684}
+  m_LocalRotation: {x: -0.7069834, y: 0, z: 0, w: 0.7072302}
   m_LocalPosition: {x: 2.65, y: -0.12299, z: -7.0886}
   m_LocalScale: {x: 640.5, y: 640.5, z: 640.5}
   m_Children: []
@@ -96,17 +97,32 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 3
---- !u!64 &5327390809544904478
-MeshCollider:
+--- !u!54 &1260060103
+Rigidbody:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7743928427607976405}
+  serializedVersion: 2
+  m_Mass: 1
+  m_Drag: 0
+  m_AngularDrag: 0.05
+  m_UseGravity: 1
+  m_IsKinematic: 0
+  m_Interpolate: 0
+  m_Constraints: 0
+  m_CollisionDetection: 0
+--- !u!65 &1260060104
+BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743928427607976405}
   m_Material: {fileID: 0}
-  m_IsTrigger: 1
+  m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -6910024008809026314, guid: 36aecfaa59e4c5842ae7ef5205d34227, type: 3}
+  serializedVersion: 2
+  m_Size: {x: 0.0017237443, y: 0.001110545, z: 0.002369082}
+  m_Center: {x: -0.00003171246, y: -0.000007673971, z: 0.0011950805}
