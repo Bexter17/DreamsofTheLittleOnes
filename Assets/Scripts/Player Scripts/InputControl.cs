@@ -67,6 +67,8 @@ public class InputControl : MonoBehaviour
 
     public bool isFalling;
 
+    [SerializeField] bool jumpDebug;
+
     #endregion
 
     // Start is called before the first frame update
@@ -289,7 +291,7 @@ public class InputControl : MonoBehaviour
 
     private void JumpEnd()
     {
-        if (cm.jumpDebug)
+        if (jumpDebug)
             Debug.Log("JumpEnd Called");
 
         isJumping = false;
@@ -327,7 +329,7 @@ public class InputControl : MonoBehaviour
     {
         #region Debug Log
 
-        if (cm.jumpDebug)
+        if (jumpDebug)
         {
             Debug.Log("jump has been called");
         }
@@ -353,7 +355,7 @@ public class InputControl : MonoBehaviour
 
             #region Debug Log
 
-            if (cm.jumpDebug)
+            if (jumpDebug)
             {
                 Debug.Log("jump power: " + vSpeed);
 

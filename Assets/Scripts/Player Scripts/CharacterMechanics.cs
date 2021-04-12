@@ -75,10 +75,6 @@ public class CharacterMechanics : MonoBehaviour
     #region Debug Toggles
     [Header("Debug Settings")]
 
-    [SerializeField] public bool movementDebug;
-
-    [SerializeField] public bool jumpDebug;
-
     [SerializeField] public bool combatDebug;
 
     [SerializeField] public bool comboDebug;
@@ -90,8 +86,6 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] public bool whirlwindDebug;
 
     [SerializeField] public bool rangedDebug;
-
-    [SerializeField] public bool animDebug;
 
     #endregion
 
@@ -333,12 +327,6 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Debug
 
-            if (!movementDebug)
-                movementDebug = false;
-
-            if (!jumpDebug)
-                jumpDebug = false;
-
             if (!combatDebug)
                 combatDebug = false;
 
@@ -353,9 +341,6 @@ public class CharacterMechanics : MonoBehaviour
 
             if (!whirlwindDebug)
                 whirlwindDebug = false;
-
-            if (!animDebug)
-                animDebug = false;
 
             #endregion
 
