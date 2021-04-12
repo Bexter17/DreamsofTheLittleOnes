@@ -198,6 +198,7 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log("Enemy State :" + myEnemy);
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
         {
@@ -211,22 +212,10 @@ public class EnemyCarny : MonoBehaviour
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
 
-            // If enemy within attackrange stop moving and attack
-            // If enemy within chaserange chase player
-            // else go back to patrol route
-            if (Vector3.Distance(target.position, gameObject.transform.position) < punchRange)
-            {
-                eAnim.SetBool("isAttacking", true);
-            }
-            else
-            {
-                eAnim.SetBool("isAttacking", false);
-            }
             if (onStack)
             {
                 agent.isStopped = false;
                 agent.SetDestination(target.transform.position);
-                myEnemy = EnemyState.Attack;
             }
             if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
             {
@@ -282,6 +271,15 @@ public class EnemyCarny : MonoBehaviour
                 Chase();
                 agent.speed = enemyRunMultiplier * enemyMovement;
                 //Debug.Log("Run");
+            }
+            else if(myEnemy == EnemyState.Attack)
+            {
+                eAnim.SetBool("isAttacking", true);
+                eAnim.SetTrigger("Attack");
+            }
+            if(myEnemy != EnemyState.Attack)
+            {
+                eAnim.SetBool("isAttacking", false);
             }
             //else if (myEnemy == EnemyState.Stun)
             //{
@@ -344,7 +342,11 @@ public class EnemyCarny : MonoBehaviour
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
-        if (myEnemy == EnemyState.Patrol)
+        if(myEnemy == EnemyState.Chase && onStack)
+        {
+            myEnemy = EnemyState.Attack;
+        }
+        else if (myEnemy == EnemyState.Patrol)
         {
             if (advancedPatrol)
             {
@@ -544,5 +546,10 @@ public class EnemyCarny : MonoBehaviour
     public void changeStackrange(float i)
     {
         checkStackRange = i;
+    }
+
+    public void Attack()
+    {
+        Debug.Log("Enemy Attack");
     }
 }

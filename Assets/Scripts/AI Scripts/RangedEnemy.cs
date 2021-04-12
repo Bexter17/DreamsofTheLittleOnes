@@ -162,7 +162,7 @@ public class RangedEnemy : MonoBehaviour
                     {
                         myEnemyClown = EnemyState.Chase;
                         Chase();
-                        Debug.LogWarning("");
+                        //Debug.LogWarning("");
 
                     }
                     else if (Vector3.Distance(target.position, gameObject.transform.position) <= attackRange)
