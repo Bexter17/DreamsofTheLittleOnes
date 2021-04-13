@@ -40,11 +40,11 @@ public class EnemyCarny : MonoBehaviour
     // The distance the enemy will begin to chase player
     private float punchRange = 3;
     public float chaseRange = 10;
-    private float checkStackRange = 6;
+    private float checkStackRange = 10;
 
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
-
+    private bool ableToDamage = false;
     //bool isPatrolling = false;
     bool getCalled = false;
 
@@ -96,6 +96,8 @@ public class EnemyCarny : MonoBehaviour
     private float circleDist = .5f;
     private bool onStack = false;
     public EnemyStack stackTracker;
+    //Used to ensure onStack only activates once
+    private bool hasStacked = true;
     
     #endregion
     void Start()
@@ -198,7 +200,7 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        Debug.Log("Enemy State :" + myEnemy);
+        //Debug.Log("Enemy State :" + myEnemy);
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
         {
@@ -212,10 +214,15 @@ public class EnemyCarny : MonoBehaviour
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
 
-            if (onStack)
+            if (onStack && !ableToDamage)
+            {
+                agent.SetDestination(target.transform.position);
+            }
+            //Only activates once
+            if (onStack && hasStacked)
             {
                 agent.isStopped = false;
-                agent.SetDestination(target.transform.position);
+                hasStacked = false;
             }
             if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
             {
@@ -339,6 +346,7 @@ public class EnemyCarny : MonoBehaviour
     }
     private void OnTriggerEnter(Collider other)
     {
+        
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
@@ -384,6 +392,9 @@ public class EnemyCarny : MonoBehaviour
             {
                 //Debug.LogWarning("Enemy Start Collision With Player");
                 rb.isKinematic = false;
+                ableToDamage = true;
+                agent.isStopped = true;
+                eAnim.SetFloat("Speed", 0);
             }
         }
 
@@ -401,6 +412,15 @@ public class EnemyCarny : MonoBehaviour
         {
             Debug.Log("Hit with Ranged");
             takeDamage(1);
+        }
+    }
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            ableToDamage = false;
+            agent.isStopped = false;
+            eAnim.SetFloat("Speed", 1);
         }
     }
     #endregion
@@ -550,6 +570,9 @@ public class EnemyCarny : MonoBehaviour
 
     public void Attack()
     {
-        Debug.Log("Enemy Attack");
+        if (ableToDamage)
+        {
+            giveDamage();
+        }
     }
 }

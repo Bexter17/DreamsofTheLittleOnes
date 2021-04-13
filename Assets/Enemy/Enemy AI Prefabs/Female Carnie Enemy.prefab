@@ -173,7 +173,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   death: 0
-  chaseRange: 10
+  chaseRange: 20
   dmgDealt: 0
   waypoints: []
   advancedPatrol: 0
@@ -189,8 +189,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 2, y: 2, z: 2}
-  m_Center: {x: 0, y: 0, z: 1}
+  m_Size: {x: 2, y: 2, z: 0.75}
+  m_Center: {x: 0, y: 0, z: 0.5}
 --- !u!1 &1071054115192360592
 GameObject:
   m_ObjectHideFlags: 0
