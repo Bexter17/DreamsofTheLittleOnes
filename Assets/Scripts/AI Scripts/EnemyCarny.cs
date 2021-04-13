@@ -344,6 +344,15 @@ public class EnemyCarny : MonoBehaviour
         {
             takeDamage(1);
         }
+
+        if (collision.gameObject.tag == "Hammer")
+        {
+            if (cm.isAttacking)
+            {
+                Debug.Log("Hit");
+                takeDamage(2);
+            }
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -412,13 +421,13 @@ public class EnemyCarny : MonoBehaviour
             }
         }
 
-        if(other.CompareTag("Hammer"))
-        {
-            if(cm.isAttacking)
-            {
-                takeDamage(2);
-            }
-        }
+        //if(other.CompareTag("Hammer"))
+        //{
+        //    if(cm.isAttacking)
+        //    {
+        //        takeDamage(2);
+        //    }
+        //}
 
         //TODO + parameter to take damage to edit knockback
         //So that ranged attack doesn't knockback as much as melee

@@ -274,6 +274,11 @@ public class RangedEnemy : MonoBehaviour
         {
             takeDamage(3);
         }
+        
+        if(collision.gameObject.tag == "")
+        {
+            takeDamage(2);
+        }
     }
 
     void OnCollisionExit(Collision collision)
@@ -342,7 +347,7 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(1);
         }
 
-        if (other.CompareTag("Hammer"))
+        if (other.CompareTag("Hammer2"))
         {
             if (cm.isAttacking)
             {
