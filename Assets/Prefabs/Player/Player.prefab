@@ -1028,8 +1028,8 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5569241193833624289}
-  m_LocalRotation: {x: -0.103494234, y: 0.070360094, z: -0.007339768, w: -0.99211115}
-  m_LocalPosition: {x: 0.7043952, y: 3.509203, z: -4.928205}
+  m_LocalRotation: {x: -0.10374567, y: -0.012728572, z: 0.0013278071, w: -0.99452156}
+  m_LocalPosition: {x: -10.422805, y: 3.6129935, z: 29.637753}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 7641996452329371196}
@@ -1244,7 +1244,6 @@ GameObject:
   - component: {fileID: 5569241194072409850}
   - component: {fileID: 5569241194072409851}
   - component: {fileID: 7989571477359376727}
-  - component: {fileID: -293167464647820046}
   - component: {fileID: 1584377351929823892}
   - component: {fileID: -7785673775302490695}
   - component: {fileID: 7653521966553312458}
@@ -1327,14 +1326,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  movementDebug: 0
-  jumpDebug: 0
   combatDebug: 0
   comboDebug: 0
   inputBufferDebug: 0
   hammerDebug: 0
   whirlwindDebug: 0
-  animDebug: 0
+  rangedDebug: 0
   HealthBar: {fileID: 0}
   healthBar: {fileID: 2778099231981181032, guid: b3aec9d629df5944696f9dba201bc3d8, type: 3}
   currentHealth: 5
@@ -1406,18 +1403,6 @@ MonoBehaviour:
   leftFootVariableName: Left Foot Curve
   rightFootVariableName: Right Foot Curve
   useProIKFeatures: 1
---- !u!114 &-293167464647820046
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5569241194072409844}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9f4a050bd9db96949a28da06a713d882, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &1584377351929823892
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1454,6 +1439,7 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   isFalling: 0
+  jumpDebug: 0
 --- !u!114 &7653521966553312458
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1949,14 +1935,14 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
---- !u!224 &6451124445190399265 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6451124445620093743, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
-  m_PrefabInstance: {fileID: 711976462}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &6451124444353010794 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6451124443655699044, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
+  m_PrefabInstance: {fileID: 711976462}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &6451124445190399265 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6451124445620093743, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
   m_PrefabInstance: {fileID: 711976462}
   m_PrefabAsset: {fileID: 0}
 --- !u!224 &6451124443626312326 stripped
