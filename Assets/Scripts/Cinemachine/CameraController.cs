@@ -9,6 +9,8 @@ public class CameraController : MonoBehaviour
 
     public Image Aimer;
 
+    public GameObject respawnPoint;
+
     [SerializeField]
     public CinemachineVirtualCamera vCam1; //Third Person Camera
     [SerializeField]
@@ -17,6 +19,12 @@ public class CameraController : MonoBehaviour
     void Awake()
     {
         Aimer.enabled = false;
+    }
+
+    private void Start()
+    {
+
+        vCam2.transform.position = respawnPoint.transform.position;
     }
 
     void Update()
@@ -31,6 +39,7 @@ public class CameraController : MonoBehaviour
 
         if (Input.GetMouseButtonUp(1))
         {
+            vCam2.transform.position = respawnPoint.transform.position;
             Debug.Log("Right Mouse Button Let go");
             ThirdPersonCamera = true;
             Aimer.enabled = false;
