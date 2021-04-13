@@ -28,6 +28,7 @@ public class EnemyCarny : MonoBehaviour
     private int maxHP;
     private Image hpBar;
     public bool death = false;
+    private bool randNumGenerated = false;
 
     //STATES
     enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
@@ -176,7 +177,7 @@ public class EnemyCarny : MonoBehaviour
         }
         if (dmgDealt <= 0)
         {
-            dmgDealt = 1;
+            dmgDealt = 2;
         }
         if (enemyRunMultiplier <= 0)
         {
@@ -267,7 +268,6 @@ public class EnemyCarny : MonoBehaviour
                 Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
                 float str = rotationSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
-                //transform.LookAt(targetPosition);
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
@@ -281,6 +281,19 @@ public class EnemyCarny : MonoBehaviour
             }
             else if(myEnemy == EnemyState.Attack)
             {
+                //Generates random number once per attack from 1-3 to randomly choose 1 of 3 attacks
+                //Will generate number once on the main tree and can do so again after each attack
+                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Main Tree") && !randNumGenerated)
+                {
+                    //1-3
+                    //Set to 1, 4 once third animation is added
+                    eAnim.SetInteger("randAttk", Random.Range(1, 3));
+                    randNumGenerated = true;
+                }
+                else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
+                {
+                    randNumGenerated = false;
+                }
                 eAnim.SetBool("isAttacking", true);
                 eAnim.SetTrigger("Attack");
             }
@@ -350,11 +363,8 @@ public class EnemyCarny : MonoBehaviour
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
-        if(myEnemy == EnemyState.Chase && onStack)
-        {
-            myEnemy = EnemyState.Attack;
-        }
-        else if (myEnemy == EnemyState.Patrol)
+
+        if (myEnemy == EnemyState.Patrol)
         {
             if (advancedPatrol)
             {
@@ -390,6 +400,10 @@ public class EnemyCarny : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
+                if (myEnemy == EnemyState.Chase && onStack)
+                {
+                    myEnemy = EnemyState.Attack;
+                }
                 //Debug.LogWarning("Enemy Start Collision With Player");
                 rb.isKinematic = false;
                 ableToDamage = true;
@@ -421,6 +435,7 @@ public class EnemyCarny : MonoBehaviour
             ableToDamage = false;
             agent.isStopped = false;
             eAnim.SetFloat("Speed", 1);
+            myEnemy = EnemyState.Chase;
         }
     }
     #endregion
@@ -458,10 +473,6 @@ public class EnemyCarny : MonoBehaviour
         //Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
-    }
-    private void giveDamage()
-    {
-        CombatScript.GivePlayerDamage(this.transform, dmgDealt);
     }
     #endregion
     //TODO rename to be more descriptive
@@ -572,7 +583,15 @@ public class EnemyCarny : MonoBehaviour
     {
         if (ableToDamage)
         {
-            giveDamage();
+            CombatScript.GivePlayerDamage(this.transform, dmgDealt);
+        }
+    }
+
+    public void DoubleAttack()
+    {
+        if (ableToDamage)
+        {
+            CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
         }
     }
 }
