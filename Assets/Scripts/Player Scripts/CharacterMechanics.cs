@@ -486,14 +486,6 @@ public class CharacterMechanics : MonoBehaviour
             Destroy(collision.gameObject);
             Debug.Log("Health Pickup Worked");
         }
-
-        if(collision.gameObject.tag == "Killbox")                //For Testing Purposes, Can also be implemented in full version for fail safe and take away a life using die()
-        {
-            Debug.Log("Killbox activated");
-            gameObject.transform.position = respawnPoint.transform.position;
-            ac.respawn();
-            //die();
-        }
     }
 
 
@@ -1070,6 +1062,7 @@ public class CharacterMechanics : MonoBehaviour
             Destroy(bullet, 2);
             AttackEnd();
         }
+        
     }
 
     #endregion
