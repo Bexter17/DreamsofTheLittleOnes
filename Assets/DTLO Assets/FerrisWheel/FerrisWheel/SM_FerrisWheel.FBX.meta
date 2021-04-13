@@ -3,7 +3,22 @@ guid: fce60f0148f22a24abcf1cd177b3435d
 ModelImporter:
   serializedVersion: 20101
   internalIDToNameTable: []
-  externalObjects: {}
+  externalObjects:
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: aframelow
+    second: {fileID: 2100000, guid: 09b0b648629dd964e915934a3612880b, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: ferris
+    second: {fileID: 2100000, guid: 04c5392aad782784e87b76f92df645c1, type: 2}
+  - first:
+      type: UnityEngine:Material
+      assembly: UnityEngine.CoreModule
+      name: starlow
+    second: {fileID: 2100000, guid: 054239e9f355ec04fac6826b10e02e42, type: 2}
   materials:
     materialImportMode: 1
     materialName: 0

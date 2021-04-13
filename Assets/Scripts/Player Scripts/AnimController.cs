@@ -102,6 +102,12 @@ public class AnimController : MonoBehaviour
 
         animName = currentClipInfo[0].clip.name;
 
+        if (animDebug)
+        {
+            Debug.Log("Animation: animName = " + animName);
+            Debug.Log("Animation: actionAllowed = " + ib.actionAllowed);
+        }
+
         if (animName == "Male Attack 1" && ib.actionAllowed || animName == "Male Attack 2" && ib.actionAllowed || animName == "Male Attack 3" && ib.actionAllowed)
         {
             cm.comboCount = 0;
@@ -109,6 +115,12 @@ public class AnimController : MonoBehaviour
             Debug.Log("Animation System: comboCount reset by update");
         }
 
+        if (animName == "Idle" && !ib.actionAllowed)
+        {
+            ib.setBufferTrue();
+
+            Debug.Log("actionAllowed reset byb Idle");
+        }
         #region Debug Log
 
         if (animDebug)
@@ -171,13 +183,16 @@ public class AnimController : MonoBehaviour
 
     public void jump(bool _isGrounded, bool _isJumping, bool _isFalling)
     {
-        animator.SetTrigger("Jump");
+        if (ib.actionAllowed)
+        {
+            animator.SetTrigger("Jump");
 
-        animator.SetBool("isJumping", _isJumping);
+            animator.SetBool("isJumping", _isJumping);
 
-        animator.SetBool("isGrounded", _isGrounded);
+            animator.SetBool("isGrounded", _isGrounded);
 
-        animator.SetBool("isFalling", _isFalling);
+            animator.SetBool("isFalling", _isFalling);
+        }
     }
 
     public void attack(int _comboCount)
@@ -194,30 +209,42 @@ public class AnimController : MonoBehaviour
 
     public void dash()
     {
-        resetCounter();
+        if (ib.actionAllowed)
+        {
+            resetCounter();
 
-        animator.SetTrigger("Dash");
+            animator.SetTrigger("Dash");
+        }
     }
 
     public void smash()
     {
-        resetCounter();
+        if (ib.actionAllowed)
+        {
+            resetCounter();
 
-        animator.SetTrigger("Hammer Smash");
+            animator.SetTrigger("Hammer Smash");
+        }
     }
 
     public void spin()
     {
-        resetCounter();
+        if (ib.actionAllowed)
+        {
+            resetCounter();
 
-        animator.SetTrigger("Spin");
+            animator.SetTrigger("Spin");
+        }
     }
 
     public void throw_()
     {
-        resetCounter();
+        if (ib.actionAllowed)
+        {
+            resetCounter();
 
-        animator.SetTrigger("Throw");
+            animator.SetTrigger("Throw");
+        }
     }
 
     public void respawn()
