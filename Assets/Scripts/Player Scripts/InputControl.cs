@@ -187,7 +187,7 @@ public class InputControl : MonoBehaviour
         {
             #region Debug Log
 
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: Jump has been pressed");
             }
@@ -203,7 +203,7 @@ public class InputControl : MonoBehaviour
         {
             #region Debug Log
 
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: Attack has been pressed");
             }
@@ -219,7 +219,7 @@ public class InputControl : MonoBehaviour
         {
             #region Debug Log
 
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: dash has been pressed");
             }
@@ -227,14 +227,14 @@ public class InputControl : MonoBehaviour
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
-            cm.AttackEnd();
+            //cm.AttackEnd();
         }
 
         //Enables the player to use Ability 3
         if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: hammerSmash has been pressed");
             }
@@ -242,33 +242,33 @@ public class InputControl : MonoBehaviour
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
-            cm.AttackEnd();
+            //cm.AttackEnd();
         }
 
         if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         {
             #region Debug Log
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: whirlwind has been pressed");
             }
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
-            cm.AttackEnd();
+            //cm.AttackEnd();
         }
 
         if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
         {
             #region Debug Log
-            if (cm.inputBufferDebug)
+            if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: ranged attack has been pressed");
             }
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
-            cm.AttackEnd();
+            //cm.AttackEnd();
         }
     }
 
@@ -276,6 +276,7 @@ public class InputControl : MonoBehaviour
     {
         Debug.Log("input control dash called");
 
+        if(ib.actionAllowed)
         controller.Move(transform.TransformDirection(Vector3.forward) * Input.GetAxis("Vertical") * dashSpeed);
     }
 

@@ -83,8 +83,6 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] public bool comboDebug;
 
-    [SerializeField] public bool inputBufferDebug;
-
     [SerializeField] public bool hammerDebug;
 
     [SerializeField] public bool whirlwindDebug;
@@ -341,8 +339,8 @@ public class CharacterMechanics : MonoBehaviour
             if (!comboDebug)
                 comboDebug = false;
 
-            if (!inputBufferDebug)
-                inputBufferDebug = false;
+            if (!ib.inputBufferDebug)
+                ib.inputBufferDebug = false;
 
             if (!hammerDebug)
                 hammerDebug = false;
@@ -761,9 +759,6 @@ public class CharacterMechanics : MonoBehaviour
     public void AttackBegins()
     {
         isInCombo = true;
-       
-        sword.SendMessage("activateAttack");
-        //sends message to the players sword script to start dealing damage on collision
 
         if (ib.actionAllowed)
             ib.setBufferFalse();
@@ -891,7 +886,7 @@ public class CharacterMechanics : MonoBehaviour
 
                 #region Debug Log
 
-                if (inputBufferDebug)
+                if (ib.inputBufferDebug)
                 {
                     Debug.Log("Input Buffer System: comboReset Ran, actionAllowed and isJumping = false, setting actionAllowed to true");
                 }
@@ -903,7 +898,7 @@ public class CharacterMechanics : MonoBehaviour
             {
                 #region Debug Log
 
-                if (inputBufferDebug)
+                if (ib.inputBufferDebug)
                 {
                     Debug.Log("Input Buffer System: comboReset Ran, actionAllowed = false, isJumping = true");
                 }
@@ -929,6 +924,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        if(ib.actionAllowed)
+        { 
         comboCount = 0;
 
         if (dashRangePrefab && abilitySpawn)
@@ -937,12 +934,17 @@ public class CharacterMechanics : MonoBehaviour
         else
             Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
 
-        ac.dash();
-
         ic.dash();
+        
+        ac.dash();
+        
+        ib.setBufferFalse();
+        }
 
-        //Rigidbody.addforce();
-        ib.setBufferTrue();
+        else
+        {
+            Debug.Log("action not allowed");
+        }
     }
    
     public void dashEnds()
@@ -976,13 +978,22 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        comboCount = 0;
+        if (ib.actionAllowed)
+        {
+            comboCount = 0;
 
-        ac.smash();
+            ac.smash();
+            ib.setBufferFalse();
 
-        hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
-        Destroy(hammerSmashTemp, 2);
-        AttackEnd();
+            hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+            Destroy(hammerSmashTemp, 2);
+            AttackEnd();
+        }
+
+        else
+        {
+            Debug.Log("action not allowed");
+        }
     }
 
     public void whirlwind()
@@ -996,13 +1007,22 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        if(ib.actionAllowed)
+        { 
         comboCount = 0;
 
         ac.spin();
+        ib.setBufferFalse();
 
         whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
         Destroy(whirlwindTemp, 2);
         AttackEnd();
+        }
+
+        else
+        {
+            Debug.Log("action not allowed");
+        }
     }
 
     public void whirlwindEnd()
@@ -1020,6 +1040,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        ib.setBufferTrue();
         Destroy(whirlwindTemp);
     }
 
@@ -1037,7 +1058,7 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
        
         AttackEnd();
-    
+        ib.setBufferTrue();
        Destroy(hammerSmashTemp);
     }
 
@@ -1054,6 +1075,9 @@ public class CharacterMechanics : MonoBehaviour
 
         if (!IsAimOn && aims.isCooldown1 == false)
         {
+            if(ib.actionAllowed)
+            { 
+            ib.setBufferFalse();
             ac.throw_();
             GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
@@ -1061,8 +1085,18 @@ public class CharacterMechanics : MonoBehaviour
 
             Destroy(bullet, 2);
             AttackEnd();
+            }
+
+            else
+            {
+                Debug.Log("action not allowed");
+            }
         }
-        
+    }
+
+    public void rangedEnd()
+    {
+        ib.setBufferTrue();
     }
 
     #endregion
