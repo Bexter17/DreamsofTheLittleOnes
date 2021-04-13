@@ -19,6 +19,8 @@ public class InputBuffer : MonoBehaviour
     public List<ActionItem> inputBuffer = new List<ActionItem>();
 
     public bool actionAllowed = true;
+
+    [SerializeField] public bool inputBufferDebug; 
     // Start is called before the first frame update
     void Start()
     {
@@ -68,7 +70,7 @@ public class InputBuffer : MonoBehaviour
     {
         #region Debug.Log
 
-        if (cm.inputBufferDebug)
+        if (inputBufferDebug)
         {
             Debug.Log("doAction called");
 
@@ -86,7 +88,7 @@ public class InputBuffer : MonoBehaviour
         {
             #region Debug.Log
 
-            if (cm.inputBufferDebug)
+            if (inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: Attack Input Detected");
 
@@ -146,7 +148,7 @@ public class InputBuffer : MonoBehaviour
 
     public void setBufferFalse()
     {
-        if (cm.inputBufferDebug)
+        if (inputBufferDebug)
             Debug.Log("action allowed set to false");
 
         actionAllowed = false;
@@ -154,7 +156,7 @@ public class InputBuffer : MonoBehaviour
 
     public void setBufferTrue()
     {
-        if (cm.inputBufferDebug)
+        if (inputBufferDebug)
             Debug.Log("action allowed set to true");
 
         actionAllowed = true;
