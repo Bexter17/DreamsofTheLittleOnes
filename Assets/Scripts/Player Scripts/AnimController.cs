@@ -102,6 +102,12 @@ public class AnimController : MonoBehaviour
 
         animName = currentClipInfo[0].clip.name;
 
+        if (animDebug)
+        {
+            Debug.Log("Animation: animName = " + animName);
+            Debug.Log("Animation: actionAllowed = " + ib.actionAllowed);
+        }
+
         if (animName == "Male Attack 1" && ib.actionAllowed || animName == "Male Attack 2" && ib.actionAllowed || animName == "Male Attack 3" && ib.actionAllowed)
         {
             cm.comboCount = 0;
@@ -109,6 +115,12 @@ public class AnimController : MonoBehaviour
             Debug.Log("Animation System: comboCount reset by update");
         }
 
+        if (animName == "Idle" && !ib.actionAllowed)
+        {
+            ib.setBufferTrue();
+
+            Debug.Log("actionAllowed reset byb Idle");
+        }
         #region Debug Log
 
         if (animDebug)
