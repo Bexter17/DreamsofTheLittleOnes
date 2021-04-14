@@ -261,10 +261,12 @@ public class InputControl : MonoBehaviour
         if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
         {
             #region Debug Log
+
             if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: ranged attack has been pressed");
             }
+
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));

@@ -68,6 +68,8 @@ public class CharacterMechanics : MonoBehaviour
 
     InputBuffer ib;
 
+    MovementHelper mh;
+
     AimShoot aims;
 
     GameObject Aimshoot;
@@ -276,6 +278,9 @@ public class CharacterMechanics : MonoBehaviour
         ib = this.transform.GetComponent<InputBuffer>();
 
         ic = this.transform.GetComponent<InputControl>();
+
+        mh = this.transform.GetComponent<MovementHelper>();
+
         #endregion
 
         #region Health
@@ -1076,28 +1081,50 @@ public class CharacterMechanics : MonoBehaviour
 
         if (rangedDebug)
         {
-            Debug.Log("ranged() has been called");
+            Debug.Log("ranged ability: ranged() has been called");
         }
 
         #endregion
 
         if (!IsAimOn && aims.isCooldown1 == false)
         {
-            if(ib.actionAllowed)
-            {            
-            ac.throw_();
-            ib.setBufferFalse();
-            GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+            #region Debug Log
 
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+            if (rangedDebug)
+            {
+                Debug.Log("ranged ability: IsAimOn = " + IsAimOn + " aims.isCooldown1 = " + aims.isCooldown1);
+            }
 
-            Destroy(bullet, 2);
-            AttackEnd();
+            #endregion
+
+            if (ib.actionAllowed)
+            {
+                #region Debug Log
+
+                if (rangedDebug)
+                {
+                    Debug.Log("ranged ability: action allowed");
+                }
+
+                #endregion
+
+                ac.throw_();
+                ib.setBufferFalse();
+                GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+
+                bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+
+                Destroy(bullet, 2);
+                AttackEnd();
             }
 
             else
             {
+                #region Debug Log
+
                 Debug.Log("action not allowed");
+
+                #endregion
             }
         }
     }

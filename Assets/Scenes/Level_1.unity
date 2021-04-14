@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 504033087}
-  m_IndirectSpecularColor: {r: 0.0029181743, g: 0.0008074619, b: 0.0000009586025, a: 1}
+  m_IndirectSpecularColor: {r: 0.0029114287, g: 0.0008041196, b: 0.000001188248, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -74850,19 +74850,23 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 2057025614, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_LocalRotation.x
-      value: 0.06413601
+      value: 0.064136006
       objectReference: {fileID: 0}
     - target: {fileID: 2057025614, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_LocalRotation.y
-      value: 0.33669925
+      value: 0.3366992
       objectReference: {fileID: 0}
     - target: {fileID: 2057025614, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_LocalRotation.z
-      value: -0.022993859
+      value: -0.022993851
       objectReference: {fileID: 0}
     - target: {fileID: 2057025614, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_LocalRotation.w
-      value: 0.9391441
+      value: 0.939144
+      objectReference: {fileID: 0}
+    - target: {fileID: 1776892825661255222, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: inputBufferDebug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3105496586366467081, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_AnchorMax.x
@@ -74920,6 +74924,10 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 135553103}
+    - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: rangedDebug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4600396688792552456, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_Name
       value: Player
