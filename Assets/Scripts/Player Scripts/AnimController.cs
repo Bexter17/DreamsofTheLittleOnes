@@ -119,7 +119,7 @@ public class AnimController : MonoBehaviour
         {
             ib.setBufferTrue();
 
-            Debug.Log("actionAllowed reset by Idle");
+            Debug.Log("actionAllowed reset byb Idle");
         }
         #region Debug Log
 
