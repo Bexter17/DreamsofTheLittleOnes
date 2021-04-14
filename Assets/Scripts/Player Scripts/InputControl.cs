@@ -99,7 +99,7 @@ public class InputControl : MonoBehaviour
             jumpSpeed = 10.0f;
 
         if (rotationSpeed <= 0)
-            rotationSpeed = 4.0f;
+            rotationSpeed = 2.0f;     //4.0f was original
 
         if (gravity <= 0)
             gravity = 9.81f;

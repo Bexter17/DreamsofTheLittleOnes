@@ -1084,9 +1084,9 @@ public class CharacterMechanics : MonoBehaviour
         if (!IsAimOn && aims.isCooldown1 == false)
         {
             if(ib.actionAllowed)
-            { 
-            ib.setBufferFalse();
+            {            
             ac.throw_();
+            ib.setBufferFalse();
             GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
             bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
