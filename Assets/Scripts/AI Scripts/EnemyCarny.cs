@@ -41,7 +41,7 @@ public class EnemyCarny : MonoBehaviour
     // The distance the enemy will begin to chase player
     private float punchRange = 3;
     public float chaseRange = 10;
-    private float checkStackRange = 10;
+    private float checkStackRange = 20;
 
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
