@@ -173,6 +173,8 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int dashSpeed;
 
+    //[SerializeField] private Vector3 dashOffset = new Vector3(0.0f, 0.0f, 1.0f);
+
     private GameObject dashTemp = null;
 
     #endregion
@@ -935,7 +937,7 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 0;
 
         if (dashRangePrefab && abilitySpawn)
-            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation);
+            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
 
         else
             Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);

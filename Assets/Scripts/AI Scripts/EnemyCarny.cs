@@ -345,6 +345,12 @@ public class EnemyCarny : MonoBehaviour
             takeDamage(1);
         }
 
+        else if (collision.gameObject.tag == "Dash Collider")
+        {
+            Debug.Log("Combat: " + this.transform.name + "hit by Dash Collider");
+            takeDamage(2);
+        }
+
         if (collision.gameObject.tag == "Hammer")
         {
             if (cm.isAttacking)
