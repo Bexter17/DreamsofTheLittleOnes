@@ -99,7 +99,7 @@ public class InputControl : MonoBehaviour
             jumpSpeed = 10.0f;
 
         if (rotationSpeed <= 0)
-            rotationSpeed = 4.0f;
+            rotationSpeed = 2.0f;     //4.0f was original
 
         if (gravity <= 0)
             gravity = 9.81f;
@@ -261,10 +261,12 @@ public class InputControl : MonoBehaviour
         if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
         {
             #region Debug Log
+
             if (ib.inputBufferDebug)
             {
                 Debug.Log("Input Buffer System: ranged attack has been pressed");
             }
+
             #endregion
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
