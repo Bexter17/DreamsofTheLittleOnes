@@ -201,7 +201,7 @@ public class RangedEnemy : MonoBehaviour
         //Debug.Log(dmg + "Damage Taken");
         agent.isStopped = true;
         hp -= dmg;
-        if (hp <= 0)
+        if (hp <= 0 && !death)
         {
             death = true;
             Debug.Log("Enemy has been killed");
@@ -224,7 +224,7 @@ public class RangedEnemy : MonoBehaviour
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
-    public void Die()
+    public void DestroyMe()
     {
         Destroy(gameObject);
     }
@@ -275,7 +275,7 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(3);
         }
         
-        if(collision.gameObject.tag == "")
+        if(collision.gameObject.tag == "Dash Collider")
         {
             takeDamage(2);
         }

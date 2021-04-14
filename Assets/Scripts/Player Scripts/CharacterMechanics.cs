@@ -68,6 +68,8 @@ public class CharacterMechanics : MonoBehaviour
 
     InputBuffer ib;
 
+    MovementHelper mh;
+
     AimShoot aims;
 
     GameObject Aimshoot;
@@ -173,6 +175,8 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int dashSpeed;
 
+    //[SerializeField] private Vector3 dashOffset = new Vector3(0.0f, 0.0f, 1.0f);
+
     private GameObject dashTemp = null;
 
     #endregion
@@ -274,6 +278,9 @@ public class CharacterMechanics : MonoBehaviour
         ib = this.transform.GetComponent<InputBuffer>();
 
         ic = this.transform.GetComponent<InputControl>();
+
+        mh = this.transform.GetComponent<MovementHelper>();
+
         #endregion
 
         #region Health
@@ -935,7 +942,7 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 0;
 
         if (dashRangePrefab && abilitySpawn)
-            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation);
+            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
 
         else
             Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
@@ -1083,7 +1090,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (rangedDebug)
         {
-            Debug.Log("ranged() has been called");
+            Debug.Log("ranged ability: ranged() has been called");
         }
 
         #endregion
@@ -1091,7 +1098,6 @@ public class CharacterMechanics : MonoBehaviour
         //&& aims.isCooldown1 == false
          if (!IsAimOn )
         {
-<<<<<<< HEAD
         #region Debug Log
 
         if (rangedDebug)
@@ -1117,29 +1123,21 @@ public class CharacterMechanics : MonoBehaviour
                 ac.throw_();
 
                 GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
-=======
-            if(ib.actionAllowed)
-            { 
-            ib.setBufferFalse();
-            ac.throw_();
-            GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
->>>>>>> parent of 1101821 (Merge branch 'master' of https://github.com/Bexter17/CapstoneProject)
 
-            bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+                bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
 
-<<<<<<< HEAD
                 Destroy(bullet, 2);
 
                 AttackEnd();
-=======
-            Destroy(bullet, 2);
-            AttackEnd();
->>>>>>> parent of 1101821 (Merge branch 'master' of https://github.com/Bexter17/CapstoneProject)
             }
 
             else
             {
+                #region Debug Log
+
                 Debug.Log("action not allowed");
+
+                #endregion
             }
         }
     }
