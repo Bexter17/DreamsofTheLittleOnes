@@ -1095,11 +1095,12 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (!IsAimOn && aims.isCooldown1 == false)
+        //&& aims.isCooldown1 == false
+         if (!IsAimOn )
         {
-            #region Debug Log
+        #region Debug Log
 
-            if (rangedDebug)
+        if (rangedDebug)
             {
                 Debug.Log("ranged ability: IsAimOn = " + IsAimOn + " aims.isCooldown1 = " + aims.isCooldown1);
             }
