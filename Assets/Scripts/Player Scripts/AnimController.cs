@@ -177,22 +177,18 @@ public class AnimController : MonoBehaviour
     {
         animator.SetInteger("Counter", cm.comboCount);
 
-        if (ib.actionAllowed)
-            animator.SetTrigger("Got Hit");
+        animator.SetTrigger("Got Hit");
     }
 
     public void jump(bool _isGrounded, bool _isJumping, bool _isFalling)
     {
-        if (ib.actionAllowed)
-        {
-            animator.SetTrigger("Jump");
+        animator.SetTrigger("Jump");
 
-            animator.SetBool("isJumping", _isJumping);
+        animator.SetBool("isJumping", _isJumping);
 
-            animator.SetBool("isGrounded", _isGrounded);
+        animator.SetBool("isGrounded", _isGrounded);
 
-            animator.SetBool("isFalling", _isFalling);
-        }
+        animator.SetBool("isFalling", _isFalling);
     }
 
     public void attack(int _comboCount)
@@ -209,42 +205,30 @@ public class AnimController : MonoBehaviour
 
     public void dash()
     {
-        if (ib.actionAllowed)
-        {
-            resetCounter();
+        resetCounter();
 
-            animator.SetTrigger("Dash");
-        }
+        animator.SetTrigger("Dash");
     }
 
     public void smash()
     {
-        if (ib.actionAllowed)
-        {
-            resetCounter();
+        resetCounter();
 
-            animator.SetTrigger("Hammer Smash");
-        }
+        animator.SetTrigger("Hammer Smash");
     }
 
     public void spin()
     {
-        if (ib.actionAllowed)
-        {
-            resetCounter();
+        resetCounter();
 
-            animator.SetTrigger("Spin");
-        }
+        animator.SetTrigger("Spin");
     }
 
     public void throw_()
     {
-        if (ib.actionAllowed)
-        {
-            resetCounter();
+        resetCounter();
 
-            animator.SetTrigger("Throw");
-        }
+        animator.SetTrigger("Throw");
     }
 
     public void respawn()

@@ -993,13 +993,16 @@ public class CharacterMechanics : MonoBehaviour
 
         if (ib.actionAllowed)
         {
+            ib.setBufferFalse();
+
             comboCount = 0;
 
             ac.smash();
-            ib.setBufferFalse();
 
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+
             Destroy(hammerSmashTemp, 2);
+
             AttackEnd();
         }
 
@@ -1020,16 +1023,19 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if(ib.actionAllowed)
-        { 
-        comboCount = 0;
+        if (ib.actionAllowed)
+        {
+            ib.setBufferFalse();
 
-        ac.spin();
-        ib.setBufferFalse();
+            comboCount = 0;
 
-        whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
-        Destroy(whirlwindTemp, 2);
-        AttackEnd();
+            ac.spin();
+
+            whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
+         
+            Destroy(whirlwindTemp, 2);
+
+            AttackEnd();
         }
 
         else
@@ -1054,6 +1060,7 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
 
         ib.setBufferTrue();
+
         Destroy(whirlwindTemp);
     }
 
@@ -1069,10 +1076,12 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
-       
+
         AttackEnd();
+
         ib.setBufferTrue();
-       Destroy(hammerSmashTemp);
+
+        Destroy(hammerSmashTemp);
     }
 
     public void ranged()
@@ -1108,13 +1117,16 @@ public class CharacterMechanics : MonoBehaviour
 
                 #endregion
 
-                ac.throw_();
                 ib.setBufferFalse();
+
+                ac.throw_();
+
                 GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
                 bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
 
                 Destroy(bullet, 2);
+
                 AttackEnd();
             }
 
