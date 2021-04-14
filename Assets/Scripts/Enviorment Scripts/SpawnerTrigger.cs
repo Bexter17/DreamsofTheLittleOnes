@@ -15,17 +15,18 @@ public class SpawnerTrigger : MonoBehaviour
     {
         
     }
-    private void OnTriggerExit(Collider other)
-    {
-        if (other.gameObject.tag == "Player")
-        {
-            GameObject.Find("EnemySpawn").GetComponent<EnemySpawn>().spawn = false;
-        }
-    }
+    //private void OnTriggerExit(Collider other)
+    //{
+    //    if (other.gameObject.tag == "Player")
+    //    {
+    //        GameObject.Find("EnemySpawn").GetComponent<EnemySpawn>().spawn = false;
+    //    }
+    //}
     private void OnTriggerEnter(Collider other)
     {
         if(other.gameObject.tag == "Player")
         {
+            Debug.Log("SPAWN");
             GameObject.Find("EnemySpawn").GetComponent<EnemySpawn>().spawn = true;
         }
     }
