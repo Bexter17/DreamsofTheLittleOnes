@@ -23,7 +23,7 @@ public class Spawn_Enemy : MonoBehaviour
         
         IEnumerator EnemyDrop()
         {
-            while (enemyCount < 10)
+            while (enemyCount < 2)
             {
                 xPos = Random.Range(1, 50);
                 ZPos = Random.Range(1, 31);
