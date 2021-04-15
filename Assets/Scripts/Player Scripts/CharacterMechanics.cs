@@ -60,6 +60,51 @@ public class ActionItem
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {
+
+    //Temporary update for placing hammerSmash during key frame. Need to keep this in place for Coroutine until Ali can show me the way he wanted 
+    //to accomplish this task next week.
+    #region hammerSmashUPDATE
+
+    enum ability{ hammerSmashDown };
+
+    IEnumerator hammerSmashDown()
+    {
+        if (ib.actionAllowed)
+        {
+            ib.setBufferFalse();
+
+            #region Debug Log
+
+            if (hammerDebug)
+            {
+                Debug.Log("hammerSmash: actionAllowed set to false");
+            }
+
+            #endregion
+
+            comboCount = 0;
+
+            //Run animation and wait for keyframe to spawn AOE 
+            ac.smash();
+            yield return new WaitForSeconds(1.2f);
+            hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+
+            //Wait for AOE to affect enemies then delete
+            Debug.Log("TIMER: 1 Second");
+            yield return new WaitForSeconds(1);
+            Debug.Log("HammerSmash has been removed");
+            Destroy(hammerSmashTemp, 2);
+            AttackEnd();
+        }
+
+        else
+        {
+            Debug.Log("action not allowed");
+        }
+    }
+
+    #endregion
+
     #region Components
 
     AnimController ac;
@@ -991,34 +1036,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
-        {
-            ib.setBufferFalse();
-
-            #region Debug Log
-
-            if (hammerDebug)
-            {
-                Debug.Log("hammerSmash: actionAllowed set to false");
-            }
-
-            #endregion
-
-            comboCount = 0;
-
-            ac.smash();
-
-            hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
-
-            Destroy(hammerSmashTemp, 2);
-
-            AttackEnd();
-        }
-
-        else
-        {
-            Debug.Log("action not allowed");
-        }
+        StartCoroutine(hammerSmashDown());
     }
 
     public void whirlwind()
