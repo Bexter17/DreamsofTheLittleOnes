@@ -275,7 +275,7 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(3);
         }
         
-        if(collision.gameObject.tag == "Dash Collider")
+        if(collision.gameObject.tag == "")
         {
             takeDamage(2);
         }
