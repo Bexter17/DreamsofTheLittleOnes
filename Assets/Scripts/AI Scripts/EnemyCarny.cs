@@ -454,7 +454,7 @@ public class EnemyCarny : MonoBehaviour
         //Debug.Log(dmg + "Damage Taken");
         agent.isStopped = true;
         hp -= dmg;
-        if (hp <= 0)
+        if (hp <= 0 && !death)
         {
             death = true;
             stackTracker.RemoveStack(gameObject);
@@ -465,9 +465,7 @@ public class EnemyCarny : MonoBehaviour
             // so that enemy doesn't move after dying
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
-            Destroy(gameObject, 4);
-
-            //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
+            //Destroy(gameObject, 4);
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
@@ -482,6 +480,10 @@ public class EnemyCarny : MonoBehaviour
         //Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
+    }
+    public void DestroyMe()
+    {
+        Destroy(gameObject);
     }
     #endregion
     //TODO rename to be more descriptive
