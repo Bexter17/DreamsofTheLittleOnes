@@ -41,7 +41,7 @@ public class EnemyCarny : MonoBehaviour
     // The distance the enemy will begin to chase player
     private float punchRange = 3;
     public float chaseRange = 10;
-    private float checkStackRange = 10;
+    private float checkStackRange = 20;
 
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
@@ -294,8 +294,8 @@ public class EnemyCarny : MonoBehaviour
                 {
                     randNumGenerated = false;
                 }
-                eAnim.SetBool("isAttacking", true);
-                eAnim.SetTrigger("Attack");
+                //Activates attack after a delay so that enemy can get closer to player before attacking
+                Invoke("DelayAttack", .3f);
             }
             if(myEnemy != EnemyState.Attack)
             {
@@ -306,8 +306,16 @@ public class EnemyCarny : MonoBehaviour
             //Stun();
             //}
         }
-        #endregion
+        
     }
+    private void DelayAttack()
+    {
+        eAnim.SetBool("isAttacking", true);
+        eAnim.SetTrigger("Attack");
+    }
+
+
+    #endregion
     //COLLISIONS
     #region Collisions
     void OnCollisionEnter(Collision collision)
@@ -343,6 +351,12 @@ public class EnemyCarny : MonoBehaviour
         else if (collision.gameObject.tag == "Attack Zone")
         {
             takeDamage(1);
+        }
+
+        else if (collision.gameObject.tag == "Dash Collider")
+        {
+            Debug.Log("Combat: " + this.transform.name + "hit by Dash Collider");
+            takeDamage(2);
         }
 
         if (collision.gameObject.tag == "Hammer")
@@ -465,7 +479,9 @@ public class EnemyCarny : MonoBehaviour
             // so that enemy doesn't move after dying
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
-            //Destroy(gameObject, 4);
+            //Destroy(gameObject, 3);
+
+            //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
@@ -481,6 +497,7 @@ public class EnemyCarny : MonoBehaviour
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
+
     public void DestroyMe()
     {
         Destroy(gameObject);
