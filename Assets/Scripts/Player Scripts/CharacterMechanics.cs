@@ -995,6 +995,15 @@ public class CharacterMechanics : MonoBehaviour
         {
             ib.setBufferFalse();
 
+            #region Debug Log
+
+            if (hammerDebug)
+            {
+                Debug.Log("hammerSmash: actionAllowed set to false");
+            }
+
+            #endregion
+
             comboCount = 0;
 
             ac.smash();
@@ -1098,6 +1107,7 @@ public class CharacterMechanics : MonoBehaviour
         //&& aims.isCooldown1 == false
          if (!IsAimOn )
         {
+
         #region Debug Log
 
         if (rangedDebug)
