@@ -231,7 +231,7 @@ public class InputControl : MonoBehaviour
         }
 
         //Enables the player to use Ability 3
-        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
+        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
@@ -245,7 +245,7 @@ public class InputControl : MonoBehaviour
             //cm.AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
+        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
