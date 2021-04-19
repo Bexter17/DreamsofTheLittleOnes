@@ -14,9 +14,7 @@ public class Destructable : MonoBehaviour
 
     CharacterMechanics character;
 
-
-
-   
+    bool onlyHappensOnce = false;
     
     private void Start()
     {
@@ -28,9 +26,6 @@ public class Destructable : MonoBehaviour
     private void Update()
     {
         index = Random.Range(0, pickUps.Length);
-
-    
-
     }
     //private void OnMouseDown()
     //{
@@ -76,39 +71,45 @@ public class Destructable : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.tag == "HammerSmashAOE")
+        if (!onlyHappensOnce)
         {
-            GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-            GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-            brokenVersion.transform.localScale = new Vector3(2, 2, 2);
-            Object.Destroy(brokenVersion, 5f);
-
-            Destroy(gameObject);
-        }
-        if (collision.gameObject.tag == "WhirlwindAOE")
-        {
-            GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-            GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-            brokenVersion.transform.localScale = new Vector3(2, 2, 2);
-            Object.Destroy(brokenVersion, 5f);
-
-            Destroy(gameObject);
-        }
-        if (collision.gameObject.tag == "Hammer")
-        {
-            if (character.isAttacking)
+            if (collision.gameObject.tag == "HammerSmashAOE")
             {
-                Debug.Log("Working Hammer");
+                onlyHappensOnce = true;
                 GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
                 GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
                 brokenVersion.transform.localScale = new Vector3(2, 2, 2);
                 Object.Destroy(brokenVersion, 5f);
 
                 Destroy(gameObject);
+            }
+            if (collision.gameObject.tag == "WhirlwindAOE")
+            {
+                onlyHappensOnce = true;
+                GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+                GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+                Object.Destroy(brokenVersion, 5f);
 
-                //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+                Destroy(gameObject);
+            }
+            if (collision.gameObject.tag == "Hammer")
+            {
+                if (character.isAttacking)
+                {
+                    onlyHappensOnce = true;
+                    Debug.Log("Working Hammer");
+                    GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+                    GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                    brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+                    Object.Destroy(brokenVersion, 5f);
 
-                // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                    Destroy(gameObject);
+
+                    //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+
+                    // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                }
             }
         }
     }
