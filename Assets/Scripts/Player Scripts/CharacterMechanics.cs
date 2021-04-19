@@ -355,7 +355,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        #region Dash
+        #region Abilities
 
         if (!dashRangePrefab)
             dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
