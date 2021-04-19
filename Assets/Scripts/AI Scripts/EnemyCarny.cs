@@ -353,6 +353,10 @@ public class EnemyCarny : MonoBehaviour
                 takeDamage(2);
             }
         }
+        if (collision.gameObject.tag == "Dash Collider")
+        {
+            takeDamage(1);
+        }
     }
 
     void OnCollisionExit(Collision collision)

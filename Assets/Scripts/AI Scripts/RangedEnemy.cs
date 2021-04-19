@@ -9,8 +9,11 @@ public class RangedEnemy : MonoBehaviour
     #region Variables
 
     [Header("Essentials")]
+    //HP
     public int hp = 5;
     private int maxHP;
+    private Image hpBar;
+
     public Rigidbody rb;
     public Transform target;
     [SerializeField] Rigidbody projectilePrefab;
@@ -24,8 +27,6 @@ public class RangedEnemy : MonoBehaviour
     
 
     NavMeshAgent agent;
-
-    [SerializeField] private Image hpBar;
 
     //Death
     public bool death = false;
@@ -88,6 +89,7 @@ public class RangedEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
+        hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.Find("Player").transform;
@@ -278,6 +280,10 @@ public class RangedEnemy : MonoBehaviour
         if(collision.gameObject.tag == "")
         {
             takeDamage(2);
+        }
+        if (collision.gameObject.tag == "Dash Collider")
+        {
+            takeDamage(1);
         }
     }
 
