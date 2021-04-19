@@ -283,8 +283,8 @@ public class EnemyCarny : MonoBehaviour
             else if(myEnemy == EnemyState.Attack)
             {
                 //Generates random number once per attack from 1-3 to randomly choose 1 of 3 attacks
-                //Will generate number once on the main tree and can do so again after each attack
-                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Main Tree") && !randNumGenerated)
+                //Will generate number once on the chase tree and can do so again after each attack
+                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Chase Tree") && !randNumGenerated)
                 {
                     //1-3
                     //Set to 1, 4 once third animation is added
