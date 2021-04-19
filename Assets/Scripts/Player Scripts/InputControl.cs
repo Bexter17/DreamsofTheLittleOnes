@@ -231,7 +231,7 @@ public class InputControl : MonoBehaviour
         }
 
         //Enables the player to use Ability 3
-        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
+        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
@@ -245,7 +245,7 @@ public class InputControl : MonoBehaviour
             //cm.AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
+        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
@@ -289,7 +289,31 @@ public class InputControl : MonoBehaviour
 
         Debug.DrawLine(lineStart, vectorToSearch);
 
-        return Physics.Linecast(lineStart, vectorToSearch, out groundHit);
+        Physics.Linecast(lineStart, vectorToSearch, out groundHit);
+
+        if(groundHit.transform.tag == "Floor" || groundHit.transform.tag == "Box" || groundHit.transform.tag == "Picnic Table" || groundHit.transform.tag == "Train Car" || groundHit.transform.tag == "Trash Can" || groundHit.transform.tag == "Test Of Strength")
+        {
+            if (this.transform.parent == groundHit.transform)
+                this.transform.parent = null;
+
+            return true;
+        }
+
+        else if(groundHit.transform.tag == "Platform")
+        {
+            this.transform.parent = groundHit.transform;
+
+            return true;
+        }
+
+        else
+        {
+            if (this.transform.parent == groundHit.transform)
+                this.transform.parent = null;
+
+            return false;
+        }
+
     }
 
     private void JumpEnd()

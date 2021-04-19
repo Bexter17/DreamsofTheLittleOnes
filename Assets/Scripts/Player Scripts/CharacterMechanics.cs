@@ -115,6 +115,8 @@ public class CharacterMechanics : MonoBehaviour
 
     MovementHelper mh;
 
+    AbilitiesCooldown abilities; 
+
     AimShoot aims;
 
     GameObject Aimshoot;
@@ -325,6 +327,8 @@ public class CharacterMechanics : MonoBehaviour
         ic = this.transform.GetComponent<InputControl>();
 
         mh = this.transform.GetComponent<MovementHelper>();
+
+        abilities = this.transform.GetComponent<AbilitiesCooldown>();
 
         #endregion
 
@@ -995,7 +999,9 @@ public class CharacterMechanics : MonoBehaviour
         ic.dash();
         
         ac.dash();
-        
+
+        abilities.activateAbility1();
+
         ib.setBufferFalse();
         }
 
@@ -1036,6 +1042,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        abilities.activateAbility3();
+
         StartCoroutine(hammerSmashDown());
     }
 
@@ -1053,6 +1061,8 @@ public class CharacterMechanics : MonoBehaviour
         if (ib.actionAllowed)
         {
             ib.setBufferFalse();
+
+            abilities.activateAbility2();
 
             comboCount = 0;
 
@@ -1147,6 +1157,8 @@ public class CharacterMechanics : MonoBehaviour
                 #endregion
 
                 ib.setBufferFalse();
+
+                abilities.activateAbility4();
 
                 ac.throw_();
 
