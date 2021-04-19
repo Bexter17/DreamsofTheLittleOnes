@@ -8,7 +8,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: M_TreeLeaves
-  m_Shader: {fileID: -6465566751694194690, guid: 1976c9b0bf223b245ac4d1af790cc7d1, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ef121f7e3ad15f54fb8032af12534ce0, type: 3}
   m_ShaderKeywords: _ENVIRONMENTREFLECTIONS_OFF _NORMALMAP _SPECULARHIGHLIGHTS_OFF
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 1
@@ -62,8 +62,9 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - Vector1_21D0A341: 1
-    - Vector1_E5EAB947: 2
-    - Vector1_ED16744C: 2
+    - Vector1_E5EAB947: 1
+    - Vector1_ED16744C: 3
+    - Vector1_F02EDB75: 3.05
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -86,6 +87,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 0
     m_Colors:
+    - Color_1D8F1F35: {r: 1, g: 1, b: 1, a: 0}
+    - Color_E36C935A: {r: 0.9056604, g: 0.6468337, b: 0.13243146, a: 0}
     - Vector2_5038CD13: {r: 2, g: 2, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
