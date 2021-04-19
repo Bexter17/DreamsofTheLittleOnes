@@ -10474,6 +10474,36 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7deb7ae2cf4ba724d86847de6a8683d1, type: 3}
+--- !u!1 &739087033
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 739087034}
+  m_Layer: 0
+  m_Name: Raycast Spawn
+  m_TagString: Ground Search Spawn
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &739087034
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 739087033}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1626013782}
+  m_RootOrder: 1
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &740983217
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -26184,6 +26214,11 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 975338297864028773, guid: ab693fbbf6b5b744ab4b7ffe5f2c0153, type: 3}
+--- !u!4 &1626013782 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6437542747438269328, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+  m_PrefabInstance: {fileID: 8259055473310385021}
+  m_PrefabAsset: {fileID: 0}
 --- !u!1001 &1635099309
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -35973,6 +36008,10 @@ PrefabInstance:
     - target: {fileID: 4600396689081724954, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_OcclusionCulling
       value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020467240620312389, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: jumpSpeed
+      value: 10
       objectReference: {fileID: 0}
     - target: {fileID: 8259055473734192972, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: respawnPoint
