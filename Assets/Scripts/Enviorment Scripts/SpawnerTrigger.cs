@@ -27,7 +27,9 @@ public class SpawnerTrigger : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             Debug.Log("SPAWN");
-            GameObject.Find("EnemySpawn").GetComponent<EnemySpawn>().spawn = true;
+            GameObject.Find("EnemySpawn 1").GetComponent<EnemySpawn>().spawn = true;
+            GameObject.Find("EnemySpawn 2").GetComponent<EnemySpawn>().spawn = true;
+            GameObject.Find("EnemySpawn 3").GetComponent<EnemySpawn>().spawn = true;
         }
     }
 }

@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 6611129806050410050}
   - component: {fileID: 7786908599366627815}
   - component: {fileID: 5473104264391705901}
+  - component: {fileID: 6090798929736036800}
   m_Layer: 0
   m_Name: SM_Tent
   m_TagString: Untagged
@@ -25,7 +26,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5833466795034535160}
-  m_LocalRotation: {x: -0.45341617, y: -0.54259914, z: -0.54259914, w: 0.45341617}
+  m_LocalRotation: {x: -0.45341718, y: -0.54259825, z: -0.54259825, w: 0.45341718}
   m_LocalPosition: {x: 42.37815, y: 0.02209568, z: 48.192986}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
@@ -81,3 +82,16 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!65 &6090798929736036800
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5833466795034535160}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 13.718593, y: 9.874615, z: 13.106924}
+  m_Center: {x: -0.19832705, y: -0.117100485, z: 6.5268044}
