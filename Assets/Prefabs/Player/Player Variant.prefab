@@ -725,7 +725,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2057025612}
-  m_LocalRotation: {x: 0.064136006, y: 0.3366992, z: -0.022993851, w: 0.939144}
+  m_LocalRotation: {x: 0.06413601, y: 0.33669925, z: -0.022993859, w: 0.9391441}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -901,7 +901,7 @@ MonoBehaviour:
   m_BiasX: 0
   m_BiasY: 0
   m_CenterOnActivate: 1
---- !u!1 &4867737681030937296
+--- !u!1 &9124531038889793568
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -909,7 +909,7 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 3611494322915685769}
+  - component: {fileID: 1944696693110034543}
   m_Layer: 0
   m_Name: Raycast Spawn
   m_TagString: Ground Search Spawn
@@ -917,19 +917,19 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &3611494322915685769
+--- !u!4 &1944696693110034543
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4867737681030937296}
+  m_GameObject: {fileID: 9124531038889793568}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.4568799, y: 2.4568799, z: 2.4568799}
+  m_LocalPosition: {x: 0, y: 0.812, z: 0.058}
+  m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
-  m_Father: {fileID: 3193337975906832865}
-  m_RootOrder: 1
+  m_Father: {fileID: 4600396688792552450}
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1001 &8259055474007442172
 PrefabInstance:
@@ -1076,16 +1076,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
---- !u!4 &3193337975906832865 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 6831693220020523805, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-  m_PrefabInstance: {fileID: 8259055474007442172}
-  m_PrefabAsset: {fileID: 0}
---- !u!4 &8259055472341801180 stripped
-Transform:
-  m_CorrespondingSourceObject: {fileID: 1700289056, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
-  m_PrefabInstance: {fileID: 8259055474007442172}
-  m_PrefabAsset: {fileID: 0}
 --- !u!4 &8259055473048050524 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 1060362656, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
@@ -1116,6 +1106,11 @@ MonoBehaviour:
 --- !u!20 &4600396689081724954 stripped
 Camera:
   m_CorrespondingSourceObject: {fileID: 5569241193833624294, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+  m_PrefabInstance: {fileID: 8259055474007442172}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &8259055472341801180 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 1700289056, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
   m_PrefabInstance: {fileID: 8259055474007442172}
   m_PrefabAsset: {fileID: 0}
 --- !u!4 &4600396688792552450 stripped

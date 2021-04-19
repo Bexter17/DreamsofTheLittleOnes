@@ -39,6 +39,8 @@ public class InputControl : MonoBehaviour
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
 
+    Vector3 strafeDirection;
+
     //How much we are boosting the speed by
     [SerializeField] private float speedBoost;
 
@@ -133,20 +135,24 @@ public class InputControl : MonoBehaviour
         //Assign "moveDirection" to track vertical movement
         moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
 
+        strafeDirection = new Vector3(0, Input.GetAxis("Horizontal"), 0);
+
         //Character rotation
-        transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
+        //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
 
         //track any applied speed boosts
         currentSpeed = movementSpeed + speedBoost;
 
         //Character movement
-        Vector3 forward = transform.TransformDirection(Vector3.forward);
+        //Vector3 forward = transform.TransformDirection(Vector3.forward);
 
         //Movement speed
-        float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
+        //float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
 
         //Character controller movement
         controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
+
+        controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
 
         isGrounded = groundCheck(isGrounded);
 
@@ -419,6 +425,6 @@ public class InputControl : MonoBehaviour
 
     public void updateValues()
     {
-        ac.updateValues(isGrounded, isJumping, isFalling, Input.GetAxis("Vertical"));
+        ac.updateValues(isGrounded, isJumping, isFalling, Input.GetAxisRaw("Vertical"), Input.GetAxisRaw("Horizontal"));
     }
 }
