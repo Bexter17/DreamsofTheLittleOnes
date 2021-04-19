@@ -45,6 +45,7 @@ public class EnemyCarny : MonoBehaviour
 
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
+    [SerializeField] int numOfAttacks;
     private bool ableToDamage = false;
     //bool isPatrolling = false;
     bool getCalled = false;
@@ -287,7 +288,7 @@ public class EnemyCarny : MonoBehaviour
                 {
                     //1-3
                     //Set to 1, 4 once third animation is added
-                    eAnim.SetInteger("randAttk", Random.Range(1, 3));
+                    eAnim.SetInteger("randAttk", Random.Range(1, numOfAttacks + 1));
                     randNumGenerated = true;
                 }
                 else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
@@ -514,6 +515,7 @@ public class EnemyCarny : MonoBehaviour
         //agent.isStopped = false;
         //Debug.Log("CHASE");
         myEnemy = EnemyState.Chase;
+        eAnim.SetBool("playerSpotted", true);
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
