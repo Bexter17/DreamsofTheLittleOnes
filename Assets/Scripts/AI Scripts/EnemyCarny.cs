@@ -40,7 +40,7 @@ public class EnemyCarny : MonoBehaviour
 
     // The distance the enemy will begin to chase player
     private float punchRange = 3;
-    public  float chaseRange = 20;
+    public  float chaseRange = 15;
     private float checkStackRange = 15;
 
     // Amount of damage done by enemy to player
@@ -60,9 +60,9 @@ public class EnemyCarny : MonoBehaviour
     private int patrolIterator = 1;
 
     // How fast enemy moves
-    private float enemyMovement = 3;
+    private float enemyMovement = 2;
     // multiplies by walk enemyMovement speed for chasing speed
-    private int enemyRunMultiplier = 2;
+    private int enemyRunMultiplier = 3;
     private float rotationSpeed = 3;
 
 
@@ -269,6 +269,7 @@ public class EnemyCarny : MonoBehaviour
             else if (myEnemy == EnemyState.Chase)
             {
                 Chase();
+                eAnim.SetFloat("Speed", 2);
                 agent.speed = enemyRunMultiplier * enemyMovement;
                 //Debug.Log("Run");
             }
@@ -384,6 +385,8 @@ public class EnemyCarny : MonoBehaviour
                     {
                         patrolIterator = 1;
                     }
+                    PausePatrol();
+                    Invoke("ContinuePatrol", 2);
                     patrolNumber += patrolIterator;
                     agent.SetDestination(waypoints[patrolNumber].transform.position);
                 }
@@ -392,29 +395,15 @@ public class EnemyCarny : MonoBehaviour
             {
                 if (other.gameObject.transform == waypoint1.transform)
                 {
-                    if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && !eAnim.GetBool("hasPaused"))
-                    {
-                        eAnim.SetBool("hasPaused", true);
-                        eAnim.SetTrigger("pause");
-                    }
-                    else if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && eAnim.GetBool("hasPaused"))
-                    {
-                        agent.SetDestination(waypoint2.transform.position);
-                    }
-                    
+                    PausePatrol();
+                    Invoke("ContinuePatrol", 2);
+                    agent.SetDestination(waypoint2.transform.position);
                 }
                 else if (other.gameObject.transform == waypoint2.transform)
                 {
-                    if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && !eAnim.GetBool("hasPaused"))
-                    {
-                        eAnim.SetBool("hasPaused", true);
-                        eAnim.SetTrigger("pause");
-                    }
-                    else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && eAnim.GetBool("hasPaused"))
-                    {
-                        agent.SetDestination(waypoint1.transform.position);
-                    }
-
+                    PausePatrol();
+                    Invoke("ContinuePatrol", 2);
+                    agent.SetDestination(waypoint1.transform.position);
                 }
 
             }
@@ -426,7 +415,8 @@ public class EnemyCarny : MonoBehaviour
             {
                 if (myEnemy == EnemyState.Chase && onStack)
                 {
-                    myEnemy = EnemyState.Attack;
+                    //myEnemy = EnemyState.Attack;
+                    Invoke("SetStateAttack", .25f);
                 }
                 //Debug.LogWarning("Enemy Start Collision With Player");
                 rb.isKinematic = false;
@@ -461,14 +451,21 @@ public class EnemyCarny : MonoBehaviour
             eAnim.SetFloat("Speed", 1);
             myEnemy = EnemyState.Chase;
         }
-        else if(myEnemy == EnemyState.Patrol)
-        {
-            if (other.gameObject.transform == waypoint1.transform || other.gameObject.transform == waypoint2.transform)
-            {
-                eAnim.SetBool("hasPaused", false);
-            }
-        }
-        
+    }
+    private void PausePatrol()
+    {
+        agent.isStopped = true;
+        eAnim.SetFloat("Speed", 0);
+    }
+    private void ContinuePatrol()
+    {
+        agent.isStopped = false;
+        eAnim.SetFloat("Speed", 1);
+    }
+
+    private void SetStateAttack()
+    {
+        myEnemy = EnemyState.Attack;
     }
     #endregion
     #region damage
