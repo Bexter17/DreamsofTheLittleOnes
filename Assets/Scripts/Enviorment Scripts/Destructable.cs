@@ -46,25 +46,26 @@ public class Destructable : MonoBehaviour
 
     public void OnTriggerEnter(Collider other)
     {
-        //if (other.gameObject.tag == "Hammer")
-        //{
-        //    if (character.isAttacking)
-        //    {
-        //        Debug.Log("Working Hammer");
-        //        GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-        //        GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-        //        brokenVersion.transform.localScale = new Vector3(2, 2, 2);
-        //        Object.Destroy(brokenVersion, 5f);
+        if (other.gameObject.tag == "Hammer2")
+        {
+            if (character.isAttacking)
+            {
+                onlyHappensOnce = true;
+                Debug.Log("Working Hammer");
+                GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+                GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+                brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+                Object.Destroy(brokenVersion, 5f);
 
-        //        Destroy(gameObject);
+                Destroy(gameObject);
 
-        //        //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+                //randomPickup.transform.localScale = new Vector3(1, 1, 1);
 
-        //        // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-        //    }
-        //}
+                // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            }
+        }
 
-      
+
 
 
     }
@@ -93,24 +94,24 @@ public class Destructable : MonoBehaviour
 
                 Destroy(gameObject);
             }
-            if (collision.gameObject.tag == "Hammer")
-            {
-                if (character.isAttacking)
-                {
-                    onlyHappensOnce = true;
-                    Debug.Log("Working Hammer");
-                    GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
-                    GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-                    brokenVersion.transform.localScale = new Vector3(2, 2, 2);
-                    Object.Destroy(brokenVersion, 5f);
+            //if (collision.gameObject.tag == "Hammer")
+            //{
+            //    if (character.isAttacking)
+            //    {
+            //        onlyHappensOnce = true;
+            //        Debug.Log("Working Hammer");
+            //        GameObject randomPickup = Instantiate(pickUps[index], transform.position, transform.rotation);
+            //        GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            //        brokenVersion.transform.localScale = new Vector3(2, 2, 2);
+            //        Object.Destroy(brokenVersion, 5f);
 
-                    Destroy(gameObject);
+            //        Destroy(gameObject);
 
-                    //randomPickup.transform.localScale = new Vector3(1, 1, 1);
+            //        //randomPickup.transform.localScale = new Vector3(1, 1, 1);
 
-                    // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-                }
-            }
+            //        // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
+            //    }
+            //}
         }
     }
 

@@ -131,7 +131,7 @@ GameObject:
   - component: {fileID: 6931412262720041139}
   - component: {fileID: 9032434024232241223}
   - component: {fileID: 9050248538677108508}
-  - component: {fileID: 6087405590043818176}
+  - component: {fileID: 4856502164022427732}
   m_Layer: 0
   m_Name: Heal
   m_TagString: Health Pickup
@@ -216,8 +216,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 0
---- !u!64 &6087405590043818176
-MeshCollider:
+--- !u!135 &4856502164022427732
+SphereCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -226,7 +226,6 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: -1354631672181299356, guid: 8db952063b5f00a468eab7f37b3337c1, type: 3}
+  serializedVersion: 2
+  m_Radius: 0.2
+  m_Center: {x: 0, y: 0, z: 0}
