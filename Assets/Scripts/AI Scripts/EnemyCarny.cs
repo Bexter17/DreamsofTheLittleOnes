@@ -40,8 +40,8 @@ public class EnemyCarny : MonoBehaviour
 
     // The distance the enemy will begin to chase player
     private float punchRange = 3;
-    public float chaseRange = 10;
-    private float checkStackRange = 10;
+    public  float chaseRange = 20;
+    private float checkStackRange = 15;
 
     // Amount of damage done by enemy to player
     public int dmgDealt = 2;
@@ -167,14 +167,6 @@ public class EnemyCarny : MonoBehaviour
         if (enemyMovement <= 0)
         {
             enemyMovement = 3f;
-        }
-        if (punchRange <= 0)
-        {
-            punchRange = 2;
-        }
-        if (chaseRange <= 0)
-        {
-            chaseRange = 5f;
         }
         if (dmgDealt <= 0)
         {
@@ -400,11 +392,29 @@ public class EnemyCarny : MonoBehaviour
             {
                 if (other.gameObject.transform == waypoint1.transform)
                 {
-                    agent.SetDestination(waypoint2.transform.position);
+                    if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && !eAnim.GetBool("hasPaused"))
+                    {
+                        eAnim.SetBool("hasPaused", true);
+                        eAnim.SetTrigger("pause");
+                    }
+                    else if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && eAnim.GetBool("hasPaused"))
+                    {
+                        agent.SetDestination(waypoint2.transform.position);
+                    }
+                    
                 }
                 else if (other.gameObject.transform == waypoint2.transform)
                 {
-                    agent.SetDestination(waypoint1.transform.position);
+                    if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && !eAnim.GetBool("hasPaused"))
+                    {
+                        eAnim.SetBool("hasPaused", true);
+                        eAnim.SetTrigger("pause");
+                    }
+                    else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Patrol Tree") && eAnim.GetBool("hasPaused"))
+                    {
+                        agent.SetDestination(waypoint1.transform.position);
+                    }
+
                 }
 
             }
@@ -451,6 +461,14 @@ public class EnemyCarny : MonoBehaviour
             eAnim.SetFloat("Speed", 1);
             myEnemy = EnemyState.Chase;
         }
+        else if(myEnemy == EnemyState.Patrol)
+        {
+            if (other.gameObject.transform == waypoint1.transform || other.gameObject.transform == waypoint2.transform)
+            {
+                eAnim.SetBool("hasPaused", false);
+            }
+        }
+        
     }
     #endregion
     #region damage
