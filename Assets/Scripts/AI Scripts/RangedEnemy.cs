@@ -132,11 +132,12 @@ public class RangedEnemy : MonoBehaviour
     void Update()
     {
         //Debug.Log("Enemy State:" + myEnemyClown);
-        if (Input.GetKeyDown("t"))
-        {
-            Debug.Log("Enemy has lost 1 hp");
-            takeDamage(1);
-        }
+        //if (Input.GetKeyDown("t"))
+        //{
+        //    Debug.Log("Enemy has lost 1 hp");
+        //    takeDamage(1);
+        //}
+
         #region AI States
         if (agent.enabled)
         {

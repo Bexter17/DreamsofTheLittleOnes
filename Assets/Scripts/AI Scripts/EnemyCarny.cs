@@ -91,6 +91,7 @@ public class EnemyCarny : MonoBehaviour
 
     // Start is called before the first frame update
     #endregion
+
     #region EncircleVariables
     private GameObject[] circlePoints;
     private int encircleNum = -1;
@@ -101,6 +102,7 @@ public class EnemyCarny : MonoBehaviour
     private bool hasStacked = true;
     
     #endregion
+
     void Start()
     {
         #region Components
@@ -203,11 +205,11 @@ public class EnemyCarny : MonoBehaviour
     {
         //Debug.Log("Enemy State :" + myEnemy);
         //Used for testing enemy death
-        if (Input.GetKeyDown("t"))
-        {
-            Debug.Log("Enemy has lost 1 hp");
-            takeDamage(1);
-        }
+        //if (Input.GetKeyDown("t"))
+        //{
+        //    Debug.Log("Enemy has lost 1 hp");
+        //    takeDamage(1);
+        //}
 
         #region AI States
         if (agent.enabled && !death)

@@ -486,7 +486,7 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Check Input Buffer
 
-            ic.checkKeyboardInput();
+            //ic.checkKeyboardInput();
 
             if (ib.actionAllowed)
             {
@@ -498,11 +498,11 @@ public class CharacterMechanics : MonoBehaviour
             // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
         }
 
-        if (Input.GetMouseButtonDown(1))
-            IsAimOn = true;
+        //if (Input.GetMouseButtonDown(1))
+        //    IsAimOn = true;
 
-        if (Input.GetMouseButtonUp(1))
-            IsAimOn = false;
+        //if (Input.GetMouseButtonUp(1))
+        //    IsAimOn = false;
     }
 
     //void FunIdle()
@@ -1180,6 +1180,17 @@ public class CharacterMechanics : MonoBehaviour
                 #endregion
             }
         }
+    }
+
+
+    public void setAimTrue()
+    {
+        IsAimOn = true;
+    }
+
+    public void setAImFalse()
+    {
+        IsAimOn = false;
     }
 
     public void rangedEnd()
