@@ -57,9 +57,9 @@ public class CanvasManager : MonoBehaviour
                 Time.timeScale = 0.0f;
 
             }
-            else
+            else if(pauseMenu && Input.GetKeyDown(KeyCode.P))
             {
-                Time.timeScale = 1.0f;
+               Time.timeScale = 1.0f;
             }
         }
 
