@@ -465,7 +465,7 @@ public class InputControl : MonoBehaviour
         Debug.Log("input control dash called");
 
         if(ib.actionAllowed)
-        controller.Move(transform.TransformDirection(Vector3.forward) * Input.GetAxis("Vertical") * dashSpeed);
+        controller.Move(transform.TransformDirection(Vector3.forward) * inputVec.y * dashSpeed);
     }
 
     public bool groundCheck(bool isGrounded)
