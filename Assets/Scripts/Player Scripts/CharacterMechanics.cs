@@ -168,6 +168,8 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks if the player is currently alive or not
     public bool isAlive = true;
 
+    public bool isPlaying = true;
+
     private bool isInCombo = false;
 
     private Vector3 playerSize; 
@@ -383,6 +385,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        isPlaying = true;
+
         try
         {
             isAlive = true;
@@ -449,60 +453,63 @@ public class CharacterMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+        if (isPlaying)
         {
-            #region Check Player Health
-
-            //If health drops to or below zero, the player dies
-            if (currentHealth <= 0)
+            if (isAlive)
             {
-                #region Debug Log
+                #region Check Player Health
 
-                if (combatDebug)
+                //If health drops to or below zero, the player dies
+                if (currentHealth <= 0)
                 {
-                    Debug.Log("Combat System: health dropped below 0");
+                    #region Debug Log
+
+                    if (combatDebug)
+                    {
+                        Debug.Log("Combat System: health dropped below 0");
+                    }
+
+                    #endregion
+
+                    isAlive = false;
+
+                    ib.actionAllowed = false;
+
+                    comboCount = 0;
+
+                    ac.Die();
+
+                    Invoke("TryAgain", 2);
                 }
 
                 #endregion
 
-                isAlive = false;
+                #region Update HUD
 
-                ib.actionAllowed = false;
+                ////updateHud();
 
-                comboCount = 0;
+                #endregion
 
-                ac.Die();         
+                #region Check Input Buffer
 
-                Invoke("TryAgain", 2);
+                //ic.checkKeyboardInput();
+
+                if (ib.actionAllowed)
+                {
+                    ib.tryBufferedAction();
+                }
+
+                #endregion
+
+                // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
             }
 
-            #endregion
+            //if (Input.GetMouseButtonDown(1))
+            //    IsAimOn = true;
 
-            #region Update HUD
-
-            ////updateHud();
-
-            #endregion
-
-            #region Check Input Buffer
-
-            //ic.checkKeyboardInput();
-
-            if (ib.actionAllowed)
-            {
-                ib.tryBufferedAction();
-            }
-
-            #endregion
-
-            // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+            //if (Input.GetMouseButtonUp(1))
+            //    IsAimOn = false;
         }
-
-        //if (Input.GetMouseButtonDown(1))
-        //    IsAimOn = true;
-
-        //if (Input.GetMouseButtonUp(1))
-        //    IsAimOn = false;
     }
 
     //void FunIdle()

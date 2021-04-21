@@ -169,59 +169,62 @@ public class InputControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Assign "moveDirection" to track vertical movement
-     //   moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-
-     //   strafeDirection = new Vector3(0, Input.GetAxis("Horizontal"), 0);
-
-        //Character rotation
-        //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
-
-        //track any applied speed boosts
-        currentSpeed = movementSpeed + speedBoost;
-
-        //Character movement
-        //Vector3 forward = transform.TransformDirection(Vector3.forward);
-
-        //Movement speed
-        //float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
-
-        //Character controller movement
-     //   controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
-
-     //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
-
-        isGrounded = groundCheck(isGrounded);
-
-        if (isGrounded)
+        if (cm.isPlaying)
         {
-            if (isFalling)
-                isFalling = false;
+            //Assign "moveDirection" to track vertical movement
+            //   moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
 
-            if (isJumping)
-                isJumping = false;
+            //   strafeDirection = new Vector3(0, Input.GetAxis("Horizontal"), 0);
+
+            //Character rotation
+            //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
+
+            //track any applied speed boosts
+            currentSpeed = movementSpeed + speedBoost;
+
+            //Character movement
+            //Vector3 forward = transform.TransformDirection(Vector3.forward);
+
+            //Movement speed
+            //float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
+
+            //Character controller movement
+            //   controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
+
+            //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
+
+            isGrounded = groundCheck(isGrounded);
+
+            if (isGrounded)
+            {
+                if (isFalling)
+                    isFalling = false;
+
+                if (isJumping)
+                    isJumping = false;
+            }
+
+
+            else if (!isGrounded)
+            {
+                if (!isJumping)
+                    if (!isFalling)
+                        isFalling = true;
+            }
+
+            #region Apply Gravity
+
+            vSpeed -= gravity * Time.deltaTime;
+
+            moveDirection.y = vSpeed;
+
+            controller.Move(moveDirection * Time.deltaTime);
+
+            if (!isGrounded && !isJumping)
+                isFalling = true;
+
+            #endregion
         }
-
-
-        else if (!isGrounded)
-        {
-            if (!isJumping)
-                if (!isFalling)
-                    isFalling = true;
-        }
-
-        #region Apply Gravity
-
-        vSpeed -= gravity * Time.deltaTime;
-
-        moveDirection.y = vSpeed;
-
-        controller.Move(moveDirection * Time.deltaTime);
-
-        if (!isGrounded && !isJumping)
-            isFalling = true;
-
-        #endregion
     }
 
     #region Camera
@@ -248,7 +251,10 @@ public class InputControl : MonoBehaviour
     #region Input System Commands
     public void OnCamera(InputValue input)
     {
-        mouseVec = input.Get<Vector2>();
+        if (cm.isPlaying)
+        {
+            mouseVec = input.Get<Vector2>();
+        }
     }
 
 
@@ -257,9 +263,12 @@ public class InputControl : MonoBehaviour
 
     public void OnMove(InputValue input)
     {
-        inputVec = input.Get<Vector2>();
+        if (cm.isPlaying)
+        {
+            inputVec = input.Get<Vector2>();
 
-        moveDirection = new Vector3(inputVec.x * currentSpeed, 0, inputVec.y * currentSpeed);
+            moveDirection = new Vector3(inputVec.x * currentSpeed, 0, inputVec.y * currentSpeed);
+        }
     }
 
 
@@ -282,17 +291,22 @@ public class InputControl : MonoBehaviour
 
     //if (Input.GetButtonDown("Jump") && isGrounded)
     //{
-    #region Debug Log
+    
     public void OnJump()
     {
-        if (ib.inputBufferDebug)
+        if (cm.isPlaying)
         {
-            Debug.Log("Input Buffer System: Jump has been pressed");
+            #region Debug Log
+
+            if (ib.inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: Jump has been pressed");
+            }
+
+            #endregion
+
+            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
         }
-
-        #endregion
-
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
     }
 
     public Vector2 getMouseData(Vector2 input)
@@ -308,83 +322,107 @@ public class InputControl : MonoBehaviour
     //{
     public void OnBasicAttack()
     {
-        Attack();
+        if (cm.isPlaying)
+        {
+            Attack();
+        }
     }
 
     public void OnMouseAttack()
     {
-        if (!cm.IsAimOn)
+        if (cm.isPlaying)
         {
-            Attack();
-        }
+            if (!cm.IsAimOn)
+            {
+                Attack();
+            }
 
-        else
-            Throw();
+            else
+                Throw();
+        }
     }
 
     public void OnDash()
     {
-        //Enables the player to use Ability 2
-        //if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
-        //{
-        #region Debug Log
-
-        if (ib.inputBufferDebug)
+        if (cm.isPlaying)
         {
-            Debug.Log("Input Buffer System: dash has been pressed");
+            //Enables the player to use Ability 2
+            //if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
+            //{
+            #region Debug Log
+
+            if (ib.inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: dash has been pressed");
+            }
+
+            #endregion
+
+            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
+            //cm.AttackEnd();
         }
-
-        #endregion
-
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
-        //cm.AttackEnd();
     }
 
     void OnHammerSmash()
     {
-        //Enables the player to use Ability 3
-        //if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
-        //{
-        #region Debug Log
-        if (ib.inputBufferDebug)
+        if (cm.isPlaying)
         {
-            Debug.Log("Input Buffer System: hammerSmash has been pressed");
+            //Enables the player to use Ability 3
+            //if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
+            //{
+            #region Debug Log
+            if (ib.inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: hammerSmash has been pressed");
+            }
+
+            #endregion
+
+            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
+            //cm.AttackEnd();
         }
-
-        #endregion
-
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
-        //cm.AttackEnd();
     }
 
     //if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
     //{
     public void OnWhirlwind()
     {
-        #region Debug Log
-        if (ib.inputBufferDebug)
+        if (cm.isPlaying)
         {
-            Debug.Log("Input Buffer System: whirlwind has been pressed");
-        }
-        #endregion
+            #region Debug Log
+            if (ib.inputBufferDebug)
+            {
+                Debug.Log("Input Buffer System: whirlwind has been pressed");
+            }
+            #endregion
 
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
-        //cm.AttackEnd();
+            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+            //cm.AttackEnd();
+        }
     }
 
     public void OnAimIn()
     {
-        cm.setAimTrue();
+        if (cm.isPlaying)
+        {
+            cm.setAimTrue();
+        }
     }
 
     public void OnAimOut()
     {
-        cm.setAImFalse();
+        if (cm.isPlaying)
+        {
+            cm.setAImFalse();
+        }
     }
 
     public void OnThrow()
     {
-        Throw();
+        if (cm.isPlaying)
+        {
+            Throw();
+        }
     }
 
     #endregion
