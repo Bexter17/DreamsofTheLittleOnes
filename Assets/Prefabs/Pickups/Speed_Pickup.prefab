@@ -14,9 +14,10 @@ GameObject:
   - component: {fileID: 3411778261260202269}
   - component: {fileID: 1260060103}
   - component: {fileID: 1260060104}
-  m_Layer: 10
-  m_Name: MaxHealth
-  m_TagString: Max Health Pickup
+  - component: {fileID: 805930654}
+  m_Layer: 0
+  m_Name: Speed_Pickup
+  m_TagString: Speed Pickup
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -121,8 +122,21 @@ BoxCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7743928427607976405}
   m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.0028316232, y: 0.0011485579, z: 0.003359597}
+  m_Center: {x: -0.000002801651, y: -0.000026680453, z: 0.0010390119}
+--- !u!65 &805930654
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7743928427607976405}
+  m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.0028316232, y: 0.001110545, z: 0.003359597}
-  m_Center: {x: -0.000002801651, y: -0.00000767397, z: 0.0010390118}
+  m_Size: {x: 0.0032917762, y: 0.0014408776, z: 0.002356751}
+  m_Center: {x: -0.00003914122, y: 0.000055709126, z: 0.0011889141}
