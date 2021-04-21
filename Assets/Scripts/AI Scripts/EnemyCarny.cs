@@ -563,7 +563,11 @@ public class EnemyCarny : MonoBehaviour
         if (encircleNum < 4 && encircleNum >= 0)
         {
             agent.isStopped = false;
-            agent.SetDestination(circlePoints[encircleNum].transform.position);
+            if(circlePoints != null)
+            {
+                agent.SetDestination(circlePoints[encircleNum].transform.position);
+            }
+
         }
 
     }

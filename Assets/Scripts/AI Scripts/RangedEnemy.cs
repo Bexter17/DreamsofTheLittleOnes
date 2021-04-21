@@ -215,17 +215,21 @@ public class RangedEnemy : MonoBehaviour
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
-        //KNOCKBACK
-        // Gets the difference between enemy and player position
-        // To knockback enemy away from player
-        rb.isKinematic = false;
-        //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
-        //rb.AddForce(transform.up * knockHeightModifier);
+        if (!isStationary)
+        {
+            //KNOCKBACK
+            // Gets the difference between enemy and player position
+            // To knockback enemy away from player
+            rb.isKinematic = false;
+            //agent.enabled = false;
+            rb.AddForce(-transform.forward * knockDistanceModifier);
+            //rb.AddForce(transform.up * knockHeightModifier);
 
-        Debug.Log("Knockback");
-        //Invokes once enemy is no longer being knocked back and pauses movement
-        Invoke("AgentStop", knockDuration);
+            Debug.Log("Knockback");
+            //Invokes once enemy is no longer being knocked back and pauses movement
+            Invoke("AgentStop", knockDuration);
+        }
+
     }
     public void DestroyMe()
     {
