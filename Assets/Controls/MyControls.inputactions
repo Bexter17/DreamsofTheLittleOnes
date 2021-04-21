@@ -467,6 +467,33 @@
                     "isPartOfComposite": true
                 }
             ]
+        },
+        {
+            "name": "Mouse",
+            "id": "9d7e47d9-08a0-4295-a7ef-84646fa4a0fe",
+            "actions": [
+                {
+                    "name": "MouseLook",
+                    "type": "Button",
+                    "id": "48246369-1e49-4998-ba28-3059f679e8d8",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": ""
+                }
+            ],
+            "bindings": [
+                {
+                    "name": "",
+                    "id": "1a56f56a-6797-4286-8898-ae0900955934",
+                    "path": "",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "MouseLook",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                }
+            ]
         }
     ],
     "controlSchemes": []
