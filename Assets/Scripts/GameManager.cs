@@ -7,11 +7,10 @@ using UnityEngine.SceneManagement;
 public class GameManager : MonoBehaviour
 {
 
-
     // Start is called before the first frame update
     void Start()
     {
-        
+
     }
 
     // Update is called once per frame
@@ -34,28 +33,46 @@ public class GameManager : MonoBehaviour
         }
     }
 
-        public void StartGame()
-        {
-            SceneManager.LoadScene("Level_1");
-        }
-
-        public void Return()
-        {
-            SceneManager.LoadScene("MainMenu");
-        }
-
-        public void TryAgain()
+    public void StartGame()
     {
         SceneManager.LoadScene("Level_1");
     }
 
-        public void QuitGame()
-        {
+    public void Return()
+    {
+        SceneManager.LoadScene("MainMenu");
+    }
+
+    public void TryAgain()
+    {
+        SceneManager.LoadScene("Level_1");
+    }
+
+    public void QuitGame()
+    {
 #if UNITY_EDITOR
             EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
-        }
     }
 
+
+    private static GameManager instance;
+    public Vector3 lastCheckPointPos;
+    void Awake()
+    {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+
+
+
+        }
+    }
+}
