@@ -18,7 +18,8 @@ public class RangedEnemy : MonoBehaviour
     public Transform target;
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
-    [SerializeField] float attackTimer = 0;
+    [SerializeField] float attackTimer;
+    private float timer;
 
     [Header("Knockback")]
     [SerializeField] float knockDistanceModifier;
@@ -92,8 +93,8 @@ public class RangedEnemy : MonoBehaviour
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("Player").transform;
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        target = Player.transform;
+        cm = Player.GetComponent<CharacterMechanics>();
         #endregion
 
         #region default values
@@ -323,10 +324,11 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        if (Time.time - attackTimer > 1.0f)
+        timer += Time.deltaTime;
+        if (timer > attackTimer)
         {
+            timer = 0f;
             eAnim.SetTrigger("Attack");
-            attackTimer = Time.time;
         }
     }
 
