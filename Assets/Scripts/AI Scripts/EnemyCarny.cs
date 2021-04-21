@@ -63,9 +63,6 @@ public class EnemyCarny : MonoBehaviour
     private float enemyMovement = 2;
     // multiplies by walk enemyMovement speed for chasing speed
     private int enemyRunMultiplier = 3;
-    //currentAccelleration/maxSpeed used for enemys to gradually switch animations/speed
-    private float currAccell;
-    private int maxSpeed;
     private float rotationSpeed = 3;
 
 
@@ -210,11 +207,7 @@ public class EnemyCarny : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
-            //Sets animation state / speed
-            if (eAnim.GetFloat("Speed") < maxSpeed)
-            {
-                SetSpeed();
-            }
+
             if (onStack && !ableToDamage)
             {
                 agent.SetDestination(target.transform.position);
@@ -271,14 +264,13 @@ public class EnemyCarny : MonoBehaviour
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
-                agent.speed = enemyMovement * eAnim.GetFloat("Speed");
+                agent.speed = enemyMovement;
             }
             else if (myEnemy == EnemyState.Chase)
             {
                 Chase();
-                //eAnim.SetFloat("Speed", 2);
-                maxSpeed = 2;
-                agent.speed = enemyMovement * (eAnim.GetFloat("Speed") * 2);
+                eAnim.SetFloat("Speed", 2);
+                agent.speed = enemyRunMultiplier * enemyMovement;
                 //Debug.Log("Run");
             }
             else if(myEnemy == EnemyState.Attack)
@@ -456,23 +448,9 @@ public class EnemyCarny : MonoBehaviour
         {
             ableToDamage = false;
             agent.isStopped = false;
-            //eAnim.SetFloat("Speed", 1);
-            maxSpeed = 2;
+            eAnim.SetFloat("Speed", 1);
             myEnemy = EnemyState.Chase;
         }
-    }
-    private void SetSpeed()
-    {
-        float speed = eAnim.GetFloat("Speed");
-        speed += currAccell * Time.deltaTime;
-        currAccell *= 2;
-        if (speed >= maxSpeed)
-        {
-            speed = maxSpeed;
-            currAccell = .1f;
-
-        }
-        eAnim.SetFloat("Speed", speed);
     }
     private void PausePatrol()
     {
@@ -482,8 +460,7 @@ public class EnemyCarny : MonoBehaviour
     private void ContinuePatrol()
     {
         agent.isStopped = false;
-        //eAnim.SetFloat("Speed", 1);
-        maxSpeed = 1;
+        eAnim.SetFloat("Speed", 1);
     }
 
     private void SetStateAttack()
