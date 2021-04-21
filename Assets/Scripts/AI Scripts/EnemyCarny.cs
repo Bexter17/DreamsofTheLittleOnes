@@ -49,9 +49,9 @@ public class EnemyCarny : MonoBehaviour
     private bool ableToDamage = false;
     //bool isPatrolling = false;
     bool getCalled = false;
-
-    private GameObject waypoint1;
-    private GameObject waypoint2;
+    [Header("Simple Waypoints (automatically filled by closest waypoints)")]
+    [SerializeField] GameObject waypoint1;
+    [SerializeField] GameObject waypoint2;
     private GameObject[] potentialWaypoints;
     [Header("Patrol (Only needs waypoints if Advanced)")]
     public GameObject[] waypoints;
@@ -134,24 +134,31 @@ public class EnemyCarny : MonoBehaviour
         }
         else
         {
-            potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint1");
-            waypoint1 = potentialWaypoints[0];
-            for (int i = 0; i < potentialWaypoints.Length; i++)
+            if(waypoint1 == null)
             {
-                if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint1.transform.position))
+                potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint1");
+                waypoint1 = potentialWaypoints[0];
+                for (int i = 0; i < potentialWaypoints.Length; i++)
                 {
-                    waypoint1 = potentialWaypoints[i];
+                    if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint1.transform.position))
+                    {
+                        waypoint1 = potentialWaypoints[i];
+                    }
                 }
             }
-            potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint2");
-            waypoint2 = potentialWaypoints[0];
-            for (int i = 0; i < potentialWaypoints.Length; i++)
+            if(waypoint2 == null)
             {
-                if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint2.transform.position))
+                potentialWaypoints = GameObject.FindGameObjectsWithTag("WayPoint2");
+                waypoint2 = potentialWaypoints[0];
+                for (int i = 0; i < potentialWaypoints.Length; i++)
                 {
-                    waypoint2 = potentialWaypoints[i];
+                    if (Vector3.Distance(transform.position, potentialWaypoints[i].transform.position) < Vector3.Distance(transform.position, waypoint2.transform.position))
+                    {
+                        waypoint2 = potentialWaypoints[i];
+                    }
                 }
             }
+
             //waypoint1 = GameObject.FindGameObjectWithTag("WayPoint1");
             //waypoint2 = GameObject.FindGameObjectWithTag("WayPoint2");
         }
@@ -194,6 +201,17 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Debug.Log(gameObject.name + " " + myEnemy);
+        //if (Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit, 10, hitLayer))
+        //{
+        //    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * hit.distance, Color.yellow);
+        //    Debug.Log("Did Hit");
+        //}
+        //else
+        //{
+        //    Debug.DrawRay(transform.position, transform.TransformDirection(Vector3.forward) * 1000, Color.white);
+        //    Debug.Log("Did not Hit");
+        //}
         //Debug.Log("Enemy State :" + myEnemy);
         //Used for testing enemy death
         if (Input.GetKeyDown("t"))
@@ -218,9 +236,13 @@ public class EnemyCarny : MonoBehaviour
                 agent.isStopped = false;
                 hasStacked = false;
             }
-            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
+            //Navmeshhit checks if player is within view
+            //This way enemies don't chase player unless they are visible to them
+            NavMeshHit hit;
+            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange && !agent.Raycast(target.position, out hit))
             {
                 Debug.Log("Enemy To Stack");
+                //Checks if enemy is within view of player
                 if (!onStack)
                 {
                     int stackNum = stackTracker.AddStack(gameObject);
@@ -242,15 +264,16 @@ public class EnemyCarny : MonoBehaviour
                 editChase();
                 Debug.Log("1111111111111111111111111111111111111");
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && !agent.Raycast(target.position, out hit))
             {
-                Chase();
-                agent.isStopped = false;
-                myEnemy = EnemyState.Chase;
-                if(Vector3.Distance(target.position, gameObject.transform.position) < chaseRange - (enemyMovement*enemyRunMultiplier*0.5))
-                {
-                    getCalled = false;
-                }
+                    Chase();
+                    agent.isStopped = false;
+                    myEnemy = EnemyState.Chase;
+                    if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange - (enemyMovement * enemyRunMultiplier * 0.5))
+                    {
+                        getCalled = false;
+                    }
+
             }
             else if (myEnemy != EnemyState.Patrol && !getCalled)
             {
