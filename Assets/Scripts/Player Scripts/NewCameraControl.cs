@@ -22,9 +22,9 @@ public class NewCameraControl : MonoBehaviour
 
     void CamControl()
     {
-        mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
-        mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
-        mouseY = Mathf.Clamp(mouseY, -35, 60);
+        //mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
+       // mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
+        //mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         transform.LookAt(Target);
 
