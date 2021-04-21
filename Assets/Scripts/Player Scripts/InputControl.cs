@@ -254,6 +254,8 @@ public class InputControl : MonoBehaviour
         if (cm.isPlaying)
         {
             mouseVec = input.Get<Vector2>();
+
+            cm.rotatePlayer(mouseVec);
         }
     }
 

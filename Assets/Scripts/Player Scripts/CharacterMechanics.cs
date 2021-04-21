@@ -172,8 +172,9 @@ public class CharacterMechanics : MonoBehaviour
 
     private bool isInCombo = false;
 
-    private Vector3 playerSize; 
+    private Vector3 playerSize;
 
+    private float rotationAmount;
 //    private int wastedClicks = 0;
 
     //Tracks player checkpoints and where they will respawn 
@@ -510,6 +511,11 @@ public class CharacterMechanics : MonoBehaviour
             //if (Input.GetMouseButtonUp(1))
             //    IsAimOn = false;
         }
+    }
+
+    private void LateUpdate()
+    {
+        //this.transform.rotation = new Quaternion(this.transform.rotation.x, this.transform.rotation.y + rotationAmount, this.transform.rotation.z, this.transform.rotation.w);
     }
 
     //void FunIdle()
@@ -1250,5 +1256,11 @@ public class CharacterMechanics : MonoBehaviour
     public void TryAgain()
     {
         SceneManager.LoadScene("EndScene");
+    }
+
+    public void rotatePlayer(Vector2 input)
+    {
+        Debug.Log("Player rotated by " + input.x);
+        rotationAmount = input.x;
     }
 }
