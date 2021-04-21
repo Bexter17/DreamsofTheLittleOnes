@@ -236,6 +236,7 @@ public class InputControl : MonoBehaviour
 
     void CamControl()
     {
+        mouseX = 0;
         mouseX += mouseVec.x * RotationSpeed;
         mouseY -= mouseVec.y * RotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
@@ -243,7 +244,9 @@ public class InputControl : MonoBehaviour
         thirdPersonCam.transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        Debug.Log(mouseX);
+        Vector3 playerRotation = new Vector3(Player.rotation.x, Player.rotation.y + mouseX, Player.rotation.z);
+        Player.Rotate(playerRotation);
     }
 
     #endregion
@@ -251,11 +254,12 @@ public class InputControl : MonoBehaviour
     #region Input System Commands
     public void OnCamera(InputValue input)
     {
+        Debug.Log("Mouse Moved");
         if (cm.isPlaying)
         {
-            mouseVec = input.Get<Vector2>();
+          mouseVec = input.Get<Vector2>();
 
-            cm.rotatePlayer(mouseVec);
+          //cm.rotatePlayer(mouseVec);
         }
     }
 
