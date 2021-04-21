@@ -295,6 +295,13 @@ public class InputControl : MonoBehaviour
         ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
     }
 
+    public Vector2 getMouseData(Vector2 input)
+    {
+        input = mouseVec;
+
+        return input;
+    }
+
 
     //Enables the player to use Ability 1
     //if (Input.GetButtonDown("Fire1"))
