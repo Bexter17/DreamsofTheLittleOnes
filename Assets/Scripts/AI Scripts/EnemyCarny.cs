@@ -560,7 +560,7 @@ public class EnemyCarny : MonoBehaviour
 
         // doesn't work if stack call returns 5 which means not on stack
         // or -1 which means still not changed
-        if (encircleNum < 4 && encircleNum >= 0)
+        if (encircleNum < 4 && encircleNum >= 0 && circlePoints != null)
         {
             agent.isStopped = false;
             if(circlePoints != null)

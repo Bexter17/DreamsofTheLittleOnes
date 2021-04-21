@@ -121,6 +121,9 @@ public class CharacterMechanics : MonoBehaviour
 
     GameObject Aimshoot;
 
+    Tutorial_1 tutorial_1;
+
+
     #endregion
 
     #region Variables
@@ -182,6 +185,8 @@ public class CharacterMechanics : MonoBehaviour
     #region HUD
 
     Canvas Canvas;
+
+    public GameObject tutMenu;
 
     [SerializeField] TMP_Text playerStats;
 
@@ -330,6 +335,8 @@ public class CharacterMechanics : MonoBehaviour
 
         abilities = this.transform.GetComponent<AbilitiesCooldown>();
 
+        tutorial_1 = GameObject.Find("Tutorial_1").GetComponent<Tutorial_1>();
+
         #endregion
 
         #region Health
@@ -355,7 +362,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        #region Dash
+        #region Abilities
 
         if (!dashRangePrefab)
             dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
@@ -1045,6 +1052,10 @@ public class CharacterMechanics : MonoBehaviour
         abilities.activateAbility3();
 
         StartCoroutine(hammerSmashDown());
+
+        tutMenu.SetActive(false);
+        tutorial_1.FreezeTime = false;
+        Time.timeScale = 1;
     }
 
     public void whirlwind()
