@@ -843,7 +843,7 @@ MonoBehaviour:
   CameraDistance: 6
   CameraCollisionFilter:
     serializedVersion: 2
-    m_Bits: 0
+    m_Bits: 4294967295
   IgnoreTag: 
   CameraRadius: 0.2
 --- !u!114 &1940289287
@@ -1097,7 +1097,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: -7785673775302490695, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: movementSpeed
-      value: 6
+      value: 11
       objectReference: {fileID: 0}
     - target: {fileID: -7785673775302490695, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: jumpSpeed
