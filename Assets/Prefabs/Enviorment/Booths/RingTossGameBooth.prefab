@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Booth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &3682620791666838280
 Transform:
@@ -98,6 +98,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d467bdd20fddd064497ae3a2f86670fb, type: 3}
       propertyPath: m_Name
       value: SM_RingTossGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: d467bdd20fddd064497ae3a2f86670fb, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d467bdd20fddd064497ae3a2f86670fb, type: 3}

@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 0
+  m_StaticEditorFlags: 4294967295
   m_IsActive: 1
 --- !u!4 &1553543159210802044
 Transform:
@@ -74,6 +74,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 1.893
@@ -121,6 +125,10 @@ PrefabInstance:
     - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_Name
       value: Tank (4)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
@@ -188,9 +196,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
       propertyPath: m_Name
       value: Waterballoon Red
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
@@ -258,9 +274,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
       propertyPath: m_Name
       value: Waterballoon Red (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
@@ -328,9 +352,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
       propertyPath: m_Name
       value: Waterballoon Red (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
@@ -398,9 +430,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
       propertyPath: m_Name
       value: Waterballoon Green
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
@@ -468,9 +508,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
       propertyPath: m_Name
       value: Waterballoon Red (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7e58a3eb59e12b746a19807ef64c4842, type: 3}
@@ -486,6 +534,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.168
@@ -533,6 +585,10 @@ PrefabInstance:
     - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_Name
       value: Tank (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
@@ -600,9 +656,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
       propertyPath: m_Name
       value: Waterballoon Pink (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
@@ -665,6 +729,10 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: fcb9aaa347529ad4a89839e6569d07b3, type: 3}
       propertyPath: m_Name
       value: SM_BalloonPopGame
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: fcb9aaa347529ad4a89839e6569d07b3, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: fcb9aaa347529ad4a89839e6569d07b3, type: 3}
@@ -737,9 +805,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
       propertyPath: m_Name
       value: Waterballoon Pink (3)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
@@ -807,9 +883,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
       propertyPath: m_Name
       value: Waterballoon Green (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
@@ -825,6 +909,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: 2.011
@@ -872,6 +960,10 @@ PrefabInstance:
     - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_Name
       value: Tank (5)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
@@ -939,9 +1031,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
       propertyPath: m_Name
       value: Waterballoon Purple
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
@@ -1009,9 +1109,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
       propertyPath: m_Name
       value: Waterballoon Yellow (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
@@ -1079,9 +1187,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
       propertyPath: m_Name
       value: Waterballoon Pink
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
@@ -1149,9 +1265,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
       propertyPath: m_Name
       value: Waterballoon Green (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 5dfed97205cef494a8042b4dd2e8db84, type: 3}
@@ -1219,9 +1343,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
       propertyPath: m_Name
       value: Waterballoon Purple (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
@@ -1237,6 +1369,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.786
@@ -1285,6 +1421,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Tank (1)
       objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
 --- !u!4 &1088824233808088798 stripped
@@ -1299,6 +1439,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.786
@@ -1346,6 +1490,10 @@ PrefabInstance:
     - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_Name
       value: Tank
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
@@ -1413,9 +1561,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
       propertyPath: m_Name
       value: Waterballoon Yellow (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
@@ -1483,9 +1639,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
       propertyPath: m_Name
       value: Waterballoon Yellow
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: de39e89166f6a3b4a96b8c5e777bbc0c, type: 3}
@@ -1553,9 +1717,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
       propertyPath: m_Name
       value: Waterballoon Pink (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 91d190fa96fc8ab40bcb36195322fc11, type: 3}
@@ -1623,9 +1795,17 @@ PrefabInstance:
       propertyPath: m_LocalScale.z
       value: 0.99999976
       objectReference: {fileID: 0}
+    - target: {fileID: 8592013008003238640, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
       propertyPath: m_Name
       value: Waterballoon Purple (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 9121630262878721881, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 446ab5dc4590de844bff7773c15c6bab, type: 3}
@@ -1641,6 +1821,10 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1553543159210802044}
     m_Modifications:
+    - target: {fileID: 5659030051206146300, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
+      objectReference: {fileID: 0}
     - target: {fileID: 6325306460903703611, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_LocalPosition.x
       value: -1.7859973
@@ -1688,6 +1872,10 @@ PrefabInstance:
     - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
       propertyPath: m_Name
       value: Tank (2)
+      objectReference: {fileID: 0}
+    - target: {fileID: 7321050209873901154, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
+      propertyPath: m_StaticEditorFlags
+      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: c6662f9c14fe43e4881a7bbb082b40f8, type: 3}
