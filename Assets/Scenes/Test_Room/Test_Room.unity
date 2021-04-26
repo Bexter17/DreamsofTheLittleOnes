@@ -2217,6 +2217,54 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 792025358182288596, guid: f810ac81b7eaeb14fa6038c899f179a6, type: 3}
   m_PrefabInstance: {fileID: 1628754966}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1676919673
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1676919674}
+  - component: {fileID: 1676919675}
+  m_Layer: 0
+  m_Name: ControlCameraShake
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1676919674
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676919673}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -13.902338, y: 10.60792, z: 54.877365}
+  m_LocalScale: {x: 0.6105315, y: 0.6105315, z: 0.6105315}
+  m_Children: []
+  m_Father: {fileID: 5569241192877402725}
+  m_RootOrder: 9
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1676919675
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1676919673}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 043be9632ae7b5d41b238755da7af557, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShakeDuration: 0.3
+  ShakeAmplitude: 1.2
+  ShakeFrequency: 2
+  shakeOn: 0
+  VirtualCamera: {fileID: 1858557214}
 --- !u!1 &1694319491
 GameObject:
   m_ObjectHideFlags: 0
@@ -2591,6 +2639,17 @@ GameObject:
   m_CorrespondingSourceObject: {fileID: 1110275346243989715, guid: 56b653a11f8d1184289ff9dc2142a145, type: 3}
   m_PrefabInstance: {fileID: 1858557210}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1858557214 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 1110275346243989714, guid: 56b653a11f8d1184289ff9dc2142a145, type: 3}
+  m_PrefabInstance: {fileID: 1858557210}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1858557211}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 45e653bab7fb20e499bda25e1b646fea, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &1886749246
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5535,6 +5594,7 @@ Transform:
   - {fileID: 7416333895104004938}
   - {fileID: 495588655}
   - {fileID: 1078688433}
+  - {fileID: 1676919674}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5745,6 +5805,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e7ecef23217700d469db0f2e1f364179, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  ControlCameraShake: {fileID: 0}
   combatDebug: 0
   comboDebug: 0
   hammerDebug: 0
@@ -5763,7 +5824,7 @@ MonoBehaviour:
   comboCount: 0
   attackTimer: 0
   isAttacking: 0
-  abilitySpawn: {fileID: 0}
+  abilitySpawn: {fileID: 5569241193055270618}
   IsAimOn: 0
   dashRangePrefab: {fileID: 7626850282531401428, guid: fabcc795829af434687550c696078362, type: 3}
   dashDamage: 0
