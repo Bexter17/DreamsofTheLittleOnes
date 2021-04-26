@@ -1155,13 +1155,13 @@ public class CharacterMechanics : MonoBehaviour
     {
         Lives--;
         
-        if (Lives <= 0)
-        {
-            SceneManager.LoadScene("EndScene");
-        }
+       if (Lives <= 0)
+      {
+           SceneManager.LoadScene("EndScene");
+      }
 
-        else
-        {
+       else
+       {
             gameObject.transform.position = respawnPoint.transform.position;
 
             ac.respawn();
@@ -1190,7 +1190,7 @@ public class CharacterMechanics : MonoBehaviour
     #endregion
 
     public void TryAgain()
-    {
-        SceneManager.LoadScene("EndScene");
+   {
+     SceneManager.LoadScene("EndScene");
     }
 }

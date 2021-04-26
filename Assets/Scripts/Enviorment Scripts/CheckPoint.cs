@@ -6,13 +6,15 @@ public class CheckPoint : MonoBehaviour
 {
     private GameManager gm;
 
-    void start()
+    void Start()
     {
         gm = GameObject.FindGameObjectWithTag("GM").GetComponent<GameManager>();
     }
 
     void OnTriggerEnter(Collider other)
+        
     {
+        Debug.Log("checkpoint activated");
         if (other.CompareTag("Player"))
         {
             gm.lastCheckPointPos = transform.position;
