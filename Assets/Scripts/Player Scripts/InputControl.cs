@@ -218,7 +218,17 @@ public class InputControl : MonoBehaviour
 
             moveDirection.y = vSpeed;
 
-            controller.Move(moveDirection * Time.deltaTime);
+            // transform.TransformDirection(thirdPersonCam.transform.forward * );
+
+            //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+
+            Debug.DrawRay(cm.abilitySpawn.transform.position, cm.abilitySpawn.transform.forward * 10, Color.red);
+
+            //moveDirection = transform.TransformDirection(Vector3.forward) + moveDirection;
+
+                controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+                //Player.transform.forward = moveDirection;
+
 
             if (!isGrounded && !isJumping)
                 isFalling = true;
@@ -243,7 +253,9 @@ public class InputControl : MonoBehaviour
         thirdPersonCam.transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        //Player.rotation = Quaternion.Euler(0, mouseX, 0);
+
+        Player.transform.localEulerAngles = new Vector3(0, mouseX, 0);
     }
 
     #endregion
@@ -269,7 +281,9 @@ public class InputControl : MonoBehaviour
         {
             inputVec = input.Get<Vector2>();
 
-            moveDirection = new Vector3(inputVec.x * currentSpeed, 0, inputVec.y * currentSpeed);
+            moveDirection = Vector3.zero;
+
+            moveDirection = new Vector3(inputVec.x, 0, inputVec.y);
         }
     }
 

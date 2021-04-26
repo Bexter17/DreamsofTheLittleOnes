@@ -214,7 +214,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
-    [SerializeField] private GameObject abilitySpawn;
+    [SerializeField] public GameObject abilitySpawn;
 
     [SerializeField] public bool IsAimOn = false;
 
