@@ -29,9 +29,12 @@ public class SimpleCameraShake : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if(shakeOn)
-        // TESTING, Will switch this to desired ability or attack
-        ShakeElapsedTime = ShakeDuration;
+            // shakeOn will be toggled with HammerSmash coroutine on character mechanics
+        if (shakeOn)
+        {
+            // TESTING, Will switch this to desired ability or attack
+            ShakeElapsedTime = ShakeDuration;
+        }
 
         if(VirtualCamera != null || virtualCameraNoise != null)
         {
