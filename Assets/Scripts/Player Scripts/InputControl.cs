@@ -42,6 +42,8 @@ public class InputControl : MonoBehaviour
     //Variable used to add force or direction to the character
     Vector3 moveDirection;
 
+    Vector3 lookDirection;
+
     Vector3 strafeDirection;
 
     //How much we are boosting the speed by
@@ -224,7 +226,7 @@ public class InputControl : MonoBehaviour
 
             Debug.DrawRay(cm.abilitySpawn.transform.position, cm.abilitySpawn.transform.forward * 10, Color.red);
 
-            //moveDirection = transform.TransformDirection(Vector3.forward) + moveDirection;
+            transform.TransformDirection(cm.abilitySpawn.transform.forward);
 
                 controller.Move(moveDirection * Time.deltaTime * currentSpeed);
                 //Player.transform.forward = moveDirection;
@@ -242,6 +244,7 @@ public class InputControl : MonoBehaviour
     private void LateUpdate()
     {
         CamControl();
+       // changeDirection();
     }
 
     void CamControl()
@@ -253,9 +256,15 @@ public class InputControl : MonoBehaviour
         thirdPersonCam.transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-        //Player.rotation = Quaternion.Euler(0, mouseX, 0);
+        Player.rotation = Quaternion.Euler(0, mouseX, 0);
 
-        Player.transform.localEulerAngles = new Vector3(0, mouseX, 0);
+        //Player.transform.localEulerAngles = new Vector3(0, mouseX, 0);
+        //changeDirection();
+        //lookDirection = transform.TransformDirection(lookDirection);
+
+        moveDirection = new Vector3(inputVec.x, 0, inputVec.y);
+
+        moveDirection = transform.TransformDirection(moveDirection);
     }
 
     #endregion
@@ -281,13 +290,14 @@ public class InputControl : MonoBehaviour
         {
             inputVec = input.Get<Vector2>();
 
-            moveDirection = Vector3.zero;
-
-            moveDirection = new Vector3(inputVec.x, 0, inputVec.y);
+            //moveDirection = Vector3.zero;
         }
     }
 
+    void changeDirection(Vector3 direction)
+    {
 
+    }
 
     //  public void checkKeyboardInput()
     // {
@@ -307,7 +317,7 @@ public class InputControl : MonoBehaviour
 
     //if (Input.GetButtonDown("Jump") && isGrounded)
     //{
-    
+
     public void OnJump()
     {
         if (cm.isPlaying)
