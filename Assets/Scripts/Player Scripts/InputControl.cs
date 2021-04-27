@@ -123,7 +123,7 @@ public class InputControl : MonoBehaviour
             movementSpeed = 6.0f;
 
         if (jumpSpeed <= 0)
-            jumpSpeed = 10.0f;
+            jumpSpeed = 4.0f;
 
         if (rotationSpeed <= 0)
             rotationSpeed = 2.0f;     //4.0f was original
@@ -383,7 +383,7 @@ public class InputControl : MonoBehaviour
             }
 
             #endregion
-
+            if(!cooldown.isCooldown1)
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
             //cm.AttackEnd();
         }
@@ -403,7 +403,7 @@ public class InputControl : MonoBehaviour
             }
 
             #endregion
-
+            if(!cooldown.isCooldown3)
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
             //cm.AttackEnd();
         }
@@ -421,7 +421,7 @@ public class InputControl : MonoBehaviour
                 Debug.Log("Input Buffer System: whirlwind has been pressed");
             }
             #endregion
-
+            if(!cooldown.isCooldown2)
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
             //cm.AttackEnd();
         }
@@ -465,7 +465,7 @@ public class InputControl : MonoBehaviour
         }
 
         #endregion
-
+        if(!cooldown.isCooldown4)
         ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
         //cm.AttackEnd();
     }
@@ -489,9 +489,11 @@ public class InputControl : MonoBehaviour
     public void dash()
     {
         Debug.Log("input control dash called");
-
-        if(ib.actionAllowed)
-        controller.Move(transform.TransformDirection(Vector3.forward) * inputVec.y * dashSpeed);
+        if (!cooldown.isCooldown1)
+        {
+            if (ib.actionAllowed)
+                controller.Move(transform.TransformDirection(Vector3.forward) * inputVec.y * dashSpeed);
+        }
     }
 
     public bool groundCheck(bool isGrounded)

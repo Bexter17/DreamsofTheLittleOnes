@@ -260,6 +260,8 @@ public class CharacterMechanics : MonoBehaviour
 
     private GameObject whirlwindTemp;
 
+    public bool isSpinning = false;
+
     #endregion
 
     #region Ranged
@@ -1084,9 +1086,11 @@ public class CharacterMechanics : MonoBehaviour
 
             ac.spin();
 
-            whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
-         
-            Destroy(whirlwindTemp, 2);
+            //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
+
+            isSpinning = true;
+
+            //Destroy(whirlwindTemp, 2);
 
             AttackEnd();
         }
@@ -1114,7 +1118,9 @@ public class CharacterMechanics : MonoBehaviour
 
         ib.setBufferTrue();
 
-        Destroy(whirlwindTemp);
+        isSpinning = false;
+
+        //Destroy(whirlwindTemp);
     }
 
     public void hammerSmashEnd()

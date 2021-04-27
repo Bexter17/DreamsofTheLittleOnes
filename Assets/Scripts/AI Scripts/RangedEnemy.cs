@@ -360,6 +360,12 @@ public class RangedEnemy : MonoBehaviour
             {
                 takeDamage(2);
             }
+
+            if (cm.isSpinning)
+            {
+                Debug.Log("Hit by whirlwind");
+                takeDamage(4);
+            }
         }
     }
 

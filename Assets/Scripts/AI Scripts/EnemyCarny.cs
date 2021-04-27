@@ -354,6 +354,12 @@ public class EnemyCarny : MonoBehaviour
                 Debug.Log("Hit");
                 takeDamage(2);
             }
+
+            if (cm.isSpinning)
+            {
+                Debug.Log("Hit by whirlwind");
+                takeDamage(4);
+            }
         }
         if (collision.gameObject.tag == "Dash Collider")
         {
