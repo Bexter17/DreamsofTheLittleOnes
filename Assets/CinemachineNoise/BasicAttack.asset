@@ -10,29 +10,29 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: b7f59e54f2bfd184b9dd451a678d089b, type: 3}
-  m_Name: NoiseSettings
+  m_Name: BasicAttack
   m_EditorClassIdentifier: 
   PositionNoise:
   - X:
-      Frequency: 2
-      Amplitude: 1
-      Constant: 1
+      Frequency: 0.5
+      Amplitude: 0.1
+      Constant: 0
     Y:
       Frequency: 5
       Amplitude: 1
-      Constant: 1
+      Constant: 0
     Z:
       Frequency: 0
       Amplitude: 0
       Constant: 0
   - X:
-      Frequency: 7
-      Amplitude: 1
+      Frequency: 1
+      Amplitude: 0.1
       Constant: 0
     Y:
       Frequency: 8
       Amplitude: 1
-      Constant: 1
+      Constant: 0
     Z:
       Frequency: 0
       Amplitude: 0

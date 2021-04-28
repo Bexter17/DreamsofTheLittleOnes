@@ -92,7 +92,7 @@ public class CharacterMechanics : MonoBehaviour
 
             //Wait for AOE to affect enemies then delete
             Debug.Log("TIMER: 1 Second");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
             Debug.Log("HammerSmash has been removed");
             Destroy(hammerSmashTemp, 2);
             AttackEnd();
@@ -122,7 +122,9 @@ public class CharacterMechanics : MonoBehaviour
 
     GameObject Aimshoot;
 
-    public SimpleCameraShake ControlCameraShake;
+    public GameObject CameraShakeBasicAttack;
+
+    private GameObject basicShakeTemp;
 
     #endregion
 
@@ -761,6 +763,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack2()
@@ -797,6 +803,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack3()
@@ -834,6 +844,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void AttackBegins()
