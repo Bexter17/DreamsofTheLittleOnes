@@ -87,11 +87,12 @@ public class CharacterMechanics : MonoBehaviour
             //Run animation and wait for keyframe to spawn AOE 
             ac.smash();
             yield return new WaitForSeconds(1.2f);
+//            ControlCameraShake.shakeOn = true;
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
 
             //Wait for AOE to affect enemies then delete
             Debug.Log("TIMER: 1 Second");
-            yield return new WaitForSeconds(1);
+            yield return new WaitForSeconds(1.5f);
             Debug.Log("HammerSmash has been removed");
             Destroy(hammerSmashTemp, 2);
             AttackEnd();
@@ -121,8 +122,9 @@ public class CharacterMechanics : MonoBehaviour
 
     GameObject Aimshoot;
 
-    Tutorial_1 tutorial_1;
+    public GameObject CameraShakeBasicAttack;
 
+    private GameObject basicShakeTemp;
 
     #endregion
 
@@ -171,10 +173,13 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks if the player is currently alive or not
     public bool isAlive = true;
 
+    public bool isPlaying = true;
+
     private bool isInCombo = false;
 
-    private Vector3 playerSize; 
+    private Vector3 playerSize;
 
+    private float rotationAmount;
 //    private int wastedClicks = 0;
 
     //Tracks player checkpoints and where they will respawn 
@@ -185,8 +190,6 @@ public class CharacterMechanics : MonoBehaviour
     #region HUD
 
     Canvas Canvas;
-
-    public GameObject tutMenu;
 
     [SerializeField] TMP_Text playerStats;
 
@@ -213,7 +216,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
-    [SerializeField] private GameObject abilitySpawn;
+    [SerializeField] public GameObject abilitySpawn;
 
     [SerializeField] public bool IsAimOn = false;
 
@@ -258,6 +261,8 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private int whirlwindDamage;
 
     private GameObject whirlwindTemp;
+
+    public bool isSpinning = false;
 
     #endregion
 
@@ -335,8 +340,6 @@ public class CharacterMechanics : MonoBehaviour
 
         abilities = this.transform.GetComponent<AbilitiesCooldown>();
 
-        tutorial_1 = GameObject.Find("Tutorial_1").GetComponent<Tutorial_1>();
-
         #endregion
 
         #region Health
@@ -389,6 +392,8 @@ public class CharacterMechanics : MonoBehaviour
             playerStats = Canvas.transform.GetChild(0).GetChild(2).transform.GetComponent<TMP_Text>();
 
         #endregion
+
+        isPlaying = true;
 
         try
         {
@@ -456,60 +461,68 @@ public class CharacterMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (isAlive)
+        if (isPlaying)
         {
-            #region Check Player Health
-
-            //If health drops to or below zero, the player dies
-            if (currentHealth <= 0)
+            if (isAlive)
             {
-                #region Debug Log
+                #region Check Player Health
 
-                if (combatDebug)
+                //If health drops to or below zero, the player dies
+                if (currentHealth <= 0)
                 {
-                    Debug.Log("Combat System: health dropped below 0");
+                    #region Debug Log
+
+                    if (combatDebug)
+                    {
+                        Debug.Log("Combat System: health dropped below 0");
+                    }
+
+                    #endregion
+
+                    isAlive = false;
+
+                    ib.actionAllowed = false;
+
+                    comboCount = 0;
+
+                    ac.Die();
+
+                    Invoke("TryAgain", 2);
                 }
 
                 #endregion
 
-                isAlive = false;
+                #region Update HUD
 
-                ib.actionAllowed = false;
+                ////updateHud();
 
-                comboCount = 0;
+                #endregion
 
-                ac.Die();         
+                #region Check Input Buffer
 
-                Invoke("TryAgain", 2);
+                //ic.checkKeyboardInput();
+
+                if (ib.actionAllowed)
+                {
+                    ib.tryBufferedAction();
+                }
+
+                #endregion
+
+                // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
             }
 
-            #endregion
+            //if (Input.GetMouseButtonDown(1))
+            //    IsAimOn = true;
 
-            #region Update HUD
-
-            ////updateHud();
-
-            #endregion
-
-            #region Check Input Buffer
-
-            ic.checkKeyboardInput();
-
-            if (ib.actionAllowed)
-            {
-                ib.tryBufferedAction();
-            }
-
-            #endregion
-
-            // Debug.Log("Grounded: " + controller.isGrounded + " vSpeed: " + vSpeed);
+            //if (Input.GetMouseButtonUp(1))
+            //    IsAimOn = false;
         }
+    }
 
-        if (Input.GetMouseButtonDown(1))
-            IsAimOn = true;
-
-        if (Input.GetMouseButtonUp(1))
-            IsAimOn = false;
+    private void LateUpdate()
+    {
+        //this.transform.rotation = new Quaternion(this.transform.rotation.x, this.transform.rotation.y + rotationAmount, this.transform.rotation.z, this.transform.rotation.w);
     }
 
     //void FunIdle()
@@ -750,6 +763,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack2()
@@ -786,6 +803,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack3()
@@ -823,6 +844,10 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        //Temporary code for testing basic attack camera shakes, will switch these to impulses in the actual cinemachine next week
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void AttackBegins()
@@ -1052,10 +1077,6 @@ public class CharacterMechanics : MonoBehaviour
         abilities.activateAbility3();
 
         StartCoroutine(hammerSmashDown());
-
-        tutMenu.SetActive(false);
-        tutorial_1.FreezeTime = false;
-        Time.timeScale = 1;
     }
 
     public void whirlwind()
@@ -1079,9 +1100,11 @@ public class CharacterMechanics : MonoBehaviour
 
             ac.spin();
 
-            whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
-         
-            Destroy(whirlwindTemp, 2);
+            //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
+
+            isSpinning = true;
+
+            //Destroy(whirlwindTemp, 2);
 
             AttackEnd();
         }
@@ -1109,7 +1132,9 @@ public class CharacterMechanics : MonoBehaviour
 
         ib.setBufferTrue();
 
-        Destroy(whirlwindTemp);
+        isSpinning = false;
+
+        //Destroy(whirlwindTemp);
     }
 
     public void hammerSmashEnd()
@@ -1191,6 +1216,22 @@ public class CharacterMechanics : MonoBehaviour
                 #endregion
             }
         }
+
+         if(IsAimOn)
+        {
+            aims.Throw();
+        }
+    }
+
+
+    public void setAimTrue()
+    {
+        IsAimOn = true;
+    }
+
+    public void setAImFalse()
+    {
+        IsAimOn = false;
     }
 
     public void rangedEnd()
@@ -1243,5 +1284,11 @@ public class CharacterMechanics : MonoBehaviour
     public void TryAgain()
     {
         SceneManager.LoadScene("EndScene");
+    }
+
+    public void rotatePlayer(Vector2 input)
+    {
+        Debug.Log("Player rotated by " + input.x);
+        rotationAmount = input.x;
     }
 }
