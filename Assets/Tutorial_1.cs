@@ -26,14 +26,7 @@ public class Tutorial_1 : MonoBehaviour
     void Update()
     {
         
-        //Time.timeScale = 1;
-        Debug.LogWarning("Test - " + Time.timeScale + " - " + FreezeTime);
-        if(FreezeTime)
-        {
-            Time.timeScale = 0;
-            Debug.Log(Time.time + " Freeze Game - " + Time.timeScale);
-
-        }
+     
        
     }
 
@@ -42,12 +35,11 @@ public class Tutorial_1 : MonoBehaviour
         Debug.Log(other.gameObject.tag);
         if (other.gameObject.tag == "Player")
         {
-            FreezeTime = true;
-            Debug.Log(player);
-            player.transform.position = new Vector3(first_position.position.x, first_position.position.y, first_position.position.z);
-            Invoke("Kill", 0.1f);
+           
+            //Invoke("Kill", 0.1f);
 
-            tutMenu.SetActive(!tutMenu.activeSelf);
+           // tutMenu.SetActive(!tutMenu.activeSelf);
+            tutMenu.SetActive(true);
             if (tutMenu.activeSelf)
             {
               //pauseAudio.Play();
@@ -66,6 +58,13 @@ public class Tutorial_1 : MonoBehaviour
             
         }
 
+        
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        tutMenu.SetActive(false);
+        Kill();
         
     }
 
