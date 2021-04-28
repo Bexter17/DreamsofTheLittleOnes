@@ -68,10 +68,25 @@ public class AimShoot : MonoBehaviour
 
     public void Ability1()
     {
-        //if (Input.GetKey(ability1) && isCooldown1 == false)
-        //{
+        if (Input.GetKey(ability1) && isCooldown1 == false)
+        {
+            isCooldown1 = true;
+            abilityImage1.fillAmount = 1;
 
-        //}
+            if (Input.GetMouseButton(1) && Input.GetButtonDown("Fire5"))
+            {
+                RaycastHit hit;
+                if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
+                {
+                    Debug.Log(hit.collider.gameObject.name);
+                }
+                ac.throw_();
+                Vector3 lookdirection = hit.point - transform.position;
+                GameObject bullet = Instantiate(rangePrefab, transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+                bullet.GetComponent<Rigidbody>().AddForce(lookdirection * hitForce);
+                Destroy(bullet, 5);
+            }
+        }
 
         if (isCooldown1)
         {
@@ -83,26 +98,6 @@ public class AimShoot : MonoBehaviour
                 isCooldown1 = false;
             }
         }
-    }
-
-    public void Throw()
-    {
-        isCooldown1 = true;
-        abilityImage1.fillAmount = 1;
-
-        // if (Input.GetMouseButton(1) && Input.GetButtonDown("Fire5"))
-        //{
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
-        {
-            Debug.Log(hit.collider.gameObject.name);
-        }
-        ac.throw_();
-        Vector3 lookdirection = hit.point - transform.position;
-        GameObject bullet = Instantiate(rangePrefab, transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
-        bullet.GetComponent<Rigidbody>().AddForce(lookdirection * hitForce);
-        Destroy(bullet, 5);
-        //}
     }
 }
 

@@ -4,20 +4,13 @@ using UnityEngine;
 
 public class NewCameraControl : MonoBehaviour
 {
-    /*
     public float RotationSpeed = 1;
     public Transform Target, Player;
-    float inputX, mouseY;
-
-    InputControl ic;
-
-    GameObject PlayerObj;
+    float mouseX, mouseY;
 
     // Start is called before the first frame update
     void Start()
     {
-        PlayerObj = GameObject.FindGameObjectWithTag("Player");
-
         Cursor.visible = false;
         Cursor.lockState = CursorLockMode.Locked;
     }
@@ -29,14 +22,13 @@ public class NewCameraControl : MonoBehaviour
 
     void CamControl()
     {
-       mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
-       mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
-       mouseY = Mathf.Clamp(mouseY, -35, 60);
+        mouseX += Input.GetAxis("Mouse X") * RotationSpeed;
+        mouseY -= Input.GetAxis("Mouse Y") * RotationSpeed;
+        mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         transform.LookAt(Target);
 
-        Target.rotation = Quaternion.Euler(inputvec.y, mouseX, 0);
+        Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
         Player.rotation = Quaternion.Euler(0, mouseX, 0);
     }
-    */
 }

@@ -18,7 +18,8 @@ public class RangedEnemy : MonoBehaviour
     public Transform target;
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
-    [SerializeField] float attackTimer = 0;
+    [SerializeField] float attackTimer;
+    private float timer;
 
     [Header("Knockback")]
     [SerializeField] float knockDistanceModifier;
@@ -92,8 +93,8 @@ public class RangedEnemy : MonoBehaviour
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("Player").transform;
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        target = Player.transform;
+        cm = Player.GetComponent<CharacterMechanics>();
         #endregion
 
         #region default values
@@ -132,12 +133,11 @@ public class RangedEnemy : MonoBehaviour
     void Update()
     {
         //Debug.Log("Enemy State:" + myEnemyClown);
-        //if (Input.GetKeyDown("t"))
-        //{
-        //    Debug.Log("Enemy has lost 1 hp");
-        //    takeDamage(1);
-        //}
-
+        if (Input.GetKeyDown("t"))
+        {
+            Debug.Log("Enemy has lost 1 hp");
+            takeDamage(1);
+        }
         #region AI States
         if (agent.enabled)
         {
@@ -215,17 +215,21 @@ public class RangedEnemy : MonoBehaviour
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
-        //KNOCKBACK
-        // Gets the difference between enemy and player position
-        // To knockback enemy away from player
-        rb.isKinematic = false;
-        //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
-        //rb.AddForce(transform.up * knockHeightModifier);
+        if (!isStationary)
+        {
+            //KNOCKBACK
+            // Gets the difference between enemy and player position
+            // To knockback enemy away from player
+            rb.isKinematic = false;
+            //agent.enabled = false;
+            rb.AddForce(-transform.forward * knockDistanceModifier);
+            //rb.AddForce(transform.up * knockHeightModifier);
 
-        Debug.Log("Knockback");
-        //Invokes once enemy is no longer being knocked back and pauses movement
-        Invoke("AgentStop", knockDuration);
+            Debug.Log("Knockback");
+            //Invokes once enemy is no longer being knocked back and pauses movement
+            Invoke("AgentStop", knockDuration);
+        }
+
     }
     public void DestroyMe()
     {
@@ -326,10 +330,11 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        if (Time.time - attackTimer > 1.0f)
+        timer += Time.deltaTime;
+        if (timer > attackTimer)
         {
+            timer = 0f;
             eAnim.SetTrigger("Attack");
-            attackTimer = Time.time;
         }
     }
 
@@ -361,12 +366,6 @@ public class RangedEnemy : MonoBehaviour
             if (cm.isAttacking)
             {
                 takeDamage(2);
-            }
-
-            if (cm.isSpinning)
-            {
-                Debug.Log("Hit by whirlwind");
-                takeDamage(4);
             }
         }
     }
