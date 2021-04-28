@@ -40,15 +40,15 @@ public class AbilitiesCooldown : MonoBehaviour
         abilityImage1.fillAmount = 0;
 
         abilityObject2 = GameObject.FindGameObjectWithTag("Ability 2");
-        abilityImage2 = abilityObject1.GetComponent<Image>();
+        abilityImage2 = abilityObject2.GetComponent<Image>();
         abilityImage2.fillAmount = 0;
 
         abilityObject3 = GameObject.FindGameObjectWithTag("Ability 3");
-        abilityImage3 = abilityObject1.GetComponent<Image>();
+        abilityImage3 = abilityObject3.GetComponent<Image>();
         abilityImage3.fillAmount = 0;
 
         abilityObject4 = GameObject.FindGameObjectWithTag("Ability 4");
-        abilityImage4 = abilityObject1.GetComponent<Image>();
+        abilityImage4 = abilityObject4.GetComponent<Image>();
         abilityImage4.fillAmount = 0;
     }
 
@@ -60,14 +60,14 @@ public class AbilitiesCooldown : MonoBehaviour
         Ability4();
     }
 
+    public void activateAbility1()
+    {
+        isCooldown1 = true;
+        abilityImage1.fillAmount = 1;
+    }
+
     void Ability1()
     {
-        if(Input.GetKey(ability1) && isCooldown1 == false)
-        {
-            isCooldown1 = true;
-            abilityImage1.fillAmount = 1;
-        }
-
         if (isCooldown1)
         {
             abilityImage1.fillAmount -= 1 / cooldown1 * Time.deltaTime;
@@ -80,14 +80,14 @@ public class AbilitiesCooldown : MonoBehaviour
         }
     }
 
+    public void activateAbility2()
+    {
+        isCooldown2 = true;
+        abilityImage2.fillAmount = 1;
+    }
+
     void Ability2()
     {
-        if (Input.GetKey(ability2) && isCooldown2 == false)
-        {
-            isCooldown2 = true;
-            abilityImage2.fillAmount = 1;
-        }
-
         if (isCooldown2)
         {
             abilityImage2.fillAmount -= 1 / cooldown2 * Time.deltaTime;
@@ -100,14 +100,14 @@ public class AbilitiesCooldown : MonoBehaviour
         }
     }
 
+    public void activateAbility3()
+    {
+        isCooldown3 = true;
+        abilityImage3.fillAmount = 1;
+    }
+
     void Ability3()
     {
-        if (Input.GetKey(ability3) && isCooldown3 == false)
-        {
-            isCooldown3 = true;
-            abilityImage3.fillAmount = 1;
-        }
-
         if (isCooldown3)
         {
             abilityImage3.fillAmount -= 1 / cooldown3 * Time.deltaTime;
@@ -120,14 +120,14 @@ public class AbilitiesCooldown : MonoBehaviour
         }
     }
 
+    public void activateAbility4()
+    {
+        isCooldown4 = true;
+        abilityImage4.fillAmount = 1;
+    }
+
     void Ability4()
     {
-        if (Input.GetKey(ability4) && isCooldown4 == false)
-        {
-            isCooldown4 = true;
-            abilityImage4.fillAmount = 1;
-        }
-
         if (isCooldown4)
         {
             abilityImage4.fillAmount -= 1 / cooldown4 * Time.deltaTime;

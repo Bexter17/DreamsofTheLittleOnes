@@ -52,6 +52,8 @@ public class InputControl : MonoBehaviour
 
     public float groundSearchLength = 0.6f;
 
+    Vector3 characterSize;
+
     //Variable for how high the character will jump
     [SerializeField] private float jumpSpeed;
 
@@ -68,6 +70,8 @@ public class InputControl : MonoBehaviour
     public bool isFalling;
 
     [SerializeField] bool jumpDebug;
+
+    GameObject raycastSpawn;
 
     #endregion
 
@@ -107,9 +111,19 @@ public class InputControl : MonoBehaviour
         if (dashSpeed == 0)
             dashSpeed = 10;
 
+        raycastSpawn = GameObject.FindGameObjectWithTag("Ground Search Spawn");
+
         //Assigns a value to the variable
         moveDirection = Vector3.zero;
 
+        characterSize = this.transform.localScale;
+
+        RaycastHit hit = new RaycastHit();
+
+        if (Physics.Raycast(raycastSpawn.transform.position, -Vector3.up, out hit))
+        {
+            groundSearchLength = hit.distance;
+        }
         #endregion
     }
 
@@ -231,7 +245,7 @@ public class InputControl : MonoBehaviour
         }
 
         //Enables the player to use Ability 3
-        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
+        if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
@@ -245,7 +259,7 @@ public class InputControl : MonoBehaviour
             //cm.AttackEnd();
         }
 
-        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
+        if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
         {
             #region Debug Log
             if (ib.inputBufferDebug)
@@ -284,12 +298,39 @@ public class InputControl : MonoBehaviour
 
     public bool groundCheck(bool isGrounded)
     {
-        Vector3 lineStart = transform.position;
+        Vector3 lineStart = raycastSpawn.transform.position;
         Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y - groundSearchLength, lineStart.z);
 
-        Debug.DrawLine(lineStart, vectorToSearch);
+        Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
 
-        return Physics.Linecast(lineStart, vectorToSearch, out groundHit);
+        if(Physics.Linecast(lineStart, vectorToSearch, out groundHit))
+        {
+            if (groundHit.transform.tag == "Floor" || groundHit.transform.tag == "Box" || groundHit.transform.tag == "Picnic Table" || groundHit.transform.tag == "Train Car" || groundHit.transform.tag == "Trash Can" || groundHit.transform.tag == "Test Of Strength")
+            {
+                if (this.transform.parent == groundHit.transform)
+                    this.transform.parent = null;
+
+                return true;
+            }
+
+            else if (groundHit.transform.tag == "Platform")
+            {
+                this.transform.parent = groundHit.transform;
+
+                return true;
+            }
+
+            else
+            {
+                if (this.transform.parent == groundHit.transform)
+                    this.transform.parent = null;
+
+                return false;
+            }
+        }
+
+        else
+            return false;
     }
 
     private void JumpEnd()
@@ -350,7 +391,7 @@ public class InputControl : MonoBehaviour
 
             isJumping = true;
 
-            isJumping = true;
+            isFalling = false;
 
             ac.jump(isGrounded, isJumping, isFalling);
 

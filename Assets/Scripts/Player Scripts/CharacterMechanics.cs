@@ -60,6 +60,51 @@ public class ActionItem
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {
+
+    //Temporary update for placing hammerSmash during key frame. Need to keep this in place for Coroutine until Ali can show me the way he wanted 
+    //to accomplish this task next week.
+    #region hammerSmashUPDATE
+
+    enum ability{ hammerSmashDown };
+
+    IEnumerator hammerSmashDown()
+    {
+        if (ib.actionAllowed)
+        {
+            ib.setBufferFalse();
+
+            #region Debug Log
+
+            if (hammerDebug)
+            {
+                Debug.Log("hammerSmash: actionAllowed set to false");
+            }
+
+            #endregion
+
+            comboCount = 0;
+
+            //Run animation and wait for keyframe to spawn AOE 
+            ac.smash();
+            yield return new WaitForSeconds(1.2f);
+            hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+
+            //Wait for AOE to affect enemies then delete
+            Debug.Log("TIMER: 1 Second");
+            yield return new WaitForSeconds(1);
+            Debug.Log("HammerSmash has been removed");
+            Destroy(hammerSmashTemp, 2);
+            AttackEnd();
+        }
+
+        else
+        {
+            Debug.Log("action not allowed");
+        }
+    }
+
+    #endregion
+
     #region Components
 
     AnimController ac;
@@ -70,9 +115,14 @@ public class CharacterMechanics : MonoBehaviour
 
     MovementHelper mh;
 
+    AbilitiesCooldown abilities; 
+
     AimShoot aims;
 
     GameObject Aimshoot;
+
+    Tutorial_1 tutorial_1;
+
 
     #endregion
 
@@ -135,6 +185,8 @@ public class CharacterMechanics : MonoBehaviour
     #region HUD
 
     Canvas Canvas;
+
+    public GameObject tutMenu;
 
     [SerializeField] TMP_Text playerStats;
 
@@ -281,6 +333,10 @@ public class CharacterMechanics : MonoBehaviour
 
         mh = this.transform.GetComponent<MovementHelper>();
 
+        abilities = this.transform.GetComponent<AbilitiesCooldown>();
+
+        tutorial_1 = GameObject.Find("Tutorial_1").GetComponent<Tutorial_1>();
+
         #endregion
 
         #region Health
@@ -306,7 +362,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        #region Dash
+        #region Abilities
 
         if (!dashRangePrefab)
             dashRangePrefab = Resources.Load("Dash Zone", typeof(GameObject)) as GameObject;
@@ -950,7 +1006,9 @@ public class CharacterMechanics : MonoBehaviour
         ic.dash();
         
         ac.dash();
-        
+
+        abilities.activateAbility1();
+
         ib.setBufferFalse();
         }
 
@@ -991,25 +1049,13 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
-        {
-            ib.setBufferFalse();
+        abilities.activateAbility3();
 
-            comboCount = 0;
+        StartCoroutine(hammerSmashDown());
 
-            ac.smash();
-
-            hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
-
-            Destroy(hammerSmashTemp, 2);
-
-            AttackEnd();
-        }
-
-        else
-        {
-            Debug.Log("action not allowed");
-        }
+        tutMenu.SetActive(false);
+        tutorial_1.FreezeTime = false;
+        Time.timeScale = 1;
     }
 
     public void whirlwind()
@@ -1026,6 +1072,8 @@ public class CharacterMechanics : MonoBehaviour
         if (ib.actionAllowed)
         {
             ib.setBufferFalse();
+
+            abilities.activateAbility2();
 
             comboCount = 0;
 
@@ -1098,6 +1146,7 @@ public class CharacterMechanics : MonoBehaviour
         //&& aims.isCooldown1 == false
          if (!IsAimOn )
         {
+
         #region Debug Log
 
         if (rangedDebug)
@@ -1119,6 +1168,8 @@ public class CharacterMechanics : MonoBehaviour
                 #endregion
 
                 ib.setBufferFalse();
+
+                abilities.activateAbility4();
 
                 ac.throw_();
 

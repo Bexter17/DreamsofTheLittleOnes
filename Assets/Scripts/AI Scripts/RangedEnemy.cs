@@ -9,13 +9,17 @@ public class RangedEnemy : MonoBehaviour
     #region Variables
 
     [Header("Essentials")]
+    //HP
     public int hp = 5;
     private int maxHP;
+    private Image hpBar;
+
     public Rigidbody rb;
     public Transform target;
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
-    [SerializeField] float attackTimer = 0;
+    [SerializeField] float attackTimer;
+    private float timer;
 
     [Header("Knockback")]
     [SerializeField] float knockDistanceModifier;
@@ -24,8 +28,6 @@ public class RangedEnemy : MonoBehaviour
     
 
     NavMeshAgent agent;
-
-    [SerializeField] private Image hpBar;
 
     //Death
     public bool death = false;
@@ -88,10 +90,11 @@ public class RangedEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
+        hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("Player").transform;
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        target = Player.transform;
+        cm = Player.GetComponent<CharacterMechanics>();
         #endregion
 
         #region default values
@@ -212,17 +215,21 @@ public class RangedEnemy : MonoBehaviour
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
-        //KNOCKBACK
-        // Gets the difference between enemy and player position
-        // To knockback enemy away from player
-        rb.isKinematic = false;
-        //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
-        //rb.AddForce(transform.up * knockHeightModifier);
+        if (!isStationary)
+        {
+            //KNOCKBACK
+            // Gets the difference between enemy and player position
+            // To knockback enemy away from player
+            rb.isKinematic = false;
+            //agent.enabled = false;
+            rb.AddForce(-transform.forward * knockDistanceModifier);
+            //rb.AddForce(transform.up * knockHeightModifier);
 
-        Debug.Log("Knockback");
-        //Invokes once enemy is no longer being knocked back and pauses movement
-        Invoke("AgentStop", knockDuration);
+            Debug.Log("Knockback");
+            //Invokes once enemy is no longer being knocked back and pauses movement
+            Invoke("AgentStop", knockDuration);
+        }
+
     }
     public void DestroyMe()
     {
@@ -258,13 +265,14 @@ public class RangedEnemy : MonoBehaviour
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
             #endregion
+            takeDamage(3);
             StartCoroutine(Stun());
             //enemyMovement = 1;
             rb.velocity = Vector3.zero;
             //agent.isStopped = true;
             //Stop attacking
             //AgentStop();
-            takeDamage(3);
+            //takeDamage(3);
         }
         if(collision.gameObject.tag== "WhirlwindAOE")
         {
@@ -275,9 +283,13 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(3);
         }
         
-        if(collision.gameObject.tag == "Dash Collider")
+        if(collision.gameObject.tag == "")
         {
             takeDamage(2);
+        }
+        if (collision.gameObject.tag == "Dash Collider")
+        {
+            takeDamage(1);
         }
     }
 
@@ -290,6 +302,7 @@ public class RangedEnemy : MonoBehaviour
             #endregion
             //Give enemies back their speed after hammer smash AOE
             //enemyMovement = 5;
+           
         }
     }
 
@@ -317,10 +330,11 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        if (Time.time - attackTimer > 1.0f)
+        timer += Time.deltaTime;
+        if (timer > attackTimer)
         {
+            timer = 0f;
             eAnim.SetTrigger("Attack");
-            attackTimer = Time.time;
         }
     }
 
