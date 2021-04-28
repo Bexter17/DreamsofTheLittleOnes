@@ -11,6 +11,7 @@ GameObject:
   - component: {fileID: 4328035357506114674}
   - component: {fileID: 846569730724895703}
   - component: {fileID: 3196264799921270557}
+  - component: {fileID: 4650106464958027200}
   m_Layer: 0
   m_Name: Souvenire_Booth
   m_TagString: Booth
@@ -81,3 +82,19 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
+--- !u!208 &4650106464958027200
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3988946368890392264}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.432, y: 1.235, z: 2.3490002}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: -0.008, y: -0.020000001, z: 0.21300001}
+  m_TimeToStationary: 0.5
