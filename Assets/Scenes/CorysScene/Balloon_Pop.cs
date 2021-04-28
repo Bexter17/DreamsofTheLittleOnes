@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Balloon : MonoBehaviour
+public class Balloon_Pop : MonoBehaviour
 {
     // Start is called before the first frame update
     void Start()
