@@ -14,7 +14,9 @@ public class InputBuffer : MonoBehaviour
 
     AbilitiesCooldown cooldown;
 
-    AnimController ac; 
+    AnimController ac;
+
+  
 
     public List<ActionItem> inputBuffer = new List<ActionItem>();
 
@@ -33,6 +35,8 @@ public class InputBuffer : MonoBehaviour
         cm = this.transform.GetComponent<CharacterMechanics>();
 
         ac = this.transform.GetComponent<AnimController>();
+
+       
     }
 
     // Update is called once per frame
@@ -62,7 +66,7 @@ public class InputBuffer : MonoBehaviour
 
             ac.resetCounter();
 
-            Debug.Log("comboCount set to 0 by tryBufferedAction()");
+            //Debug.Log("comboCount set to 0 by tryBufferedAction()");
         }
     }
 
@@ -130,7 +134,10 @@ public class InputBuffer : MonoBehaviour
 
         if (ai.Action == ActionItem.InputAction.HammerSmash)
         {
+            Debug.Log("HAMMER TIME");
+         
             cm.hammerSmash();
+
         }
 
         if (ai.Action == ActionItem.InputAction.Whirlwind)
