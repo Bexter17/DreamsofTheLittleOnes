@@ -123,6 +123,8 @@ public class CharacterMechanics : MonoBehaviour
     GameObject Aimshoot;
 
     public SimpleCameraShake ControlCameraShake;
+    Tutorial_1 tutorial_1;
+
 
     #endregion
 
@@ -188,6 +190,8 @@ public class CharacterMechanics : MonoBehaviour
     #region HUD
 
     Canvas Canvas;
+
+    public GameObject tutMenu;
 
     [SerializeField] TMP_Text playerStats;
 
@@ -320,6 +324,9 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        GameManager.Instance.BuildCheckpointsList();
+
         #region Initialization
 
         #region Components
@@ -418,9 +425,11 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Respawn
 
-            if (!respawnPoint)
-                respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+            //if (!respawnPoint)
+            //respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
+
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
             #endregion
 
             #region Combat
@@ -1233,13 +1242,13 @@ public class CharacterMechanics : MonoBehaviour
     {
         Lives--;
         
-        if (Lives <= 0)
-        {
-            SceneManager.LoadScene("EndScene");
-        }
+       if (Lives <= 0)
+      {
+           SceneManager.LoadScene("EndScene");
+      }
 
-        else
-        {
+       else
+       {
             gameObject.transform.position = respawnPoint.transform.position;
 
             ac.respawn();
