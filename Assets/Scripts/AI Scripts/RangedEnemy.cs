@@ -261,14 +261,13 @@ public class RangedEnemy : MonoBehaviour
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
             #endregion
-            takeDamage(3);
             StartCoroutine(Stun());
             //enemyMovement = 1;
             rb.velocity = Vector3.zero;
             //agent.isStopped = true;
             //Stop attacking
             //AgentStop();
-            //takeDamage(3);
+            takeDamage(3);
         }
         if(collision.gameObject.tag== "WhirlwindAOE")
         {
@@ -298,7 +297,6 @@ public class RangedEnemy : MonoBehaviour
             #endregion
             //Give enemies back their speed after hammer smash AOE
             //enemyMovement = 5;
-           
         }
     }
 

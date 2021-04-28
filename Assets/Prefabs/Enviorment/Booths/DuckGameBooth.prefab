@@ -27,7 +27,7 @@ GameObject:
   m_TagString: Booth
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
-  m_StaticEditorFlags: 4294967295
+  m_StaticEditorFlags: 0
   m_IsActive: 1
 --- !u!4 &219606976439246232
 Transform:
@@ -98,10 +98,6 @@ PrefabInstance:
     - target: {fileID: 919132149155446097, guid: d304d5bc223b29045a69aabc6002ba37, type: 3}
       propertyPath: m_Name
       value: SM_DuckGameBooth
-      objectReference: {fileID: 0}
-    - target: {fileID: 919132149155446097, guid: d304d5bc223b29045a69aabc6002ba37, type: 3}
-      propertyPath: m_StaticEditorFlags
-      value: 4294967295
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d304d5bc223b29045a69aabc6002ba37, type: 3}
