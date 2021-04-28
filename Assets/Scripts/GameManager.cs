@@ -1,8 +1,15 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
+
+public class CheckpointSorter : IComparer {
+    int IComparer.Compare(object x, object y) {
+        return ((new CaseInsensitiveComparer()).Compare(((GameObject)x).name, ((GameObject)y).name));
+    }
+}
 
 public class GameManager : MonoBehaviour
 {
@@ -11,6 +18,24 @@ public class GameManager : MonoBehaviour
     void Start()
     {
 
+    }
+
+    public void BuildCheckpointsList()
+    {
+        IComparer sorter = new CheckpointSorter();
+        checkPoints = GameObject.FindGameObjectsWithTag("CheckPoint");
+        Array.Sort(checkPoints, sorter);
+    }
+
+    public void UpdateCheckpoint(GameObject newCheckPoint)
+    {
+        currentCheckpoint = Array.IndexOf(checkPoints, newCheckPoint);
+    }
+
+    public GameObject GetCurrentCheckpoint()
+    {
+        return checkPoints[currentCheckpoint];
+    
     }
 
     // Update is called once per frame
@@ -51,7 +76,7 @@ public class GameManager : MonoBehaviour
     public void QuitGame()
     {
 #if UNITY_EDITOR
-            EditorApplication.isPlaying = false;
+        EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
@@ -59,13 +84,18 @@ public class GameManager : MonoBehaviour
 
 
     private static GameManager instance;
-    public Vector3 lastCheckPointPos;
+
+    public static GameManager Instance { get => instance; }
+    public GameObject[] checkPoints;
+    public int currentCheckpoint;
+
+
     void Awake()
     {
         if (instance == null)
         {
             instance = this;
-            DontDestroyOnLoad(instance);
+            DontDestroyOnLoad(Instance);
         }
         else
         {

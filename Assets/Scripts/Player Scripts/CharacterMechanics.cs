@@ -317,6 +317,9 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+
+        GameManager.Instance.BuildCheckpointsList();
+
         #region Initialization
 
         #region Components
@@ -415,9 +418,11 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Respawn
 
-            if (!respawnPoint)
-                respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+            //if (!respawnPoint)
+            //respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
+
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
             #endregion
 
             #region Combat
@@ -451,11 +456,18 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        transform.position = respawnPoint.transform.position;
     }
 
     // Update is called once per frame
     void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K))
+        {
+            currentHealth = 0;
+        }
+
         if (isAlive)
         {
             #region Check Player Health
