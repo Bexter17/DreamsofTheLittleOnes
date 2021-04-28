@@ -46,8 +46,6 @@ public class AnimController : MonoBehaviour
 
     float Speed;
 
-    float strafeSpeed;
-
     #endregion
 
     // Start is called before the first frame update
@@ -140,11 +138,9 @@ public class AnimController : MonoBehaviour
         animator.SetTrigger("Die");
     }
 
-    public void updateValues(bool grounded, bool jumping, bool falling, float speed, float strafe)
+    public void updateValues(bool grounded, bool jumping, bool falling, float speed)
     {
         Speed = speed;
-
-        strafeSpeed = strafe;
 
         isGrounded = grounded;
 
@@ -170,8 +166,6 @@ public class AnimController : MonoBehaviour
     private void updateParameters()
     {
         animator.SetFloat("Speed", Speed);
-
-        animator.SetFloat("Strafe", strafeSpeed);
 
         animator.SetBool("isGrounded", isGrounded);
 

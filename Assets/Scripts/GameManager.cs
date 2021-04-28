@@ -17,21 +17,21 @@ public class GameManager : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.Escape))
-        //{
-        //    if (SceneManager.GetActiveScene().name == "MainMenu")
-        //    {
-        //        SceneManager.LoadScene("MainScene");
-        //    }
-        //    else if (SceneManager.GetActiveScene().name == "MainScene")
-        //    {
-        //        SceneManager.LoadScene("MainMenu");
-        //    }
-        //    else if (SceneManager.GetActiveScene().name == "EndScene")
-        //    {
-        //        SceneManager.LoadScene("MainMenu");
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            if (SceneManager.GetActiveScene().name == "MainMenu")
+            {
+                SceneManager.LoadScene("MainScene");
+            }
+            else if (SceneManager.GetActiveScene().name == "MainScene")
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+            else if (SceneManager.GetActiveScene().name == "EndScene")
+            {
+                SceneManager.LoadScene("MainMenu");
+            }
+        }
     }
 
         public void StartGame()

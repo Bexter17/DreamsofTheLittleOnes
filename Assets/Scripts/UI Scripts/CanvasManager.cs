@@ -42,14 +42,14 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    pauseMenu.SetActive(!pauseMenu.activeSelf);
-        //    if (pauseMenu.activeSelf)
-        //    {
-        //        //pauseAudio.Play();
-        //    }
-        //}
+        if (Input.GetKeyDown(KeyCode.P))
+        {
+            pauseMenu.SetActive(!pauseMenu.activeSelf);
+            if (pauseMenu.activeSelf)
+            {
+                //pauseAudio.Play();
+            }
+        }
         if (pauseMenu)
         {
             if (pauseMenu.activeSelf)
@@ -57,9 +57,9 @@ public class CanvasManager : MonoBehaviour
                 Time.timeScale = 0.0f;
 
             }
-            else
+            else if(pauseMenu && Input.GetKeyDown(KeyCode.P))
             {
-                Time.timeScale = 1.0f;
+               Time.timeScale = 1.0f;
             }
         }
 

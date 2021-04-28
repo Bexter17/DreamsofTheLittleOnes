@@ -175,8 +175,14 @@ MonoBehaviour:
   death: 0
   chaseRange: 20
   dmgDealt: 0
+  numOfAttacks: 2
+  waypoint1: {fileID: 0}
+  waypoint2: {fileID: 0}
   waypoints: []
   advancedPatrol: 0
+  layer:
+    serializedVersion: 2
+    m_Bits: 4294967295
   stackTracker: {fileID: 0}
 --- !u!65 &7803178029895098646
 BoxCollider:

@@ -9,7 +9,7 @@ public class CombatManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        cm = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMechanics>();
     }
 
     // Update is called once per frame
