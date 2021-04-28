@@ -12,7 +12,7 @@ public class EnemyStack : MonoBehaviour
     void Start()
     {
         playerTarget = GameObject.FindGameObjectWithTag("Player");
-        EnemyQueue = new GameObject[3];
+        EnemyQueue = new GameObject[4];
     }
 
     // Update is called once per frame

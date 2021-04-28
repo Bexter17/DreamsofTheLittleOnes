@@ -7,6 +7,10 @@ public class CameraController : MonoBehaviour
 {
     private bool ThirdPersonCamera = true;
 
+    GameObject Player;
+
+    CharacterMechanics cm;
+
     public Image Aimer;
 
     public GameObject respawnPoint;
@@ -23,13 +27,16 @@ public class CameraController : MonoBehaviour
 
     private void Start()
     {
+        Player = GameObject.FindGameObjectWithTag("Player");
+
+        cm = Player.transform.GetComponent<CharacterMechanics>();
 
         vCam2.transform.position = respawnPoint.transform.position;
     }
 
     void Update()
     {
-        if (Input.GetMouseButtonDown(1))
+        if (cm.IsAimOn)
         {
             Debug.Log("Right Mouse Button Clicked");
             ThirdPersonCamera = false;
@@ -37,7 +44,7 @@ public class CameraController : MonoBehaviour
             SwitchPriority();
         }
 
-        if (Input.GetMouseButtonUp(1))
+        if (!cm.IsAimOn)
         {
             vCam2.transform.position = respawnPoint.transform.position;
             Debug.Log("Right Mouse Button Let go");
