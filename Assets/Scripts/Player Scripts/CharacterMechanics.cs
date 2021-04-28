@@ -122,7 +122,9 @@ public class CharacterMechanics : MonoBehaviour
 
     GameObject Aimshoot;
 
-    public SimpleCameraShake ControlCameraShake;
+    public GameObject CameraShakeBasicAttack;
+
+    private GameObject basicShakeTemp;
 
     #endregion
 
@@ -761,6 +763,9 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack2()
@@ -797,6 +802,9 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void comboAttack3()
@@ -834,6 +842,9 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         #endregion
+
+        basicShakeTemp = Instantiate(CameraShakeBasicAttack, whirlwindSpawn.position, gameObject.transform.rotation, gameObject.transform);
+        Destroy(basicShakeTemp, 0.5f);
     }
 
     public void AttackBegins()
