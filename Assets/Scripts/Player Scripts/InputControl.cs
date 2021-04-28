@@ -134,19 +134,21 @@ public class InputControl : MonoBehaviour
         if (dashSpeed == 0)
             dashSpeed = 10;
 
-        raycastSpawn = GameObject.FindGameObjectWithTag("Ground Search Spawn");
+        raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
         //Assigns a value to the variable
         moveDirection = Vector3.zero;
 
         characterSize = this.transform.localScale;
 
+        raycastSpawn.transform.position = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
+
         RaycastHit hit = new RaycastHit();
 
-        if (Physics.Raycast(raycastSpawn.transform.position, -Vector3.up, out hit))
-        {
-            groundSearchLength = hit.distance;
-        }
+        //if (Physics.Raycast(raycastSpawn.transform.position, -Vector3.up, out hit))
+        //{
+            groundSearchLength = (characterSize.y * 0.5f);
+       // }
         #endregion
 
         #region Camera
@@ -224,9 +226,9 @@ public class InputControl : MonoBehaviour
 
             //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
 
-            Debug.DrawRay(cm.abilitySpawn.transform.position, cm.abilitySpawn.transform.forward * 10, Color.red);
+            Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
 
-            transform.TransformDirection(cm.abilitySpawn.transform.forward);
+            transform.TransformDirection(raycastSpawn.transform.forward);
 
                 controller.Move(moveDirection * Time.deltaTime * currentSpeed);
                 //Player.transform.forward = moveDirection;
