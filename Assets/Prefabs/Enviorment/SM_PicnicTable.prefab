@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5598847571877978014}
   - component: {fileID: 7662854399425293140}
   - component: {fileID: 6589138344487799310}
+  - component: {fileID: 1886364949}
   m_Layer: 0
   m_Name: SM_PicnicTable
   m_TagString: Picnic Table
@@ -96,3 +97,19 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -6692290496178104961, guid: fe06fff76c94b6e4aa145c1402748920, type: 3}
+--- !u!208 &1886364949
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8167015184945580673}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 1.9510001, y: 1.771, z: 0.75500005}
+  m_MoveThreshold: 0.1
+  m_Carve: 0
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0.004, z: 0.771}
+  m_TimeToStationary: 0.5

@@ -38,5 +38,9 @@ public class Projectiles : MonoBehaviour
             CombatScript.GivePlayerDamage(this.transform, dmgDealt);
             Destroy(gameObject);
         }
+        else
+        {
+            Destroy(gameObject);
+        }
     }
 }

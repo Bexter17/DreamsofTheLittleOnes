@@ -127,7 +127,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 942041078614933}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.38
+  m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -176,6 +176,8 @@ MonoBehaviour:
   chaseRange: 20
   dmgDealt: 0
   numOfAttacks: 3
+  waypoint1: {fileID: 0}
+  waypoint2: {fileID: 0}
   waypoints: []
   advancedPatrol: 0
   stackTracker: {fileID: 0}

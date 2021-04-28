@@ -127,7 +127,7 @@ NavMeshAgent:
   m_GameObject: {fileID: 942041078614933}
   m_Enabled: 1
   m_AgentTypeID: 0
-  m_Radius: 0.38
+  m_Radius: 0.5
   m_Speed: 5
   m_Acceleration: 8
   avoidancePriority: 50
@@ -180,9 +180,6 @@ MonoBehaviour:
   waypoint2: {fileID: 0}
   waypoints: []
   advancedPatrol: 0
-  layer:
-    serializedVersion: 2
-    m_Bits: 4294967295
   stackTracker: {fileID: 0}
 --- !u!65 &7803178029895098646
 BoxCollider:
