@@ -42,14 +42,14 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.P))
-        {
-            pauseMenu.SetActive(!pauseMenu.activeSelf);
-            if (pauseMenu.activeSelf)
-            {
-                //pauseAudio.Play();
-            }
-        }
+        //if (Input.GetKeyDown(KeyCode.P))
+        //{
+        //    pauseMenu.SetActive(!pauseMenu.activeSelf);
+        //    if (pauseMenu.activeSelf)
+        //    {
+        //        //pauseAudio.Play();
+        //    }
+        //}
         if (pauseMenu)
         {
             if (pauseMenu.activeSelf)

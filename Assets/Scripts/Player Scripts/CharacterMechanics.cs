@@ -87,7 +87,7 @@ public class CharacterMechanics : MonoBehaviour
             //Run animation and wait for keyframe to spawn AOE 
             ac.smash();
             yield return new WaitForSeconds(1.2f);
-            ControlCameraShake.shakeOn = true;
+//            ControlCameraShake.shakeOn = true;
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
 
             //Wait for AOE to affect enemies then delete
@@ -1201,6 +1201,11 @@ public class CharacterMechanics : MonoBehaviour
 
                 #endregion
             }
+        }
+
+         if(IsAimOn)
+        {
+            aims.Throw();
         }
     }
 
