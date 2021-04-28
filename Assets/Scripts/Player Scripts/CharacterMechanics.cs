@@ -175,6 +175,8 @@ public class CharacterMechanics : MonoBehaviour
 
     private bool isInCombo = false;
 
+    bool godMode = false;
+
     private Vector3 playerSize;
 
     private float rotationAmount;
@@ -313,7 +315,27 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int healthEffectTimer;
 
-#endregion
+    #endregion
+
+    #endregion
+
+    #region Input System Commands
+
+    void OnToggleGodMode()
+    {
+        Debug.Log("God Mode: is now active");
+        if (godMode)
+        {
+            godMode = false;
+            Debug.Log("God Mode: is now inactive");
+        }
+
+        else if (!godMode)
+        {
+            godMode = true;
+            Debug.Log("God Mode: is now active");
+        }
+    }
 
     #endregion
 
@@ -465,8 +487,19 @@ public class CharacterMechanics : MonoBehaviour
             {
                 #region Check Player Health
 
-                //If health drops to or below zero, the player dies
-                if (currentHealth <= 0)
+                if (godMode)
+                {
+                    playerStats.text = "God Mode Active!";
+
+                    currentHealth = maxHealth;
+                }
+
+                else if (!godMode)
+                {
+                    playerStats.text = " ";
+                }
+                    //If health drops to or below zero, the player dies
+                    if (currentHealth <= 0)
                 {
                     #region Debug Log
 
@@ -477,15 +510,18 @@ public class CharacterMechanics : MonoBehaviour
 
                     #endregion
 
-                    isAlive = false;
+                    if (!godMode)
+                    {
+                        isAlive = false;
 
-                    ib.actionAllowed = false;
+                        ib.actionAllowed = false;
 
-                    comboCount = 0;
+                        comboCount = 0;
 
-                    ac.Die();
+                        ac.Die();
 
-                    Invoke("TryAgain", 2);
+                        Invoke("TryAgain", 2);
+                    }
                 }
 
                 #endregion
@@ -708,6 +744,7 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.takeDamage();
 
+        if(!godMode)
         currentHealth -= dmgDealt;
 
         healthBar.SetHealth(currentHealth);

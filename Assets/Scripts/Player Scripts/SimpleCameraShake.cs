@@ -22,8 +22,8 @@ public class SimpleCameraShake : MonoBehaviour
     void Start()
     {
         // Get Virtual Camera Noise Profile
-        if (VirtualCamera != null)
-            virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
+    //    if (VirtualCamera != null)
+  //          virtualCameraNoise = VirtualCamera.GetCinemachineComponent<Cinemachine.CinemachineBasicMultiChannelPerlin>();
     }
 
     // Update is called once per frame
@@ -33,7 +33,7 @@ public class SimpleCameraShake : MonoBehaviour
         if (shakeOn)
         {
             // TESTING, Will switch this to desired ability or attack
-            ShakeElapsedTime = ShakeDuration;
+    //        ShakeElapsedTime = ShakeDuration;
         }
 
         if(VirtualCamera != null || virtualCameraNoise != null)
@@ -42,17 +42,17 @@ public class SimpleCameraShake : MonoBehaviour
             if (ShakeElapsedTime > 0)
             {
                 // Set CInemachine Camera Noise parameters
-                virtualCameraNoise.m_AmplitudeGain = ShakeAmplitude;
-                virtualCameraNoise.m_FrequencyGain = ShakeFrequency;
+//                virtualCameraNoise.m_AmplitudeGain = ShakeAmplitude;
+  //              virtualCameraNoise.m_FrequencyGain = ShakeFrequency;
 
                 // Update Shake Timer
-                ShakeElapsedTime -= Time.deltaTime;
+    //            ShakeElapsedTime -= Time.deltaTime;
             }
             else
             {
                 // If Camera Shake effect is over, reset variables
-                virtualCameraNoise.m_AmplitudeGain = 0f;
-                ShakeElapsedTime = 0f;
+      //          virtualCameraNoise.m_AmplitudeGain = 0f;
+        //        ShakeElapsedTime = 0f;
             }
         }
     }
