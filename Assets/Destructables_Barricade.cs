@@ -101,7 +101,7 @@ public class Destructables_Barricade : MonoBehaviour
                 onlyHappensOnce = true;
                 Debug.Log("Working Hammer");
                 GameObject brokenVersion = Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
-                brokenVersion.transform.localScale = new Vector3(3, 3, 3);
+                brokenVersion.transform.localScale = new Vector3(4, 4, 4);
                 Object.Destroy(brokenVersion, 5f);
 
                 Destroy(gameObject);
