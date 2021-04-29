@@ -743,7 +743,7 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.takeDamage();
 
-        if (godMode)
+        if (!godMode)
             currentHealth -= dmgDealt;
 
         healthBar.SetHealth(currentHealth);
