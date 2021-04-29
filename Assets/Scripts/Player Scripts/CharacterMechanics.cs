@@ -429,7 +429,7 @@ public class CharacterMechanics : MonoBehaviour
             //respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
 
-            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+//            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
             #endregion
 
             #region Combat
