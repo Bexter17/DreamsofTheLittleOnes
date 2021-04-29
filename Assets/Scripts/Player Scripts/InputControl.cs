@@ -84,7 +84,9 @@ public class InputControl : MonoBehaviour
 
     #region Camera 
 
-    public float RotationSpeed = 1;
+    public float HorizontalRotationSpeed = 0.65f;
+
+    public float VerticalRotationSpeed = 0.65f;
 
     GameObject thirdPersonCam;
 
@@ -248,8 +250,8 @@ public class InputControl : MonoBehaviour
 
     void CamControl()
     {
-        mouseX += mouseVec.x * RotationSpeed;
-        mouseY -= mouseVec.y * RotationSpeed;
+        mouseX += mouseVec.x * HorizontalRotationSpeed;
+        mouseY -= mouseVec.y * VerticalRotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         thirdPersonCam.transform.LookAt(Target);
