@@ -183,12 +183,12 @@ public class AnimController : MonoBehaviour
     {
         animator.SetInteger("Counter", cm.comboCount);
 
-        animator.SetTrigger("Got Hit");
+       // animator.SetTrigger("Got Hit");
     }
 
     public void jump(bool _isGrounded, bool _isJumping, bool _isFalling)
     {
-        animator.SetTrigger("Jump");
+      //  animator.SetTrigger("Jump");
 
         animator.SetBool("isJumping", _isJumping);
 

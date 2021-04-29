@@ -103,7 +103,7 @@ public class InputControl : MonoBehaviour
 
         controller = GetComponent<CharacterController>();
 
- //       controllerList = Input.GetJoystickNames();
+        //       controllerList = Input.GetJoystickNames();
 
         cooldown = this.transform.GetComponent<AbilitiesCooldown>();
 
@@ -134,21 +134,17 @@ public class InputControl : MonoBehaviour
         if (dashSpeed == 0)
             dashSpeed = 10;
 
-        raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
-
         //Assigns a value to the variable
         moveDirection = Vector3.zero;
 
         characterSize = this.transform.localScale;
 
-        raycastSpawn.transform.position = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
+        raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
-        RaycastHit hit = new RaycastHit();
+        raycastSpawn.transform.position = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
 
-        //if (Physics.Raycast(raycastSpawn.transform.position, -Vector3.up, out hit))
-        //{
-            groundSearchLength = (characterSize.y * 0.5f);
-       // }
+        groundSearchLength = (characterSize.y * 0.5f);
+
         #endregion
 
         #region Camera
@@ -164,7 +160,7 @@ public class InputControl : MonoBehaviour
         #region Cursor
 
         Cursor.visible = false;
-        
+
         Cursor.lockState = CursorLockMode.Locked;
 
         #endregion
@@ -230,8 +226,8 @@ public class InputControl : MonoBehaviour
 
             transform.TransformDirection(raycastSpawn.transform.forward);
 
-                controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-                //Player.transform.forward = moveDirection;
+            controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+            //Player.transform.forward = moveDirection;
 
 
             if (!isGrounded && !isJumping)
@@ -246,7 +242,8 @@ public class InputControl : MonoBehaviour
     private void LateUpdate()
     {
         CamControl();
-       // changeDirection();
+        // changeDirection();
+        resetMovement();
     }
 
     void CamControl()
@@ -290,10 +287,16 @@ public class InputControl : MonoBehaviour
     {
         if (cm.isPlaying)
         {
+            inputVec = Vector2.zero;
             inputVec = input.Get<Vector2>();
 
             //moveDirection = Vector3.zero;
         }
+    }
+
+    void resetMovement()
+    {
+
     }
 
     void changeDirection(Vector3 direction)
@@ -385,8 +388,8 @@ public class InputControl : MonoBehaviour
             }
 
             #endregion
-            if(!cooldown.isCooldown1)
-            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
+            if (!cooldown.isCooldown1)
+                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
             //cm.AttackEnd();
         }
     }
@@ -405,8 +408,8 @@ public class InputControl : MonoBehaviour
             }
 
             #endregion
-            if(!cooldown.isCooldown3)
-            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
+            if (!cooldown.isCooldown3)
+                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
             //cm.AttackEnd();
         }
     }
@@ -423,8 +426,8 @@ public class InputControl : MonoBehaviour
                 Debug.Log("Input Buffer System: whirlwind has been pressed");
             }
             #endregion
-            if(!cooldown.isCooldown2)
-            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+            if (!cooldown.isCooldown2)
+                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
             //cm.AttackEnd();
         }
     }
@@ -467,8 +470,8 @@ public class InputControl : MonoBehaviour
         }
 
         #endregion
-        if(!cooldown.isCooldown4)
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
+        if (!cooldown.isCooldown4)
+            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
         //cm.AttackEnd();
     }
 
@@ -505,7 +508,7 @@ public class InputControl : MonoBehaviour
 
         Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
 
-        if(Physics.Linecast(lineStart, vectorToSearch, out groundHit))
+        if (Physics.Linecast(lineStart, vectorToSearch, out groundHit))
         {
             if (groundHit.transform.tag == "Floor" || groundHit.transform.tag == "Box" || groundHit.transform.tag == "Picnic Table" || groundHit.transform.tag == "Train Car" || groundHit.transform.tag == "Trash Can" || groundHit.transform.tag == "Test Of Strength")
             {

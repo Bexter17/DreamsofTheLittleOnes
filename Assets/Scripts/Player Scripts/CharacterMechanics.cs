@@ -65,7 +65,7 @@ public class CharacterMechanics : MonoBehaviour
     //to accomplish this task next week.
     #region hammerSmashUPDATE
 
-    enum ability{ hammerSmashDown };
+    enum ability { hammerSmashDown };
 
     IEnumerator hammerSmashDown()
     {
@@ -87,7 +87,7 @@ public class CharacterMechanics : MonoBehaviour
             //Run animation and wait for keyframe to spawn AOE 
             ac.smash();
             yield return new WaitForSeconds(1.2f);
-//            ControlCameraShake.shakeOn = true;
+            //            ControlCameraShake.shakeOn = true;
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
 
             //Wait for AOE to affect enemies then delete
@@ -116,15 +116,13 @@ public class CharacterMechanics : MonoBehaviour
 
     MovementHelper mh;
 
-    AbilitiesCooldown abilities; 
+    AbilitiesCooldown abilities;
 
     AimShoot aims;
 
     GameObject Aimshoot;
 
     public SimpleCameraShake ControlCameraShake;
-    Tutorial_1 tutorial_1;
-
 
     #endregion
 
@@ -147,7 +145,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Animator Variables
 
-//    float currentAnimLength;
+    //    float currentAnimLength;
 
     #endregion
 
@@ -164,7 +162,7 @@ public class CharacterMechanics : MonoBehaviour
     //Tracks player health
     public int currentHealth = 5;
 
-  //[SerializeField] private 
+    //[SerializeField] private 
     public int maxHealth = 50;
 
     //Tracks player's lives
@@ -177,10 +175,12 @@ public class CharacterMechanics : MonoBehaviour
 
     private bool isInCombo = false;
 
+    bool godMode = false;
+
     private Vector3 playerSize;
 
     private float rotationAmount;
-//    private int wastedClicks = 0;
+    //    private int wastedClicks = 0;
 
     //Tracks player checkpoints and where they will respawn 
     [SerializeField] private GameObject respawnPoint;
@@ -190,8 +190,6 @@ public class CharacterMechanics : MonoBehaviour
     #region HUD
 
     Canvas Canvas;
-
-    public GameObject tutMenu;
 
     [SerializeField] TMP_Text playerStats;
 
@@ -317,16 +315,33 @@ public class CharacterMechanics : MonoBehaviour
 
     [SerializeField] private int healthEffectTimer;
 
-#endregion
+    #endregion
+
+    #endregion
+
+    #region Input System Commands
+
+    void OnToggleGodMode()
+    {
+        if (godMode)
+            godMode = false;
+
+        else if (!godMode)
+            godMode = true;
+    }
+
+    void OnKill()
+    {
+        currentHealth = 0;
+
+        //die();
+    }
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-
-        GameManager.Instance.BuildCheckpointsList();
-
         #region Initialization
 
         #region Components
@@ -336,7 +351,7 @@ public class CharacterMechanics : MonoBehaviour
         aims = Aimshoot.transform.GetComponent<AimShoot>();
 
         ac = this.transform.GetComponent<AnimController>();
-        
+
         ib = this.transform.GetComponent<InputBuffer>();
 
         ic = this.transform.GetComponent<InputControl>();
@@ -353,7 +368,7 @@ public class CharacterMechanics : MonoBehaviour
             HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
 
         healthBar = HealthBar.GetComponent<HealthBar>();
-       
+
         currentHealth = maxHealth;
 
         healthBar.SetMaxHealth(maxHealth);
@@ -425,18 +440,16 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Respawn
 
-            //if (!respawnPoint)
-            //respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+            if (!respawnPoint)
+                respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
-
-//            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
             #endregion
 
             #region Combat
 
             if (!attackRangePrefab)
                 attackRangePrefab = GameObject.FindGameObjectWithTag("Attack Zone");
-            
+
             if (!whirlwindRangePrefab)
                 whirlwindRangePrefab = Resources.Load("whirlwindAttack", typeof(GameObject)) as GameObject;
 
@@ -474,6 +487,16 @@ public class CharacterMechanics : MonoBehaviour
             {
                 #region Check Player Health
 
+                if (godMode)
+                {
+                    currentHealth = maxHealth;
+
+                    playerStats.text = "God Mode Active!";
+                }
+
+                else if(!godMode)
+                    playerStats.text = " ";
+
                 //If health drops to or below zero, the player dies
                 if (currentHealth <= 0)
                 {
@@ -486,15 +509,18 @@ public class CharacterMechanics : MonoBehaviour
 
                     #endregion
 
-                    isAlive = false;
+                    if (!godMode)
+                    {
+                        isAlive = false;
 
-                    ib.actionAllowed = false;
+                        ib.actionAllowed = false;
 
-                    comboCount = 0;
+                        comboCount = 0;
 
-                    ac.Die();
+                        ac.Die();
 
-                    Invoke("TryAgain", 2);
+                        Invoke("TryAgain", 2);
+                    }
                 }
 
                 #endregion
@@ -561,13 +587,13 @@ public class CharacterMechanics : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        if(collision.gameObject.tag == "Max Health Pickup")
+        if (collision.gameObject.tag == "Max Health Pickup")
         {
             Destroy(collision.gameObject);
             Debug.Log("Health Pickup Worked");
         }
 
-        if(collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
+        if (collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
         {
             gameObject.transform.position = respawnPoint.transform.position;
             ac.respawn();
@@ -619,7 +645,7 @@ public class CharacterMechanics : MonoBehaviour
         if (c.gameObject.tag == "Health Pickup")
         {
             Destroy(c.gameObject);
-          
+
             pickupHealth();
         }
 
@@ -657,7 +683,7 @@ public class CharacterMechanics : MonoBehaviour
     {
         maxHealth += 50;
 
-       // updateHud();
+        // updateHud();
     }
 
     private void pickupSpeed()
@@ -698,7 +724,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Take Damage
 
-    public void takeDamage(Transform dmgSource,  int dmgDealt)
+    public void takeDamage(Transform dmgSource, int dmgDealt)
     {
         #region Debug Log
 
@@ -717,7 +743,8 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.takeDamage();
 
-        currentHealth -= dmgDealt;
+        if (godMode)
+            currentHealth -= dmgDealt;
 
         healthBar.SetHealth(currentHealth);
 
@@ -726,16 +753,16 @@ public class CharacterMechanics : MonoBehaviour
             Debug.Log("Combat System: remaining health = " + currentHealth);
         }
     }
-    
+
 
     #endregion
 
-  
+
 
     #endregion
 
     #region Basic Attack 
-    
+
     public void comboAttack1()
     {
         #region Debug Log
@@ -860,7 +887,7 @@ public class CharacterMechanics : MonoBehaviour
         if (comboDebug)
         {
             Debug.Log("Combo System: AttackBegins called");
-            
+
             Debug.Log("Combo System: isInCombo = " + isInCombo);
 
             Debug.Log("actionAllowed = " + ib.actionAllowed);
@@ -883,7 +910,7 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
 
         //sends message to the players sword script to stop dealing damage on collision
-     //   sword.SendMessage("deactivateAttack");
+        //   sword.SendMessage("deactivateAttack");
 
         //if (animator.GetInteger("Counter") == comboCount)
         //{
@@ -918,7 +945,7 @@ public class CharacterMechanics : MonoBehaviour
         //        animator.SetInteger("Counter", comboCount);
         //    }
 
-            ac.setComboCount(comboCount);
+        ac.setComboCount(comboCount);
         //}
 
         ib.setBufferTrue();
@@ -962,8 +989,8 @@ public class CharacterMechanics : MonoBehaviour
         {
             comboCount = 0;
 
-            if(comboDebug)
-            Debug.Log("Combo System: comboCount set to 0 by comboReset()");
+            if (comboDebug)
+                Debug.Log("Combo System: comboCount set to 0 by comboReset()");
 
             ac.setComboCount(comboCount);
         }
@@ -1013,23 +1040,23 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if(ib.actionAllowed)
-        { 
-        comboCount = 0;
+        if (ib.actionAllowed)
+        {
+            comboCount = 0;
 
-        if (dashRangePrefab && abilitySpawn)
-            dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
+            if (dashRangePrefab && abilitySpawn)
+                dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
 
-        else
-            Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
+            else
+                Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
 
-        ic.dash();
-        
-        ac.dash();
+            ic.dash();
 
-        abilities.activateAbility1();
+            ac.dash();
 
-        ib.setBufferFalse();
+            abilities.activateAbility1();
+
+            ib.setBufferFalse();
         }
 
         else
@@ -1037,7 +1064,7 @@ public class CharacterMechanics : MonoBehaviour
             Debug.Log("action not allowed");
         }
     }
-   
+
     public void dashEnds()
     {
         #region Debug Log
@@ -1077,7 +1104,7 @@ public class CharacterMechanics : MonoBehaviour
     public void whirlwind()
     {
         #region Debug Log
-        
+
         if (whirlwindDebug)
         {
             Debug.Log("whirlwind has been called");
@@ -1164,12 +1191,12 @@ public class CharacterMechanics : MonoBehaviour
         #endregion
 
         //&& aims.isCooldown1 == false
-         if (!IsAimOn )
+        if (!IsAimOn)
         {
 
-        #region Debug Log
+            #region Debug Log
 
-        if (rangedDebug)
+            if (rangedDebug)
             {
                 Debug.Log("ranged ability: IsAimOn = " + IsAimOn + " aims.isCooldown1 = " + aims.isCooldown1);
             }
@@ -1212,7 +1239,7 @@ public class CharacterMechanics : MonoBehaviour
             }
         }
 
-         if(IsAimOn)
+        if (IsAimOn)
         {
             aims.Throw();
         }
@@ -1241,14 +1268,14 @@ public class CharacterMechanics : MonoBehaviour
     public void die()
     {
         Lives--;
-        
-       if (Lives <= 0)
-      {
-           SceneManager.LoadScene("EndScene");
-      }
 
-       else
-       {
+        if (Lives <= 0)
+        {
+            SceneManager.LoadScene("EndScene");
+        }
+
+        else
+        {
             gameObject.transform.position = respawnPoint.transform.position;
 
             ac.respawn();
@@ -1267,7 +1294,7 @@ public class CharacterMechanics : MonoBehaviour
     }
 
     public void kill()
-    { 
+    {
         Lives -= 1;
         gameObject.transform.position = respawnPoint.transform.position;
 
