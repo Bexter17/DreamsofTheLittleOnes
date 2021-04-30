@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 4213804426706108962}
   - component: {fileID: 4213804426706108961}
   - component: {fileID: 919132148176511519}
+  - component: {fileID: 776228263}
   m_Layer: 0
   m_Name: SM_BarricadeIntact
   m_TagString: Untagged
@@ -130,3 +131,19 @@ Rigidbody:
   m_Interpolate: 1
   m_Constraints: 126
   m_CollisionDetection: 0
+--- !u!208 &776228263
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943773511084179310}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.75600004, y: 0.38300002, z: 0.326}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: -0.083000004, z: 0.289}
+  m_TimeToStationary: 0.5

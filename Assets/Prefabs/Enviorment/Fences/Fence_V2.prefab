@@ -1,5 +1,18 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!65 &1791202063825804172
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4008877273406559356}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.1785443, y: 0.24387658, z: 1.7340043}
+  m_Center: {x: -0.0021363953, y: -0.000000111931946, z: 0.83531016}
 --- !u!64 &4279278854235089195
 MeshCollider:
   m_ObjectHideFlags: 0
@@ -14,19 +27,6 @@ MeshCollider:
   m_Convex: 1
   m_CookingOptions: 30
   m_Mesh: {fileID: -7304058387060529056, guid: 25784ac3b8e162c4d90b9b64e9d1898f, type: 3}
---- !u!65 &1791202063825804172
-BoxCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 4008877273406559356}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 2
-  m_Size: {x: 2.1785443, y: 0.24387658, z: 1.7340043}
-  m_Center: {x: -0.0021363953, y: -0.000000111931946, z: 0.83531016}
 --- !u!1 &9062395164167826693
 GameObject:
   m_ObjectHideFlags: 0
@@ -36,6 +36,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 3630157901632624168}
+  - component: {fileID: 2165458219731105168}
   m_Layer: 0
   m_Name: Fence_V2
   m_TagString: Fence
@@ -58,6 +59,22 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 76.32, z: 0}
+--- !u!208 &2165458219731105168
+NavMeshObstacle:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 9062395164167826693}
+  m_Enabled: 1
+  serializedVersion: 3
+  m_Shape: 1
+  m_Extents: {x: 0.5, y: 0.5, z: 0.5}
+  m_MoveThreshold: 0.1
+  m_Carve: 1
+  m_CarveOnlyStationary: 1
+  m_Center: {x: 0, y: 0, z: 0}
+  m_TimeToStationary: 0.5
 --- !u!1001 &4279278854235089197
 PrefabInstance:
   m_ObjectHideFlags: 0
