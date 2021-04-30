@@ -15,7 +15,7 @@ public class EnemyCarny : MonoBehaviour
     //Essentials
     private Rigidbody rb;
     private Transform target;
-    NavMeshAgent agent;
+    public NavMeshAgent agent;
     Animator eAnim;
     CombatManager CombatScript;
     CharacterMechanics cm;
@@ -109,12 +109,12 @@ public class EnemyCarny : MonoBehaviour
         //ESSENTIALS
         rb = GetComponent<Rigidbody>();
         hpBar = transform.Find("Carny/Canvas/Enemy HP Bar").GetComponent<Image>();
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        cm = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMechanics>();
         agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("Player").transform;
+        target = GameObject.FindGameObjectWithTag("Player").transform;
         CombatScript = GameObject.Find("GameManager").GetComponent<CombatManager>();
         #endregion
         #region SetWaypoints
