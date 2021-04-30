@@ -1164,6 +1164,14 @@ PrefabInstance:
       propertyPath: jumpSpeed
       value: 2.65
       objectReference: {fileID: 0}
+    - target: {fileID: -7785673775302490695, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: HorizontalRotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: -7785673775302490695, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: VerticalRotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 274304432, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: vCam1
       value: 
@@ -1195,6 +1203,18 @@ PrefabInstance:
     - target: {fileID: 1991773819, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: m_TagString
       value: Third Person Cam
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991773820, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.538
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991773820, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.127
+      objectReference: {fileID: 0}
+    - target: {fileID: 1991773820, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0.005
       objectReference: {fileID: 0}
     - target: {fileID: 1886505772124679703, guid: 80233225e99d76042b430dcc3e58153a, type: 3}
       propertyPath: abilityImage1
