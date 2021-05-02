@@ -342,6 +342,8 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        GameManager.Instance.BuildCheckpointsList();
+
         #region Initialization
 
         #region Components
@@ -440,8 +442,12 @@ public class CharacterMechanics : MonoBehaviour
 
             #region Respawn
 
-            if (!respawnPoint)
-                respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+            //if (!respawnPoint)
+            //    respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+
+            transform.position = respawnPoint.transform.position;
 
             #endregion
 

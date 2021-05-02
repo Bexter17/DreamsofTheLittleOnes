@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 839254107990977171}
   - component: {fileID: 4267461269533516299}
   - component: {fileID: 4564535874734694749}
+  - component: {fileID: 6968559558326386199}
   m_Layer: 0
   m_Name: CanBooth_low
   m_TagString: Untagged
@@ -103,6 +104,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.011000001, y: -0.020000001, z: 0.45000002}
   m_TimeToStationary: 0.5
+--- !u!65 &6968559558326386199
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1986921520366366159}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.356023, y: 2.4708223, z: 6.480066}
+  m_Center: {x: -0.011233452, y: -0.019538904, z: 1.1038747}
 --- !u!1 &2007130056374015254
 GameObject:
   m_ObjectHideFlags: 0

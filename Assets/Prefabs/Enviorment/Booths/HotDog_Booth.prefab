@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 3492615154566469022}
   - component: {fileID: 4617406797471326022}
   - component: {fileID: 5549760947958476272}
+  - component: {fileID: 8432447630632484018}
   m_Layer: 0
   m_Name: HotBooth_low
   m_TagString: Untagged
@@ -184,6 +185,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.011000001, y: -0.020000001, z: 0.45000002}
   m_TimeToStationary: 0.5
+--- !u!65 &8432447630632484018
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4161585562592341323}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.356023, y: 2.4708223, z: 6.6632695}
+  m_Center: {x: -0.011233452, y: -0.019538926, z: 1.195477}
 --- !u!1 &4776554830952001208
 GameObject:
   m_ObjectHideFlags: 0

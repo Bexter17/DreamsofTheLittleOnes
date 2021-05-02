@@ -93,6 +93,7 @@ GameObject:
   - component: {fileID: 6181619794681341271}
   - component: {fileID: 9208186156650981976}
   - component: {fileID: 1815557552474273773}
+  - component: {fileID: 6745818238078595714}
   m_Layer: 0
   m_Name: Booth_low
   m_TagString: Untagged
@@ -184,6 +185,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.011000001, y: -0.020000001, z: -0.012}
   m_TimeToStationary: 0.5
+--- !u!65 &6745818238078595714
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7177857114100684809}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.356023, y: 2.4708223, z: 5.3110194}
+  m_Center: {x: -0.011233452, y: -0.019538883, z: 0.51935196}
 --- !u!1 &8336875343037463707
 GameObject:
   m_ObjectHideFlags: 0
@@ -277,7 +291,7 @@ MeshRenderer:
   m_RendererPriority: 0
   m_Materials:
   - {fileID: 2100000, guid: a3122a91823f72d44ae127050283639f, type: 2}
-  - {fileID: 8554655104631171556, guid: 1cf535c23a51f7144b7fb0e05d4e0a18, type: 3}
+  - {fileID: 2100000, guid: a3122a91823f72d44ae127050283639f, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

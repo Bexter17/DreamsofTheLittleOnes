@@ -11,9 +11,9 @@ GameObject:
   - component: {fileID: 6143469810119110740}
   - component: {fileID: 6143469810584976101}
   - component: {fileID: 6143469810584976098}
-  - component: {fileID: 6143469810584976099}
+  - component: {fileID: 1941626984010014438}
   m_Layer: 0
-  m_Name: SM_Optimized_Elm (1)
+  m_Name: SM_Optimized_Elm
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -83,8 +83,8 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &6143469810584976099
-MeshCollider:
+--- !u!136 &1941626984010014438
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -93,7 +93,7 @@ MeshCollider:
   m_Material: {fileID: 0}
   m_IsTrigger: 0
   m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 2017067848305531546, guid: 42d402d5e154cfc4284d6c60577a8555, type: 3}
+  m_Radius: 2.5372322
+  m_Height: 23.486404
+  m_Direction: 2
+  m_Center: {x: 0.031965736, y: 0.20567296, z: 12.471072}
