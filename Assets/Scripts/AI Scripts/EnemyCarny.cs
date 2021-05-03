@@ -30,6 +30,7 @@ public class EnemyCarny : MonoBehaviour
     public bool death = false;
     private bool randNumGenerated = false;
 
+
     //STATES
     enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
     EnemyState myEnemy;
@@ -48,6 +49,7 @@ public class EnemyCarny : MonoBehaviour
     private bool ableToDamage = false;
     //bool isPatrolling = false;
     bool getCalled = false;
+    [SerializeField] private int numberOfAttacks;
 
     private GameObject waypoint1;
     private GameObject waypoint2;
@@ -189,11 +191,14 @@ public class EnemyCarny : MonoBehaviour
         #endregion
         #region stackTracker
         stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+        //if(GameObject.FindGameObjectWithTag("Enemy Slot 1") != null)
+        //{
+        //    circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
+        //    circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
+        //    circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
+        //    circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
+        //}
 
-        circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
-        circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
-        circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
-        circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
         // circle points 4 different points around the player where the enemies will go to attack
         //circlePoints = new Vector3[4];
 
@@ -285,11 +290,11 @@ public class EnemyCarny : MonoBehaviour
             {
                 //Generates random number once per attack from 1-3 to randomly choose 1 of 3 attacks
                 //Will generate number once on the main tree and can do so again after each attack
-                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Main Tree") && !randNumGenerated)
+                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Chase Tree") && !randNumGenerated)
                 {
                     //1-3
                     //Set to 1, 4 once third animation is added
-                    eAnim.SetInteger("randAttk", Random.Range(1, 3));
+                    eAnim.SetInteger("randAttk", Random.Range(1, numberOfAttacks+1));
                     randNumGenerated = true;
                 }
                 else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
@@ -421,6 +426,7 @@ public class EnemyCarny : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
+                eAnim.SetBool("cancelAttk", false);
                 if (myEnemy == EnemyState.Chase && onStack)
                 {
                     myEnemy = EnemyState.Attack;
@@ -453,6 +459,7 @@ public class EnemyCarny : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            eAnim.SetBool("cancelAttk", true);
             ableToDamage = false;
             agent.isStopped = false;
             eAnim.SetFloat("Speed", 1);
@@ -528,11 +535,17 @@ public class EnemyCarny : MonoBehaviour
 
         // doesn't work if stack call returns 5 which means not on stack
         // or -1 which means still not changed
-        if (encircleNum < 4 && encircleNum >= 0)
+        //if (encircleNum < 4 && encircleNum >= 0 && circlePoints[encircleNum] != null)
+        //{
+        //    agent.isStopped = false;
+        //    agent.SetDestination(circlePoints[encircleNum].transform.position);
+        //}
+        if (encircleNum < 3 && encircleNum >= 0)
         {
             agent.isStopped = false;
-            agent.SetDestination(circlePoints[encircleNum].transform.position);
+            agent.SetDestination(target.transform.position);
         }
+
 
     }
     //using this funciton to set a chase destination to spawned enemy

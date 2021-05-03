@@ -171,13 +171,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd823a996768f174c90e011bb44f35f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   hp: 5
   death: 0
   chaseRange: 20
   dmgDealt: 0
-  numOfAttacks: 2
-  waypoint1: {fileID: 0}
-  waypoint2: {fileID: 0}
+  numberOfAttacks: 2
   waypoints: []
   advancedPatrol: 0
   stackTracker: {fileID: 0}
