@@ -350,6 +350,7 @@ public class CharacterMechanics : MonoBehaviour
 
         Aimshoot = GameObject.FindGameObjectWithTag("FreeAimer");
 
+        if(Aimshoot)
         aims = Aimshoot.transform.GetComponent<AimShoot>();
 
         ac = this.transform.GetComponent<AnimController>();
@@ -369,12 +370,15 @@ public class CharacterMechanics : MonoBehaviour
         if (!HealthBar)
             HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
 
+        if(healthBar)
         healthBar = HealthBar.GetComponent<HealthBar>();
 
         currentHealth = maxHealth;
 
+        if(healthBar)
         healthBar.SetMaxHealth(maxHealth);
 
+        if(healthBar)
         healthBar.SetHealth(currentHealth);
 
         #endregion
@@ -447,6 +451,7 @@ public class CharacterMechanics : MonoBehaviour
 
             respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
+            if(respawnPoint)
             transform.position = respawnPoint.transform.position;
 
             #endregion
@@ -497,12 +502,15 @@ public class CharacterMechanics : MonoBehaviour
                 {
                     currentHealth = maxHealth;
 
+                    if(playerStats)
                     playerStats.text = "God Mode Active!";
                 }
 
-                else if(!godMode)
+                else if (!godMode)
+                {
+                    if(playerStats)
                     playerStats.text = " ";
-
+                }
                 //If health drops to or below zero, the player dies
                 if (currentHealth <= 0)
                 {
@@ -519,10 +527,12 @@ public class CharacterMechanics : MonoBehaviour
                     {
                         isAlive = false;
 
+                        if(ib)
                         ib.actionAllowed = false;
 
                         comboCount = 0;
 
+                        if(ac)
                         ac.Die();
 
                         Invoke("TryAgain", 2);
@@ -541,9 +551,12 @@ public class CharacterMechanics : MonoBehaviour
 
                 //ic.checkKeyboardInput();
 
-                if (ib.actionAllowed)
+                if (ib)
                 {
-                    ib.tryBufferedAction();
+                    if (ib.actionAllowed)
+                    {
+                        ib.tryBufferedAction();
+                    }
                 }
 
                 #endregion
@@ -601,7 +614,10 @@ public class CharacterMechanics : MonoBehaviour
 
         if (collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
         {
+            if(respawnPoint)
             gameObject.transform.position = respawnPoint.transform.position;
+
+            if(ac)
             ac.respawn();
             //die();
         }
@@ -747,11 +763,13 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
+        if(ac)
         ac.takeDamage();
 
         if (!godMode)
             currentHealth -= dmgDealt;
 
+        if(healthBar)
         healthBar.SetHealth(currentHealth);
 
         if (combatDebug)
@@ -780,13 +798,17 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
-            ib.setBufferFalse();
+        if (ib)
+        {
+            if (ib.actionAllowed)
+                ib.setBufferFalse();
+        }
 
         comboCount = 1;
 
         isAttacking = true;
 
+        if(ac)
         ac.attack(comboCount);
 
         #region Debug Log
@@ -816,13 +838,17 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
-            ib.setBufferTrue();
+        if (ib)
+        {
+            if (ib.actionAllowed)
+                ib.setBufferTrue();
+        }
 
         comboCount = 2;
 
         isAttacking = true;
 
+        if(ac)
         ac.attack(comboCount);
 
         #region Debug Log
@@ -852,13 +878,17 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
-            ib.setBufferFalse();
+        if (ib)
+        {
+            if (ib.actionAllowed)
+                ib.setBufferFalse();
+        }
 
         comboCount = 3;
 
         isAttacking = true;
 
+        if(ac)
         ac.attack(comboCount);
 
 
@@ -882,8 +912,11 @@ public class CharacterMechanics : MonoBehaviour
     {
         isInCombo = true;
 
-        if (ib.actionAllowed)
-            ib.setBufferFalse();
+        if (ib)
+        {
+            if (ib.actionAllowed)
+                ib.setBufferFalse();
+        }
 
         if (!isAttacking)
             isAttacking = true;
@@ -951,9 +984,11 @@ public class CharacterMechanics : MonoBehaviour
         //        animator.SetInteger("Counter", comboCount);
         //    }
 
+        if(ac)
         ac.setComboCount(comboCount);
         //}
 
+        if(ib)
         ib.setBufferTrue();
 
         isAttacking = false;
@@ -971,6 +1006,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        if(ib)
         ib.tryBufferedAction();
 
         //comboCount = 0;
@@ -991,41 +1027,48 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
+        if (ib)
         {
-            comboCount = 0;
-
-            if (comboDebug)
-                Debug.Log("Combo System: comboCount set to 0 by comboReset()");
-
-            ac.setComboCount(comboCount);
-        }
-        else if (!ib.actionAllowed)
-        {
-            if (!ic.isJumping)
+            if (ib.actionAllowed)
             {
-                ib.setBufferTrue();
+                comboCount = 0;
 
-                #region Debug Log
-
-                if (ib.inputBufferDebug)
-                {
-                    Debug.Log("Input Buffer System: comboReset Ran, actionAllowed and isJumping = false, setting actionAllowed to true");
-                }
-
-                #endregion
+                if (comboDebug)
+                    Debug.Log("Combo System: comboCount set to 0 by comboReset()");
+                
+                if(ac)
+                ac.setComboCount(comboCount);
             }
-
-            else
+            else if (!ib.actionAllowed)
             {
-                #region Debug Log
-
-                if (ib.inputBufferDebug)
+                if (ic)
                 {
-                    Debug.Log("Input Buffer System: comboReset Ran, actionAllowed = false, isJumping = true");
-                }
+                    if (!ic.isJumping)
+                    {
+                        ib.setBufferTrue();
 
-                #endregion
+                        #region Debug Log
+
+                        if (ib.inputBufferDebug)
+                        {
+                            Debug.Log("Input Buffer System: comboReset Ran, actionAllowed and isJumping = false, setting actionAllowed to true");
+                        }
+
+                        #endregion
+                    }
+
+                    else
+                    {
+                        #region Debug Log
+
+                        if (ib.inputBufferDebug)
+                        {
+                            Debug.Log("Input Buffer System: comboReset Ran, actionAllowed = false, isJumping = true");
+                        }
+
+                        #endregion
+                    }
+                }
             }
         }
     }
@@ -1046,28 +1089,31 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
+        if (ib)
         {
-            comboCount = 0;
+            if (ib.actionAllowed)
+            {
+                comboCount = 0;
 
-            if (dashRangePrefab && abilitySpawn)
-                dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
+                if (dashRangePrefab && abilitySpawn)
+                    dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
+
+                else
+                    Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
+
+                ic.dash();
+
+                ac.dash();
+
+                abilities.activateAbility1();
+
+                ib.setBufferFalse();
+            }
 
             else
-                Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
-
-            ic.dash();
-
-            ac.dash();
-
-            abilities.activateAbility1();
-
-            ib.setBufferFalse();
-        }
-
-        else
-        {
-            Debug.Log("action not allowed");
+            {
+                Debug.Log("action not allowed");
+            }
         }
     }
 
@@ -1086,6 +1132,7 @@ public class CharacterMechanics : MonoBehaviour
 
         dashTemp = null;
 
+        if(ib)
         ib.setBufferTrue();
 
         AttackEnd();
@@ -1102,6 +1149,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        if(abilities)
         abilities.activateAbility3();
 
         StartCoroutine(hammerSmashDown());
@@ -1118,23 +1166,28 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if (ib.actionAllowed)
+        if (ib)
         {
-            ib.setBufferFalse();
+            if (ib.actionAllowed)
+            {
+                ib.setBufferFalse();
 
-            abilities.activateAbility2();
+                if(abilities)
+                abilities.activateAbility2();
 
-            comboCount = 0;
+                comboCount = 0;
 
-            ac.spin();
+                if(ac)
+                ac.spin();
 
-            //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
+                //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
 
-            isSpinning = true;
+                isSpinning = true;
 
-            //Destroy(whirlwindTemp, 2);
+                //Destroy(whirlwindTemp, 2);
 
-            AttackEnd();
+                AttackEnd();
+            }
         }
 
         else
@@ -1158,6 +1211,7 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        if(ib)
         ib.setBufferTrue();
 
         isSpinning = false;
@@ -1180,6 +1234,7 @@ public class CharacterMechanics : MonoBehaviour
 
         AttackEnd();
 
+        if(ib)
         ib.setBufferTrue();
 
         Destroy(hammerSmashTemp);
@@ -1208,45 +1263,50 @@ public class CharacterMechanics : MonoBehaviour
             }
 
             #endregion
-
-            if (ib.actionAllowed)
+            if (ib)
             {
-                #region Debug Log
-
-                if (rangedDebug)
+                if (ib.actionAllowed)
                 {
-                    Debug.Log("ranged ability: action allowed");
+                    #region Debug Log
+
+                    if (rangedDebug)
+                    {
+                        Debug.Log("ranged ability: action allowed");
+                    }
+
+                    #endregion
+
+                    ib.setBufferFalse();
+
+                    if(abilities)
+                    abilities.activateAbility4();
+
+                    if(ac)
+                    ac.throw_();
+
+                    GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
+
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+
+                    Destroy(bullet, 2);
+
+                    AttackEnd();
                 }
 
-                #endregion
+                else
+                {
+                    #region Debug Log
 
-                ib.setBufferFalse();
+                    Debug.Log("action not allowed");
 
-                abilities.activateAbility4();
-
-                ac.throw_();
-
-                GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
-
-                bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
-
-                Destroy(bullet, 2);
-
-                AttackEnd();
-            }
-
-            else
-            {
-                #region Debug Log
-
-                Debug.Log("action not allowed");
-
-                #endregion
+                    #endregion
+                }
             }
         }
 
         if (IsAimOn)
         {
+            if(aims)
             aims.Throw();
         }
     }
@@ -1264,6 +1324,7 @@ public class CharacterMechanics : MonoBehaviour
 
     public void rangedEnd()
     {
+        if(ib)
         ib.setBufferTrue();
     }
 
