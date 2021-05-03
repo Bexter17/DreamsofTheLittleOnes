@@ -84,9 +84,13 @@ public class InputControl : MonoBehaviour
 
     #region Camera 
 
-    public float HorizontalRotationSpeed = 0.65f;
+    public float mouseHorizontalRotationSpeed = 0.65f;
 
-    public float VerticalRotationSpeed = 0.65f;
+    public float mouseVerticalRotationSpeed = 0.65f;
+
+    public float controllerHorizontalRotationSpeed = 0.65f;
+
+    public float controllerVerticalRotationSpeed = 0.65f;
 
     GameObject thirdPersonCam;
 
@@ -256,8 +260,8 @@ public class InputControl : MonoBehaviour
 
     void CamControl()
     {
-        mouseX += mouseVec.x * HorizontalRotationSpeed;
-        mouseY -= mouseVec.y * VerticalRotationSpeed;
+        mouseX += mouseVec.x;// * HorizontalRotationSpeed;
+        mouseY -= mouseVec.y;// * VerticalRotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         thirdPersonCam.transform.LookAt(Target);
@@ -277,7 +281,7 @@ public class InputControl : MonoBehaviour
     #endregion
 
     #region Input System Commands
-    public void OnCamera(InputValue input)
+    public void OnMouseCamera(InputValue input)
     {
         if (cm)
         {
@@ -285,14 +289,31 @@ public class InputControl : MonoBehaviour
             {
                 mouseVec = input.Get<Vector2>();
 
+                mouseVec.x *= mouseHorizontalRotationSpeed;
+
+                mouseVec.x *= mouseHorizontalRotationSpeed;
+
                 cm.rotatePlayer(mouseVec);
             }
         }
     }
 
+    public void OnControllerCamera(InputValue input)
+    {
+        if (cm)
+        {
+            if (cm.isPlaying)
+            {
+                mouseVec = input.Get<Vector2>();
 
+                mouseVec.x *= controllerHorizontalRotationSpeed;
 
+                mouseVec.y *= controllerVerticalRotationSpeed;
 
+                cm.rotatePlayer(mouseVec);
+            }
+        }
+    }
 
     public void OnMove(InputValue input)
     {
