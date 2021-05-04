@@ -232,7 +232,8 @@ public class EnemyCarny : MonoBehaviour
                 agent.isStopped = false;
                 hasStacked = false;
             }
-            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
+            NavMeshHit hit;
+            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange && !agent.Raycast(target.position, out hit))
             {
                 Debug.Log("Enemy To Stack");
                 if (!onStack)
@@ -256,7 +257,7 @@ public class EnemyCarny : MonoBehaviour
                 editChase();
                 Debug.Log("1111111111111111111111111111111111111");
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && !agent.Raycast(target.position, out hit))
             {
                 Chase();
                 agent.isStopped = false;
@@ -551,6 +552,14 @@ public class EnemyCarny : MonoBehaviour
     //using this funciton to set a chase destination to spawned enemy
     public void editChase()
     {
+        if(agent == null)
+        {
+            agent = GetComponent<NavMeshAgent>();
+        }
+        if(Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
         agent.isStopped = false;
         myEnemy = EnemyState.lockChase;
         agent.SetDestination(Player.transform.position);

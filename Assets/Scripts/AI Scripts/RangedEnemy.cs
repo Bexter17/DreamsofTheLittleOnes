@@ -324,7 +324,10 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        if (Time.time - attackTimer > 1.0f)
+        RaycastHit hit;
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit);
+
+        if (Time.time - attackTimer > 1.0f && hit.collider.tag == "Player")
         {
             eAnim.SetTrigger("Attack");
             attackTimer = Time.time;
