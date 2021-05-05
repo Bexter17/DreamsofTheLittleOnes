@@ -8,6 +8,7 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
+    //May 5, 2021
     //remaining Distance instead of vector3.distance
     #region Variables
     //TODO removed most of serializefields to a minimum
@@ -29,6 +30,7 @@ public class EnemyCarny : MonoBehaviour
     private Image hpBar;
     public bool death = false;
     private bool randNumGenerated = false;
+    [SerializeField] private GameObject ragdoll;
 
 
     //STATES
@@ -320,7 +322,7 @@ public class EnemyCarny : MonoBehaviour
     #region Collisions
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && agent.isOnNavMesh)
         {
             rb.velocity = Vector3.zero;
             agent.isStopped = true;
@@ -476,6 +478,12 @@ public class EnemyCarny : MonoBehaviour
         hp -= dmg;
         if (hp <= 0 && !death)
         {
+            //transform.GetComponent<CapsuleCollider>().enabled = false;
+            Vector3 ragdollPos = transform.position;
+            ragdollPos.y -= 3.25f;
+            GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
+            //temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            Destroy(gameObject);
             death = true;
             stackTracker.RemoveStack(gameObject);
             agent.speed = 0;
