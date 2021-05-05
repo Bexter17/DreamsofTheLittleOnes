@@ -1038,7 +1038,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15348
+  m_Name: pb_Mesh-77308
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12083,7 +12083,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-15280
+  m_Name: pb_Mesh-77292
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -14760,6 +14760,10 @@ PrefabInstance:
       propertyPath: m_ReferenceResolution.y
       value: 720
       objectReference: {fileID: 0}
+    - target: {fileID: 2053263045272845227, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: IKSearchLength
+      value: 10
+      objectReference: {fileID: 0}
     - target: {fileID: 3105496586244445596, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_AnchorMin.x
       value: 0.5
@@ -15012,6 +15016,10 @@ PrefabInstance:
     - target: {fileID: 4600396688792552450, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600396688792552453, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: m_Center.y
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: respawnPoint

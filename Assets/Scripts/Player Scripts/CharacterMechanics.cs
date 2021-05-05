@@ -948,6 +948,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        Debug.LogError("AttackEnd Called");
+
         //sends message to the players sword script to stop dealing damage on collision
         //   sword.SendMessage("deactivateAttack");
 

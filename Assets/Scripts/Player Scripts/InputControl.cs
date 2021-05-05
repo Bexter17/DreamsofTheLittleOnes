@@ -179,6 +179,8 @@ public class InputControl : MonoBehaviour
         {
             if (cm.isPlaying)
             {
+                //controller.center = new Vector3(0, raycastSpawn.transform.position.y, 0);
+
                 //Assign "moveDirection" to track vertical movement
                 //   moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
 

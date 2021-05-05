@@ -123,7 +123,12 @@ public class GenericIK : MonoBehaviour
     [Header("Debug Toggle")]
     [SerializeField] bool IKDebug;
 
+    [Header("Debug Toggle")]
+    [SerializeField] int IKSearchLength;
+
     float anim_speed;
+
+
 
     #endregion
 
@@ -207,14 +212,20 @@ public class GenericIK : MonoBehaviour
         RaycastHit LHip_Hit;
         RaycastHit RHip_Hit;
 
-        if(Physics.Raycast(LeftJoints.t_L_Hip.position, Vector3.down, out LHip_Hit, 10))
+        if(Physics.Raycast(LeftJoints.t_L_Hip.position, Vector3.down, out LHip_Hit, IKSearchLength) && Physics.Raycast(RightJoints.t_R_Hip.position, Vector3.down, out RHip_Hit, IKSearchLength))
         {
             Debug.DrawLine(LeftJoints.t_L_Hip.position, LHip_Hit.point, Color.red);
-        }
-
-        if(Physics.Raycast(RightJoints.t_R_Hip.position, Vector3.down, out RHip_Hit, 10))
-        {
             Debug.DrawLine(RightJoints.t_R_Hip.position, RHip_Hit.point, Color.red);
+
+            float l = Vector3.Distance(LHip_Hit.point, RHip_Hit.point);
+            float h = RHip_Hit.point.y - LHip_Hit.point.y;
+            float angle = Mathf.Asin(h / l) * 180 / Mathf.PI;
+
+            if (IKDebug)
+                Debug.Log("IK: angle = " + angle);
+
+          CentralJoints.t_root.localEulerAngles = new Vector3(0, 0, angle);
+          //this.transform.localEulerAngles = new Vector3(this.transform.rotation.x, this.transform.rotation.y, angle);
         }
     }
 
