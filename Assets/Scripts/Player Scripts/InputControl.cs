@@ -111,7 +111,7 @@ public class InputControl : MonoBehaviour
 
         //       controllerList = Input.GetJoystickNames();
 
-        cooldown = this.transform.GetComponent<AbilitiesCooldown>();
+        cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         ib = this.transform.GetComponent<InputBuffer>();
 

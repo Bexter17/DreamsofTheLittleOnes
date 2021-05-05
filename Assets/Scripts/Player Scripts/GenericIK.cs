@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Animator))]
 public class GenericIK : MonoBehaviour
 {
     #region Components
@@ -12,201 +13,359 @@ public class GenericIK : MonoBehaviour
     //creates a script accessable variable of the Animator component
     Animator animator;
 
+    Rigidbody rb;
+
+    #region Body Parts
+
+    [Header("Body Parts")]
+    public CentralJointClass CentralJoints;
+    public LeftJointClass LeftJoints;
+    public RightJointClass RightJoints;
+
+
+    #region Central Joints 
+    [System.Serializable]
+    public class CentralJointClass
+    {
+        [Header("Central Body Parts")]
+
+        [SerializeField] public Transform t_root;
+
+        [SerializeField] public Transform t_Pelvis;
+
+        [SerializeField] public Transform t_Spine1;
+
+        [SerializeField] public Transform t_Spine2;
+
+        [SerializeField] public Transform t_Spine3;
+
+        [SerializeField] public Transform t_Spine4;
+
+        [SerializeField] public Transform t_CSpine;
+
+        [SerializeField] public Transform t_Neck1;
+
+        [SerializeField] public Transform t_Neck2;
+
+        [SerializeField] public Transform t_Neck3;
+
+        [SerializeField] public Transform t_Head;
+
+        [SerializeField] public Transform t_Tail1;
+        
+        [SerializeField] public Transform t_Tail2;
+
+        [SerializeField] public Transform t_Tail3;
+    }
+
+    #endregion
+
+    #region Left Joints
+
+    [System.Serializable]
+    public class LeftJointClass
+    {
+        [Header("Left Body Parts")]
+
+        [SerializeField] public Transform t_L_Clavicle;
+
+        [SerializeField] public Transform t_L_Shoulder;
+
+        [SerializeField] public Transform t_L_Elbow;
+
+        [SerializeField] public Transform t_L_Wrist;
+
+        [SerializeField] public Transform t_L_Hip;
+
+        //[SerializeField] Transform t_L_Leg;
+
+        [SerializeField] public Transform t_L_Knee1;
+
+        [SerializeField] public Transform t_L_Knee2;
+
+        [SerializeField] public Transform t_L_Foot;
+    }
+    #endregion
+
+    #region Right Joints
+
+    [System.Serializable]
+    public class RightJointClass
+    {
+        [Header("Right Body Parts")]
+
+        [SerializeField] public Transform t_R_Clavicle;
+
+        [SerializeField] public Transform t_R_Shoulder;
+
+        [SerializeField] public Transform t_R_Elbow;
+
+        [SerializeField] public Transform t_R_Wrist;
+
+        [SerializeField] public Transform t_R_Hip;
+
+        //[SerializeField] Transform t_R_Leg;
+
+        [SerializeField] public Transform t_R_Knee1;
+
+        [SerializeField] public Transform t_R_Knee2;
+
+        [SerializeField] public Transform t_R_Foot;
+    }
+    #endregion
+
+    #endregion
+
     #endregion
 
     #region Variables
 
-    [SerializeField] private bool showSolverDebug;
+    [Header("Debug Toggle")]
+    [SerializeField] bool IKDebug;
 
-    [SerializeField] private bool enableFeetIK = true;
+    float anim_speed;
 
-    [SerializeField] private Transform rightFoot;
+    #endregion
 
-    [SerializeField] private Transform leftFoot;
+    #region Humanoid Variables
 
-    private Vector3 rightFootPos, leftFootPos, rightFootIKPos, leftFootIKPos;
+    //[SerializeField] private bool showSolverDebug;
 
-    private Quaternion leftFootIKRot, rightFootIKRot;
+    //[SerializeField] private bool enableFeetIK = true;
 
-    private float lastPelvisPosY, lastRightFootPosY, lastLeftFootPosY;
+    //[SerializeField] private Transform rightFoot;
 
-    [Range(0, 2)] [SerializeField] private float heightFromGroundRaycast = 1.14f;
+    //[SerializeField] private Transform leftFoot;
 
-    [Range(0, 2)] [SerializeField] private float raycastDownDistance = 1.5f;
+    //private Vector3 rightFootPos, leftFootPos, rightFootIKPos, leftFootIKPos;
 
-    //[SerializeField] private LayerMask environmentLayer;
+    //private Quaternion leftFootIKRot, rightFootIKRot;
 
-    [SerializeField] private float pelvisOffset = 0f;
+    //private float lastPelvisPosY, lastRightFootPosY, lastLeftFootPosY;
 
-    [Range(0, 1)] [SerializeField] private float pelvisUpAndDownSpeed = 0.2f;
+    //[Range(0, 2)] [SerializeField] private float heightFromGroundRaycast = 1.14f;
 
-    [Range(0, 1)] [SerializeField] private float feetToIKPosSpeed = 0.5f;
+    //[Range(0, 2)] [SerializeField] private float raycastDownDistance = 1.5f;
 
-    [SerializeField] private string leftFootVariableName = "Left Foot Curve";
+    ////[SerializeField] private LayerMask environmentLayer;
 
-    [SerializeField] private string rightFootVariableName = "Right Foot Curve";
+    //[SerializeField] private float pelvisOffset = 0f;
 
-    public bool useProIKFeatures = true;
+    //[Range(0, 1)] [SerializeField] private float pelvisUpAndDownSpeed = 0.2f;
+
+    //[Range(0, 1)] [SerializeField] private float feetToIKPosSpeed = 0.5f;
+
+    //[SerializeField] private string leftFootVariableName = "Left Foot Curve";
+
+    //[SerializeField] private string rightFootVariableName = "Right Foot Curve";
+
+    //public bool useProIKFeatures = true;
 
     #endregion
 
     // Start is called before the first frame update
     void Start()
     {
-        animator = GetComponent<Animator>();
+        animator = this.transform.GetComponent<Animator>();
+
+        rb = this.transform.GetComponent<Rigidbody>();
     }
 
     // Update is called once per frame
     void Update()
     {
-
-    }
-
-    #region Feet Grounding
-
-    private void FixedUpdate()
-    {
-        #region IK System Check
-
-        if (enableFeetIK == false)
-        {
+        if (!rb)
             return;
-        }
 
-        if (animator == null)
+        float speed = rb.velocity.magnitude;
+
+        anim_speed = Mathf.Lerp(anim_speed, speed / 5, Time.deltaTime * 5);
+
+        //animator.SetFloat("Speed", anim_speed);
+
+        #region Debug Log
+
+        if (IKDebug)
         {
-            return;
+            Debug.Log("Generic IK: speed = " + speed);
+
+            Debug.Log("Generic IK: anim_speed = " + anim_speed);
         }
-
-        #endregion
-
-        #region Adjust Feet
-
-        adjustFeetTarget(ref rightFootPos, rightFoot);
-
-        adjustFeetTarget(ref leftFootPos, leftFoot);
-
-        feetPositionSolver(rightFootPos, ref rightFootIKPos, ref rightFootIKRot); //Handles the solver for the right foot
-
-        feetPositionSolver(leftFootPos, ref leftFootIKPos, ref leftFootIKRot); //Handles the solver for the left foot
 
         #endregion
     }
 
-    private void OnAnimatorIK(int layerIndex)
+    private void LateUpdate()
     {
-        if (enableFeetIK == false)
+        updateCharacterBones();
+    }
+
+    #region Generic IK Methods
+
+    void updateCharacterBones()
+    {
+        RaycastHit LHip_Hit;
+        RaycastHit RHip_Hit;
+
+        if(Physics.Raycast(LeftJoints.t_L_Hip.position, Vector3.down, out LHip_Hit, 10))
         {
-            return;
+            Debug.DrawLine(LeftJoints.t_L_Hip.position, LHip_Hit.point, Color.red);
         }
 
-        if (animator == null)
+        if(Physics.Raycast(RightJoints.t_R_Hip.position, Vector3.down, out RHip_Hit, 10))
         {
-            return;
+            Debug.DrawLine(RightJoints.t_R_Hip.position, RHip_Hit.point, Color.red);
         }
-
-        movePelvisHeight();
-
-        //right foot ik position & rotation -- utilize pro features here
-        animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
-
-        if (useProIKFeatures)
-        {
-            animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, animator.GetFloat(rightFootVariableName));
-        }
-
-        moveFeetToIKPoint(AvatarIKGoal.RightFoot, rightFootIKPos, rightFootIKRot, ref lastRightFootPosY);
-
-        //left foot ik position & rotation -- utilize pro features here
-        animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
-
-        if (useProIKFeatures)
-        {
-            animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, animator.GetFloat(leftFootVariableName));
-        }
-
-        moveFeetToIKPoint(AvatarIKGoal.LeftFoot, leftFootIKPos, leftFootIKRot, ref lastLeftFootPosY);
     }
 
     #endregion
 
-    #region Feet Grounding Methods
+    #region Old Feet Grounding
 
-    private void moveFeetToIKPoint(AvatarIKGoal foot, Vector3 positionIKHolder, Quaternion rotationIKHolder, ref float lastFootPositionY)
-    {
-        Vector3 targetIKPosition = animator.GetIKPosition(foot);
+    //private void FixedUpdate()
+    //{
+    //    #region IK System Check
 
-        if (positionIKHolder != Vector3.zero)
-        {
-            targetIKPosition = transform.InverseTransformPoint(targetIKPosition);
+    //    if (enableFeetIK == false)
+    //    {
+    //        return;
+    //    }
 
-            positionIKHolder = transform.InverseTransformPoint(positionIKHolder);
+    //    if (animator == null)
+    //    {
+    //        return;
+    //    }
 
-            float yVariable = Mathf.Lerp(lastFootPositionY, positionIKHolder.y, feetToIKPosSpeed);
+    //    #endregion
 
-            targetIKPosition.y += yVariable;
+    //    #region Adjust Feet
 
-            lastFootPositionY = yVariable;
+    //    adjustFeetTarget(ref rightFootPos, rightFoot);
 
-            targetIKPosition = transform.TransformPoint(targetIKPosition);
+    //    adjustFeetTarget(ref leftFootPos, leftFoot);
 
-            animator.SetIKPosition(foot, targetIKPosition);
-        }
+    //    feetPositionSolver(rightFootPos, ref rightFootIKPos, ref rightFootIKRot); //Handles the solver for the right foot
 
-        animator.SetIKPosition(foot, targetIKPosition);
-    }
+    //    feetPositionSolver(leftFootPos, ref leftFootIKPos, ref leftFootIKRot); //Handles the solver for the left foot
 
-    private void movePelvisHeight()
-    {
-        if (rightFootIKPos == Vector3.zero || leftFootIKPos == Vector3.zero || lastPelvisPosY == 0)
-        {
-            lastPelvisPosY = animator.bodyPosition.y;
-            return;
-        }
+    //    #endregion
+    //}
 
-        float lOffsetPos = leftFootIKPos.y - transform.position.y;
+    //private void OnAnimatorIK(int layerIndex)
+    //{
+    //    if (enableFeetIK == false)
+    //    {
+    //        return;
+    //    }
 
-        float rOffsetPos = rightFootIKPos.y - transform.position.y;
+    //    if (animator == null)
+    //    {
+    //        return;
+    //    }
 
-        float totalOffset = (lOffsetPos < rOffsetPos) ? lOffsetPos : rOffsetPos;
+    //    movePelvisHeight();
 
-        Vector3 newPelvisPos = animator.bodyPosition + Vector3.up * totalOffset;
+    //    //right foot ik position & rotation -- utilize pro features here
+    //    animator.SetIKPositionWeight(AvatarIKGoal.RightFoot, 1);
 
-        newPelvisPos.y = Mathf.Lerp(lastPelvisPosY, newPelvisPos.y, pelvisUpAndDownSpeed);
+    //    if (useProIKFeatures)
+    //    {
+    //        animator.SetIKRotationWeight(AvatarIKGoal.RightFoot, animator.GetFloat(rightFootVariableName));
+    //    }
 
-        animator.bodyPosition = newPelvisPos;
+    //    moveFeetToIKPoint(AvatarIKGoal.RightFoot, rightFootIKPos, rightFootIKRot, ref lastRightFootPosY);
 
-        lastPelvisPosY = animator.bodyPosition.y;
-    }
+    //    //left foot ik position & rotation -- utilize pro features here
+    //    animator.SetIKPositionWeight(AvatarIKGoal.LeftFoot, 1);
 
-    private void feetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIKPositions, ref Quaternion feetIKRotations)
-    {
-        //raycast handling section
-        RaycastHit feetOutHit;
+    //    if (useProIKFeatures)
+    //    {
+    //        animator.SetIKRotationWeight(AvatarIKGoal.LeftFoot, animator.GetFloat(leftFootVariableName));
+    //    }
 
-        if (showSolverDebug)
-            Debug.DrawLine(fromSkyPosition, fromSkyPosition + Vector3.down * (raycastDownDistance + heightFromGroundRaycast), Color.blue);
-
-        if (Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromGroundRaycast))
-        {
-            feetIKPositions = fromSkyPosition;
-
-            feetIKPositions.y = feetOutHit.point.y + pelvisOffset;
-
-            feetIKRotations = Quaternion.FromToRotation(Vector3.up, feetOutHit.normal) * transform.rotation;
-
-            return;
-        }
-
-        feetIKPositions = Vector3.zero;
-    }
-
-    private void adjustFeetTarget(ref Vector3 feetPositions, Transform foot)
-    {
-        feetPositions = foot.position;
-
-        feetPositions.y = transform.position.y + heightFromGroundRaycast;
-    }
+    //    moveFeetToIKPoint(AvatarIKGoal.LeftFoot, leftFootIKPos, leftFootIKRot, ref lastLeftFootPosY);
+    //}
 
     #endregion
+
+    #region Old Feet Grounding Methods
+
+    //private void moveFeetToIKPoint(AvatarIKGoal foot, Vector3 positionIKHolder, Quaternion rotationIKHolder, ref float lastFootPositionY)
+    //{
+    //    Vector3 targetIKPosition = animator.GetIKPosition(foot);
+
+    //    if (positionIKHolder != Vector3.zero)
+    //    {
+    //        targetIKPosition = transform.InverseTransformPoint(targetIKPosition);
+
+    //        positionIKHolder = transform.InverseTransformPoint(positionIKHolder);
+
+    //        float yVariable = Mathf.Lerp(lastFootPositionY, positionIKHolder.y, feetToIKPosSpeed);
+
+    //        targetIKPosition.y += yVariable;
+
+    //        lastFootPositionY = yVariable;
+
+    //        targetIKPosition = transform.TransformPoint(targetIKPosition);
+
+    //        animator.SetIKPosition(foot, targetIKPosition);
+    //    }
+
+    //    animator.SetIKPosition(foot, targetIKPosition);
+    //}
+
+    //private void movePelvisHeight()
+    //{
+    //    if (rightFootIKPos == Vector3.zero || leftFootIKPos == Vector3.zero || lastPelvisPosY == 0)
+    //    {
+    //        lastPelvisPosY = animator.bodyPosition.y;
+    //        return;
+    //    }
+
+    //    float lOffsetPos = leftFootIKPos.y - transform.position.y;
+
+    //    float rOffsetPos = rightFootIKPos.y - transform.position.y;
+
+    //    float totalOffset = (lOffsetPos < rOffsetPos) ? lOffsetPos : rOffsetPos;
+
+    //    Vector3 newPelvisPos = animator.bodyPosition + Vector3.up * totalOffset;
+
+    //    newPelvisPos.y = Mathf.Lerp(lastPelvisPosY, newPelvisPos.y, pelvisUpAndDownSpeed);
+
+    //    animator.bodyPosition = newPelvisPos;
+
+    //    lastPelvisPosY = animator.bodyPosition.y;
+    //}
+
+    //private void feetPositionSolver(Vector3 fromSkyPosition, ref Vector3 feetIKPositions, ref Quaternion feetIKRotations)
+    //{
+    //    //raycast handling section
+    //    RaycastHit feetOutHit;
+
+    //    if (showSolverDebug)
+    //        Debug.DrawLine(fromSkyPosition, fromSkyPosition + Vector3.down * (raycastDownDistance + heightFromGroundRaycast), Color.blue);
+
+    //    if (Physics.Raycast(fromSkyPosition, Vector3.down, out feetOutHit, raycastDownDistance + heightFromGroundRaycast))
+    //    {
+    //        feetIKPositions = fromSkyPosition;
+
+    //        feetIKPositions.y = feetOutHit.point.y + pelvisOffset;
+
+    //        feetIKRotations = Quaternion.FromToRotation(Vector3.up, feetOutHit.normal) * transform.rotation;
+
+    //        return;
+    //    }
+
+    //    feetIKPositions = Vector3.zero;
+    //}
+
+    //private void adjustFeetTarget(ref Vector3 feetPositions, Transform foot)
+    //{
+    //    feetPositions = foot.position;
+
+    //    feetPositions.y = transform.position.y + heightFromGroundRaycast;
+    //}
+
+    #endregion
+
 }

@@ -14844,6 +14844,10 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -0.00007318768
       objectReference: {fileID: 0}
+    - target: {fileID: 3105496587165916289, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: m_TagString
+      value: Abilities
+      objectReference: {fileID: 0}
     - target: {fileID: 3105496587165916290, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_AnchoredPosition.x
       value: -50
@@ -15013,6 +15017,22 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 135553103}
+    - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: combatDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: comboDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: hammerDebug
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 4600396688792552454, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: whirlwindDebug
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 4600396688792552456, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_Name
       value: Player
@@ -15108,6 +15128,10 @@ PrefabInstance:
     - target: {fileID: 7020467240620312389, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: isFalling
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7020467240620312389, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
+      propertyPath: jumpDebug
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7735239572052706577, guid: 44a9efad67223ee48864f56daa7f1ee5, type: 3}
       propertyPath: m_Priority

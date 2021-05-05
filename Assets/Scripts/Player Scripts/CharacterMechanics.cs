@@ -361,7 +361,7 @@ public class CharacterMechanics : MonoBehaviour
 
         mh = this.transform.GetComponent<MovementHelper>();
 
-        abilities = this.transform.GetComponent<AbilitiesCooldown>();
+        abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         #endregion
 
@@ -449,7 +449,7 @@ public class CharacterMechanics : MonoBehaviour
             //if (!respawnPoint)
             //    respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
-            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+//            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
             if(respawnPoint)
             transform.position = respawnPoint.transform.position;
