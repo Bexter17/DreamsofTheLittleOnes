@@ -56,7 +56,6 @@ public class ActionItem
 
 #endregion
 
-[RequireComponent(typeof(CharacterController))]
 [RequireComponent(typeof(Animator))]
 public class CharacterMechanics : MonoBehaviour
 {

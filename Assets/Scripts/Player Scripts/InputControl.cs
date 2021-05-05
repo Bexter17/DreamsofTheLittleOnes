@@ -107,7 +107,7 @@ public class InputControl : MonoBehaviour
     {
         #region Components
 
-        controller = GetComponent<CharacterController>();
+        controller = this.transform.GetComponent<CharacterController>();
 
         //       controllerList = Input.GetJoystickNames();
 
@@ -147,7 +147,9 @@ public class InputControl : MonoBehaviour
 
         raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
-        raycastSpawn.transform.position = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
+        raycastSpawn.transform.parent = this.transform;
+
+        raycastSpawn.transform.localPosition = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
 
         groundSearchLength = (characterSize.y * 0.5f);
 
@@ -232,12 +234,12 @@ public class InputControl : MonoBehaviour
 
                 //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
 
-                if (raycastSpawn)
-                {
-                    Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
+                //if (raycastSpawn)
+                //{
+                //    Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
 
-                    transform.TransformDirection(raycastSpawn.transform.forward);
-                }
+                //    transform.TransformDirection(raycastSpawn.transform.forward);
+                //}
 
                 if (controller)
                     controller.Move(moveDirection * Time.deltaTime * currentSpeed);
