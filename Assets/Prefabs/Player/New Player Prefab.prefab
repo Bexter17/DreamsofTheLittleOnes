@@ -608,8 +608,8 @@ MonoBehaviour:
   isPlaying: 1
   respawnPoint: {fileID: 0}
   playerStats: {fileID: 0}
-  attackRangePrefab: {fileID: 0}
-  cameraShake2Prefab: {fileID: 0}
+  attackRangePrefab: {fileID: 7435521846774367407, guid: 05f422ed95fde104ba36b39d029898f8, type: 3}
+  cameraShake2Prefab: {fileID: 7435521846774367407, guid: 05f422ed95fde104ba36b39d029898f8, type: 3}
   comboCount: 0
   attackTimer: 3
   isAttacking: 0
@@ -621,7 +621,7 @@ MonoBehaviour:
   hammerSmashPrefab: {fileID: 3399353032465245422, guid: 3bba464e5124fc34ca30b169a41fc997, type: 3}
   hammerSmashSpawn: {fileID: 644683993412691518}
   hammerSmashDamage: 5
-  cameraShake1Prefab: {fileID: 0}
+  cameraShake1Prefab: {fileID: 8372381844889341979, guid: 59f0275e1f2ac6e48966a6364278c1a0, type: 3}
   whirlwindRangePrefab: {fileID: 3399353032465245422, guid: bc0c7f0485d74da4c8bf5484be1ea18a, type: 3}
   whirlwindSpawn: {fileID: 3359164965064642167}
   whirlwindDamage: 10
@@ -663,7 +663,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   CentralJoints:
-    ctrl_root: {fileID: 0}
+    ctrl_root: {fileID: 7394168694994831501}
     t_root: {fileID: 8953775517948283521}
     t_Pelvis: {fileID: 608495988534686856}
     t_Spine1: {fileID: 2134428689480268542}
@@ -2125,6 +2125,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3588806423389122144}
   - component: {fileID: 3588806423389122145}
+  - component: {fileID: 460843734}
   m_Layer: 0
   m_Name: CM Standard
   m_TagString: Untagged
@@ -2182,6 +2183,21 @@ MonoBehaviour:
         m_Calls: []
   m_LegacyBlendHint: 0
   m_ComponentOwner: {fileID: 3588806424379579418}
+--- !u!114 &460843734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3588806423389122146}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 00b2d199b96b516448144ab30fb26aed, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_ChannelMask: 1
+  m_Gain: 1
+  m_Use2DDistance: 0
 --- !u!1 &3588806423443749860
 GameObject:
   m_ObjectHideFlags: 0
@@ -7551,6 +7567,11 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6451124444332061832, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
+--- !u!1 &1933997920073873310 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6451124444011968627, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
+  m_PrefabInstance: {fileID: 4850393686916517869}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2980780511023603679 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7641996452692807730, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
@@ -7561,19 +7582,14 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 6451124445172183406, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1933997921686162626 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6451124445620093743, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
-  m_PrefabInstance: {fileID: 4850393686916517869}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1933997920245986697 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6451124443655699044, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1933997920073873310 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 6451124444011968627, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
+--- !u!224 &1933997921686162626 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6451124445620093743, guid: c605d3be1239a2540a94e291f99e173f, type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
 --- !u!1001 &7572833774052680341

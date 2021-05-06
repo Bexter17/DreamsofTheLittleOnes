@@ -94,8 +94,8 @@ public class RangedEnemy : MonoBehaviour
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("Player").transform;
-        cm = GameObject.Find("Player").GetComponent<CharacterMechanics>();
+        target = GameObject.Find("New Player Prefab").transform;
+        cm = GameObject.Find("New Player Prefab").GetComponent<CharacterMechanics>();
         #endregion
 
         #region default values
