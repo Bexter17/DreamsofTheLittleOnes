@@ -6,6 +6,7 @@ using UnityEngine.AI;
 
 public class RangedEnemy : MonoBehaviour
 {
+    //May 5, 2021
     #region Variables
 
     [Header("Essentials")]
@@ -16,6 +17,7 @@ public class RangedEnemy : MonoBehaviour
 
     public Rigidbody rb;
     public Transform target;
+    [SerializeField] private GameObject ragdoll;
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] float attackTimer = 0;
@@ -180,6 +182,7 @@ public class RangedEnemy : MonoBehaviour
             //IsStationary
             else
             {
+                rb.isKinematic = true;
                 if (Vector3.Distance(target.position, gameObject.transform.position) <= attackRange)
                 {
                     eAnim.SetBool("Chase", false);
@@ -206,12 +209,16 @@ public class RangedEnemy : MonoBehaviour
         hp -= dmg;
         if (hp <= 0 && !death)
         {
+            transform.GetComponent<CapsuleCollider>().enabled = false;
+            Vector3 ragdollPos = transform.position;
+            ragdollPos.y -= 1.5f;
+            GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
+            temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            Destroy(gameObject);
             death = true;
-            Debug.Log("Enemy has been killed");
-            agent.isStopped = true;
-            // so that enemy doesn't move after dying
-            eAnim.SetTrigger("Death");
-            //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
+            //Debug.Log("Enemy has been killed");
+            //agent.isStopped = true;
+            //eAnim.SetTrigger("Death");
         }
         hpBar.fillAmount = (float)(hp * 0.2);
 
@@ -324,7 +331,10 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        if (Time.time - attackTimer > 1.0f)
+        RaycastHit hit;
+        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit);
+
+        if (Time.time - attackTimer > 1.0f && hit.collider.tag == "Player")
         {
             eAnim.SetTrigger("Attack");
             attackTimer = Time.time;
