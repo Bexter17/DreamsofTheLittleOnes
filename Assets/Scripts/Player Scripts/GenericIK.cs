@@ -29,6 +29,8 @@ public class GenericIK : MonoBehaviour
     {
         [Header("Central Body Parts")]
 
+        [SerializeField] public Transform ctrl_root;
+
         [SerializeField] public Transform t_root;
 
         [SerializeField] public Transform t_Pelvis;
@@ -225,7 +227,8 @@ public class GenericIK : MonoBehaviour
                 Debug.Log("IK: angle = " + angle);
 
           CentralJoints.t_root.localEulerAngles = new Vector3(0, 0, angle);
-          //this.transform.localEulerAngles = new Vector3(this.transform.rotation.x, this.transform.rotation.y, angle);
+          CentralJoints.ctrl_root.localEulerAngles = new Vector3(0, 0, angle);
+            //this.transform.localEulerAngles = new Vector3(this.transform.rotation.x, this.transform.rotation.y, angle);
         }
     }
 

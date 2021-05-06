@@ -64,7 +64,7 @@ public class CharacterMechanics : MonoBehaviour
     //to accomplish this task next week.
     #region hammerSmashUPDATE
 
-    enum ability { hammerSmashDown};
+    enum ability { hammerSmashDown };
 
     IEnumerator hammerSmashDown()
     {
@@ -86,7 +86,7 @@ public class CharacterMechanics : MonoBehaviour
             //Run animation and wait for keyframe to spawn AOE 
             ac.smash();
             yield return new WaitForSeconds(1.2f);
-            
+
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
             cameraShakeTemp = Instantiate(cameraShake1Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
             //Wait for AOE to affect enemies then delete
@@ -123,6 +123,20 @@ public class CharacterMechanics : MonoBehaviour
     GameObject Aimshoot;
 
     public SimpleCameraShake ControlCameraShake;
+
+    //GameObject walkingHammerParent;
+
+    //Vector3 walkingHammerPos;// = new Vector3(-0.04057372f, 0.002686029f, -0.08613893f);
+
+    //Quaternion walkingHammerRot;// = new Quaternion(29.389f, 113.427f, -111.794f, 0.0f);
+
+    //GameObject abilityHammerParent;
+
+    //Vector3 abilityHammerPos = new Vector3(0.02094901f, -0.02669797f, 0.08019073f);
+
+    //Quaternion abilityHammerRot = new Quaternion(-4.141f, 91.202f, 73.793f, 0.0f);
+
+    //GameObject Hammer;
 
     #endregion
 
@@ -357,8 +371,8 @@ public class CharacterMechanics : MonoBehaviour
 
         Aimshoot = GameObject.FindGameObjectWithTag("FreeAimer");
 
-        if(Aimshoot)
-        aims = Aimshoot.transform.GetComponent<AimShoot>();
+        if (Aimshoot)
+            aims = Aimshoot.transform.GetComponent<AimShoot>();
 
         ac = this.transform.GetComponent<AnimController>();
 
@@ -370,6 +384,16 @@ public class CharacterMechanics : MonoBehaviour
 
         abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
+        //walkingHammerParent = GameObject.FindGameObjectWithTag("Walking Hammer Pos");
+
+        //abilityHammerParent = GameObject.FindGameObjectWithTag("Ability Hammer Pos");
+
+        //Hammer = GameObject.Find("Hammer");
+
+        //walkingHammerPos = Hammer.transform.position;
+
+        //walkingHammerRot = Hammer.transform.rotation;
+
         #endregion
 
         #region Health
@@ -377,16 +401,16 @@ public class CharacterMechanics : MonoBehaviour
         if (!HealthBar)
             HealthBar = GameObject.FindGameObjectWithTag("Health Bar");
 
-        if(healthBar)
-        healthBar = HealthBar.GetComponent<HealthBar>();
+        if (healthBar)
+            healthBar = HealthBar.GetComponent<HealthBar>();
 
         currentHealth = maxHealth;
 
-        if(healthBar)
-        healthBar.SetMaxHealth(maxHealth);
+        if (healthBar)
+            healthBar.SetMaxHealth(maxHealth);
 
-        if(healthBar)
-        healthBar.SetHealth(currentHealth);
+        if (healthBar)
+            healthBar.SetHealth(currentHealth);
 
         #endregion
 
@@ -456,10 +480,10 @@ public class CharacterMechanics : MonoBehaviour
             //if (!respawnPoint)
             //    respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
-//            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+            //            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
-            if(respawnPoint)
-            transform.position = respawnPoint.transform.position;
+            if (respawnPoint)
+                transform.position = respawnPoint.transform.position;
 
             #endregion
 
@@ -509,14 +533,14 @@ public class CharacterMechanics : MonoBehaviour
                 {
                     currentHealth = maxHealth;
 
-                    if(playerStats)
-                    playerStats.text = "God Mode Active!";
+                    if (playerStats)
+                        playerStats.text = "God Mode Active!";
                 }
 
                 else if (!godMode)
                 {
-                    if(playerStats)
-                    playerStats.text = " ";
+                    if (playerStats)
+                        playerStats.text = " ";
                 }
                 //If health drops to or below zero, the player dies
                 if (currentHealth <= 0)
@@ -534,13 +558,13 @@ public class CharacterMechanics : MonoBehaviour
                     {
                         isAlive = false;
 
-                        if(ib)
-                        ib.actionAllowed = false;
+                        if (ib)
+                            ib.actionAllowed = false;
 
                         comboCount = 0;
 
-                        if(ac)
-                        ac.Die();
+                        if (ac)
+                            ac.Die();
 
                         Invoke("TryAgain", 2);
                     }
@@ -621,11 +645,11 @@ public class CharacterMechanics : MonoBehaviour
 
         if (collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
         {
-            if(respawnPoint)
-            gameObject.transform.position = respawnPoint.transform.position;
+            if (respawnPoint)
+                gameObject.transform.position = respawnPoint.transform.position;
 
-            if(ac)
-            ac.respawn();
+            if (ac)
+                ac.respawn();
             //die();
         }
     }
@@ -770,14 +794,14 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 0;
 
-        if(ac)
-        ac.takeDamage();
+        if (ac)
+            ac.takeDamage();
 
         if (!godMode)
             currentHealth -= dmgDealt;
 
-        if(healthBar)
-        healthBar.SetHealth(currentHealth);
+        if (healthBar)
+            healthBar.SetHealth(currentHealth);
 
         if (combatDebug)
         {
@@ -817,7 +841,7 @@ public class CharacterMechanics : MonoBehaviour
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
-        ac.attack(comboCount);
+            ac.attack(comboCount);
 
         #region Debug Log
 
@@ -858,7 +882,7 @@ public class CharacterMechanics : MonoBehaviour
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
-        ac.attack(comboCount);
+            ac.attack(comboCount);
 
         #region Debug Log
 
@@ -899,7 +923,7 @@ public class CharacterMechanics : MonoBehaviour
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
-        ac.attack(comboCount);
+            ac.attack(comboCount);
 
 
         #region Debug Log
@@ -958,8 +982,6 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        Debug.LogError("AttackEnd Called");
-
         //sends message to the players sword script to stop dealing damage on collision
         //   sword.SendMessage("deactivateAttack");
 
@@ -996,12 +1018,12 @@ public class CharacterMechanics : MonoBehaviour
         //        animator.SetInteger("Counter", comboCount);
         //    }
 
-        if(ac)
-        ac.setComboCount(comboCount);
+        if (ac)
+            ac.setComboCount(comboCount);
         //}
 
-        if(ib)
-        ib.setBufferTrue();
+        if (ib)
+            ib.setBufferTrue();
 
         isAttacking = false;
 
@@ -1018,8 +1040,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if(ib)
-        ib.tryBufferedAction();
+        if (ib)
+            ib.tryBufferedAction();
 
         //comboCount = 0;
 
@@ -1047,9 +1069,9 @@ public class CharacterMechanics : MonoBehaviour
 
                 if (comboDebug)
                     Debug.Log("Combo System: comboCount set to 0 by comboReset()");
-                
-                if(ac)
-                ac.setComboCount(comboCount);
+
+                if (ac)
+                    ac.setComboCount(comboCount);
             }
             else if (!ib.actionAllowed)
             {
@@ -1144,8 +1166,8 @@ public class CharacterMechanics : MonoBehaviour
 
         dashTemp = null;
 
-        if(ib)
-        ib.setBufferTrue();
+        if (ib)
+            ib.setBufferTrue();
 
         AttackEnd();
     }
@@ -1161,8 +1183,19 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if(abilities)
-        abilities.activateAbility3();
+        //if (Hammer && abilityHammerParent)
+        //{
+        //    Hammer.transform.parent = abilityHammerParent.transform;
+
+        //    Hammer.transform.localPosition = abilityHammerPos;
+
+        //    Hammer.transform.localRotation = abilityHammerRot;
+
+        //    Debug.Log("Hammer parent = " + Hammer.transform.parent);
+        //}
+
+        if (abilities)
+            abilities.activateAbility3();
 
         StartCoroutine(hammerSmashDown());
     }
@@ -1178,19 +1211,30 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        //if (Hammer && abilityHammerParent)
+        //{
+        //    Hammer.transform.parent = abilityHammerParent.transform;
+
+        //    Hammer.transform.localPosition = abilityHammerPos;
+
+        //    Hammer.transform.localRotation = abilityHammerRot;
+
+        //    Debug.Log("Hammer parent = " + Hammer.transform.parent);
+        //}
+
         if (ib)
         {
             if (ib.actionAllowed)
             {
                 ib.setBufferFalse();
 
-                if(abilities)
-                abilities.activateAbility2();
+                if (abilities)
+                    abilities.activateAbility2();
 
                 comboCount = 0;
 
-                if(ac)
-                ac.spin();
+                if (ac)
+                    ac.spin();
 
                 //whirlwindTemp = Instantiate(whirlwindRangePrefab, whirlwindSpawn.position, whirlwindSpawn.transform.rotation, gameObject.transform);
 
@@ -1223,8 +1267,19 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        if(ib)
-        ib.setBufferTrue();
+        //if (Hammer && walkingHammerParent)
+        //{
+        //    Hammer.transform.parent = walkingHammerParent.transform;
+
+        //    Hammer.transform.localPosition = walkingHammerPos;
+
+        //    Hammer.transform.localRotation = walkingHammerRot;
+
+        //    Debug.Log("Hammer parent = " + Hammer.transform.parent);
+        //}
+
+        if (ib)
+            ib.setBufferTrue();
 
         isSpinning = false;
 
@@ -1244,10 +1299,21 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        //if (Hammer && walkingHammerParent)
+        //{
+        //    Hammer.transform.parent = walkingHammerParent.transform;
+
+        //    Hammer.transform.localPosition = walkingHammerPos;
+
+        //    Hammer.transform.localRotation = walkingHammerRot;
+
+        //    Debug.Log("Hammer parent = " + Hammer.transform.parent);
+        //}
+
         AttackEnd();
 
-        if(ib)
-        ib.setBufferTrue();
+        if (ib)
+            ib.setBufferTrue();
 
         Destroy(hammerSmashTemp);
     }
@@ -1290,11 +1356,11 @@ public class CharacterMechanics : MonoBehaviour
 
                     ib.setBufferFalse();
 
-                    if(abilities)
-                    abilities.activateAbility4();
+                    if (abilities)
+                        abilities.activateAbility4();
 
-                    if(ac)
-                    ac.throw_();
+                    if (ac)
+                        ac.throw_();
 
                     GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
@@ -1318,8 +1384,8 @@ public class CharacterMechanics : MonoBehaviour
 
         if (IsAimOn)
         {
-            if(aims)
-            aims.Throw();
+            if (aims)
+                aims.Throw();
         }
     }
 
@@ -1336,8 +1402,8 @@ public class CharacterMechanics : MonoBehaviour
 
     public void rangedEnd()
     {
-        if(ib)
-        ib.setBufferTrue();
+        if (ib)
+            ib.setBufferTrue();
     }
 
     #endregion
