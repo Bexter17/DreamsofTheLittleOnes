@@ -10,14 +10,14 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: a5969901aa40942499363f92e3787110, type: 3}
-  m_Name: CinemachineFixedSignal
+  m_Name: BasicAttackShake
   m_EditorClassIdentifier: 
   m_XCurve:
     serializedVersion: 2
     m_Curve:
     - serializedVersion: 3
-      time: -0.0012664795
-      value: 0.99768066
+      time: -0.0038070679
+      value: 1.0030212
       inSlope: 2
       outSlope: 2
       tangentMode: 0
@@ -25,8 +25,8 @@ MonoBehaviour:
       inWeight: 0
       outWeight: 0
     - serializedVersion: 3
-      time: 1.0025024
-      value: 0
+      time: 0.08892822
+      value: -0.106781006
       inSlope: 0
       outSlope: 0
       tangentMode: 0

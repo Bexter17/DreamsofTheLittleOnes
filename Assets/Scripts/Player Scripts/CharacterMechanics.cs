@@ -64,7 +64,7 @@ public class CharacterMechanics : MonoBehaviour
     //to accomplish this task next week.
     #region hammerSmashUPDATE
 
-    enum ability { hammerSmashDown };
+    enum ability { hammerSmashDown};
 
     IEnumerator hammerSmashDown()
     {
@@ -86,13 +86,14 @@ public class CharacterMechanics : MonoBehaviour
             //Run animation and wait for keyframe to spawn AOE 
             ac.smash();
             yield return new WaitForSeconds(1.2f);
-            //            ControlCameraShake.shakeOn = true;
+            
             hammerSmashTemp = Instantiate(hammerSmashPrefab, hammerSmashSpawn.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
-
+            cameraShakeTemp = Instantiate(cameraShake1Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
             //Wait for AOE to affect enemies then delete
             Debug.Log("TIMER: 1 Second");
             yield return new WaitForSeconds(1);
             Debug.Log("HammerSmash has been removed");
+            Destroy(cameraShakeTemp, 0.5f);
             Destroy(hammerSmashTemp, 2);
             AttackEnd();
         }
@@ -200,6 +201,9 @@ public class CharacterMechanics : MonoBehaviour
     //holds the box collider for the attack range
     [SerializeField] private GameObject attackRangePrefab;
 
+    private GameObject cameraShakeTemp2;
+
+    public GameObject cameraShake2Prefab;
     //creates atemporary, destructable version of the prefab
     //private GameObject attackTemp;
 
@@ -246,6 +250,10 @@ public class CharacterMechanics : MonoBehaviour
     [SerializeField] private int hammerSmashDamage;
 
     private GameObject hammerSmashTemp;
+
+    private GameObject cameraShakeTemp;
+
+    public GameObject cameraShake1Prefab;
 
     #endregion
 
@@ -806,8 +814,9 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 1;
 
         isAttacking = true;
-
-        if(ac)
+        //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+        //Destroy(cameraShakeTemp2, 0.5f);
+        if (ac)
         ac.attack(comboCount);
 
         #region Debug Log
@@ -846,8 +855,9 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 2;
 
         isAttacking = true;
-
-        if(ac)
+        //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+        //Destroy(cameraShakeTemp2, 0.5f);
+        if (ac)
         ac.attack(comboCount);
 
         #region Debug Log
@@ -886,8 +896,9 @@ public class CharacterMechanics : MonoBehaviour
         comboCount = 3;
 
         isAttacking = true;
-
-        if(ac)
+        //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
+        //Destroy(cameraShakeTemp2, 0.5f);
+        if (ac)
         ac.attack(comboCount);
 
 
