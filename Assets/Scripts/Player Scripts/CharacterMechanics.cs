@@ -480,7 +480,7 @@ public class CharacterMechanics : MonoBehaviour
             //if (!respawnPoint)
             //    respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
 
-            //            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
             if (respawnPoint)
                 transform.position = respawnPoint.transform.position;
@@ -645,11 +645,13 @@ public class CharacterMechanics : MonoBehaviour
 
         if (collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
         {
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+
             if (respawnPoint)
                 gameObject.transform.position = respawnPoint.transform.position;
 
-            if (ac)
-                ac.respawn();
+            //if (ac)
+            //    ac.respawn();
             //die();
         }
     }
