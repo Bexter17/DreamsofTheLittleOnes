@@ -84,9 +84,13 @@ public class InputControl : MonoBehaviour
 
     #region Camera 
 
-    public float HorizontalRotationSpeed = 0.65f;
+    public float mouseHorizontalRotationSpeed = 0.65f;
 
-    public float VerticalRotationSpeed = 0.65f;
+    public float mouseVerticalRotationSpeed = 0.65f;
+
+    public float controllerHorizontalRotationSpeed = 0.65f;
+
+    public float controllerVerticalRotationSpeed = 0.65f;
 
     GameObject thirdPersonCam;
 
@@ -103,11 +107,11 @@ public class InputControl : MonoBehaviour
     {
         #region Components
 
-        controller = GetComponent<CharacterController>();
+        controller = this.transform.GetComponent<CharacterController>();
 
         //       controllerList = Input.GetJoystickNames();
 
-        cooldown = this.transform.GetComponent<AbilitiesCooldown>();
+        cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         ib = this.transform.GetComponent<InputBuffer>();
 
@@ -143,7 +147,9 @@ public class InputControl : MonoBehaviour
 
         raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
-        raycastSpawn.transform.position = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
+        raycastSpawn.transform.parent = this.transform;
+
+        raycastSpawn.transform.localPosition = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
 
         groundSearchLength = (characterSize.y * 0.5f);
 
@@ -171,74 +177,82 @@ public class InputControl : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (cm.isPlaying)
+        if (cm)
         {
-            //Assign "moveDirection" to track vertical movement
-            //   moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
-
-            //   strafeDirection = new Vector3(0, Input.GetAxis("Horizontal"), 0);
-
-            //Character rotation
-            //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
-
-            //track any applied speed boosts
-            currentSpeed = movementSpeed + speedBoost;
-
-            //Character movement
-            //Vector3 forward = transform.TransformDirection(Vector3.forward);
-
-            //Movement speed
-            //float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
-
-            //Character controller movement
-            //   controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
-
-            //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
-
-            isGrounded = groundCheck(isGrounded);
-
-            if (isGrounded)
+            if (cm.isPlaying)
             {
-                if (isFalling)
-                    isFalling = false;
+                //controller.center = new Vector3(0, raycastSpawn.transform.position.y, 0);
 
-                if (isJumping)
-                    isJumping = false;
+                //Assign "moveDirection" to track vertical movement
+                //   moveDirection = new Vector3(0, 0, Input.GetAxis("Vertical"));
+
+                //   strafeDirection = new Vector3(0, Input.GetAxis("Horizontal"), 0);
+
+                //Character rotation
+                //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
+
+                //track any applied speed boosts
+                currentSpeed = movementSpeed + speedBoost;
+
+                //Character movement
+                //Vector3 forward = transform.TransformDirection(Vector3.forward);
+
+                //Movement speed
+                //float curSpeed = Input.GetAxis("Vertical") * currentSpeed;
+
+                //Character controller movement
+                //   controller.SimpleMove(transform.forward * (Input.GetAxis("Vertical") * currentSpeed));
+
+                //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
+
+                isGrounded = groundCheck(isGrounded);
+
+                if (isGrounded)
+                {
+                    if (isFalling)
+                        isFalling = false;
+
+                    if (isJumping)
+                        isJumping = false;
+                }
+
+
+                else if (!isGrounded)
+                {
+                    if (!isJumping)
+                        if (!isFalling)
+                            isFalling = true;
+                }
+
+                #region Apply Gravity
+
+                vSpeed -= gravity * Time.deltaTime;
+
+                moveDirection.y = vSpeed;
+
+                // transform.TransformDirection(thirdPersonCam.transform.forward * );
+
+                //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+
+                //if (raycastSpawn)
+                //{
+                //    Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
+
+                //    transform.TransformDirection(raycastSpawn.transform.forward);
+                //}
+
+                if (controller)
+                    controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+                //Player.transform.forward = moveDirection;
+
+
+                if (!isGrounded && !isJumping)
+                    isFalling = true;
+
+                #endregion
             }
-
-
-            else if (!isGrounded)
-            {
-                if (!isJumping)
-                    if (!isFalling)
-                        isFalling = true;
-            }
-
-            #region Apply Gravity
-
-            vSpeed -= gravity * Time.deltaTime;
-
-            moveDirection.y = vSpeed;
-
-            // transform.TransformDirection(thirdPersonCam.transform.forward * );
-
-            //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-
-            Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
-
-            transform.TransformDirection(raycastSpawn.transform.forward);
-
-            controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-            //Player.transform.forward = moveDirection;
-
-
-            if (!isGrounded && !isJumping)
-                isFalling = true;
-
-            #endregion
         }
     }
-
     #region Camera
 
     private void LateUpdate()
@@ -250,8 +264,8 @@ public class InputControl : MonoBehaviour
 
     void CamControl()
     {
-        mouseX += mouseVec.x * HorizontalRotationSpeed;
-        mouseY -= mouseVec.y * VerticalRotationSpeed;
+        mouseX += mouseVec.x;// * HorizontalRotationSpeed;
+        mouseY -= mouseVec.y;// * VerticalRotationSpeed;
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         thirdPersonCam.transform.LookAt(Target);
@@ -271,19 +285,39 @@ public class InputControl : MonoBehaviour
     #endregion
 
     #region Input System Commands
-    public void OnCamera(InputValue input)
+    public void OnMouseCamera(InputValue input)
     {
-        if (cm.isPlaying)
+        if (cm)
         {
-            mouseVec = input.Get<Vector2>();
+            if (cm.isPlaying)
+            {
+                mouseVec = input.Get<Vector2>();
 
-            cm.rotatePlayer(mouseVec);
+                mouseVec.x *= mouseHorizontalRotationSpeed;
+
+                mouseVec.x *= mouseHorizontalRotationSpeed;
+
+                cm.rotatePlayer(mouseVec);
+            }
         }
     }
 
+    public void OnControllerCamera(InputValue input)
+    {
+        if (cm)
+        {
+            if (cm.isPlaying)
+            {
+                mouseVec = input.Get<Vector2>();
 
+                mouseVec.x *= controllerHorizontalRotationSpeed;
 
+                mouseVec.y *= controllerVerticalRotationSpeed;
 
+                cm.rotatePlayer(mouseVec);
+            }
+        }
+    }
 
     public void OnMove(InputValue input)
     {
@@ -300,6 +334,15 @@ public class InputControl : MonoBehaviour
     {
 
     }
+
+    /*
+     Godmode - G, Select
+     Killswitch - K
+     Helped with bearicade
+     Tried to help with github issue
+     Fixed jump
+     Fixed grounding raycast
+    */
 
     void changeDirection(Vector3 direction)
     {

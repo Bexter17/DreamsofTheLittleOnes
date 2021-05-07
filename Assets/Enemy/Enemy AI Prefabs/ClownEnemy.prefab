@@ -173,7 +173,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hp: 5
   rb: {fileID: 942041078614932}
-  target: {fileID: 0}
+  target: {fileID: 1016093913191264029, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
+  ragdoll: {fileID: 8484000190902902763, guid: 584b966fa9aecab4fbb92be452e8855f, type: 3}
   projectilePrefab: {fileID: 3891002260391394033, guid: e0328625862d86e44a2d8bfc3faf6ac2, type: 3}
   projectileSpawnPoint: {fileID: 3082727887856470500}
   attackTimer: 3
@@ -451,7 +452,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a775ac71397170a43828ccbe6a42f3e6, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -0.57
+      value: -0.5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: a775ac71397170a43828ccbe6a42f3e6, type: 3}
       propertyPath: m_LocalPosition.z
@@ -497,6 +498,10 @@ PrefabInstance:
       propertyPath: m_Controller
       value: 
       objectReference: {fileID: 9100000, guid: e78fe62d50053da4d983cb1c2fbb1f07, type: 2}
+    - target: {fileID: 5866666021909216657, guid: a775ac71397170a43828ccbe6a42f3e6, type: 3}
+      propertyPath: m_WarningMessage
+      value: 
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: a775ac71397170a43828ccbe6a42f3e6, type: 3}
 --- !u!4 &5746641463507935003 stripped

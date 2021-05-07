@@ -8,8 +8,6 @@ public class InputBuffer : MonoBehaviour
 
     InputControl ic;
 
-    InputBuffer ib;
-
     CharacterMechanics cm;
 
     AbilitiesCooldown cooldown;
@@ -24,9 +22,7 @@ public class InputBuffer : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        cooldown = this.transform.GetComponent<AbilitiesCooldown>();
-
-        ib = this.transform.GetComponent<InputBuffer>();
+        cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         ic = this.transform.GetComponent<InputControl>();
 

@@ -171,13 +171,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd823a996768f174c90e011bb44f35f3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  agent: {fileID: 0}
   hp: 5
   death: 0
+  ragdoll: {fileID: 5875220092916251491, guid: d5e4355e41ed00b489d39d64e8dca8ad, type: 3}
   chaseRange: 20
   dmgDealt: 0
-  numOfAttacks: 2
-  waypoint1: {fileID: 0}
-  waypoint2: {fileID: 0}
+  numberOfAttacks: 2
   waypoints: []
   advancedPatrol: 0
   stackTracker: {fileID: 0}
@@ -192,8 +192,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 1, y: 2, z: 1}
-  m_Center: {x: 0, y: 0, z: 0.5}
+  m_Size: {x: 1, y: 2, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0.4}
 --- !u!1 &2556458649338573558
 GameObject:
   m_ObjectHideFlags: 0
