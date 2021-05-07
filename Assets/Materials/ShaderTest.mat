@@ -21,7 +21,7 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: ShaderTest
-  m_Shader: {fileID: -6465566751694194690, guid: 41ae02ec283eda9499e07f3a4e3d529f, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: 766dc13ea3edd8d418e66639cb223c05, type: 3}
   m_ShaderKeywords: 
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
@@ -34,6 +34,22 @@ Material:
     m_TexEnvs:
     - Cubemap_9A0145BE:
         m_Texture: {fileID: 8900000, guid: 7315b89dc1b8417419ab5224140dbc54, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_30877F2F:
+        m_Texture: {fileID: 2800000, guid: ba92f2614a3d5c846a0ab9e260f936e6, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_3AC4F92E:
+        m_Texture: {fileID: 2800000, guid: 5c3a91b7b6383c94cbfd26f4797b551f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_B330CECC:
+        m_Texture: {fileID: 2800000, guid: 2ab8b8193be1f24468c69f90feca6f00, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_F7E79EBD:
+        m_Texture: {fileID: 2800000, guid: 5a73d82808f4b174aba77ea10f230eed, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BaseMap:
@@ -69,9 +85,25 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
+    - Vector1_17AFD7DF: 0.09
+    - Vector1_1B591811: 1
+    - Vector1_26F5D02C: 1
     - Vector1_345F47FE: 2
+    - Vector1_3C7E26F: 1
     - Vector1_4593228A: 0.5
+    - Vector1_53910C17: 1
+    - Vector1_6F6F45D1: 1
+    - Vector1_76D683BF: 1
+    - Vector1_922ABA71: 1
     - Vector1_9BEDAD29: 0
+    - Vector1_9F1672EE: 1
+    - Vector1_AD995A05: 1
+    - Vector1_B54EAF9A: 1
+    - Vector1_BCCD2C5D: 1
+    - Vector1_C4F82EAB: 1
+    - Vector1_D94F9C6E: 1
+    - Vector1_DB8CBDBC: 1
+    - Vector1_F5DF4B1C: 1
     - _AlphaClip: 0
     - _Blend: 0
     - _BumpScale: 1
@@ -94,6 +126,13 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
+    - Color_4918EAC5: {r: 1, g: 1, b: 1, a: 0}
+    - Color_4D8CDCD9: {r: 1, g: 1, b: 1, a: 0}
+    - Color_822A9868: {r: 1, g: 1, b: 1, a: 0}
+    - Color_9502E20F: {r: 1, g: 1, b: 1, a: 0}
+    - Vector2_30390901: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_75D1E0D: {r: 1, g: 1, b: 0, a: 0}
+    - Vector2_D4DB95A0: {r: 1, g: 1, b: 0, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

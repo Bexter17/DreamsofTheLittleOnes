@@ -8,6 +8,7 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
+    //May 5, 2021
     //remaining Distance instead of vector3.distance
     #region Variables
     //TODO removed most of serializefields to a minimum
@@ -29,6 +30,8 @@ public class EnemyCarny : MonoBehaviour
     private Image hpBar;
     public bool death = false;
     private bool randNumGenerated = false;
+    [SerializeField] private GameObject ragdoll;
+
 
     //STATES
     enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
@@ -48,6 +51,7 @@ public class EnemyCarny : MonoBehaviour
     private bool ableToDamage = false;
     //bool isPatrolling = false;
     bool getCalled = false;
+    [SerializeField] private int numberOfAttacks;
 
     private GameObject waypoint1;
     private GameObject waypoint2;
@@ -189,11 +193,14 @@ public class EnemyCarny : MonoBehaviour
         #endregion
         #region stackTracker
         stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+        //if(GameObject.FindGameObjectWithTag("Enemy Slot 1") != null)
+        //{
+        //    circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
+        //    circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
+        //    circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
+        //    circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
+        //}
 
-        circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
-        circlePoints[1] = GameObject.FindGameObjectWithTag("Enemy Slot 2");
-        circlePoints[2] = GameObject.FindGameObjectWithTag("Enemy Slot 3");
-        circlePoints[3] = GameObject.FindGameObjectWithTag("Enemy Slot 4");
         // circle points 4 different points around the player where the enemies will go to attack
         //circlePoints = new Vector3[4];
 
@@ -227,7 +234,8 @@ public class EnemyCarny : MonoBehaviour
                 agent.isStopped = false;
                 hasStacked = false;
             }
-            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange)
+            NavMeshHit hit;
+            if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange && !agent.Raycast(target.position, out hit))
             {
                 Debug.Log("Enemy To Stack");
                 if (!onStack)
@@ -251,7 +259,7 @@ public class EnemyCarny : MonoBehaviour
                 editChase();
                 Debug.Log("1111111111111111111111111111111111111");
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && !agent.Raycast(target.position, out hit))
             {
                 Chase();
                 agent.isStopped = false;
@@ -285,11 +293,11 @@ public class EnemyCarny : MonoBehaviour
             {
                 //Generates random number once per attack from 1-3 to randomly choose 1 of 3 attacks
                 //Will generate number once on the main tree and can do so again after each attack
-                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Main Tree") && !randNumGenerated)
+                if(eAnim.GetCurrentAnimatorStateInfo(0).IsName("Chase Tree") && !randNumGenerated)
                 {
                     //1-3
                     //Set to 1, 4 once third animation is added
-                    eAnim.SetInteger("randAttk", Random.Range(1, 3));
+                    eAnim.SetInteger("randAttk", Random.Range(1, numberOfAttacks+1));
                     randNumGenerated = true;
                 }
                 else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
@@ -314,7 +322,7 @@ public class EnemyCarny : MonoBehaviour
     #region Collisions
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && agent.isOnNavMesh)
         {
             rb.velocity = Vector3.zero;
             agent.isStopped = true;
@@ -421,6 +429,7 @@ public class EnemyCarny : MonoBehaviour
         {
             if (other.CompareTag("Player"))
             {
+                eAnim.SetBool("cancelAttk", false);
                 if (myEnemy == EnemyState.Chase && onStack)
                 {
                     myEnemy = EnemyState.Attack;
@@ -453,6 +462,7 @@ public class EnemyCarny : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
+            eAnim.SetBool("cancelAttk", true);
             ableToDamage = false;
             agent.isStopped = false;
             eAnim.SetFloat("Speed", 1);
@@ -468,6 +478,12 @@ public class EnemyCarny : MonoBehaviour
         hp -= dmg;
         if (hp <= 0 && !death)
         {
+            //transform.GetComponent<CapsuleCollider>().enabled = false;
+            Vector3 ragdollPos = transform.position;
+            ragdollPos.y -= 3.25f;
+            GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
+            //temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            Destroy(gameObject);
             death = true;
             stackTracker.RemoveStack(gameObject);
             agent.speed = 0;
@@ -528,16 +544,30 @@ public class EnemyCarny : MonoBehaviour
 
         // doesn't work if stack call returns 5 which means not on stack
         // or -1 which means still not changed
-        if (encircleNum < 4 && encircleNum >= 0)
+        //if (encircleNum < 4 && encircleNum >= 0 && circlePoints[encircleNum] != null)
+        //{
+        //    agent.isStopped = false;
+        //    agent.SetDestination(circlePoints[encircleNum].transform.position);
+        //}
+        if (encircleNum < 3 && encircleNum >= 0)
         {
             agent.isStopped = false;
-            agent.SetDestination(circlePoints[encircleNum].transform.position);
+            agent.SetDestination(target.transform.position);
         }
+
 
     }
     //using this funciton to set a chase destination to spawned enemy
     public void editChase()
     {
+        if(agent == null)
+        {
+            agent = GetComponent<NavMeshAgent>();
+        }
+        if(Player == null)
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
+        }
         agent.isStopped = false;
         myEnemy = EnemyState.lockChase;
         agent.SetDestination(Player.transform.position);
