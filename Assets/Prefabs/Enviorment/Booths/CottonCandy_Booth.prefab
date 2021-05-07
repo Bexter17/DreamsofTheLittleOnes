@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 597539317969999046}
   - component: {fileID: 5217798662575468576}
   - component: {fileID: 7006484409236097434}
+  - component: {fileID: 5946296226829418763}
   m_Layer: 0
   m_Name: CottonBooth_low
   m_TagString: Untagged
@@ -103,6 +104,19 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: -0.011000001, y: -0.020000001, z: 0.45000002}
   m_TimeToStationary: 0.5
+--- !u!65 &5946296226829418763
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 784330824219768381}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 2.3560228, y: 2.470822, z: 5.171854}
+  m_Center: {x: -0.011233448, y: -0.019538702, z: 0.44976896}
 --- !u!1 &1137940012295335133
 GameObject:
   m_ObjectHideFlags: 0
