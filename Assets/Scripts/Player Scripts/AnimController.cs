@@ -102,7 +102,7 @@ public class AnimController : MonoBehaviour
 
         //currentAnimLength = currentClipInfo[0].clip.length;
 
-        animName = currentClipInfo[0].clip.name;
+        //animName = currentClipInfo[0].clip.name;
 
         if (animDebug)
         {
@@ -139,6 +139,8 @@ public class AnimController : MonoBehaviour
     {
         animator.SetTrigger("Die");
     }
+
+
 
     public void updateValues(bool grounded, bool jumping, bool falling, float speed, float strafe)
     {
@@ -194,6 +196,21 @@ public class AnimController : MonoBehaviour
 
         animator.SetBool("isGrounded", _isGrounded);
 
+        animator.SetBool("isFalling", _isFalling);
+    }
+
+    public void setGrounded(bool _isGrounded)
+    {
+        animator.SetBool("isGrounded", _isGrounded);
+    }
+
+    public void setJumping(bool _isJumping)
+    {
+        animator.SetBool("isJumping", _isJumping);
+    }
+
+    public void setFalling(bool _isFalling)
+    {
         animator.SetBool("isFalling", _isFalling);
     }
 

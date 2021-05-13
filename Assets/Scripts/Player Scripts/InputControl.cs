@@ -165,11 +165,56 @@ public class InputControl : MonoBehaviour
 
         #endregion
 
-        #region Cursor
+    }
 
-        Cursor.visible = false;
+    private void FixedUpdate()
+    {
+        isGrounded = groundCheck(isGrounded);
 
-        Cursor.lockState = CursorLockMode.Locked;
+        ac.setGrounded(isGrounded);
+
+        if (isGrounded)
+        {
+            if (isFalling)
+            {
+                isFalling = false;
+
+                ac.setFalling(isFalling);
+            }
+
+            if (isJumping)
+            {
+                isJumping = false;
+
+                ac.setJumping(isJumping);
+            }
+        }
+
+
+        else if (!isGrounded)
+        {
+            if (!isJumping)
+            {
+                if (!isFalling)
+                {
+                    isFalling = true;
+
+                    ac.setFalling(isFalling);
+                }
+            }
+        }
+
+        #region Apply Gravity
+
+        vSpeed -= gravity * Time.deltaTime;
+
+        moveDirection.y = vSpeed;
+
+        if (controller)
+            controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+
+        if (!isGrounded && !isJumping)
+            isFalling = true;
 
         #endregion
     }
@@ -205,51 +250,6 @@ public class InputControl : MonoBehaviour
 
                 //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
 
-                isGrounded = groundCheck(isGrounded);
-
-                if (isGrounded)
-                {
-                    if (isFalling)
-                        isFalling = false;
-
-                    if (isJumping)
-                        isJumping = false;
-                }
-
-
-                else if (!isGrounded)
-                {
-                    if (!isJumping)
-                        if (!isFalling)
-                            isFalling = true;
-                }
-
-                #region Apply Gravity
-
-                vSpeed -= gravity * Time.deltaTime;
-
-                moveDirection.y = vSpeed;
-
-                // transform.TransformDirection(thirdPersonCam.transform.forward * );
-
-                //controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-
-                //if (raycastSpawn)
-                //{
-                //    Debug.DrawRay(raycastSpawn.transform.position, raycastSpawn.transform.forward * 10, Color.red);
-
-                //    transform.TransformDirection(raycastSpawn.transform.forward);
-                //}
-
-                if (controller)
-                    controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-                //Player.transform.forward = moveDirection;
-
-
-                if (!isGrounded && !isJumping)
-                    isFalling = true;
-
-                #endregion
             }
         }
     }
@@ -265,12 +265,15 @@ public class InputControl : MonoBehaviour
     void CamControl()
     {
         mouseX += mouseVec.x;// * HorizontalRotationSpeed;
+
         mouseY -= mouseVec.y;// * VerticalRotationSpeed;
+        
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         thirdPersonCam.transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
+        
         Player.rotation = Quaternion.Euler(0, mouseX, 0);
 
         //Player.transform.localEulerAngles = new Vector3(0, mouseX, 0);
