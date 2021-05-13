@@ -589,6 +589,22 @@ public class EnemyCarny : MonoBehaviour
             }
         }
     }
+    private void OnTriggerStay(Collider other)
+    {
+        if (other.CompareTag("Player") && myEnemy != EnemyState.Attack)
+        {
+            eAnim.SetBool("cancelAttk", false);
+            if (myEnemy == EnemyState.Chase && onStack)
+            {
+                myEnemy = EnemyState.Attack;
+            }
+            //Debug.LogWarning("Enemy Start Collision With Player");
+            rb.isKinematic = false;
+            ableToDamage = true;
+            agent.isStopped = true;
+            eAnim.SetFloat("Speed", 0);
+        }
+    }
     private void OnTriggerExit(Collider other)
     {
         if (other.CompareTag("Player"))
