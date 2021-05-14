@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_HammerHead
+  m_Shader: {fileID: -6465566751694194690, guid: d95f757cfab08154db6e3432dc875d2b, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_45B60115:
+        m_Texture: {fileID: 2800000, guid: beb06eb341cbb5d4a97d5033cb707d09, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_382FB1B1: 0.84
+    - Vector1_75B129F4: 0.2
+    - Vector1_D953FE07: 0
+    m_Colors:
+    - Color_9B19640A: {r: 0.5754717, g: 0.5673282, b: 0.5673282, a: 0}
+    - Vector4_60B1CB03: {r: 1, g: 1, b: 1, a: 1}
+  m_BuildTextureStacks: []
