@@ -17,13 +17,24 @@ public class ProjectilePlayer : MonoBehaviour
     void Update()
     {
         
+
     }
 
     private void OnCollisionEnter(Collision collision)
     {
-        
+        if (collision.collider.CompareTag("Balloon"))
+        {
+            Destroy();
+        }
+
     }
 
+    public void Destroy()
+    {
+        //Instantiate(balloonPopParticles, transform.position, Quaternion.identity);
+
+        Destroy(gameObject);
+    }
     private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.tag == "Enemy")
