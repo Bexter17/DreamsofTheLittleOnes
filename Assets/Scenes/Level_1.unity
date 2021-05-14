@@ -5,8 +5,8 @@ OcclusionCullingSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
   m_OcclusionBakeSettings:
-    smallestOccluder: 5
-    smallestHole: 0.25
+    smallestOccluder: 4
+    smallestHole: 0.5
     backfaceThreshold: 100
   m_SceneGUID: de0ba187e38648247bb4d0a1ae9b15b0
   m_OcclusionCullingData: {fileID: 36300000, guid: 40bc43636d8bfb14191bd7ec875acb0d, type: 2}
@@ -38,7 +38,7 @@ RenderSettings:
   m_ReflectionIntensity: 1
   m_CustomReflection: {fileID: 0}
   m_Sun: {fileID: 504033087}
-  m_IndirectSpecularColor: {r: 0.0029181743, g: 0.0008074619, b: 0.0000009586025, a: 1}
+  m_IndirectSpecularColor: {r: 0, g: 0, b: 0, a: 1}
   m_UseRadianceAmbientProbe: 0
 --- !u!157 &3
 LightmapSettings:
@@ -97,7 +97,7 @@ LightmapSettings:
     m_ExportTrainingData: 0
     m_TrainingDataDestination: TrainingData
     m_LightProbeSampleCountMultiplier: 4
-  m_LightingDataAsset: {fileID: 112000000, guid: 6e7cd45c7013dd244bc67822b66788b9, type: 2}
+  m_LightingDataAsset: {fileID: 0}
   m_LightingSettings: {fileID: 4890085278179872738, guid: a9934c00e5de1e94999371697c0bb32b, type: 2}
 --- !u!196 &4
 NavMeshSettings:
@@ -60801,6 +60801,14 @@ PrefabInstance:
       propertyPath: m_Size.z
       value: 0.06766672
       objectReference: {fileID: 0}
+    - target: {fileID: 5810687710366428250, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
+      propertyPath: controllerHorizontalRotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5810687710366428250, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
+      propertyPath: controllerVerticalRotationSpeed
+      value: 3
+      objectReference: {fileID: 0}
     - target: {fileID: 6245606006775655287, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
       propertyPath: animDebug
       value: 1
@@ -64112,15 +64120,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.x
-      value: 57.426147
+      value: 59.55
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -4.53
+      value: 0.57
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 13.77533
+      value: 28.13
       objectReference: {fileID: 0}
     - target: {fileID: 942041078614959, guid: c9aff1a6a263a6e48bd5b4a98bf2d795, type: 3}
       propertyPath: m_LocalRotation.x
