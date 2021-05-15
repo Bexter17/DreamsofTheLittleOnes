@@ -35,7 +35,15 @@
                     "id": "457cfcff-3102-47e4-a43e-d569d7d731ab",
                     "expectedControlType": "Button",
                     "processors": "",
-                    "interactions": ""
+                    "interactions": "Press"
+                },
+                {
+                    "name": "JumpEnd",
+                    "type": "Button",
+                    "id": "f596edfc-8ce8-4fb6-b100-3cb4a361342b",
+                    "expectedControlType": "Button",
+                    "processors": "",
+                    "interactions": "Press(behavior=1)"
                 },
                 {
                     "name": "BasicAttack",
@@ -514,6 +522,28 @@
                     "action": "ControllerCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
+                },
+                {
+                    "name": "",
+                    "id": "6f9a4e54-001b-4314-a682-d7aacf694505",
+                    "path": "<Keyboard>/space",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
+                },
+                {
+                    "name": "",
+                    "id": "bbd07bf5-f8ec-46fd-bb91-611cf59b8cfc",
+                    "path": "<Gamepad>/buttonSouth",
+                    "interactions": "",
+                    "processors": "",
+                    "groups": "",
+                    "action": "JumpEnd",
+                    "isComposite": false,
+                    "isPartOfComposite": false
                 }
             ]
         },
