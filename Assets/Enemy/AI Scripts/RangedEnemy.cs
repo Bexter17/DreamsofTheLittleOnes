@@ -26,7 +26,16 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] float knockDistanceModifier;
     [SerializeField] float knockDuration;
     [SerializeField] float knockPause;
-    
+    [SerializeField] float basicKnockbackForce;
+    [SerializeField] float smashKnockbackForce;
+    [SerializeField] float dashKnockbackForce;
+    [SerializeField] float whirlKnockbackForce;
+    [SerializeField] float rangeKnockbackForce;
+
+    [Header("Debugs")]
+    [SerializeField] bool stateDebug;
+    [SerializeField] bool combatDebug;
+    [SerializeField] bool knockbackDebug;
 
     NavMeshAgent agent;
 
@@ -81,8 +90,6 @@ public class RangedEnemy : MonoBehaviour
     public Transform waypoint2;
 
     #endregion
-
-
 
     // Start is called before the first frame update
     void Start()
@@ -275,6 +282,19 @@ public class RangedEnemy : MonoBehaviour
             //Stop attacking
             //AgentStop();
             takeDamage(3);
+
+            if (rb)
+            {
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+
+                rb.AddForce(direction.normalized * smashKnockbackForce, ForceMode.Impulse);
+            }
+
+            if (combatDebug)
+            {
+                Debug.Log(this.transform.name + " Knocked Back!");
+            }
         }
         if(collision.gameObject.tag== "WhirlwindAOE")
         {
@@ -284,14 +304,79 @@ public class RangedEnemy : MonoBehaviour
         {
             takeDamage(3);
         }
-        
-        if(collision.gameObject.tag == "")
+        if (collision.gameObject.tag == "Hammer")
         {
-            takeDamage(2);
+            if (cm.isAttacking)
+            {
+                if (combatDebug)
+                {
+                    Debug.Log(this.transform.name + " Hit by Basic Attack!");
+                    Debug.Log(this.transform.name + " Damage Applied!");
+                }
+
+                takeDamage(2);
+
+                if (rb)
+                {
+                    Vector3 direction = transform.position - collision.transform.position;
+                    direction.y = 0;
+
+                    rb.AddForce(direction.normalized * basicKnockbackForce, ForceMode.Impulse);
+                }
+
+                if (combatDebug)
+                {
+                    Debug.Log(this.transform.name + " Knocked Back!");
+                }
+            }
+
+            if (cm.isSpinning)
+            {
+                if (combatDebug)
+                {
+                    Debug.Log(this.transform.name + " Hit by Whirlwind!");
+                    Debug.Log(this.transform.name + " Damage Applied!");
+                }
+
+                takeDamage(4);
+
+                if (rb)
+                {
+                    Vector3 direction = transform.position - collision.transform.position;
+                    direction.y = 0;
+
+                    rb.AddForce(direction.normalized * whirlKnockbackForce, ForceMode.Impulse);
+                }
+
+                if (combatDebug)
+                {
+                    Debug.Log(this.transform.name + " Knocked Back!");
+                }
+            }
         }
+
         if (collision.gameObject.tag == "Dash Collider")
         {
+            if (combatDebug)
+            {
+                Debug.Log(this.transform.name + " Hit by Dash!");
+                Debug.Log(this.transform.name + " Damage Applied!");
+            }
+
             takeDamage(1);
+
+            if (rb)
+            {
+                Vector3 direction = transform.position - collision.transform.position;
+                direction.y = 0;
+
+                rb.AddForce(direction.normalized * dashKnockbackForce, ForceMode.Impulse);
+            }
+
+            if (combatDebug)
+            {
+                Debug.Log(this.transform.name + " Knocked Back!");
+            }
         }
     }
 
