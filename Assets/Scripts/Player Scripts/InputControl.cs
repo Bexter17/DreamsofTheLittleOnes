@@ -62,13 +62,7 @@ public class InputControl : MonoBehaviour
     Vector3 characterSize;
 
     //Variable for how high the character will jump
-    [SerializeField] private float minimumJumpPower;
-
-    [SerializeField] private float currentJumpPower;
-
-    [SerializeField] private float maxJumpPower;
-
-    [SerializeField] private float jumpAmplifier;
+    [SerializeField] private float jumpSpeed;
 
     private float vSpeed = 0;
 
@@ -134,13 +128,8 @@ public class InputControl : MonoBehaviour
         if (movementSpeed <= 0)
             movementSpeed = 6.0f;
 
-        if (maxJumpPower <= 0)
-            maxJumpPower = 4.0f;
-
-        if (minimumJumpPower == 0)
-            minimumJumpPower = 2;
-
-        currentJumpPower = 0;
+        if (jumpSpeed <= 0)
+            jumpSpeed = 4.0f;
 
         if (rotationSpeed <= 0)
             rotationSpeed = 2.0f;     //4.0f was original
@@ -151,9 +140,6 @@ public class InputControl : MonoBehaviour
         if (dashSpeed == 0)
             dashSpeed = 10;
 
-        if (jumpAmplifier == 0)
-            jumpAmplifier = 10;
-
         //Assigns a value to the variable
         moveDirection = Vector3.zero;
 
@@ -163,11 +149,9 @@ public class InputControl : MonoBehaviour
 
         raycastSpawn.transform.parent = this.transform;
 
-        raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
+        raycastSpawn.transform.localPosition = new Vector3 (0.0f, characterSize.y * 0.5f, 0.0f);
 
-        groundSearchLength = raycastSpawn.transform.position.y;
-
-        //groundSearchLength = (characterSize.y * 0.5f);
+        groundSearchLength = (characterSize.y * 0.5f);
 
         #endregion
 
@@ -189,102 +173,50 @@ public class InputControl : MonoBehaviour
 
         ac.setGrounded(isGrounded);
 
-        currentSpeed = movementSpeed + speedBoost;
-
-        if (jumpDebug)
-            Debug.Log("isGrounded = " + isGrounded);
-
-        if (!isJumping)
+        if (isGrounded)
         {
-            if (!isGrounded)
+            if (isFalling)
             {
-                if (isGrounded)
+                isFalling = false;
+
+                ac.setFalling(isFalling);
+            }
+
+            if (isJumping)
+            {
+                isJumping = false;
+
+                ac.setJumping(isJumping);
+            }
+        }
+
+
+        else if (!isGrounded)
+        {
+            if (!isJumping)
+            {
+                if (!isFalling)
                 {
-                    land();
+                    isFalling = true;
 
                     ac.setFalling(isFalling);
-                    ac.setJumping(isJumping);
-                }
-
-                if (!isJumping)
-                {
-                    if (!isFalling)
-                    {
-                        fall();
-
-                        ac.setFalling(isFalling);
-                    }
                 }
             }
         }
 
         #region Apply Gravity
 
-        if (isJumping)
-        {
-            isFalling = false;
-
-            if (jumpDebug)
-                Debug.Log("isJumping true");
-
-            if (currentJumpPower < maxJumpPower)
-            {
-                if (jumpDebug)
-                    Debug.Log("jumpPower increased");
-                currentJumpPower++;
-            }
-
-            else if (currentJumpPower >= maxJumpPower)
-            {
-                if (jumpDebug)
-                    Debug.Log("reached maxJumpPower");
-                JumpEnd();
-            }
-
-            if (jumpDebug)
-                Debug.Log("Jump force applied by JumpPower");
-
-            vSpeed += currentJumpPower * Time.deltaTime * jumpAmplifier;
-
-            if (jumpDebug)
-                Debug.Log("vSpeed = " + vSpeed);
-        }
-
-        if (!isGrounded && !isJumping)
-            isFalling = true;
-
-        if (isFalling)
-        {
-            if (jumpDebug)
-                Debug.Log("isFalling = true");
-
-            vSpeed -= gravity * Time.deltaTime;
-
-            if (jumpDebug)
-            {
-                Debug.Log("vSpeed reduced by gravity");
-                Debug.Log("vSpeed = " + vSpeed);
-            }
-        }
+        vSpeed -= gravity * Time.deltaTime;
 
         moveDirection.y = vSpeed;
 
         if (controller)
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
 
-        Debug.Log("moved controller by " + moveDirection * Time.deltaTime * currentSpeed);
-        Debug.Log("moveDirection = " + moveDirection);
+        if (!isGrounded && !isJumping)
+            isFalling = true;
 
         #endregion
-
-        if (jumpDebug)
-        {
-            Debug.Log("jumpDebug: isGrounded =" + isGrounded);
-
-            Debug.Log("jumpDebug: isFalling =" + isFalling);
-
-            Debug.Log("jumpDebug: isJumping =" + isJumping);
-        }
     }
 
     // Update is called once per frame
@@ -305,6 +237,7 @@ public class InputControl : MonoBehaviour
                 //transform.Rotate(0, Input.GetAxis("Horizontal") * rotationSpeed, 0);
 
                 //track any applied speed boosts
+                currentSpeed = movementSpeed + speedBoost;
 
                 //Character movement
                 //Vector3 forward = transform.TransformDirection(Vector3.forward);
@@ -327,42 +260,6 @@ public class InputControl : MonoBehaviour
         CamControl();
         // changeDirection();
         resetMovement();
-
-        if(!isJumping && isFalling && isGrounded)
-            land();
-    }
-
-    void fall()
-    {
-        if (jumpDebug)
-            Debug.Log("fall() Called");
-
-        if (isGrounded)
-            isGrounded = false;
-
-        if (isJumping)
-            isJumping = false;
-
-        if (!isFalling)
-            isFalling = true;
-    }
-
-    void land()
-    {
-        if (jumpDebug)
-            Debug.Log("jumpDebug: land() Called");
-
-        if (isJumping)
-            isJumping = false;
-
-        isFalling = false;
-
-        isGrounded = true;
-
-        vSpeed = 0;
-
-        if (!ib.actionAllowed)
-            ib.setBufferTrue();
     }
 
     void CamControl()
@@ -370,13 +267,13 @@ public class InputControl : MonoBehaviour
         mouseX += mouseVec.x;// * HorizontalRotationSpeed;
 
         mouseY -= mouseVec.y;// * VerticalRotationSpeed;
-
+        
         mouseY = Mathf.Clamp(mouseY, -35, 60);
 
         thirdPersonCam.transform.LookAt(Target);
 
         Target.rotation = Quaternion.Euler(mouseY, mouseX, 0);
-
+        
         Player.rotation = Quaternion.Euler(0, mouseX, 0);
 
         //Player.transform.localEulerAngles = new Vector3(0, mouseX, 0);
@@ -489,13 +386,6 @@ public class InputControl : MonoBehaviour
 
             ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
         }
-    }
-    public void OnJumpEnd()
-    {
-        if (jumpDebug)
-            Debug.Log("OnJmpEnd() called");
-
-        JumpEnd();
     }
 
     public Vector2 getMouseData(Vector2 input)
@@ -668,12 +558,7 @@ public class InputControl : MonoBehaviour
 
         if (Physics.Linecast(lineStart, vectorToSearch, out groundHit))
         {
-            if (groundHit.transform.tag == "Floor" ||
-                groundHit.transform.tag == "Box" ||
-                groundHit.transform.tag == "Picnic Table" ||
-                groundHit.transform.tag == "Train Car" ||
-                groundHit.transform.tag == "Trash Can" ||
-                groundHit.transform.tag == "Test Of Strength")
+            if (groundHit.transform.tag == "Floor" || groundHit.transform.tag == "Box" || groundHit.transform.tag == "Picnic Table" || groundHit.transform.tag == "Train Car" || groundHit.transform.tag == "Trash Can" || groundHit.transform.tag == "Test Of Strength")
             {
                 if (this.transform.parent == groundHit.transform)
                     this.transform.parent = null;
@@ -701,23 +586,29 @@ public class InputControl : MonoBehaviour
             return false;
     }
 
+    private void JumpEnd()
+    {
+        if (jumpDebug)
+            Debug.Log("JumpEnd Called");
+
+        isJumping = false;
+    }
+
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
 
         if (hit.gameObject.tag == "Floor")
         {
-            //isGrounded = true;
+            isGrounded = true;
 
-            //isFalling = false;
-
-    //        land();
+            isFalling = false;
 
             if (isJumping)
             {
-      //          isJumping = false;
+                isJumping = false;
 
-        //        ib.setBufferTrue();
+                ib.setBufferTrue();
             }
 
             ac.hitGround();
@@ -744,9 +635,10 @@ public class InputControl : MonoBehaviour
 
         if (isGrounded)
         {
+
             cm.comboReset();
 
-            currentJumpPower = minimumJumpPower;
+            vSpeed = jumpSpeed;
 
             isGrounded = false;
 
@@ -758,14 +650,11 @@ public class InputControl : MonoBehaviour
 
             ib.setBufferFalse();
 
-            vSpeed = currentJumpPower * jumpAmplifier * Time.deltaTime;
-
             #region Debug Log
-
 
             if (jumpDebug)
             {
-                Debug.Log("vSpeed: " + vSpeed);
+                Debug.Log("jump power: " + vSpeed);
 
                 Debug.Log("isGrounded = " + isGrounded);
 
@@ -777,21 +666,6 @@ public class InputControl : MonoBehaviour
         }
 
         #endregion
-    }
-
-    private void JumpEnd()
-    {
-        if (jumpDebug)
-            Debug.Log("JumpEnd Called");
-
-        isJumping = false;
-
-        currentJumpPower = 0;
-
-        if (!groundCheck(isGrounded))
-        {
-            fall();
-        }
     }
 
     #endregion
