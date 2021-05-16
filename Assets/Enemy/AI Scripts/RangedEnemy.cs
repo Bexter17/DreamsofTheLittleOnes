@@ -101,8 +101,8 @@ public class RangedEnemy : MonoBehaviour
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
-        target = GameObject.Find("New Player Prefab").transform;
-        cm = GameObject.Find("New Player Prefab").GetComponent<CharacterMechanics>();
+        target = Player.transform;
+        cm = Player.GetComponent<CharacterMechanics>();
         #endregion
 
         #region default values
@@ -132,10 +132,15 @@ public class RangedEnemy : MonoBehaviour
         {
             Patrol();
         }
-        eAnim.SetBool("Stationary", isStationary);
+
 
         #endregion
+        if (isStationary)
+        {
+            eAnim.SetBool("Stationary", true);
+        }
     }
+
 
     // Update is called once per frame
     void Update()
