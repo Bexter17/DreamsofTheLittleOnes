@@ -60691,7 +60691,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1016093913191264023, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
       propertyPath: m_Name
-      value: New Player Prefab
+      value: Player
       objectReference: {fileID: 0}
     - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
       propertyPath: respawnPoint
@@ -60824,18 +60824,6 @@ PrefabInstance:
     - target: {fileID: 5523721433366200928, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
       propertyPath: m_Size.z
       value: 0.06766672
-      objectReference: {fileID: 0}
-    - target: {fileID: 5810687710366428250, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
-      propertyPath: controllerHorizontalRotationSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5810687710366428250, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
-      propertyPath: controllerVerticalRotationSpeed
-      value: 3
-      objectReference: {fileID: 0}
-    - target: {fileID: 5810687710366428250, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
-      propertyPath: groundSearchLength
-      value: 0.6
       objectReference: {fileID: 0}
     - target: {fileID: 6245606006775655287, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
       propertyPath: animDebug
