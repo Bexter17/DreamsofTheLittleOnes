@@ -475,6 +475,7 @@ GameObject:
   - component: {fileID: 2983294941797811497}
   - component: {fileID: 6448653689013667828}
   - component: {fileID: 3588806424988081338}
+  - component: {fileID: 734147733}
   m_Layer: 0
   m_Name: New Player Prefab
   m_TagString: Player
@@ -706,8 +707,8 @@ MonoBehaviour:
   isJumping: 0
   isFalling: 0
   jumpDebug: 1
-  mouseHorizontalRotationSpeed: 0.65
-  mouseVerticalRotationSpeed: 0.65
+  mouseHorizontalRotationSpeed: 0.6
+  mouseVerticalRotationSpeed: 0.6
   controllerHorizontalRotationSpeed: 3
   controllerVerticalRotationSpeed: 3
   Target: {fileID: 0}
@@ -785,6 +786,18 @@ MonoBehaviour:
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
+--- !u!114 &734147733
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1016093913191264023}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d7f4848775aa2384cb82dac9103724bc, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &1016093913455778562
 GameObject:
   m_ObjectHideFlags: 0
@@ -4027,15 +4040,15 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
---- !u!224 &1933997920993377923 stripped
-RectTransform:
-  m_CorrespondingSourceObject: {fileID: 6451124445172183406, guid: c605d3be1239a2540a94e291f99e173f,
-    type: 3}
-  m_PrefabInstance: {fileID: 4850393686916517869}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &1933997920692255589 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6451124444332061832, guid: c605d3be1239a2540a94e291f99e173f,
+    type: 3}
+  m_PrefabInstance: {fileID: 4850393686916517869}
+  m_PrefabAsset: {fileID: 0}
+--- !u!224 &1933997920993377923 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 6451124445172183406, guid: c605d3be1239a2540a94e291f99e173f,
     type: 3}
   m_PrefabInstance: {fileID: 4850393686916517869}
   m_PrefabAsset: {fileID: 0}
