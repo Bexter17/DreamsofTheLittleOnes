@@ -167,7 +167,8 @@ public class InputControl : MonoBehaviour
 
             raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
 
-            groundSearchLength = raycastSpawn.transform.position.y + 0.2f;
+            // Changed the additive value to 1.25f from 0.2f
+            groundSearchLength = raycastSpawn.transform.position.y + 1.25f;
 
             //groundSearchLength = (characterSize.y * 0.5f);
 
