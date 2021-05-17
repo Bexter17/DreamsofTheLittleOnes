@@ -111,88 +111,95 @@ public class InputControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        #region Components
+        try
+        {
+            #region Components
 
-        controller = this.transform.GetComponent<CharacterController>();
+            controller = this.transform.GetComponent<CharacterController>();
 
-        //       controllerList = Input.GetJoystickNames();
+            //       controllerList = Input.GetJoystickNames();
 
-        cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
+            cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
-        ib = this.transform.GetComponent<InputBuffer>();
+            ib = this.transform.GetComponent<InputBuffer>();
 
-        cm = this.transform.GetComponent<CharacterMechanics>();
+            cm = this.transform.GetComponent<CharacterMechanics>();
 
-        ac = this.transform.GetComponent<AnimController>();
+            ac = this.transform.GetComponent<AnimController>();
 
-        aim = this.transform.GetComponent<AimShoot>();
+            aim = this.transform.GetComponent<AimShoot>();
 
-        #endregion
+            #endregion
 
-        #region Movement
+            #region Movement
 
-        if (movementSpeed <= 0)
-            movementSpeed = 6.0f;
+            if (movementSpeed <= 0)
+                movementSpeed = 6.0f;
 
-        if (maxJumpPower <= 0)
-            maxJumpPower = 4.0f;
+            if (maxJumpPower <= 0)
+                maxJumpPower = 4.0f;
 
-        if (minimumJumpPower == 0)
-            minimumJumpPower = 2;
+            if (minimumJumpPower == 0)
+                minimumJumpPower = 2;
 
-        currentJumpPower = 0;
+            currentJumpPower = 0;
 
-        if (rotationSpeed <= 0)
-            rotationSpeed = 2.0f;     //4.0f was original
+            if (rotationSpeed <= 0)
+                rotationSpeed = 2.0f;     //4.0f was original
 
-        if (gravity <= 0)
-            gravity = 9.81f;
+            if (gravity <= 0)
+                gravity = 9.81f;
 
-        if (dashSpeed == 0)
-            dashSpeed = 10;
+            if (dashSpeed == 0)
+                dashSpeed = 10;
 
-        if (jumpAmplifier == 0)
-            jumpAmplifier = 10;
+            if (jumpAmplifier == 0)
+                jumpAmplifier = 10;
 
-        //Assigns a value to the variable
-        moveDirection = Vector3.zero;
+            //Assigns a value to the variable
+            moveDirection = Vector3.zero;
 
-        characterSize = this.transform.localScale;
+            characterSize = this.transform.localScale;
 
-        raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
+            raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
-        raycastSpawn.transform.parent = this.transform;
+            raycastSpawn.transform.parent = this.transform;
 
-        raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
+            raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
 
-        groundSearchLength = raycastSpawn.transform.position.y;
+            groundSearchLength = raycastSpawn.transform.position.y + 0.2f;
 
-        //groundSearchLength = (characterSize.y * 0.5f);
+            //groundSearchLength = (characterSize.y * 0.5f);
 
-        #endregion
+            #endregion
 
-        #region Camera
+            #region Camera
 
-        thirdPersonCam = GameObject.FindGameObjectWithTag("Third Person Cam");
+            thirdPersonCam = GameObject.FindGameObjectWithTag("Third Person Cam");
 
-        Target = thirdPersonCam.transform;
+            Target = thirdPersonCam.transform;
 
-        Player = this.transform;
+            Player = this.transform;
 
-        #endregion
+            #endregion
+        }
 
+        catch (MissingReferenceException e)
+        {
+            Debug.LogError(e.Message);
+        }
     }
 
     private void FixedUpdate()
     {
         isGrounded = groundCheck(isGrounded);
 
+        if (jumpDebug)
+            Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
+
         ac.setGrounded(isGrounded);
 
         currentSpeed = movementSpeed + speedBoost;
-
-        if (jumpDebug)
-            Debug.Log("isGrounded = " + isGrounded);
 
         if (!isJumping)
         {
@@ -272,6 +279,9 @@ public class InputControl : MonoBehaviour
         if (controller)
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
 
+        else
+            Debug.LogError("controller not assigned!");
+
         Debug.Log("moved controller by " + moveDirection * Time.deltaTime * currentSpeed);
         Debug.Log("moveDirection = " + moveDirection);
 
@@ -284,6 +294,18 @@ public class InputControl : MonoBehaviour
             Debug.Log("jumpDebug: isFalling =" + isFalling);
 
             Debug.Log("jumpDebug: isJumping =" + isJumping);
+
+            Debug.Log("Player transform position = " + Player.transform.position);
+
+            try
+            {
+                Debug.Log("Model transform position = " + Player.GetChild(7).position);
+            }
+
+            catch (MissingReferenceException e)
+            {
+                Debug.LogError(e.Message);
+            }
         }
     }
 
