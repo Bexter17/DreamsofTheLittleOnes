@@ -226,6 +226,9 @@ public class RangedEnemy : MonoBehaviour
             ragdollPos.y -= 1.5f;
             GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
             temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            RagdollPhysics ragdollPhysics = temp.GetComponent<RagdollPhysics>();
+            Vector3 currentVelocity = rb.velocity;
+            ragdollPhysics.GetVelocity(currentVelocity);
             Destroy(gameObject);
             death = true;
             //Debug.Log("Enemy has been killed");
@@ -275,7 +278,7 @@ public class RangedEnemy : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.tag=="HammerSmashAOE")
+        if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
@@ -301,15 +304,15 @@ public class RangedEnemy : MonoBehaviour
                 Debug.Log(this.transform.name + " Knocked Back!");
             }
         }
-        if(collision.gameObject.tag== "WhirlwindAOE")
+        if(collision.gameObject.CompareTag("WhirlwindAOE"))
         {
             takeDamage(3);
         }
-        if(collision.gameObject.tag== "Attack Zone")
+        if(collision.gameObject.CompareTag("Attack Zone"))
         {
             takeDamage(3);
         }
-        if (collision.gameObject.tag == "Hammer")
+        if (collision.gameObject.CompareTag("Hammer"))
         {
             if (cm.isAttacking)
             {
@@ -360,7 +363,7 @@ public class RangedEnemy : MonoBehaviour
             }
         }
 
-        if (collision.gameObject.tag == "Dash Collider")
+        if (collision.gameObject.CompareTag("Dash Collider"))
         {
             if (combatDebug)
             {
@@ -387,7 +390,7 @@ public class RangedEnemy : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "HammerSmashAOE")
+        if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
             //Debug.Log("Ranged enemy has regained it's speed!");
@@ -434,6 +437,7 @@ public class RangedEnemy : MonoBehaviour
     // Used for enemy animations and patrolling between waypoints
     private void OnTriggerEnter(Collider other)
     {
+        Debug.LogWarning("Clown Ontrigger");
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         if (myEnemyClown == EnemyState.Patrol)

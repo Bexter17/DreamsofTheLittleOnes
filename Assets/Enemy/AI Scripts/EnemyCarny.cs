@@ -360,7 +360,7 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        else if (collision.gameObject.tag == "HammerSmashAOE")
+        else if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
 
@@ -393,7 +393,7 @@ public class EnemyCarny : MonoBehaviour
                 Debug.Log(this.transform.name + " Knocked Back!");
             }
         }
-        else if (collision.gameObject.tag == "WhirlwindAOE")
+        else if (collision.gameObject.CompareTag("WhirlwindAOE"))
         {
             //Deals small knockback from takeDamage function
             #region Debug Log
@@ -401,12 +401,12 @@ public class EnemyCarny : MonoBehaviour
             #endregion
             takeDamage(3);
         }
-        else if (collision.gameObject.tag == "Attack Zone")
+        else if (collision.gameObject.CompareTag("Attack Zone"))
         {
             takeDamage(1);
         }
 
-        if (collision.gameObject.tag == "Hammer")
+        if (collision.gameObject.CompareTag("Hammer"))
         {
             if (cm.isAttacking)
             {
@@ -456,7 +456,7 @@ public class EnemyCarny : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.tag == "Dash Collider")
+        if (collision.gameObject.CompareTag("Dash Collider"))
         {
             if (combatDebug)
             {
@@ -483,7 +483,7 @@ public class EnemyCarny : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "HammerSmashAOE")
+        if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
             //Debug.Log("Enemy has been hit by hammer smash!");
@@ -498,7 +498,7 @@ public class EnemyCarny : MonoBehaviour
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
-        /*
+
         if (myEnemy == EnemyState.Patrol)
         {
             if (advancedPatrol)
@@ -533,8 +533,8 @@ public class EnemyCarny : MonoBehaviour
         }
         else
         {
-        */
-        if (other.CompareTag("Player"))
+
+            if (other.CompareTag("Player"))
         {
             eAnim.SetBool("cancelAttk", false);
             if (myEnemy == EnemyState.Chase && onStack)
@@ -547,7 +547,7 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             eAnim.SetFloat("Speed", 0);
         }
-        //}
+    }
 
         //if(other.CompareTag("Hammer"))
         //{
