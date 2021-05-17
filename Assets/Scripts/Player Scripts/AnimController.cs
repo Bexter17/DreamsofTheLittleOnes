@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class AnimController : MonoBehaviour
 {
@@ -23,6 +24,8 @@ public class AnimController : MonoBehaviour
     #region Components
 
     Animator animator;
+
+    Text debugText;
 
     #endregion
 
@@ -69,6 +72,20 @@ public class AnimController : MonoBehaviour
 
         #endregion
 
+        #region Debug
+
+        try
+        {
+            debugText = GameObject.FindGameObjectWithTag("Anim Debug Window").GetComponent<Text>();
+        }
+
+        catch (MissingComponentException e)
+        {
+            Debug.LogError(e.Message);
+        }
+
+        #endregion
+
         #region Animator
 
         animator = Player.GetComponent<Animator>();
@@ -102,13 +119,26 @@ public class AnimController : MonoBehaviour
 
         //currentAnimLength = currentClipInfo[0].clip.length;
 
-        //animName = currentClipInfo[0].clip.name;
+        animName = currentClipInfo[0].clip.name;
 
         if (animDebug)
         {
-            Debug.Log("Animation: animName = " + animName);
-            Debug.Log("Animation: actionAllowed = " + ib.actionAllowed);
+            debugText.gameObject.SetActive(true);
+
+            if (debugText)
+            {
+                debugText.text = "Animation Debug \nCurrent Animation: " + animName + "\nactionAllowed: " + ib.actionAllowed + "\nParameters:\nSpeed = " + animator.GetFloat("Speed")
+                    + "\nStrafe = " + animator.GetFloat("Strafe") + "\nisGrounded = " + animator.GetBool("isGrounded") + "\nisFalling = " + animator.GetBool("isFalling")
+                    + "\nisJumping = " + animator.GetBool("isJumping") + "\ncomboCount = " + animator.GetInteger("Counter");
+
+                debugText.color = Color.green;
+                //Debug.Log("Animation: animName = " + animName);
+                //Debug.Log("Animation: actionAllowed = " + ib.actionAllowed);
+            }
         }
+
+        else
+            debugText.gameObject.SetActive(false);
 
         if (animName == "Male Attack 1" && ib.actionAllowed || animName == "Male Attack 2" && ib.actionAllowed || animName == "Male Attack 3" && ib.actionAllowed)
         {
@@ -140,6 +170,18 @@ public class AnimController : MonoBehaviour
         animator.SetTrigger("Die");
     }
 
+    public void attackEnd()
+    {
+        animator.ResetTrigger("Attack");
+
+        animator.ResetTrigger("Dash");
+
+        animator.ResetTrigger("Hammer Smash");
+
+        animator.ResetTrigger("Spin");
+
+        animator.ResetTrigger("Throw");
+    }
 
 
     public void updateValues(bool grounded, bool jumping, bool falling, float speed, float strafe)
