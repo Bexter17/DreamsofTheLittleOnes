@@ -116,6 +116,8 @@ public class CharacterMechanics : MonoBehaviour
 
     MovementHelper mh;
 
+    AudioManager am;
+
     AbilitiesCooldown abilities;
 
     AimShoot aims;
@@ -363,6 +365,7 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        if(SceneManager.GetActiveScene().name == "Level_1")
         GameManager.Instance.BuildCheckpointsList();
 
         #region Initialization
@@ -381,6 +384,8 @@ public class CharacterMechanics : MonoBehaviour
         ic = this.transform.GetComponent<InputControl>();
 
         mh = this.transform.GetComponent<MovementHelper>();
+
+        am = this.transform.GetComponent<AudioManager>();
 
         abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
@@ -833,11 +838,16 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (ib.actionAllowed)
                 ib.setBufferFalse();
+            
         }
 
         comboCount = 1;
 
+         
+        am.PlayNewSound("Swing 1", false, false, null);
+
         isAttacking = true;
+        
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
@@ -877,6 +887,8 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         comboCount = 2;
+
+        am.PlayNewSound("Swing 2", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
@@ -918,6 +930,8 @@ public class CharacterMechanics : MonoBehaviour
         }
 
         comboCount = 3;
+
+        am.PlayNewSound("Swing 3", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
