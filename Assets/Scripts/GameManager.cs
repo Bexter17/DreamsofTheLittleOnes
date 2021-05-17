@@ -20,7 +20,17 @@ public class GameManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        try
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
 
+            cm = Player.GetComponent<CharacterMechanics>();
+        }
+
+        catch (NullReferenceException e)
+        {
+            Debug.Log(e.Message);
+        }
     }
 
     public void BuildCheckpointsList()
@@ -62,18 +72,21 @@ public class GameManager : MonoBehaviour
 
         if (SceneManager.GetActiveScene().name == "Level_1")
         {
-            if (cm.isPlaying)
+            if (Player && cm)
             {
-                Cursor.lockState = CursorLockMode.Locked;
+                if (cm.isPlaying)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
 
-                Cursor.visible = false;
-            }
+                    Cursor.visible = false;
+                }
 
-            if (!cm.isPlaying)
-            {
-                Cursor.lockState = CursorLockMode.None;
+                if (!cm.isPlaying)
+                {
+                    Cursor.lockState = CursorLockMode.None;
 
-                Cursor.visible = true;
+                    Cursor.visible = true;
+                }
             }
         }
 
