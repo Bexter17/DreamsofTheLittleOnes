@@ -631,6 +631,10 @@ public class EnemyCarny : MonoBehaviour
             ragdollPos.y -= 3.25f;
             GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
             //temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            RagdollPhysics ragdollPhysics = temp.GetComponent<RagdollPhysics>();
+            Vector3 currentVelocity = rb.velocity;
+            ragdollPhysics.GetVelocity(currentVelocity);
+
             Destroy(gameObject);
             death = true;
             stackTracker.RemoveStack(gameObject);

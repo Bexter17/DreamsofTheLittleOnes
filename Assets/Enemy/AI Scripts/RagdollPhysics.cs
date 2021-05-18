@@ -32,9 +32,14 @@ public class RagdollPhysics : MonoBehaviour
     public void GetVelocity(Vector3 givenVelocity)
     {
         Debug.LogWarning("Ragdoll Given Velocity: " + givenVelocity);
+        if(givenVelocity == new Vector3(0, 0,0))
+        {
+            givenVelocity = new Vector3(0, 0, 2);
+        }
+        givenVelocity = Vector3.Normalize(givenVelocity);
         //givenVelocity *= 5000;
         //ragdollRB.velocity.Set(givenVelocity.x, givenVelocity.y, givenVelocity.z);
-        givenVelocity *= 500;
+        givenVelocity *= 1000;
         Rigidbody[] rigidbodies = GetComponentsInChildren<Rigidbody>();
         foreach (Rigidbody rb in rigidbodies)
         {
