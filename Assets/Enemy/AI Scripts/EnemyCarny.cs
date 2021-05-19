@@ -377,7 +377,7 @@ public class EnemyCarny : MonoBehaviour
             //AgentStop();
             //yield return new WaitForSeconds(5);
             //movementSpeed = 5;
-            takeDamage(3);
+            takeDamage(35);
             StartCoroutine(Stun());
 
             if (rb)
@@ -399,7 +399,7 @@ public class EnemyCarny : MonoBehaviour
             #region Debug Log
             Debug.Log("Enemy has been hit by whirlwind!");
             #endregion
-            takeDamage(3);
+            takeDamage(20);
         }
         else if (collision.gameObject.CompareTag("Attack Zone"))
         {
@@ -416,7 +416,7 @@ public class EnemyCarny : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
-                takeDamage(2);
+                takeDamage(5);
 
                 if (rb)
                 {
@@ -464,7 +464,7 @@ public class EnemyCarny : MonoBehaviour
                 Debug.Log(this.transform.name + " Damage Applied!");
             }
 
-            takeDamage(1);
+            takeDamage(7);
 
             if (rb)
             {
