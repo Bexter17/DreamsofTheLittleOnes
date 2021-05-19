@@ -2679,7 +2679,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7950441419671624191}
   m_LocalRotation: {x: 0.10115583, y: 0.0017741324, z: 0.02532653, w: 0.9945466}
-  m_LocalPosition: {x: 1.0961958, y: 1.7507601, z: -1.2596041}
+  m_LocalPosition: {x: 1.0961964, y: 1.7507601, z: -1.2596041}
   m_LocalScale: {x: 0.6105315, y: 0.6105315, z: 0.6105315}
   m_Children:
   - {fileID: 3787048888769314208}
@@ -3140,8 +3140,9 @@ PrefabInstance:
     - target: {fileID: 5182045300969157645, guid: c605d3be1239a2540a94e291f99e173f,
         type: 3}
       propertyPath: m_text
-      value: "Controls: \nLft Click: Basic Attack\nLft Shft: Dash \nE: Hammer Ability\nQ:
-        Whirlwind Ability \nZ: Ranged Ability\nRight Click: Free Aim"
+      value: "Controls: \nLft Click/ Right Trigger: Basic Attack\nLft Shft/ B Button:
+        Dash \nE: Hammer Ability\nQ: Whirlwind Ability \nR: Ranged Ability\nRight
+        Click: Free Aim"
       objectReference: {fileID: 0}
     - target: {fileID: 6451124443655699044, guid: c605d3be1239a2540a94e291f99e173f,
         type: 3}
