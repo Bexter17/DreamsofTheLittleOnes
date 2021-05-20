@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
             Debug.Log(e.Message);
         }
     }
-
     public void BuildCheckpointsList()
     {
         IComparer sorter = new CheckpointSorter();
@@ -141,9 +140,11 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     public static GameManager Instance { get => instance; }
+    public bool HauntedHouse { get => hauntedHouse; set => hauntedHouse = value; }
+
     public GameObject[] checkPoints;
     public int currentCheckpoint;
-
+    private bool hauntedHouse = false;
 
     void Awake()
     {

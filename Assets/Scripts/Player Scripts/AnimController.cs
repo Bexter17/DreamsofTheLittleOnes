@@ -144,6 +144,8 @@ public class AnimController : MonoBehaviour
 
     public void updateValues(bool grounded, bool jumping, bool falling, float speed, float strafe)
     {
+
+        Debug.Log("ALI - Speed: " + speed);
         Speed = speed;
 
         strafeSpeed = strafe;

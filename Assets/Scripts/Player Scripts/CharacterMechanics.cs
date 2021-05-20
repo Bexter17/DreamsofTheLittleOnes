@@ -365,8 +365,8 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Level_1")
-        GameManager.Instance.BuildCheckpointsList();
+        if (SceneManager.GetActiveScene().name == "Level_1")
+            GameManager.Instance.BuildCheckpointsList();
 
         #region Initialization
 
@@ -487,9 +487,25 @@ public class CharacterMechanics : MonoBehaviour
 
             //            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
-            if (respawnPoint)
-                transform.position = respawnPoint.transform.position;
+            if (GameManager.Instance.HauntedHouse)
+            {
+                respawnPoint = GameObject.FindWithTag("HauntedExit");
+                if (respawnPoint != null)
+                {
+                    GameManager.Instance.HauntedHouse = false;
+                }
+            }
+            else
+            {
 
+                respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+            }
+
+
+            if (respawnPoint)
+            {
+                transform.position = respawnPoint.transform.position;
+            }
             #endregion
 
             #region Combat
@@ -838,16 +854,16 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (ib.actionAllowed)
                 ib.setBufferFalse();
-            
+
         }
 
         comboCount = 1;
 
-         
+
         am.PlayNewSound("Swing 1", false, false, null);
 
         isAttacking = true;
-        
+
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
