@@ -235,7 +235,7 @@ public class RangedEnemy : MonoBehaviour
             //agent.isStopped = true;
             //eAnim.SetTrigger("Death");
         }
-        hpBar.fillAmount = (float)(hp * 0.2);
+        hpBar.fillAmount = (float)(hp * 0.02);
 
         //KNOCKBACK
         // Gets the difference between enemy and player position

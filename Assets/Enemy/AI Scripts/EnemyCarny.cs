@@ -17,15 +17,15 @@ public class EnemyCarny : MonoBehaviour
     private Rigidbody rb;
     private Transform target;
     public NavMeshAgent agent;
-    Animator eAnim;
-    CombatManager CombatScript;
-    CharacterMechanics cm;
+    private Animator eAnim;
+    private CombatManager CombatScript;
+    private CharacterMechanics cm;
     //used to track the player for giveDamage function
     private GameObject Player;
 
     //HP
     [Header("Essentials")]
-    public int hp = 5;
+    [SerializeField] private int hp;
     private int maxHP;
     private Image hpBar;
     public bool death = false;
@@ -181,6 +181,7 @@ public class EnemyCarny : MonoBehaviour
         #region default values
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
+
         myEnemy = EnemyState.Start;
         rb.isKinematic = true;
 
@@ -648,7 +649,7 @@ public class EnemyCarny : MonoBehaviour
 
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
-        hpBar.fillAmount = (float)(hp * 0.2);
+        hpBar.fillAmount = (float)(hp * 0.016f);
 
         //KNOCKBACK
         // Gets the difference between enemy and player position
