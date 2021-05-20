@@ -29,11 +29,13 @@ ScriptedImporter:
       customRenderQueue: 2000
       texEnvs:
       - name: _BaseMap
-        texture: {fileID: 1745842441531596386, guid: 46960423630c20740a63018636a56600, type: 3}
+        texture: {fileID: 1745842441531596386, guid: 46960423630c20740a63018636a56600,
+          type: 3}
         scale: {x: 0.1, y: 0.1}
         offset: {x: 0.5, y: 0.5}
       - name: _BumpMap
-        texture: {fileID: 4069644340629516384, guid: 46960423630c20740a63018636a56600, type: 3}
+        texture: {fileID: 4069644340629516384, guid: 46960423630c20740a63018636a56600,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _EmissionMap
@@ -45,7 +47,8 @@ ScriptedImporter:
         scale: {x: 0.1, y: 0.1}
         offset: {x: 0.5, y: 0.5}
       - name: _MetallicGlossMap
-        texture: {fileID: 6212130088521780128, guid: 46960423630c20740a63018636a56600, type: 3}
+        texture: {fileID: 6212130088521780128, guid: 46960423630c20740a63018636a56600,
+          type: 3}
         scale: {x: 1, y: 1}
         offset: {x: 0, y: 0}
       - name: _OcclusionMap
@@ -194,7 +197,8 @@ ScriptedImporter:
       textureFormatMode: 0
       normalCompressed: 0
       bGenerateOnLoad: 1
-    material: {fileID: -1958001072992587723, guid: 46960423630c20740a63018636a56600, type: 3}
+    material: {fileID: -1958001072992587723, guid: 46960423630c20740a63018636a56600,
+      type: 3}
     generatedTextures:
     - {fileID: 1745842441531596386, guid: 46960423630c20740a63018636a56600, type: 3}
     - {fileID: 4069644340629516384, guid: 46960423630c20740a63018636a56600, type: 3}
