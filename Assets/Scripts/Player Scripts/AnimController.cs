@@ -284,6 +284,9 @@ public class AnimController : MonoBehaviour
 
     public void spin()
     {
+        if (animDebug)
+            Debug.Log("spin called");
+
         resetCounter();
 
         animator.SetTrigger("Spin");
