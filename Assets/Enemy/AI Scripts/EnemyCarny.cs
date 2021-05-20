@@ -17,15 +17,15 @@ public class EnemyCarny : MonoBehaviour
     private Rigidbody rb;
     private Transform target;
     public NavMeshAgent agent;
-    Animator eAnim;
-    CombatManager CombatScript;
-    CharacterMechanics cm;
+    private Animator eAnim;
+    private CombatManager CombatScript;
+    private CharacterMechanics cm;
     //used to track the player for giveDamage function
     private GameObject Player;
 
     //HP
     [Header("Essentials")]
-    public int hp = 5;
+    [SerializeField] private int hp;
     private int maxHP;
     private Image hpBar;
     public bool death = false;
@@ -181,6 +181,7 @@ public class EnemyCarny : MonoBehaviour
         #region default values
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
+
         myEnemy = EnemyState.Start;
         rb.isKinematic = true;
 
@@ -360,7 +361,7 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        else if (collision.gameObject.tag == "HammerSmashAOE")
+        else if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
 
@@ -377,7 +378,7 @@ public class EnemyCarny : MonoBehaviour
             //AgentStop();
             //yield return new WaitForSeconds(5);
             //movementSpeed = 5;
-            takeDamage(3);
+            takeDamage(35);
             StartCoroutine(Stun());
 
             if (rb)
@@ -393,20 +394,20 @@ public class EnemyCarny : MonoBehaviour
                 Debug.Log(this.transform.name + " Knocked Back!");
             }
         }
-        else if (collision.gameObject.tag == "WhirlwindAOE")
+        else if (collision.gameObject.CompareTag("WhirlwindAOE"))
         {
             //Deals small knockback from takeDamage function
             #region Debug Log
             Debug.Log("Enemy has been hit by whirlwind!");
             #endregion
-            takeDamage(3);
+            takeDamage(20);
         }
-        else if (collision.gameObject.tag == "Attack Zone")
+        else if (collision.gameObject.CompareTag("Attack Zone"))
         {
             takeDamage(1);
         }
 
-        if (collision.gameObject.tag == "Hammer")
+        if (collision.gameObject.CompareTag("Hammer"))
         {
             if (cm.isAttacking)
             {
@@ -416,7 +417,7 @@ public class EnemyCarny : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
-                takeDamage(2);
+                takeDamage(5);
 
                 if (rb)
                 {
@@ -456,7 +457,7 @@ public class EnemyCarny : MonoBehaviour
                 }
             }
         }
-        if (collision.gameObject.tag == "Dash Collider")
+        if (collision.gameObject.CompareTag("Dash Collider"))
         {
             if (combatDebug)
             {
@@ -464,7 +465,7 @@ public class EnemyCarny : MonoBehaviour
                 Debug.Log(this.transform.name + " Damage Applied!");
             }
 
-            takeDamage(1);
+            takeDamage(7);
 
             if (rb)
             {
@@ -483,7 +484,7 @@ public class EnemyCarny : MonoBehaviour
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.tag == "HammerSmashAOE")
+        if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
             //Debug.Log("Enemy has been hit by hammer smash!");
@@ -498,7 +499,7 @@ public class EnemyCarny : MonoBehaviour
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On colliding with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
-        /*
+
         if (myEnemy == EnemyState.Patrol)
         {
             if (advancedPatrol)
@@ -533,8 +534,8 @@ public class EnemyCarny : MonoBehaviour
         }
         else
         {
-        */
-        if (other.CompareTag("Player"))
+
+            if (other.CompareTag("Player"))
         {
             eAnim.SetBool("cancelAttk", false);
             if (myEnemy == EnemyState.Chase && onStack)
@@ -547,7 +548,7 @@ public class EnemyCarny : MonoBehaviour
             agent.isStopped = true;
             eAnim.SetFloat("Speed", 0);
         }
-        //}
+    }
 
         //if(other.CompareTag("Hammer"))
         //{
@@ -631,6 +632,10 @@ public class EnemyCarny : MonoBehaviour
             ragdollPos.y -= 3.25f;
             GameObject temp = Instantiate(ragdoll, ragdollPos, transform.rotation);
             //temp.transform.localScale = new Vector3(3.25f, 3.25f, 3.25f);
+            RagdollPhysics ragdollPhysics = temp.GetComponent<RagdollPhysics>();
+            Vector3 currentVelocity = rb.velocity;
+            ragdollPhysics.GetVelocity(currentVelocity);
+
             Destroy(gameObject);
             death = true;
             stackTracker.RemoveStack(gameObject);
@@ -644,7 +649,7 @@ public class EnemyCarny : MonoBehaviour
 
             //Destroy(gameObject);   Destroy object is called in EnemyAI1 when the death animation is played
         }
-        hpBar.fillAmount = (float)(hp * 0.2);
+        hpBar.fillAmount = (float)(hp * 0.016f);
 
         //KNOCKBACK
         // Gets the difference between enemy and player position

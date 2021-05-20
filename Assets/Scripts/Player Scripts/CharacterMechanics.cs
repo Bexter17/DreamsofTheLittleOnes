@@ -1012,6 +1012,8 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
+        ac.attackEnd();
+
         //sends message to the players sword script to stop dealing damage on collision
         //   sword.SendMessage("deactivateAttack");
 
@@ -1474,6 +1476,19 @@ public class CharacterMechanics : MonoBehaviour
         gameObject.transform.position = respawnPoint.transform.position;
 
         ac.respawn();
+    }
+
+    #endregion
+
+    #region Pause Handling
+
+    public void toggleIsPlaying()
+    {
+        if(!isPlaying)
+        isPlaying = true;
+
+        else if(isPlaying)
+        isPlaying = false;
     }
 
     #endregion

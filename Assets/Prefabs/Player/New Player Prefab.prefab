@@ -517,7 +517,7 @@ Animator:
   m_Avatar: {fileID: 9000000, guid: 63a9e801de775bd4f82a96a909f28380, type: 3}
   m_Controller: {fileID: 9100000, guid: 3ccaf917d30940c409bc2eb6c11c4a8f, type: 2}
   m_CullingMode: 0
-  m_UpdateMode: 0
+  m_UpdateMode: 2
   m_ApplyRootMotion: 0
   m_LinearVelocityBlending: 0
   m_WarningMessage: 
@@ -564,7 +564,7 @@ MonoBehaviour:
   healthBar: {fileID: 2778099231981181032, guid: b3aec9d629df5944696f9dba201bc3d8,
     type: 3}
   currentHealth: 5
-  maxHealth: 50
+  maxHealth: 100
   Lives: 1
   isAlive: 1
   isPlaying: 1
@@ -768,7 +768,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 5dc58d4143b9b2f4d951134d0061558f,
     type: 3}
-  m_NotificationBehavior: 0
+  m_NotificationBehavior: 1
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:
@@ -2678,7 +2678,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7950441419671624191}
   m_LocalRotation: {x: 0.10115583, y: 0.0017741324, z: 0.02532653, w: 0.9945466}
-  m_LocalPosition: {x: 1.0961958, y: 1.7507601, z: -1.2596041}
+  m_LocalPosition: {x: -1.6869533, y: 1.8232058, z: -1.5878861}
   m_LocalScale: {x: 0.6105315, y: 0.6105315, z: 0.6105315}
   m_Children:
   - {fileID: 3787048888769314208}
@@ -2830,8 +2830,8 @@ MonoBehaviour:
   Damping: {x: 0.1, y: 0.5, z: 0.3}
   ShoulderOffset: {x: 2.73, y: 0.16, z: 0}
   VerticalArmLength: 0.4
-  CameraSide: 0.834
-  CameraDistance: 2.07
+  CameraSide: 0
+  CameraDistance: 2.66
   CameraCollisionFilter:
     serializedVersion: 2
     m_Bits: 4294967295
@@ -3139,8 +3139,9 @@ PrefabInstance:
     - target: {fileID: 5182045300969157645, guid: c605d3be1239a2540a94e291f99e173f,
         type: 3}
       propertyPath: m_text
-      value: "Controls: \nLft Click: Basic Attack\nLft Shft: Dash \nE: Hammer Ability\nQ:
-        Whirlwind Ability \nZ: Ranged Ability\nRight Click: Free Aim"
+      value: "Controls: \nLft Click/ Right Trigger: Basic Attack\nLft Shft/ B Button:
+        Dash \nE: Hammer Ability\nQ: Whirlwind Ability \nR: Ranged Ability\nRight
+        Click: Free Aim"
       objectReference: {fileID: 0}
     - target: {fileID: 6451124443655699044, guid: c605d3be1239a2540a94e291f99e173f,
         type: 3}

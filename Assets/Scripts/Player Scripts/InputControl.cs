@@ -355,39 +355,6 @@ public class InputControl : MonoBehaviour
             land();
     }
 
-    void fall()
-    {
-        if (jumpDebug)
-            Debug.Log("fall() Called");
-
-        if (isGrounded)
-            isGrounded = false;
-
-        if (isJumping)
-            isJumping = false;
-
-        if (!isFalling)
-            isFalling = true;
-    }
-
-    void land()
-    {
-        if (jumpDebug)
-            Debug.Log("jumpDebug: land() Called");
-
-        if (isJumping)
-            isJumping = false;
-
-        isFalling = false;
-
-        isGrounded = true;
-
-        vSpeed = 0;
-
-        if (!ib.actionAllowed)
-            ib.setBufferTrue();
-    }
-
     void CamControl()
     {
         mouseX += mouseVec.x;// * HorizontalRotationSpeed;
@@ -473,6 +440,11 @@ public class InputControl : MonoBehaviour
      Fixed jump
      Fixed grounding raycast
     */
+
+    void OnPause()
+    {
+        cm.toggleIsPlaying();
+    }
 
     void changeDirection(Vector3 direction)
     {
@@ -852,12 +824,58 @@ public class InputControl : MonoBehaviour
 
         isJumping = false;
 
+        ac.setJumping(isJumping);
+
         currentJumpPower = 0;
 
         if (!groundCheck())
         {
             fall();
         }
+    }
+    void fall()
+    {
+        if (jumpDebug)
+            Debug.Log("fall() Called");
+
+        if (isGrounded)
+            isGrounded = false;
+
+        ac.setGrounded(isGrounded);
+
+        if (isJumping)
+            isJumping = false;
+
+        ac.setJumping(isJumping);
+
+        if (!isFalling)
+            isFalling = true;
+
+        ac.setFalling(isFalling);
+    }
+
+    void land()
+    {
+        if (jumpDebug)
+            Debug.Log("jumpDebug: land() Called");
+
+        if (isJumping)
+            isJumping = false;
+
+        ac.setJumping(isJumping);
+
+        isFalling = false;
+
+        ac.setFalling(isFalling);
+
+        isGrounded = true;
+
+        ac.setGrounded(isGrounded);
+
+        vSpeed = 0;
+
+        if (!ib.actionAllowed)
+            ib.setBufferTrue();
     }
 
     #endregion
