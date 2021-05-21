@@ -1,0 +1,131 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1160557029300548695
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2700252570793587085}
+  m_Layer: 0
+  m_Name: VFX_LadyDeathMat
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2700252570793587085
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1160557029300548695}
+  m_LocalRotation: {x: -0.7071068, y: -0, z: -0, w: 0.7071068}
+  m_LocalPosition: {x: 12.462483, y: 3.45, z: 33.605103}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 291123868691842712}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &252481820476481907
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 2700252570793587085}
+    m_Modifications:
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -39.862484
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 11.73182
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -3.454566
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 3.25
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 3.2499993
+      objectReference: {fileID: 0}
+    - target: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 3.2499993
+      objectReference: {fileID: 0}
+    - target: {fileID: -3821789611635778671, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    - target: {fileID: -2057745574503488183, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    - target: {fileID: -420709025319402612, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    - target: {fileID: 919132149155446097, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Name
+      value: LadyCarnyattack00 (1)
+      objectReference: {fileID: 0}
+    - target: {fileID: 4035075725559296726, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    - target: {fileID: 5015848268566862143, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    - target: {fileID: 7863934356229493725, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+      propertyPath: m_Materials.Array.data[0]
+      value: 
+      objectReference: {fileID: 2100000, guid: e8e523e873ef53d4eb6c0420c2649fc0, type: 2}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+--- !u!4 &291123868691842712 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: 97c51c881ee8dd04e84940b93653f3ea, type: 3}
+  m_PrefabInstance: {fileID: 252481820476481907}
+  m_PrefabAsset: {fileID: 0}

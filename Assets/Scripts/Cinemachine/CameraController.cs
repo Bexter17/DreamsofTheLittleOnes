@@ -31,7 +31,7 @@ public class CameraController : MonoBehaviour
 
         cm = Player.transform.GetComponent<CharacterMechanics>();
 
-        vCam2.transform.position = respawnPoint.transform.position;
+       // vCam2.transform.position = respawnPoint.transform.position;
     }
 
     void Update()
@@ -46,7 +46,7 @@ public class CameraController : MonoBehaviour
 
         if (!cm.IsAimOn)
         {
-            vCam2.transform.position = respawnPoint.transform.position;
+           // vCam2.transform.position = respawnPoint.transform.position;
             Debug.Log("Right Mouse Button Let go");
             ThirdPersonCamera = true;
             Aimer.enabled = false;

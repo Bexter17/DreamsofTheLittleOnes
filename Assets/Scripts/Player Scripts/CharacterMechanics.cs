@@ -365,8 +365,8 @@ public class CharacterMechanics : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(SceneManager.GetActiveScene().name == "Level_1")
-        GameManager.Instance.BuildCheckpointsList();
+        if (SceneManager.GetActiveScene().name == "Level_1")
+            GameManager.Instance.BuildCheckpointsList();
 
         #region Initialization
 
@@ -487,9 +487,25 @@ public class CharacterMechanics : MonoBehaviour
 
             //            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
 
-            if (respawnPoint)
-                transform.position = respawnPoint.transform.position;
+            if (GameManager.Instance.HauntedHouse)
+            {
+                respawnPoint = GameObject.FindWithTag("HauntedExit");
+                if (respawnPoint != null)
+                {
+                    GameManager.Instance.HauntedHouse = false;
+                }
+            }
+            else
+            {
 
+                respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+            }
+
+
+            if (respawnPoint)
+            {
+                transform.position = respawnPoint.transform.position;
+            }
             #endregion
 
             #region Combat
@@ -838,16 +854,16 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (ib.actionAllowed)
                 ib.setBufferFalse();
-            
+
         }
 
         comboCount = 1;
 
-         
-        am.PlayNewSound("Swing 1", false, false, null);
+        
+        //am.PlayNewSound("Swing_01_WithReverb", false, false, null);
 
         isAttacking = true;
-        
+
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
         //Destroy(cameraShakeTemp2, 0.5f);
         if (ac)
@@ -888,7 +904,8 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 2;
 
-        am.PlayNewSound("Swing 2", false, false, null);
+        
+       // am.PlayNewSound("Swing_02_with Reverb", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
@@ -931,7 +948,8 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 3;
 
-        am.PlayNewSound("Swing 3", false, false, null);
+        
+        //am.PlayNewSound("Swing_03_With Reverb", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
@@ -1058,7 +1076,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (ib)
             ib.tryBufferedAction();
-
+        
         //comboCount = 0;
 
         //animator.SetInteger("Counter", comboCount);
@@ -1123,6 +1141,21 @@ public class CharacterMechanics : MonoBehaviour
         }
     }
 
+    public void firstAttackSFX()
+    {             
+        
+        am.PlayNewSound("Swing_01_WithReverb", false, false, null);       
+    }
+
+    public void secondAttackSFX()
+    {
+        am.PlayNewSound("Swing_02_withReverb", false, false, null);
+    }
+
+    public void thirdAttackSFX()
+    {
+        am.PlayNewSound("Swing_03_WithReverb", false, false, null);
+    }
     #endregion
 
     #region Abilities

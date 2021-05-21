@@ -55,9 +55,9 @@ public class InputControl : MonoBehaviour
 
     #region Jumping and Falling
 
-    RaycastHit groundHit;
+    //RaycastHit groundHit;
 
-    public float groundSearchLength = 0.6f;
+    //public float groundSearchLength = 0.6f;
 
     Vector3 characterSize;
 
@@ -165,10 +165,10 @@ public class InputControl : MonoBehaviour
 
             raycastSpawn.transform.parent = this.transform;
 
-            raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
+            //raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
 
             // Changed the additive value to 1.25f from 0.2f
-            groundSearchLength = raycastSpawn.transform.position.y + 1.25f;
+           // groundSearchLength = raycastSpawn.transform.position.y + 1.25f;
 
             //groundSearchLength = (characterSize.y * 0.5f);
 
@@ -193,7 +193,7 @@ public class InputControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        isGrounded = groundCheck(isGrounded);
+        isGrounded = groundCheck();
 
         if (jumpDebug)
             Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
@@ -351,7 +351,7 @@ public class InputControl : MonoBehaviour
         // changeDirection();
         resetMovement();
 
-        if(!isJumping && isFalling && isGrounded)
+        if (!isJumping && isFalling && isGrounded)
             land();
     }
 
@@ -421,6 +421,7 @@ public class InputControl : MonoBehaviour
         {
             inputVec = Vector2.zero;
             inputVec = input.Get<Vector2>();
+            Debug.Log("ALI - " + inputVec.y);
 
             //moveDirection = Vector3.zero;
         }
@@ -654,46 +655,88 @@ public class InputControl : MonoBehaviour
         }
     }
 
-    public bool groundCheck(bool isGrounded)
+    private void OnDrawGizmos()
     {
-        Vector3 lineStart = raycastSpawn.transform.position;
-        Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y - groundSearchLength, lineStart.z);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
+    }
+    public bool groundCheck()
+    {
+        //Vector3 lineStart = raycastSpawn.transform.position;
+        //Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y - groundSearchLength, lineStart.z);
 
-        Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
+        //Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
 
-        if (Physics.Linecast(lineStart, vectorToSearch, out groundHit))
+        Collider[] potentialGrounds = Physics.OverlapSphere(raycastSpawn.transform.position, 0.5f);
+        if (potentialGrounds.Length > 0)
         {
-            if (groundHit.transform.tag == "Floor" ||
-                groundHit.transform.tag == "Box" ||
-                groundHit.transform.tag == "Picnic Table" ||
-                groundHit.transform.tag == "Train Car" ||
-                groundHit.transform.tag == "Trash Can" ||
-                groundHit.transform.tag == "Test Of Strength")
+            for (int i = 0; i < potentialGrounds.Length; i++)
             {
-                if (this.transform.parent == groundHit.transform)
-                    this.transform.parent = null;
+                
+                if (potentialGrounds[i].tag == "Floor" ||
+                    potentialGrounds[i].tag == "Box" ||
+                    potentialGrounds[i].tag == "Picnic Table" ||
+                    potentialGrounds[i].tag == "Train Car" ||
+                    potentialGrounds[i].tag == "Trash Can" ||
+                    potentialGrounds[i].tag == "Test Of Strength")
+                {
+                    if (this.transform.parent == potentialGrounds[i].transform)
+                        this.transform.parent = null;
 
-                return true;
-            }
+                    return true;
+                }
+                else if (potentialGrounds[i].tag == "Platform")
+                {
+                    this.transform.parent = potentialGrounds[i].transform;
 
-            else if (groundHit.transform.tag == "Platform")
-            {
-                this.transform.parent = groundHit.transform;
+                    return true;
+                }
+                //else
+                //{
+                //    if (this.transform.parent == potentialGrounds[i].transform)
+                //        this.transform.parent = null;
 
-                return true;
-            }
+                //    return false;
+                //}
 
-            else
-            {
-                if (this.transform.parent == groundHit.transform)
-                    this.transform.parent = null;
-
-                return false;
             }
         }
 
-        else
-            return false;
+        return false;
+
+        //if (Physics.Linecast(lineStart, vectorToSearch, out groundHit))
+        //{
+        //    if (groundHit.transform.tag == "Floor" ||
+        //        groundHit.transform.tag == "Box" ||
+        //        groundHit.transform.tag == "Picnic Table" ||
+        //        groundHit.transform.tag == "Train Car" ||
+        //        groundHit.transform.tag == "Trash Can" ||
+        //        groundHit.transform.tag == "Test Of Strength")
+        //    {
+        //        if (this.transform.parent == groundHit.transform)
+        //            this.transform.parent = null;
+
+        //        return true;
+        //    }
+
+        //    else if (groundHit.transform.tag == "Platform")
+        //    {
+        //        this.transform.parent = groundHit.transform;
+
+        //        return true;
+        //    }
+
+        //    else
+        //    {
+        //        if (this.transform.parent == groundHit.transform)
+        //            this.transform.parent = null;
+
+        //        return false;
+        //    }
+        //}
+
+        //else
+        //    return false;
     }
 
     void OnControllerColliderHit(ControllerColliderHit hit)
@@ -706,13 +749,13 @@ public class InputControl : MonoBehaviour
 
             //isFalling = false;
 
-    //        land();
+            //        land();
 
             if (isJumping)
             {
-      //          isJumping = false;
+                //          isJumping = false;
 
-        //        ib.setBufferTrue();
+                //        ib.setBufferTrue();
             }
 
             ac.hitGround();
@@ -785,7 +828,7 @@ public class InputControl : MonoBehaviour
 
         currentJumpPower = 0;
 
-        if (!groundCheck(isGrounded))
+        if (!groundCheck())
         {
             fall();
         }
@@ -833,6 +876,8 @@ public class InputControl : MonoBehaviour
 
         if (!ib.actionAllowed)
             ib.setBufferTrue();
+
+        cm.dashEnds();
     }
 
     #endregion
