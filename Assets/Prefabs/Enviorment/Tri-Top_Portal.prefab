@@ -12,12 +12,11 @@ GameObject:
   - component: {fileID: 5193971372796622552}
   - component: {fileID: 5193971372796622553}
   - component: {fileID: 5193971372796622558}
-  - component: {fileID: 5193971372796622559}
   - component: {fileID: 5193971372796622556}
   - component: {fileID: 1484095216337631853}
   m_Layer: 0
   m_Name: Tri-Top_Portal
-  m_TagString: HauntedPortal
+  m_TagString: TritopPortal
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -17416,20 +17415,6 @@ MeshFilter:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5193971372796622530}
-  m_Mesh: {fileID: 0}
---- !u!64 &5193971372796622559
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5193971372796622530}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 0
-  m_CookingOptions: 30
   m_Mesh: {fileID: 0}
 --- !u!65 &5193971372796622556
 BoxCollider:

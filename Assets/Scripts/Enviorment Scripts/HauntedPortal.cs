@@ -22,6 +22,7 @@ public class HauntedPortal : MonoBehaviour
         if(other.gameObject.tag == "Player")
         {
             Debug.Log("touching");
+            GameManager.Instance.HauntedHouse = true;
             SceneManager.LoadScene("MazeScene");
         }
     }

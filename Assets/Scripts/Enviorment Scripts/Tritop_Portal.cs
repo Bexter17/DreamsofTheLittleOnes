@@ -22,7 +22,7 @@ public class Tritop_Portal : MonoBehaviour
         if (other.gameObject.tag == "Player")
         {
             Debug.Log("touching");
-            SceneManager.LoadScene("Final_Level");
+            SceneManager.LoadScene("CreditScene");
         }
     }
 }

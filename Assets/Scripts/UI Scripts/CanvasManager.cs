@@ -2,10 +2,17 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class CanvasManager : MonoBehaviour
 {
     GameManager gm;
+
+    GameObject Player;
+
+    CharacterMechanics cm;
+
+    bool isPaused;
 
     public Button startButton;
     public Button quitButton;
@@ -18,6 +25,7 @@ public class CanvasManager : MonoBehaviour
     void Start()
     {
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
+
         if (startButton)
         {
             startButton.onClick.AddListener(gm.StartGame);
@@ -40,26 +48,56 @@ public class CanvasManager : MonoBehaviour
         
     }
 
+    private void Awake()
+    {
+        if (SceneManager.GetActiveScene().name == "Level_1")
+        {
+            try
+            {
+                Player = GameObject.FindGameObjectWithTag("Player");
+
+                cm = Player.GetComponent<CharacterMechanics>();
+            }
+
+            catch (MissingReferenceException e)
+            {
+                Debug.LogError(e.Message);
+            }
+        }
+    }
+
     private void Update()
     {
-        //if (Input.GetKeyDown(KeyCode.P))
-        //{
-        //    pauseMenu.SetActive(!pauseMenu.activeSelf);
-        //    if (pauseMenu.activeSelf)
-        //    {
-        //        //pauseAudio.Play();
-        //    }
-        //}
-        if (pauseMenu)
+        if (cm)
         {
-            if (pauseMenu.activeSelf)
+            if (!cm.isPlaying)
             {
-                Time.timeScale = 0.0f;
+                if (!isPaused)
+                {
+                    if (pauseMenu)
+                    {
+                        pauseMenu.SetActive(!pauseMenu.activeSelf);
 
+                        if (pauseMenu.activeSelf)
+                        {
+                            //pauseaudio.play();
+                        }
+
+                        Time.timeScale = 0.0f;
+
+                        isPaused = true;
+                    }
+
+                }
             }
-            else
+
+            else if (cm.isPlaying)
             {
+                pauseMenu.SetActive(false);
+
                 Time.timeScale = 1.0f;
+
+                isPaused = false;
             }
         }
 

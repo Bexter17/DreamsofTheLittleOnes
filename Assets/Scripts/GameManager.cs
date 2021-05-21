@@ -13,13 +13,25 @@ public class CheckpointSorter : IComparer {
 
 public class GameManager : MonoBehaviour
 {
+    GameObject Player;
+
+    CharacterMechanics cm;
 
     // Start is called before the first frame update
     void Start()
     {
+        try
+        {
+            Player = GameObject.FindGameObjectWithTag("Player");
 
+            cm = Player.GetComponent<CharacterMechanics>();
+        }
+
+        catch (NullReferenceException e)
+        {
+            Debug.Log(e.Message);
+        }
     }
-
     public void BuildCheckpointsList()
     {
         IComparer sorter = new CheckpointSorter();
@@ -56,6 +68,48 @@ public class GameManager : MonoBehaviour
         //        SceneManager.LoadScene("MainMenu");
         //    }
         //}
+
+        if (SceneManager.GetActiveScene().name == "Level_1")
+        {
+            if (Player && cm)
+            {
+                if (cm.isPlaying)
+                {
+                    Cursor.lockState = CursorLockMode.Locked;
+
+                    Cursor.visible = false;
+                }
+
+                if (!cm.isPlaying)
+                {
+                    Cursor.lockState = CursorLockMode.None;
+
+                    Cursor.visible = true;
+                }
+            }
+        }
+
+
+        if (SceneManager.GetActiveScene().name == "MainMenu")
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            Cursor.visible = true;
+        }
+
+        if (SceneManager.GetActiveScene().name == "CreditScene")
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            Cursor.visible = true;
+        }
+
+        if (SceneManager.GetActiveScene().name == "EndScene")
+        {
+            Cursor.lockState = CursorLockMode.None;
+
+            Cursor.visible = true;
+        }
     }
 
     public void StartGame()
@@ -86,9 +140,11 @@ public class GameManager : MonoBehaviour
     private static GameManager instance;
 
     public static GameManager Instance { get => instance; }
+    public bool HauntedHouse { get => hauntedHouse; set => hauntedHouse = value; }
+
     public GameObject[] checkPoints;
     public int currentCheckpoint;
-
+    private bool hauntedHouse = false;
 
     void Awake()
     {
