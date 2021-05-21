@@ -1,0 +1,41 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 6
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: M_LadieFadeIn
+  m_Shader: {fileID: -6465566751694194690, guid: 3e16c11fb6a069c4195bd4cc6c7f14aa, type: 3}
+  m_ShaderKeywords: 
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - Texture2D_BA4C4B74:
+        m_Texture: {fileID: 2800000, guid: e3dcc878b0bfeb242b2d1946c7d5f07f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_CC220142:
+        m_Texture: {fileID: 2800000, guid: 9dd66e3d4e160fc46a1469db9098c3ca, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D9D386F2:
+        m_Texture: {fileID: 2800000, guid: 8dc4bdd9aa6e9bc48b7263ebf7167690, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Floats:
+    - Vector1_6C86BE5D: -1
+    - Vector1_71AD136B: 1
+    - Vector1_A8DDA205: 0.063
+    - Vector1_E1B7594C: 500
+    - Vector1_F503ADC3: 50
+    m_Colors: []
+  m_BuildTextureStacks: []

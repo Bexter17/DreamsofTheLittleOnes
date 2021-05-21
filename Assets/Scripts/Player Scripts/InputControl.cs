@@ -163,7 +163,7 @@ public class InputControl : MonoBehaviour
 
             raycastSpawn = GameObject.FindGameObjectWithTag("Raycast Spawn");
 
-            //raycastSpawn.transform.parent = this.transform;
+            raycastSpawn.transform.parent = this.transform;
 
             //raycastSpawn.transform.localPosition = new Vector3(0.0f, characterSize.y * 0.5f, 0.0f);
 
@@ -658,7 +658,7 @@ public class InputControl : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(raycastSpawn.transform.position, 0.1f);
+        Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
     }
     public bool groundCheck()
     {
@@ -667,7 +667,7 @@ public class InputControl : MonoBehaviour
 
         //Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
 
-        Collider[] potentialGrounds = Physics.OverlapSphere(raycastSpawn.transform.position, 0.1f);
+        Collider[] potentialGrounds = Physics.OverlapSphere(raycastSpawn.transform.position, 0.5f);
         if (potentialGrounds.Length > 0)
         {
             for (int i = 0; i < potentialGrounds.Length; i++)
@@ -876,6 +876,8 @@ public class InputControl : MonoBehaviour
 
         if (!ib.actionAllowed)
             ib.setBufferTrue();
+
+        cm.dashEnds();
     }
 
     #endregion

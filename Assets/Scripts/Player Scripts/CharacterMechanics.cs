@@ -859,8 +859,8 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 1;
 
-
-        am.PlayNewSound("Swing 1", false, false, null);
+        
+        //am.PlayNewSound("Swing_01_WithReverb", false, false, null);
 
         isAttacking = true;
 
@@ -904,7 +904,8 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 2;
 
-        am.PlayNewSound("Swing 2", false, false, null);
+        
+       // am.PlayNewSound("Swing_02_with Reverb", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
@@ -947,7 +948,8 @@ public class CharacterMechanics : MonoBehaviour
 
         comboCount = 3;
 
-        am.PlayNewSound("Swing 3", false, false, null);
+        
+        //am.PlayNewSound("Swing_03_With Reverb", false, false, null);
 
         isAttacking = true;
         //cameraShakeTemp2 = Instantiate(cameraShake2Prefab, transform.position, hammerSmashSpawn.transform.rotation, gameObject.transform);
@@ -1074,7 +1076,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (ib)
             ib.tryBufferedAction();
-
+        
         //comboCount = 0;
 
         //animator.SetInteger("Counter", comboCount);
@@ -1139,6 +1141,21 @@ public class CharacterMechanics : MonoBehaviour
         }
     }
 
+    public void firstAttackSFX()
+    {             
+        
+        am.PlayNewSound("Swing_01_WithReverb", false, false, null);       
+    }
+
+    public void secondAttackSFX()
+    {
+        am.PlayNewSound("Swing_02_withReverb", false, false, null);
+    }
+
+    public void thirdAttackSFX()
+    {
+        am.PlayNewSound("Swing_03_WithReverb", false, false, null);
+    }
     #endregion
 
     #region Abilities
