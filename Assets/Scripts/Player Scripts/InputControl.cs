@@ -84,7 +84,7 @@ public class InputControl : MonoBehaviour
 
     [SerializeField] bool jumpDebug;
 
-    GameObject raycastSpawn;
+    [SerializeField] GameObject raycastSpawn;
 
     #endregion
 
@@ -658,7 +658,12 @@ public class InputControl : MonoBehaviour
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
+
+        if (raycastSpawn)
+            Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
+
+        else
+            Debug.LogError("raycastSpawn not found!");
     }
     public bool groundCheck()
     {

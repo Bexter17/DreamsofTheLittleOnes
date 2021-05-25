@@ -497,7 +497,7 @@ public class CharacterMechanics : MonoBehaviour
             }
             else
             {
-
+                if(SceneManager.GetActiveScene().name == "Level_1")
                 respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
             }
 
