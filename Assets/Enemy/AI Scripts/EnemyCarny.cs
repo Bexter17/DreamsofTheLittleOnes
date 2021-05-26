@@ -379,9 +379,6 @@ public class EnemyCarny : MonoBehaviour
             //Slow down enemies in contact with hammer smash AOE 
             //movementSpeed = 0;
             //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
-            //AgentStop();
-            //yield return new WaitForSeconds(5);
-            //movementSpeed = 5;
             takeDamage(35);
             StartCoroutine(Stun());
 
@@ -408,7 +405,7 @@ public class EnemyCarny : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Attack Zone"))
         {
-            takeDamage(1);
+            takeDamage(3);
         }
 
         if (collision.gameObject.CompareTag("Hammer"))
@@ -617,7 +614,7 @@ public class EnemyCarny : MonoBehaviour
             eAnim.SetBool("cancelAttk", true);
             ableToDamage = false;
             agent.isStopped = false;
-            eAnim.SetFloat("Speed", 1);
+            eAnim.SetFloat("Speed", 2);
             myEnemy = EnemyState.Chase;
         }
     }
@@ -692,9 +689,8 @@ public class EnemyCarny : MonoBehaviour
     #region init States
     public void Chase()
     {
-        //agent.isStopped = false;
-        //Debug.Log("CHASE");
         myEnemy = EnemyState.Chase;
+        eAnim.SetFloat("Speed", 2);
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
