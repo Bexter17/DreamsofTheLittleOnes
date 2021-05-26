@@ -596,7 +596,7 @@ public class EnemyCarny : MonoBehaviour
         if (other.CompareTag("Player") && myEnemy != EnemyState.Attack)
         {
             eAnim.SetBool("cancelAttk", false);
-            if (myEnemy == EnemyState.Chase && onStack)
+            if (myEnemy == EnemyState.Chase/* && onStack*/)
             {
                 myEnemy = EnemyState.Attack;
             }
