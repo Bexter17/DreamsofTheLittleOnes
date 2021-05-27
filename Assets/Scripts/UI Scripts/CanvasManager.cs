@@ -14,6 +14,8 @@ public class CanvasManager : MonoBehaviour
 
     bool isPaused;
 
+    [SerializeField] bool canvasDebug;
+
     public Button startButton;
     public Button quitButton;
     public Button returnButton;
@@ -50,8 +52,8 @@ public class CanvasManager : MonoBehaviour
 
     private void Awake()
     {
-        if (SceneManager.GetActiveScene().name == "Level_1")
-        {
+        //if (SceneManager.GetActiveScene().name == "Level_1")
+        //{
             try
             {
                 Player = GameObject.FindGameObjectWithTag("Player");
@@ -63,19 +65,39 @@ public class CanvasManager : MonoBehaviour
             {
                 Debug.LogError(e.Message);
             }
-        }
+      //  }
     }
 
     private void Update()
     {
         if (cm)
         {
+            #region Debug
+            if (canvasDebug)
+                Debug.Log("Canvas: cm is attached");
+            #endregion
+
             if (!cm.isPlaying)
             {
+                #region Debug
+                if (canvasDebug)
+                    Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
+                #endregion
+
                 if (!isPaused)
                 {
+                    #region Debug
+                    if (canvasDebug)
+                        Debug.Log("Canvas: isPaused = " + isPaused);
+                    #endregion
+
                     if (pauseMenu)
                     {
+                        #region Debug
+                        if (canvasDebug)
+                            Debug.Log("Canvas: pauseMenu attached");
+                        #endregion
+
                         pauseMenu.SetActive(!pauseMenu.activeSelf);
 
                         if (pauseMenu.activeSelf)
@@ -86,6 +108,11 @@ public class CanvasManager : MonoBehaviour
                         Time.timeScale = 0.0f;
 
                         isPaused = true;
+
+                        #region Debug
+                        if (canvasDebug)
+                            Debug.Log("Canvas: isPaused set to = " + isPaused);
+                        #endregion
                     }
 
                 }
@@ -93,13 +120,34 @@ public class CanvasManager : MonoBehaviour
 
             else if (cm.isPlaying)
             {
-                pauseMenu.SetActive(false);
+                #region Debug
+                if (canvasDebug)
+                    Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
+                #endregion
 
-                Time.timeScale = 1.0f;
+                if (pauseMenu)
+                {
+                    #region Debug
+                    if (canvasDebug)
+                        Debug.Log("Canvas: pauseMenu attached");
+                    #endregion
 
-                isPaused = false;
+                    pauseMenu.SetActive(false);
+
+                    Time.timeScale = 1.0f;
+
+                    isPaused = false;
+
+                    #region Debug
+                    if (canvasDebug)
+                        Debug.Log("Canvas: isPaused set to = " + isPaused);
+                    #endregion
+                }
             }
         }
+
+        else
+            Debug.LogError("Canvas: cm not attached!");
 
     }
 

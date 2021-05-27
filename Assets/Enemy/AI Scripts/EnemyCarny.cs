@@ -79,10 +79,12 @@ public class EnemyCarny : MonoBehaviour
     private int patrolIterator = 1;
 
     // How fast enemy moves
-    private float enemyMovement = 3;
+    [Header("Speed")]
+    [SerializeField] private float enemyMovement;
     // multiplies by walk enemyMovement speed for chasing speed
     private int enemyRunMultiplier = 2;
     private float rotationSpeed = 3;
+    private float startingMovementSpeed;
 
 
 
@@ -222,6 +224,8 @@ public class EnemyCarny : MonoBehaviour
         if (rangeKnockbackForce <= 0)
             rangeKnockbackForce = 2;
 
+        startingMovementSpeed = enemyMovement;
+
         Patrol();
         #endregion
         #region stackTracker
@@ -314,12 +318,12 @@ public class EnemyCarny : MonoBehaviour
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
-                agent.speed = enemyMovement;
+                agent.speed = startingMovementSpeed;
             }
             else if (myEnemy == EnemyState.Chase)
             {
                 Chase();
-                agent.speed = enemyRunMultiplier * enemyMovement;
+                agent.speed = enemyRunMultiplier * startingMovementSpeed;
                 //Debug.Log("Run");
             }
             else if(myEnemy == EnemyState.Attack)
@@ -375,9 +379,6 @@ public class EnemyCarny : MonoBehaviour
             //Slow down enemies in contact with hammer smash AOE 
             //movementSpeed = 0;
             //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
-            //AgentStop();
-            //yield return new WaitForSeconds(5);
-            //movementSpeed = 5;
             takeDamage(35);
             StartCoroutine(Stun());
 
@@ -404,7 +405,7 @@ public class EnemyCarny : MonoBehaviour
         }
         else if (collision.gameObject.CompareTag("Attack Zone"))
         {
-            takeDamage(1);
+            takeDamage(3);
         }
 
         if (collision.gameObject.CompareTag("Hammer"))
@@ -536,19 +537,19 @@ public class EnemyCarny : MonoBehaviour
         {
 
             if (other.CompareTag("Player"))
-        {
-            eAnim.SetBool("cancelAttk", false);
-            if (myEnemy == EnemyState.Chase && onStack)
             {
-                myEnemy = EnemyState.Attack;
+                eAnim.SetBool("cancelAttk", false);
+                if (myEnemy == EnemyState.Chase && onStack)
+                {
+                    myEnemy = EnemyState.Attack;
+                }
+                //Debug.LogWarning("Enemy Start Collision With Player");
+                rb.isKinematic = false;
+                ableToDamage = true;
+                agent.isStopped = true;
+                eAnim.SetFloat("Speed", 0);
             }
-            //Debug.LogWarning("Enemy Start Collision With Player");
-            rb.isKinematic = false;
-            ableToDamage = true;
-            agent.isStopped = true;
-            eAnim.SetFloat("Speed", 0);
         }
-    }
 
         //if(other.CompareTag("Hammer"))
         //{
@@ -595,7 +596,7 @@ public class EnemyCarny : MonoBehaviour
         if (other.CompareTag("Player") && myEnemy != EnemyState.Attack)
         {
             eAnim.SetBool("cancelAttk", false);
-            if (myEnemy == EnemyState.Chase && onStack)
+            if (myEnemy == EnemyState.Chase/* && onStack*/)
             {
                 myEnemy = EnemyState.Attack;
             }
@@ -613,7 +614,7 @@ public class EnemyCarny : MonoBehaviour
             eAnim.SetBool("cancelAttk", true);
             ableToDamage = false;
             agent.isStopped = false;
-            eAnim.SetFloat("Speed", 1);
+            eAnim.SetFloat("Speed", 2);
             myEnemy = EnemyState.Chase;
         }
     }
@@ -680,7 +681,7 @@ public class EnemyCarny : MonoBehaviour
         rb.isKinematic = true;
         //Enemy continues moving
         //agent.enabled = true;
-        enemyMovement = 3;
+        enemyMovement = startingMovementSpeed;
         agent.isStopped = false;
         agent.SetDestination(target.position);
     }
@@ -688,9 +689,8 @@ public class EnemyCarny : MonoBehaviour
     #region init States
     public void Chase()
     {
-        //agent.isStopped = false;
-        //Debug.Log("CHASE");
         myEnemy = EnemyState.Chase;
+        eAnim.SetFloat("Speed", 2);
         // Sets player as destination
         //agent.SetDestination(target.transform.position);
         //UpdateCirclePoints();
@@ -702,11 +702,13 @@ public class EnemyCarny : MonoBehaviour
         //    agent.isStopped = false;
         //    agent.SetDestination(circlePoints[encircleNum].transform.position);
         //}
-        if (encircleNum < 3 && encircleNum >= 0)
-        {
-            agent.isStopped = false;
-            agent.SetDestination(target.transform.position);
-        }
+        agent.SetDestination(target.transform.position);
+        agent.isStopped = false;
+        //if (encircleNum < 3 && encircleNum >= 0)
+        //{
+        //    agent.isStopped = false;
+        //    agent.SetDestination(target.transform.position);
+        //}
 
 
     }

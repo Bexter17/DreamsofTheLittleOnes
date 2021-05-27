@@ -16,6 +16,7 @@ GameObject:
   - component: {fileID: 6845188008510120403}
   - component: {fileID: 6845188007653863305}
   - component: {fileID: -1176448609775156762}
+  - component: {fileID: 3221100409311719016}
   m_Layer: 0
   m_Name: ClownEnemy
   m_TagString: Enemy
@@ -191,7 +192,7 @@ MonoBehaviour:
   combatDebug: 0
   knockbackDebug: 0
   death: 0
-  enemyMovement: 3
+  enemyMovement: 5
   enemyRunMultiplier: 2
   rotationSpeed: 3
   chaseRange: 30
@@ -199,6 +200,19 @@ MonoBehaviour:
   isStationary: 0
   waypoint1: {fileID: 0}
   waypoint2: {fileID: 0}
+--- !u!65 &3221100409311719016
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942041078614933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1, y: 2, z: 0.9}
+  m_Center: {x: 0, y: 0, z: 0.4}
 --- !u!1 &7686237186088107772
 GameObject:
   m_ObjectHideFlags: 0
