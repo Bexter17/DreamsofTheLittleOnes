@@ -39,14 +39,25 @@ public class InputBuffer : MonoBehaviour
 
     public void tryBufferedAction()
     {
-        if (inputBuffer.Count > 0)
+        if (inputBufferDebug)
+        {
+            Debug.Log("input: try buffered action called");
+
+            Debug.Log("input: inputBuffer.Count = " + inputBuffer.Count);
+        }
+
+            if (inputBuffer.Count > 0)
         {
             foreach (ActionItem ai in inputBuffer.ToArray())
             {
                 inputBuffer.Remove(ai);
                 if (ai.CheckIfValid())
                 {
+                    if (inputBufferDebug)
+                        Debug.Log("input: try buffered action successful");
                     doAction(ai);
+                    if (inputBufferDebug)
+                        Debug.Log("input: doAction called action = " + ai);
                     break;
                 }
             }
@@ -68,12 +79,13 @@ public class InputBuffer : MonoBehaviour
 
         if (inputBufferDebug)
         {
-            Debug.Log("doAction called");
+            Debug.Log("input: doAction called");
 
-            Debug.Log(ai.Action);
+            Debug.Log("input: action = " + ai.Action);
         }
 
         #endregion
+
 
         if (ai.Action == ActionItem.InputAction.Jump)
         {
@@ -121,6 +133,8 @@ public class InputBuffer : MonoBehaviour
 
         if (ai.Action == ActionItem.InputAction.Dash)
         {
+            if (inputBufferDebug)
+                Debug.Log("input: action = Dash");
             cm.dash();
         }
 
@@ -156,5 +170,17 @@ public class InputBuffer : MonoBehaviour
             Debug.Log("action allowed set to true");
 
         actionAllowed = true;
+    }
+
+    public bool checkBuffer(ActionItem.InputAction action)
+    {
+        if (inputBuffer.Count >= 2)
+            return false;
+
+        else if (inputBuffer.Count == 1 && action == inputBuffer[0].Action)
+            return false;
+
+        else
+            return true;
     }
 }

@@ -1037,6 +1037,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8adafb20d498c6542b692f71fda6a7d8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  jumpDebug: 1
+  inputDebug: 0
   movementSpeed: 13
   currentSpeed: 0
   rotationSpeed: 0
@@ -1050,7 +1052,7 @@ MonoBehaviour:
   isGrounded: 0
   isJumping: 0
   isFalling: 0
-  jumpDebug: 1
+  raycastSpawn: {fileID: 8233615638246937039}
   mouseHorizontalRotationSpeed: 0.45
   mouseVerticalRotationSpeed: 0.1
   controllerHorizontalRotationSpeed: 3
@@ -1113,7 +1115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_Actions: {fileID: -944628639613478452, guid: 5dc58d4143b9b2f4d951134d0061558f,
     type: 3}
-  m_NotificationBehavior: 1
+  m_NotificationBehavior: 0
   m_UIInputModule: {fileID: 0}
   m_DeviceLostEvent:
     m_PersistentCalls:

@@ -235,6 +235,8 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
+    bool isUsingAbilities;
+
     [SerializeField] public GameObject abilitySpawn;
 
     [SerializeField] public bool IsAimOn = false;
@@ -251,7 +253,7 @@ public class CharacterMechanics : MonoBehaviour
 
     //[SerializeField] private Vector3 dashOffset = new Vector3(0.0f, 0.0f, 1.0f);
 
-    private GameObject dashTemp = null;
+    public GameObject dashTemp = null;
 
     #endregion
 
@@ -1167,7 +1169,7 @@ public class CharacterMechanics : MonoBehaviour
 
         if (combatDebug)
         {
-            Debug.Log("dash has been triggered");
+            Debug.Log("input: dash has been triggered");
         }
 
         #endregion
@@ -1176,10 +1178,18 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (ib.actionAllowed)
             {
+                isUsingAbilities = true;
+
+                ac.setAbilities(isUsingAbilities);
+
                 comboCount = 0;
 
                 if (dashRangePrefab && abilitySpawn)
+                {
                     dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
+                    //if(combatDebug)
+                   // Debug.LogError("Dash Zone created!");
+                }
 
                 else
                     Debug.LogError("Missing Object reference" + "dashRangePrefab: " + dashRangePrefab + "abilitySpawn: " + abilitySpawn);
@@ -1211,10 +1221,19 @@ public class CharacterMechanics : MonoBehaviour
 
         #endregion
 
-        Destroy(dashTemp);
+        isUsingAbilities = false;
 
-        dashTemp = null;
+        ac.setAbilities(isUsingAbilities);
 
+        if (dashTemp)
+        {
+            Destroy(dashTemp);
+
+            dashTemp = null;
+
+            if (combatDebug)
+                Debug.LogError("Dash Zone destroyed!");
+        }
         if (ib)
             ib.setBufferTrue();
 
@@ -1242,6 +1261,9 @@ public class CharacterMechanics : MonoBehaviour
 
         //    Debug.Log("Hammer parent = " + Hammer.transform.parent);
         //}
+        isUsingAbilities = true;
+
+        ac.setAbilities(isUsingAbilities);
 
         if (abilities)
             abilities.activateAbility3();
@@ -1277,6 +1299,10 @@ public class CharacterMechanics : MonoBehaviour
             {
                 ib.setBufferFalse();
 
+                isUsingAbilities = true;
+
+                ac.setAbilities(isUsingAbilities);
+
                 if (abilities)
                     abilities.activateAbility2();
 
@@ -1291,7 +1317,7 @@ public class CharacterMechanics : MonoBehaviour
 
                 //Destroy(whirlwindTemp, 2);
 
-                AttackEnd();
+//                AttackEnd();
             }
         }
 
@@ -1330,6 +1356,10 @@ public class CharacterMechanics : MonoBehaviour
         if (ib)
             ib.setBufferTrue();
 
+        isUsingAbilities = false;
+
+        ac.setAbilities(isUsingAbilities);
+
         isSpinning = false;
 
         //Destroy(whirlwindTemp);
@@ -1360,6 +1390,10 @@ public class CharacterMechanics : MonoBehaviour
         //}
 
         AttackEnd();
+
+        isUsingAbilities = false;
+
+        ac.setAbilities(isUsingAbilities);
 
         if (ib)
             ib.setBufferTrue();
@@ -1404,6 +1438,10 @@ public class CharacterMechanics : MonoBehaviour
                     #endregion
 
                     ib.setBufferFalse();
+
+                    isUsingAbilities = true;
+
+                    ac.setAbilities(isUsingAbilities);
 
                     if (abilities)
                         abilities.activateAbility4();

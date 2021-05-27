@@ -119,7 +119,7 @@ public class AnimController : MonoBehaviour
 
         //currentAnimLength = currentClipInfo[0].clip.length;
 
-       // animName = currentClipInfo[0].clip.name;
+        // animName = currentClipInfo[0].clip.name;
 
         //if (animDebug)
         //{
@@ -165,6 +165,17 @@ public class AnimController : MonoBehaviour
         #endregion
     }
 
+    private void LateUpdate()
+    {
+        /*
+        if (animName != "HammerCharge")
+        {
+            if(cm.dashTemp)
+            cm.dashEnds();
+        }
+        */
+    }
+
     public void Die()
     {
         animator.SetTrigger("Die");
@@ -172,6 +183,8 @@ public class AnimController : MonoBehaviour
 
     public void attackEnd()
     {
+        Debug.LogError("Triggers Reset!");
+
         animator.ResetTrigger("Attack");
 
         animator.ResetTrigger("Dash");
@@ -211,6 +224,11 @@ public class AnimController : MonoBehaviour
 
             animator.SetBool("isJumping", isJumping);
         }
+    }
+
+    public void setAbilities(bool abilities)
+    {
+        animator.SetBool("isUsingAbilities", abilities);
     }
 
     private void updateParameters()
@@ -287,7 +305,7 @@ public class AnimController : MonoBehaviour
     public void spin()
     {
         if (animDebug)
-            Debug.Log("spin called");
+            Debug.LogError("animControl: spin called");
 
         resetCounter();
 
