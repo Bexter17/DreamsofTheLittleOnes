@@ -202,6 +202,8 @@ public class InputControl : MonoBehaviour
             if (accelerationReducer == 0)
                 accelerationReducer = 0.00001f;
 
+            dashRequested = false;
+
             //Assigns a value to the variable
             moveDirection = Vector3.zero;
 
@@ -277,7 +279,7 @@ public class InputControl : MonoBehaviour
                     Debug.Log("Dash Frame: " + currentDashFrame + " initVelocityZ = " + initVelocityZ);
 
                     Debug.Log("Dash Frame: " + currentDashFrame + " zPosition = " + zPosition);
-             
+
                     Debug.Log("Dash Frame: " + currentDashFrame + " newPos = " + newPos);
 
                     //  Debug.Log("Dash Frame: " + frame + " + initPositionZ + (initVelocityZ * velocityReducer * accelerationTime");
@@ -289,6 +291,9 @@ public class InputControl : MonoBehaviour
                     Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
                 }
             }
+
+            else if (currentDashFrame >= maxDashFrames)
+                resetDashParameters();
 
             //else if (accelerationTime >= maxDashTime)
                 //resetDashParameters();
