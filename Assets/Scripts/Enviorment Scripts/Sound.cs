@@ -24,7 +24,7 @@ public class Sound
         get
         {
             if (source == null || clip == null)
-                return 0f;
+                return 1f;
             return (float)source.timeSamples / (float)clip.samples;
         }
     }

@@ -4,6 +4,7 @@ using UnityEngine;
 
 public class HammerGame : MonoBehaviour
 {
+
     /*When player uses their hammer smash ability on the Test Your Strength Game, the box will fly up and hit the bell!
     This will open a new area for the player to explore.
     Target will be the bell, this script is attached to the moving part of the game at bottom. (Square) For now.*/
@@ -16,10 +17,14 @@ public class HammerGame : MonoBehaviour
     public bool wallOpen = false;
     public GameObject gate;
 
+    AudioManager am;
+    public new AudioSource audio;
+
     // Start is called before the first frame update
     void Start()
     {
-        
+        am = this.transform.GetComponent<AudioManager>();
+        audio = this.GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -53,10 +58,11 @@ public class HammerGame : MonoBehaviour
         }
 
         //Check if player has won the game and opened the new area
-        if (other.gameObject.CompareTag("Bell")) {
+        if (other.gameObject.tag == "Bell") {
             #region Debug Log
             Debug.Log("Player has won Hammer Game!");
             #endregion
+            audio.Play();
             wallOpen = true;
         }
     }

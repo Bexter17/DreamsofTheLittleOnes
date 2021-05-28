@@ -13,6 +13,7 @@ GameObject:
   - component: {fileID: 5659902859461385237}
   - component: {fileID: 2003537338008474407}
   - component: {fileID: 2003537338008474400}
+  - component: {fileID: 7917010214530181648}
   m_Layer: 0
   m_Name: SM_Optimized_Elm (20)
   m_TagString: Untagged
@@ -4864,3 +4865,17 @@ ParticleSystemRenderer:
   m_Mesh2: {fileID: 0}
   m_Mesh3: {fileID: 0}
   m_MaskInteraction: 0
+--- !u!136 &7917010214530181648
+CapsuleCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5659902859461385239}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  m_Radius: 1.46
+  m_Height: 57.613194
+  m_Direction: 2
+  m_Center: {x: -0.07, y: 0.33, z: 27.778175}
