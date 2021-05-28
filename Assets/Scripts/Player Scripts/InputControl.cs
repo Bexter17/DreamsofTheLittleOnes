@@ -27,6 +27,16 @@ public class InputControl : MonoBehaviour
 
     string[] controllerList;
 
+    #region Debug
+
+    [Header("Debugs")]
+
+    [SerializeField] bool jumpDebug;
+
+    [SerializeField] bool inputDebug;
+
+    #endregion
+
     #region Movement
 
     //Determines how fast the character moves
@@ -48,8 +58,6 @@ public class InputControl : MonoBehaviour
 
     //How much we are boosting the speed by
     [SerializeField] private float speedBoost;
-
-    [SerializeField] private int dashSpeed;
 
     #endregion
 
@@ -82,9 +90,33 @@ public class InputControl : MonoBehaviour
 
     public bool isFalling;
 
-    [SerializeField] bool jumpDebug;
+    [SerializeField] GameObject raycastSpawn;
 
-    GameObject raycastSpawn;
+    #endregion
+
+    #region Dash
+
+    bool dashRequested;
+
+    float accelerationTime;
+
+    [SerializeField] float dashAcceleration;
+
+    [SerializeField] float maxDashTime;
+
+    float velocityReducer;
+
+    float accelerationReducer;
+
+    int currentDashFrame;
+
+    int maxDashFrames;
+
+    float initPositionZ;
+
+    float initVelocityZ;
+
+    float zPosition;
 
     #endregion
 
@@ -111,6 +143,8 @@ public class InputControl : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        #region Initialization
+
         try
         {
             #region Components
@@ -137,10 +171,10 @@ public class InputControl : MonoBehaviour
                 movementSpeed = 6.0f;
 
             if (maxJumpPower <= 0)
-                maxJumpPower = 4.0f;
+                maxJumpPower = 2.0f;
 
             if (minimumJumpPower == 0)
-                minimumJumpPower = 2;
+                minimumJumpPower = 0.5f;
 
             currentJumpPower = 0;
 
@@ -150,11 +184,25 @@ public class InputControl : MonoBehaviour
             if (gravity <= 0)
                 gravity = 9.81f;
 
-            if (dashSpeed == 0)
-                dashSpeed = 10;
+            if (maxDashFrames == 0)
+                maxDashFrames = 10;
 
+            if (dashAcceleration == 0)
+                dashAcceleration = 0.00000001f;
+
+            if(maxDashTime == 0)
+                maxDashTime = 0.03f;
+            
             if (jumpAmplifier == 0)
                 jumpAmplifier = 10;
+
+            if (velocityReducer == 0)
+                velocityReducer = 0.00000001f;
+
+            if (accelerationReducer == 0)
+                accelerationReducer = 0.00001f;
+
+            dashRequested = false;
 
             //Assigns a value to the variable
             moveDirection = Vector3.zero;
@@ -189,18 +237,71 @@ public class InputControl : MonoBehaviour
         {
             Debug.LogError(e.Message);
         }
+
+        #endregion
     }
 
     private void FixedUpdate()
     {
         isGrounded = groundCheck();
 
+        #region Debug
+
         if (jumpDebug)
             Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
+
+        #endregion
 
         ac.setGrounded(isGrounded);
 
         currentSpeed = movementSpeed + speedBoost;
+
+        #region Dash
+
+        if(dashRequested)
+        {
+            accelerationTime += Time.deltaTime;
+
+            currentDashFrame++;
+
+            if (currentDashFrame < maxDashFrames)
+            {
+                Vector3 newPos = new Vector3(0, 0, zPosition / maxDashFrames);
+
+                newPos = this.transform.TransformDirection(newPos);
+
+                controller.Move(newPos);
+
+                if (inputDebug)
+                {
+                    Debug.Log("Dash Frame: " + currentDashFrame + " initPositionZ = " + initPositionZ);
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " initVelocityZ = " + initVelocityZ);
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " zPosition = " + zPosition);
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " newPos = " + newPos);
+
+                    //  Debug.Log("Dash Frame: " + frame + " + initPositionZ + (initVelocityZ * velocityReducer * accelerationTime");
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " distance traveled = " + (this.transform.position.z - initPositionZ));
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " initial velocity = " + initVelocityZ);
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
+                }
+            }
+
+            else if (currentDashFrame >= maxDashFrames)
+                resetDashParameters();
+
+            //else if (accelerationTime >= maxDashTime)
+                //resetDashParameters();
+        }
+
+        #endregion
+
+        #region Check Jumping and Falling States
 
         if (!isJumping)
         {
@@ -226,6 +327,8 @@ public class InputControl : MonoBehaviour
             }
         }
 
+        #endregion
+
         #region Apply Gravity
 
         if (isJumping)
@@ -234,7 +337,7 @@ public class InputControl : MonoBehaviour
 
             if (jumpDebug)
                 Debug.Log("isJumping true");
-
+            /*
             if (currentJumpPower < maxJumpPower)
             {
                 if (jumpDebug)
@@ -248,11 +351,12 @@ public class InputControl : MonoBehaviour
                     Debug.Log("reached maxJumpPower");
                 JumpEnd();
             }
+            */
 
             if (jumpDebug)
                 Debug.Log("Jump force applied by JumpPower");
 
-            vSpeed += currentJumpPower * Time.deltaTime * jumpAmplifier;
+            vSpeed += maxJumpPower * Time.deltaTime;// * jumpAmplifier;
 
             if (jumpDebug)
                 Debug.Log("vSpeed = " + vSpeed);
@@ -277,6 +381,7 @@ public class InputControl : MonoBehaviour
 
         moveDirection.y = vSpeed;
 
+        if(!dashRequested)
         if (controller)
             controller.Move(moveDirection * Time.deltaTime * currentSpeed);
 
@@ -287,6 +392,8 @@ public class InputControl : MonoBehaviour
         Debug.Log("moveDirection = " + moveDirection);
 
         #endregion
+
+        #region Debug
 
         if (jumpDebug)
         {
@@ -308,13 +415,15 @@ public class InputControl : MonoBehaviour
                 Debug.LogError(e.Message);
             }
         }
+
+        #endregion
     }
 
     // Update is called once per frame
     void Update()
     {
+        /*
         if (cm)
-        {
             if (cm.isPlaying)
             {
                 //controller.center = new Vector3(0, raycastSpawn.transform.position.y, 0);
@@ -341,8 +450,10 @@ public class InputControl : MonoBehaviour
                 //   controller.SimpleMove(transform.right * (Input.GetAxis("Horizontal") * currentSpeed));
 
             }
-        }
+        */
     }
+    
+
     #region Camera
 
     private void LateUpdate()
@@ -415,10 +526,21 @@ public class InputControl : MonoBehaviour
         }
     }
 
-    public void OnMove(InputValue input)
+    public void OnPlayerMove(InputValue input)
     {
         if (cm.isPlaying)
         {
+            /*
+            if (dashRequested)
+            {
+                Debug.Log("moved during dash, resetting dash");
+                resetDashParameters();
+            }
+
+            if (cm.dashTemp)
+                cm.dashEnds();
+            */
+
             inputVec = Vector2.zero;
             inputVec = input.Get<Vector2>();
             Debug.Log("ALI - " + inputVec.y);
@@ -483,7 +605,25 @@ public class InputControl : MonoBehaviour
 
             #endregion
 
-            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
+            if (dashRequested)
+            {
+                Debug.Log("ability used during dash, resetting dash");
+                resetDashParameters();
+            }
+
+            if (ib.checkBuffer(ActionItem.InputAction.Jump))
+            {
+                #region Debug
+
+                if (inputDebug)
+                {
+                    Debug.Log("input: checkBuffer returned true");
+                }
+
+                #endregion
+
+                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Jump, Time.time));
+            }
         }
     }
     public void OnJumpEnd()
@@ -509,7 +649,36 @@ public class InputControl : MonoBehaviour
     {
         if (cm.isPlaying)
         {
-            Attack();
+            if (dashRequested)
+            {
+                Debug.Log("ability used during dash, resetting dash");
+                resetDashParameters();
+            }
+
+            if (ib.checkBuffer(ActionItem.InputAction.Attack))
+            {
+                #region Debug
+
+                if (inputDebug)
+                {
+                    Debug.Log("input: checkBuffer returned true");
+                }
+
+                #endregion
+
+                if (ib.actionAllowed)
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                        Debug.Log("input: action allowed");
+
+                    #endregion
+
+                    ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
+                    //AttackEnd();
+                }
+            }
         }
     }
 
@@ -519,32 +688,144 @@ public class InputControl : MonoBehaviour
         {
             if (!cm.IsAimOn)
             {
-                Attack();
+                if (dashRequested)
+                {
+                    Debug.Log("ability used during dash, resetting dash");
+                    resetDashParameters();
+                }
+
+                if (ib.checkBuffer(ActionItem.InputAction.Attack))
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                    {
+                        Debug.Log("input: checkBuffer returned true");
+                    }
+
+                    #endregion
+
+                    if (ib.actionAllowed)
+                    {
+                        #region Debug
+
+                        if (inputDebug)
+                            Debug.Log("input: action allowed");
+
+                        #endregion
+
+                        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
+                        //AttackEnd();
+                    }
+                }
             }
 
             else
+            {
+                if (dashRequested)
+                {
+                    Debug.Log("ability used during dash, resetting dash");
+                    resetDashParameters();
+                }
+
                 Throw();
+            }
         }
     }
 
     public void OnDash()
     {
-        if (cm.isPlaying)
-        {
-            //Enables the player to use Ability 2
-            //if (Input.GetButtonDown("Fire2") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown1 == false)
-            //{
-            #region Debug Log
+        #region Debug
 
-            if (ib.inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: dash has been pressed");
-            }
+            if (inputDebug)
+                Debug.Log("input: OnDash called");
 
             #endregion
+
+        if (cm.isPlaying)
+        {
             if (!cooldown.isCooldown1)
-                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
-            //cm.AttackEnd();
+            {
+                #region Debug
+
+                if (inputDebug)
+                    Debug.Log("input: dash not on cooldown");
+
+                #endregion
+
+        //        List<ActionItem> curBuffer = ib.inputBuffer;
+
+                #region Debug
+
+                if (inputDebug)
+                {
+                //    Debug.Log("input: curBuffer created");
+          //          Debug.Log("input: curBuffer.Count = " + curBuffer.Count);
+            //        Debug.LogError("input: ib.inputBuffer.Count = " + ib.inputBuffer.Count);
+                }
+
+                #endregion
+
+                if (ib.checkBuffer(ActionItem.InputAction.Dash))
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                    {
+                        Debug.Log("input: checkBuffer returned true");
+                    }
+
+                    #endregion
+
+                    if (ib.actionAllowed)
+                    {
+                        #region Debug
+
+                        if (inputDebug)
+                            Debug.Log("input: action allowed");
+
+                        #endregion
+
+                        //controller.Move(transform.TransformDirection(Vector3.forward) * inputVec.y * dashAcceleration);
+                        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Dash, Time.time));
+
+                        if (inputDebug)
+                            Debug.Log("input: action added to buffer");
+                    }
+
+                    else
+                    {
+                        #region Debug
+
+                        if (inputDebug)
+                            Debug.Log("input: action not allowed");
+
+                        #endregion
+                    }
+                }
+
+                else
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                    {
+                        Debug.Log("input: checkBuffer returned false");
+                    }
+
+                    #endregion
+                }
+            }
+
+            else
+            {
+                #region Debug
+
+                if (inputDebug)
+                    Debug.Log("input: dash is on cooldown");
+
+                #endregion
+            }
         }
     }
 
@@ -555,33 +836,75 @@ public class InputControl : MonoBehaviour
             //Enables the player to use Ability 3
             //if (Input.GetButtonDown("Fire3") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown3 == false)
             //{
-            #region Debug Log
-            if (ib.inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: hammerSmash has been pressed");
-            }
-
-            #endregion
             if (!cooldown.isCooldown3)
-                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
-            //cm.AttackEnd();
+            {
+                #region Debug Log
+
+                if (ib.inputBufferDebug)
+                {
+                    Debug.Log("Input Buffer System: hammerSmash has been pressed");
+                }
+
+                #endregion
+
+                if (dashRequested)
+                {
+                    Debug.Log("ability used during dash, resetting dash");
+                    resetDashParameters();
+                }
+
+                if (ib.checkBuffer(ActionItem.InputAction.HammerSmash))
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                    {
+                        Debug.Log("input: checkBuffer returned true");
+                    }
+
+                    #endregion
+
+                    ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.HammerSmash, Time.time));
+
+                    //cm.AttackEnd();
+                }
+            }
         }
     }
 
-    //if (Input.GetButtonDown("Fire4") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown2 == false)
-    //{
     public void OnWhirlwind()
     {
         if (cm.isPlaying)
         {
-            #region Debug Log
-            if (ib.inputBufferDebug)
-            {
-                Debug.Log("Input Buffer System: whirlwind has been pressed");
-            }
-            #endregion
             if (!cooldown.isCooldown2)
-                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+            {
+                if (dashRequested)
+                {
+                    Debug.Log("ability used during dash, resetting dash");
+                    resetDashParameters();
+                }
+
+                #region Debug Log
+                if (ib.inputBufferDebug)
+                {
+                    Debug.Log("Input Buffer System: whirlwind has been pressed");
+                }
+                #endregion
+
+                if (ib.checkBuffer(ActionItem.InputAction.Whirlwind))
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                    {
+                        Debug.Log("input: checkBuffer returned true");
+                    }
+
+                    #endregion
+
+                    ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Whirlwind, Time.time));
+                }
+            }
             //cm.AttackEnd();
         }
     }
@@ -590,6 +913,12 @@ public class InputControl : MonoBehaviour
     {
         if (cm.isPlaying)
         {
+            if (dashRequested)
+            {
+                Debug.Log("ability used during dash, resetting dash");
+                resetDashParameters();
+            }
+
             cm.setAimTrue();
         }
     }
@@ -598,6 +927,12 @@ public class InputControl : MonoBehaviour
     {
         if (cm.isPlaying)
         {
+            if (dashRequested)
+            {
+                Debug.Log("ability used during dash, resetting dash");
+                resetDashParameters();
+            }
+
             cm.setAImFalse();
         }
     }
@@ -606,14 +941,32 @@ public class InputControl : MonoBehaviour
     {
         if (cm.isPlaying)
         {
-            Throw();
+            if (dashRequested)
+            {
+                Debug.Log("ability used during dash, resetting dash");
+                resetDashParameters();
+            }
+
+            if (ib.checkBuffer(ActionItem.InputAction.Ranged))
+            {
+                #region Debug
+
+                if (inputDebug)
+                {
+                    Debug.Log("input: checkBuffer returned true");
+                }
+
+                #endregion
+                if(ib.actionAllowed)
+                Throw();
+            }
         }
     }
 
     #endregion
 
-    //if (Input.GetButtonDown("Fire5") && cooldown.GetComponent<AbilitiesCooldown>().isCooldown4 == false)
-    //{
+    #region Ability Functions
+
     void Throw()
     {
         #region Debug Log
@@ -625,8 +978,70 @@ public class InputControl : MonoBehaviour
 
         #endregion
         if (!cooldown.isCooldown4)
-            ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
-        //cm.AttackEnd();
+        {
+            #region Debug
+
+            if (inputDebug)
+                Debug.Log("input: Throw not on cooldown");
+
+            #endregion
+
+            if (ib.checkBuffer(ActionItem.InputAction.Ranged))
+            {
+                #region Debug
+
+                if (inputDebug)
+                {
+
+                }
+
+                #endregion
+
+                if (ib.actionAllowed)
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                        Debug.Log("input: action allowed");
+
+                    #endregion
+
+                    ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
+                    //cm.AttackEnd();
+                }
+                else
+                {
+                    #region Debug
+
+                    if (inputDebug)
+                        Debug.Log("input: action not allowed");
+
+                    #endregion
+                }
+            }
+
+            else
+            {
+                #region Debug
+
+                if (inputDebug)
+                {
+                    Debug.Log("input: not added to input buffer");
+                }
+
+                #endregion
+            }
+        }
+
+        else
+        {
+            #region Debug
+
+            if (inputDebug)
+                Debug.Log("input: Throw is on cooldown");
+
+            #endregion
+        }
     }
 
     void Attack()
@@ -640,26 +1055,105 @@ public class InputControl : MonoBehaviour
 
         #endregion
 
-        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
-        //AttackEnd();
+        //if (ib.inputBuffer.Count < 2 && ib.inputBuffer[0].Action != ActionItem.InputAction.Attack && ib.inputBuffer[1].Action != ActionItem.InputAction.Attack)
+        //{
+        //    #region Debug
+
+        //    if (inputDebug)
+        //    {
+        //        Debug.Log("input: Buffer Count = " + ib.inputBuffer.ToArray());
+
+        //        Debug.Log("input: Buffer 1 = " + ib.inputBuffer[0].Action);
+
+        //        Debug.Log("input: Buffer 2 = " + ib.inputBuffer[1].Action);
+        //    }
+
+        //    #endregion
+
+            if (ib.actionAllowed)
+            {
+                #region Debug
+
+                if (inputDebug)
+                    Debug.Log("input: action allowed");
+
+                #endregion
+
+                ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Attack, Time.time));
+                //AttackEnd();
+            }
+
+        //    else
+        //    {
+        //        #region Debug
+
+        //        if (inputDebug)
+        //            Debug.Log("input: action not allowed");
+
+        //        #endregion
+        //    }
+        //}
+
+        //else
+        //{
+        //    #region Debug
+
+        //    if (inputDebug)
+        //    {
+        //        Debug.Log("input: not added to input buffer");
+
+        //        Debug.Log("input: Buffer Count = " + ib.inputBuffer.ToArray());
+
+        //        Debug.Log("input: Buffer 1 = " + ib.inputBuffer[0].Action);
+
+        //        Debug.Log("input: Buffer 2 = " + ib.inputBuffer[1].Action);
+        //    }
+
+        //    #endregion
+        //}
     }
 
 
     public void dash()
     {
-        Debug.Log("input control dash called");
-        if (!cooldown.isCooldown1)
-        {
-            if (ib.actionAllowed)
-                controller.Move(transform.TransformDirection(Vector3.forward) * inputVec.y * dashSpeed);
-        }
+        #region Debug
+
+        if (inputDebug)
+            Debug.Log("input: dash called");
+
+        #endregion
+
+        dashRequested = true;
+
+        accelerationTime = 0;
+
+        currentDashFrame = 0;
+
+        initPositionZ = this.transform.position.z;
+
+        initVelocityZ = inputVec.y * 0.5f;
+
+        zPosition = initPositionZ + (((initVelocityZ * velocityReducer * accelerationTime * 0.1f) + (0.5F * (dashAcceleration * accelerationReducer) * (accelerationTime * accelerationTime)) * 0.5f * 0.5f) * 0.1f);
     }
+
+    #endregion
+
+    #region Gizmos
 
     private void OnDrawGizmos()
     {
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
+
+        if (raycastSpawn)
+            Gizmos.DrawSphere(raycastSpawn.transform.position, 0.5f);
+
+        else
+            Debug.LogError("raycastSpawn not found!");
     }
+
+    #endregion
+
+    #region Ground Check
     public bool groundCheck()
     {
         //Vector3 lineStart = raycastSpawn.transform.position;
@@ -739,6 +1233,10 @@ public class InputControl : MonoBehaviour
         //    return false;
     }
 
+    #endregion
+
+    #region Collisions 
+
     void OnControllerColliderHit(ControllerColliderHit hit)
     {
         Debug.Log("OnControllerColliderHit: " + hit.gameObject.name);
@@ -767,6 +1265,8 @@ public class InputControl : MonoBehaviour
         }
     }
 
+    #endregion
+
     #region Jump
 
     public void jump()
@@ -783,6 +1283,9 @@ public class InputControl : MonoBehaviour
         if (isGrounded)
         {
             cm.comboReset();
+
+            if (cm.dashTemp)
+                cm.dashEnds();
 
             currentJumpPower = minimumJumpPower;
 
@@ -877,7 +1380,6 @@ public class InputControl : MonoBehaviour
         if (!ib.actionAllowed)
             ib.setBufferTrue();
 
-        cm.dashEnds();
     }
 
     #endregion
@@ -885,5 +1387,14 @@ public class InputControl : MonoBehaviour
     public void updateValues()
     {
         ac.updateValues(isGrounded, isJumping, isFalling, inputVec.y, inputVec.x);
+    }
+
+    void resetDashParameters()
+    {
+        dashRequested = false;
+
+        accelerationTime = 0;
+
+        cm.dashEnds();
     }
 }

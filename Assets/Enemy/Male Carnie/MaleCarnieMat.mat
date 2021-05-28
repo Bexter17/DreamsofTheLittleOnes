@@ -21,18 +21,30 @@ Material:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_Name: MaleCarnieMat
-  m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
+  m_Shader: {fileID: -6465566751694194690, guid: ff2dfd4f510383343b6bf6737896b19f,
+    type: 3}
   m_ShaderKeywords: _METALLICSPECGLOSSMAP _NORMALMAP
   m_LightmapFlags: 4
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
-  m_CustomRenderQueue: 2000
-  stringTagMap:
-    RenderType: Opaque
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
   disabledShaderPasses: []
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
+    - Texture2D_BA4C4B74:
+        m_Texture: {fileID: 2800000, guid: b8dc00ceffafa384d96f0dba2230454c, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_CC220142:
+        m_Texture: {fileID: 2800000, guid: c25de6f8ee56afb4ba45477a15d7f51a, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - Texture2D_D9D386F2:
+        m_Texture: {fileID: 2800000, guid: 06c10395e854cba4d9fc90ef8a8c57ce, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _BaseMap:
         m_Texture: {fileID: 2800000, guid: c25de6f8ee56afb4ba45477a15d7f51a, type: 3}
         m_Scale: {x: 1, y: 1}
@@ -69,6 +81,7 @@ Material:
     - _Cutoff: 0.5
     - _DstBlend: 0
     - _EnvironmentReflections: 1
+    - _Fade: 1.9
     - _GlossMapScale: 0
     - _Glossiness: 0
     - _GlossyReflections: 0

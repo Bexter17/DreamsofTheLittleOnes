@@ -17,6 +17,7 @@ GameObject:
   - component: {fileID: 6845188007653863305}
   - component: {fileID: -1097867853273601699}
   - component: {fileID: 2713725441712674692}
+  - component: {fileID: 8358036180218261660}
   m_Layer: 0
   m_Name: Male Carnie Enemy
   m_TagString: Enemy
@@ -187,6 +188,7 @@ MonoBehaviour:
   numberOfAttacks: 3
   waypoints: []
   advancedPatrol: 0
+  enemyMovement: 5
   stackTracker: {fileID: 0}
 --- !u!65 &2713725441712674692
 BoxCollider:
@@ -201,6 +203,35 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0.4}
+--- !u!114 &8358036180218261660
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 942041078614933}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b21597519c9f94094691a5a4933a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToDissolve: 6
+  ObjectsDissolving:
+  - {fileID: 8786719656486469465}
+  - {fileID: 3655176940323145624}
+  - {fileID: 6872210005795820614}
+  - {fileID: 4625964680522711645}
+  - {fileID: 4411960438377448710}
+  - {fileID: 7894467701415788115}
+  fade: 1.9
+  speed: 10
+  spawnSpeedDivider: 2.2
+  deathSpeedDivider: 1
+  spawnFrom: {fileID: 4028209344662936737}
+  spawnSand: {fileID: 8468632872640077945, guid: 91772983021accc4b92375d3a79b0425,
+    type: 3}
+  deathSand: {fileID: 6484933765938758908, guid: b61e817d1960a514bbcc9280be9139e9,
+    type: 3}
 --- !u!1 &2556458649338573558
 GameObject:
   m_ObjectHideFlags: 0
@@ -543,6 +574,48 @@ PrefabInstance:
 --- !u!4 &7230246685684214050 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: -8679921383154817045, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &7894467701415788115 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -8191327555530985318, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4028209344662936737 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -3153833111812222360, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8786719656486469465 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -7337220819924602480, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &3655176940323145624 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 5865246369047071057, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &6872210005795820614 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: -4863121349133854065, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4625964680522711645 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 2589284114344774804, guid: ab5e4567c5928964e9e96f0f604051fb,
+    type: 3}
+  m_PrefabInstance: {fileID: 7195703755308420809}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &4411960438377448710 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6838197976289692623, guid: ab5e4567c5928964e9e96f0f604051fb,
     type: 3}
   m_PrefabInstance: {fileID: 7195703755308420809}
   m_PrefabAsset: {fileID: 0}

@@ -157,6 +157,8 @@ public class RangedEnemy : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
+            gameObject.GetComponent<VFXenemies>().DissolveIn();
+
             if (!isStationary)
             {
                 if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
@@ -278,18 +280,16 @@ public class RangedEnemy : MonoBehaviour
             agent.isStopped = true;
             AgentStop();
         }
-        if (collision.gameObject.CompareTag("HammerSmashAOE"))
+        else if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
             Debug.Log("Ranged enemy has been hit by hammer smash!");
             #endregion
-            StartCoroutine(Stun());
-            //enemyMovement = 1;
+            
             rb.velocity = Vector3.zero;
-            //agent.isStopped = true;
             //Stop attacking
-            //AgentStop();
-            takeDamage(3);
+            takeDamage(35);
+            StartCoroutine(Stun());
 
             if (rb)
             {
@@ -306,7 +306,7 @@ public class RangedEnemy : MonoBehaviour
         }
         if(collision.gameObject.CompareTag("WhirlwindAOE"))
         {
-            takeDamage(3);
+            takeDamage(20);
         }
         if(collision.gameObject.CompareTag("Attack Zone"))
         {
@@ -322,7 +322,7 @@ public class RangedEnemy : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
-                takeDamage(2);
+                takeDamage(5);
 
                 if (rb)
                 {
@@ -371,7 +371,7 @@ public class RangedEnemy : MonoBehaviour
                 Debug.Log(this.transform.name + " Damage Applied!");
             }
 
-            takeDamage(1);
+            takeDamage(7);
 
             if (rb)
             {

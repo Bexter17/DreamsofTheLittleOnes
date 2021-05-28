@@ -16,7 +16,7 @@ MonoBehaviour:
   m_AdvancedMode: 0
   mode:
     m_OverrideState: 1
-    m_Value: 2
+    m_Value: 0
 --- !u!114 &-8335420733219636173
 MonoBehaviour:
   m_ObjectHideFlags: 3
@@ -191,7 +191,7 @@ MonoBehaviour:
     min: 0
   intensity:
     m_OverrideState: 1
-    m_Value: 0.0005
+    m_Value: 0.0002
     min: 0
   scatter:
     m_OverrideState: 1
@@ -210,7 +210,7 @@ MonoBehaviour:
     showEyeDropper: 1
   highQualityFiltering:
     m_OverrideState: 1
-    m_Value: 0
+    m_Value: 1
   skipIterations:
     m_OverrideState: 0
     m_Value: 2

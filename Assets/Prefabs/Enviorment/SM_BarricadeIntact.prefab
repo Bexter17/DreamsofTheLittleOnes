@@ -11,13 +11,13 @@ GameObject:
   - component: {fileID: 4463288995328304596}
   - component: {fileID: 747336012727528049}
   - component: {fileID: 3295479809545330363}
-  - component: {fileID: 4213804426706108962}
   - component: {fileID: 4213804426706108961}
   - component: {fileID: 919132148176511519}
   - component: {fileID: 776228263}
+  - component: {fileID: 1747408817617252643}
   m_Layer: 0
   m_Name: SM_BarricadeIntact
-  m_TagString: Untagged
+  m_TagString: Bear-icade
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -85,20 +85,6 @@ MeshRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_AdditionalVertexStreams: {fileID: 0}
---- !u!64 &4213804426706108962
-MeshCollider:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3943773511084179310}
-  m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  serializedVersion: 4
-  m_Convex: 1
-  m_CookingOptions: 30
-  m_Mesh: {fileID: 3097475914810039618, guid: dd604f67df15c4749a57b2d739214e53, type: 3}
 --- !u!114 &4213804426706108961
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -111,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: da5b48107bbf84549867206589767a8d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  destroyedVersion: {fileID: 1248035514507153758, guid: fdbb9dbd2757a914caf6aea771f04658, type: 3}
+  destroyedVersion: {fileID: 1248035514507153758, guid: fdbb9dbd2757a914caf6aea771f04658,
+    type: 3}
   waitTime: 2
   hammerAnimations: {fileID: 0}
   Hammer: {fileID: 0}
@@ -147,3 +134,16 @@ NavMeshObstacle:
   m_CarveOnlyStationary: 1
   m_Center: {x: 0, y: -0.083000004, z: 0.289}
   m_TimeToStationary: 0.5
+--- !u!65 &1747408817617252643
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3943773511084179310}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 1.5119395, y: 0.7669967, z: 0.52577937}
+  m_Center: {x: 2.8549607e-10, y: -0.08304488, z: 0.22572058}
