@@ -4778,6 +4778,7 @@ GameObject:
   - component: {fileID: 7775795692140230032}
   - component: {fileID: 9064641567961869099}
   - component: {fileID: 4071202195102216678}
+  - component: {fileID: 8847027359977080128}
   m_Layer: 9
   m_Name: Clown Ragdoll Final
   m_TagString: Untagged
@@ -4844,6 +4845,35 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   ragdollRB: {fileID: 0}
+--- !u!114 &8847027359977080128
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8484000190902902763}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f6b21597519c9f94094691a5a4933a61, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectsToDissolve: 6
+  ObjectsDissolving:
+  - {fileID: 4364281108115988571}
+  - {fileID: 7162289587549820452}
+  - {fileID: 6395657085192610021}
+  - {fileID: 8372315145969803268}
+  - {fileID: 4886242615992362034}
+  - {fileID: 7268752834255588481}
+  fade: -13
+  speed: 10
+  spawnSpeedDivider: 2.2
+  deathSpeedDivider: 1
+  spawnFrom: {fileID: 9142612781197028201}
+  spawnSand: {fileID: 8468632872640077945, guid: 91772983021accc4b92375d3a79b0425,
+    type: 3}
+  deathSand: {fileID: 6484933765938758908, guid: b61e817d1960a514bbcc9280be9139e9,
+    type: 3}
 --- !u!1 &8724082524246045045
 GameObject:
   m_ObjectHideFlags: 0

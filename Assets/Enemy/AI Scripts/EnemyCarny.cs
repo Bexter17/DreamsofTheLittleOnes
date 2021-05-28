@@ -260,6 +260,7 @@ public class EnemyCarny : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
+            gameObject.GetComponent<VFXenemies>().DissolveIn();
 
             if (onStack && !ableToDamage)
             {

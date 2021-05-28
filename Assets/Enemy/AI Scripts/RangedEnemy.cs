@@ -157,6 +157,8 @@ public class RangedEnemy : MonoBehaviour
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
+            gameObject.GetComponent<VFXenemies>().DissolveIn();
+
             if (!isStationary)
             {
                 if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange)
