@@ -127,6 +127,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Level_1");
     }
 
+    public void Controls()
+    {
+        SceneManager.LoadScene("Controls");
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR

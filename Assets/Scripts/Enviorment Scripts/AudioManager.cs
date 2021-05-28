@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System;
 
+[RequireComponent(typeof(AudioSource))]
 public class AudioManager : MonoBehaviour
 {
     public static AudioManager Main
@@ -16,6 +17,15 @@ public class AudioManager : MonoBehaviour
 
     public HashSet<Sound> sounds =
        new HashSet<Sound>();
+
+
+
+    public new AudioSource audio;
+
+    void Start()
+    {
+        audio = this.GetComponent<AudioSource>();
+    }
 
     /// Creates a new sound, registers it, gives it the properties specified, and starts playing it
     public Sound PlayNewSound(string soundName, bool loop = false, bool interrupts = false, Action<Sound> callback = null)
