@@ -9,6 +9,7 @@ public class CanvasManager : MonoBehaviour
     GameManager gm;
 
     GameObject Player;
+  
 
     CharacterMechanics cm;
 
@@ -20,12 +21,15 @@ public class CanvasManager : MonoBehaviour
     public Button quitButton;
     public Button returnButton;
     public Button tryAgainButton;
+    public Button controlsButton;
 
     public GameObject pauseMenu;
    
     // Start is called before the first frame update
     void Start()
     {
+        
+
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (startButton)
@@ -47,13 +51,20 @@ public class CanvasManager : MonoBehaviour
         {
             tryAgainButton.onClick.AddListener(gm.TryAgain);
         }
+
+        if(controlsButton)
+        {
+            controlsButton.onClick.AddListener(gm.Controls);
+        }
+
+       
         
     }
 
     private void Awake()
     {
-        //if (SceneManager.GetActiveScene().name == "Level_1")
-        //{
+        if (SceneManager.GetActiveScene().name == "Level_1")
+        {
             try
             {
                 Player = GameObject.FindGameObjectWithTag("Player");
@@ -65,7 +76,7 @@ public class CanvasManager : MonoBehaviour
             {
                 Debug.LogError(e.Message);
             }
-      //  }
+        }
     }
 
     private void Update()
