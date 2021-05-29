@@ -22,6 +22,7 @@ public class EnemyCarny : MonoBehaviour
     private CharacterMechanics cm;
     //used to track the player for giveDamage function
     private GameObject Player;
+    private bool enemyDissolveIn = false;
 
     //HP
     [Header("Essentials")]
@@ -127,6 +128,7 @@ public class EnemyCarny : MonoBehaviour
 
     void Start()
     {
+        
         #region Components
         //ESSENTIALS
         rb = GetComponent<Rigidbody>();
@@ -255,12 +257,17 @@ public class EnemyCarny : MonoBehaviour
         //    takeDamage(1);
         //}
 
+        if (!enemyDissolveIn && !death)
+        {
+            gameObject.GetComponent<VFXenemies>().spawnIn = true;
+            enemyDissolveIn = true;
+        }
+
         #region AI States
         if (agent.enabled && !death)
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
-            gameObject.GetComponent<VFXenemies>().DissolveIn();
 
             if (onStack && !ableToDamage)
             {

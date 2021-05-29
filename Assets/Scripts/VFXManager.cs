@@ -36,7 +36,7 @@ public class VFXManager : MonoBehaviour
     {
         hammerPos = bjornHammerHitBox.transform.position;
         bjornFeetPos = bjornFeet.transform.position;
-        frontSpawnPos = frontSpawn.transform.position;
+        //frontSpawnPos = frontSpawn.transform.position;
     }
 
     #endregion
