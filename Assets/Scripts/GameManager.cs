@@ -132,6 +132,11 @@ public class GameManager : MonoBehaviour
         SceneManager.LoadScene("Controls");
     }
 
+    public void Options()
+    {
+        SceneManager.LoadScene("Options");
+    }
+
     public void QuitGame()
     {
 #if UNITY_EDITOR
