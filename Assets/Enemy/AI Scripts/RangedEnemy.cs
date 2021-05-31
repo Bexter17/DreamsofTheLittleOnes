@@ -32,6 +32,8 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] float dashKnockbackForce;
     [SerializeField] float whirlKnockbackForce;
     [SerializeField] float rangeKnockbackForce;
+    private Vector3 knockbackDirection;
+    private int staggerCounter = 0;
 
     [Header("Debugs")]
     [SerializeField] bool stateDebug;
@@ -53,6 +55,10 @@ public class RangedEnemy : MonoBehaviour
     //public Vector3 initialPos;
     //bool isInitPos = true;
 
+    //TakeDamage Cooldown
+    private float damageInterval = 0;
+    private bool canTakeDamage = true;
+
     IEnumerator Stun()
     {
         Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
@@ -61,7 +67,7 @@ public class RangedEnemy : MonoBehaviour
         //Stop enemy attack
         AgentStop();
         //Damage Enemy - Had to change hp variable instead of takeDamage because it applies knockback when we want a stun effect
-        hp -= 2;
+        //hp -= 2;
         //takeDamage(1); 
         //-> There's a BUG where this method seems to stack effect and instant kill or send enemy flying.
         //WAIT for AOE
@@ -89,6 +95,8 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] bool isStationary;
     public Transform waypoint1;
     public Transform waypoint2;
+    //Layer used for raycast
+    public LayerMask playerLayer;
 
     #endregion
 
@@ -110,7 +118,9 @@ public class RangedEnemy : MonoBehaviour
         //sets maxHP to beginning hp in order to get the correct fill amount for hpbar
         int maxHP = hp;
         myEnemyClown = EnemyState.Start;
+
         rb.isKinematic = true;
+        
 
         // Default values
         if (enemyMovement <= 0)
@@ -225,8 +235,15 @@ public class RangedEnemy : MonoBehaviour
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
-        agent.isStopped = true;
-        hp -= dmg;
+        //agent.isStopped = true;
+        Debug.LogError("CLOWNHP: " + hp);
+        if (canTakeDamage)
+        {
+            hp -= dmg;
+            canTakeDamage = false;
+        }
+        Debug.Log("Enemy Damage Taken" + dmg);
+        
         if (hp <= 0 && !death)
         {
             transform.GetComponent<CapsuleCollider>().enabled = false;
@@ -248,14 +265,31 @@ public class RangedEnemy : MonoBehaviour
         //KNOCKBACK
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
+        //rb.AddForce(-transform.forward * knockDistanceModifier);
         //rb.AddForce(transform.up * knockHeightModifier);
 
         Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
-        Invoke("AgentStop", knockDuration);
+        //Invoke("AgentStop", knockDuration);
+    }
+    private void FixedUpdate()
+    {
+        if(canTakeDamage == false)
+        {
+            damageInterval += Time.deltaTime;
+            if (damageInterval >= 0f)
+            {
+                damageInterval = 0;
+                canTakeDamage = true;
+            }
+            else
+            {
+                canTakeDamage = false;
+            }
+        }
+
     }
     public void DestroyMe()
     {
@@ -280,7 +314,7 @@ public class RangedEnemy : MonoBehaviour
     }
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && agent.isOnNavMesh)
         {
             rb.velocity = Vector3.zero;
             agent.isStopped = true;
@@ -289,20 +323,27 @@ public class RangedEnemy : MonoBehaviour
         else if (collision.gameObject.CompareTag("HammerSmashAOE"))
         {
             #region Debug Log
-            Debug.Log("Ranged enemy has been hit by hammer smash!");
+
+            if (combatDebug)
+            {
+                Debug.Log(this.transform.name + " Hit by Hammersmash!");
+                Debug.Log(this.transform.name + " Damage Applied!");
+            }
+
             #endregion
-            
-            rb.velocity = Vector3.zero;
-            //Stop attacking
+            //Slow down enemies in contact with hammer smash AOE 
+            //movementSpeed = 0;
+            //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
             takeDamage(35);
-            StartCoroutine(Stun());
+            //StartCoroutine(Stun());
 
             if (rb)
             {
-                Vector3 direction = transform.position - collision.transform.position;
-                direction.y = 0;
+                eAnim.SetTrigger("staggerBack");
+                knockbackDirection = transform.position - collision.transform.position;
+                knockbackDirection.y = 0;
 
-                rb.AddForce(direction.normalized * smashKnockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection.normalized * smashKnockbackForce, ForceMode.Impulse);
             }
 
             if (combatDebug)
@@ -310,14 +351,19 @@ public class RangedEnemy : MonoBehaviour
                 Debug.Log(this.transform.name + " Knocked Back!");
             }
         }
-        if(collision.gameObject.CompareTag("WhirlwindAOE"))
+        else if (collision.gameObject.CompareTag("WhirlwindAOE"))
         {
+            //Deals small knockback from takeDamage function
+            #region Debug Log
+            Debug.Log("Enemy has been hit by whirlwind!");
+            #endregion
             takeDamage(20);
         }
-        if(collision.gameObject.CompareTag("Attack Zone"))
+        else if (collision.gameObject.CompareTag("Attack Zone"))
         {
             takeDamage(3);
         }
+
         if (collision.gameObject.CompareTag("Hammer"))
         {
             if (cm.isAttacking)
@@ -327,15 +373,27 @@ public class RangedEnemy : MonoBehaviour
                     Debug.Log(this.transform.name + " Hit by Basic Attack!");
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
-
+                //Debug.Log("Enemy Basic Attack");
                 takeDamage(5);
 
                 if (rb)
                 {
-                    Vector3 direction = transform.position - collision.transform.position;
-                    direction.y = 0;
+                    //Stagger enemy 1/4 hits
+                    if (staggerCounter >= 3)
+                    {
+                        staggerCounter = 0;
+                        eAnim.SetTrigger("staggerBack");
+                    }
+                    else
+                    {
+                        staggerCounter++;
+                    }
 
-                    rb.AddForce(direction.normalized * basicKnockbackForce, ForceMode.Impulse);
+                    knockbackDirection = transform.position - collision.transform.position;
+                    //knockbackDirection = Vector3.right;
+                    knockbackDirection.y = 0;
+
+                    rb.AddForce(knockbackDirection.normalized * basicKnockbackForce, ForceMode.Impulse);
                 }
 
                 if (combatDebug)
@@ -356,10 +414,11 @@ public class RangedEnemy : MonoBehaviour
 
                 if (rb)
                 {
-                    Vector3 direction = transform.position - collision.transform.position;
-                    direction.y = 0;
+                    eAnim.SetTrigger("staggerBack");
+                    knockbackDirection = transform.position - collision.transform.position;
+                    knockbackDirection.y = 0;
 
-                    rb.AddForce(direction.normalized * whirlKnockbackForce, ForceMode.Impulse);
+                    rb.AddForce(knockbackDirection.normalized * whirlKnockbackForce, ForceMode.Impulse);
                 }
 
                 if (combatDebug)
@@ -368,7 +427,6 @@ public class RangedEnemy : MonoBehaviour
                 }
             }
         }
-
         if (collision.gameObject.CompareTag("Dash Collider"))
         {
             if (combatDebug)
@@ -381,10 +439,11 @@ public class RangedEnemy : MonoBehaviour
 
             if (rb)
             {
-                Vector3 direction = transform.position - collision.transform.position;
-                direction.y = 0;
+                eAnim.SetTrigger("staggerBack");
+                knockbackDirection = transform.position - collision.transform.position;
+                knockbackDirection.y = 0;
 
-                rb.AddForce(direction.normalized * dashKnockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection.normalized * dashKnockbackForce, ForceMode.Impulse);
             }
 
             if (combatDebug)
@@ -431,8 +490,8 @@ public class RangedEnemy : MonoBehaviour
     private void Attack()
     {
         RaycastHit hit;
-        Physics.Raycast(transform.position, transform.TransformDirection(Vector3.forward), out hit);
-
+        Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.TransformDirection(Vector3.forward), out hit, playerLayer);
+        Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.TransformDirection(Vector3.forward));
         if (Time.time - attackTimer > 1.0f && hit.collider.tag == "Player")
         {
             eAnim.SetTrigger("Attack");
@@ -468,7 +527,7 @@ public class RangedEnemy : MonoBehaviour
         {
             if (cm.isAttacking)
             {
-                takeDamage(2);
+                //takeDamage(2);
             }
 
             if (cm.isSpinning)
@@ -476,6 +535,18 @@ public class RangedEnemy : MonoBehaviour
                 Debug.Log("Hit by whirlwind");
                 takeDamage(4);
             }
+        }
+        else if(other.CompareTag("Player"))
+        {
+            rb.isKinematic = false;
+        }
+    }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.CompareTag("Player"))
+        {
+            rb.isKinematic = true;
         }
     }
 
