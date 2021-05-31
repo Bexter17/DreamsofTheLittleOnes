@@ -81,7 +81,7 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        if (SceneManager.GetActiveScene().name == "Level_1")
+        if (SceneManager.GetActiveScene().name == "Level_1" || SceneManager.GetActiveScene().name == "MazeScene")
         {
             if (cm)
             {
@@ -160,7 +160,22 @@ public class CanvasManager : MonoBehaviour
             }
 
             else
+            {
                 Debug.LogError("Canvas: cm not attached!");
+
+                try
+                {
+                    cm = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMechanics>();
+                }
+
+                catch (MissingComponentException e)
+                {
+                    Debug.LogError(e.Message);
+                }
+
+                if (cm)
+                    Debug.Log("CharacterMechanics successfully attached!");
+            }
         }
     }
 
