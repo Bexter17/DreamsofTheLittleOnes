@@ -1455,8 +1455,8 @@ public class CharacterMechanics : MonoBehaviour
                         Debug.LogError("animController is not attached in character mechanics!");
 
                     GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
-
-                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
+                    //bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);  Original Code for our old balloon projectile
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1500);
 
                     Destroy(bullet, 2);
                 }

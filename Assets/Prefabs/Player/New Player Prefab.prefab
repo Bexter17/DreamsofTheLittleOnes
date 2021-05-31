@@ -1523,6 +1523,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7f4848775aa2384cb82dac9103724bc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  audio: {fileID: 0}
 --- !u!114 &8620915823158999970
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1545,11 +1546,6 @@ MonoBehaviour:
   downSmash: {fileID: 0}
   throwAxe: {fileID: 0}
   bjornDeath: {fileID: 0}
-  enemySpawn: {fileID: 0}
-  enemyDeath: {fileID: 0}
-  enemyTrail: {fileID: 0}
-  enemyProjectile: {fileID: 0}
-  enemyDamageRecieved: {fileID: 0}
 --- !u!1 &1016093913455778562
 GameObject:
   m_ObjectHideFlags: 0
@@ -3491,7 +3487,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   hitForce: 100
   FreeAim: {fileID: 1016093913455778565}
-  rangePrefab: {fileID: 6882968560295412820, guid: e0d50ace27769c34bbc6cd86a46e02b8,
+  rangePrefab: {fileID: 6882968560295412820, guid: 613ace275d4dea94daf2e5470659c79c,
     type: 3}
   abilityImage1: {fileID: 4850393686900440534}
   ability1: 122
