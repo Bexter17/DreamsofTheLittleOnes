@@ -126,9 +126,8 @@ public class EnemyCarny : MonoBehaviour
     
     #endregion
 
-    void Start()
-    {
-        
+    void Awake()
+    {       
         #region Components
         //ESSENTIALS
         rb = GetComponent<Rigidbody>();

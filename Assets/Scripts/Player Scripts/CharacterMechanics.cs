@@ -1446,9 +1446,13 @@ public class CharacterMechanics : MonoBehaviour
 
                     if (abilities)
                         abilities.activateAbility4();
+                    else
+                        Debug.LogError("abilities is not attached in character mechanics!");
 
                     if (ac)
                         ac.throw_();
+                    else 
+                        Debug.LogError("animController is not attached in character mechanics!");
 
                     GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
 
