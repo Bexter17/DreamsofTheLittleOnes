@@ -176,10 +176,10 @@ MonoBehaviour:
   hp: 60
   death: 0
   ragdoll: {fileID: 8786828237761459615, guid: f167abdd0a8399449bed2b321dd2c5e9, type: 3}
-  combatDebug: 1
-  basicKnockbackForce: 0
-  smashKnockbackForce: 0
-  dashKnockbackForce: 0
+  combatDebug: 0
+  basicKnockbackForce: 5
+  smashKnockbackForce: 10
+  dashKnockbackForce: 25
   whirlKnockbackForce: 0
   rangeKnockbackForce: 0
   knockDistanceModifier: 400
@@ -223,6 +223,8 @@ MonoBehaviour:
   - {fileID: 4625964680522711645}
   - {fileID: 4411960438377448710}
   - {fileID: 7894467701415788115}
+  spawnIn: 0
+  despawn: 0
   fade: 1.9
   speed: 10
   spawnSpeedDivider: 2.2

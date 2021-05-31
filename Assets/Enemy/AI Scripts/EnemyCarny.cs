@@ -49,6 +49,10 @@ public class EnemyCarny : MonoBehaviour
 
     [SerializeField] float rangeKnockbackForce;
 
+    private Vector3 knockbackDirection;
+
+    private int staggerCounter = 0;
+
 
     //STATES
     enum EnemyState { Start, Patrol, Chase, Attack, Stun, lockChase };
@@ -391,10 +395,11 @@ public class EnemyCarny : MonoBehaviour
 
             if (rb)
             {
-                Vector3 direction = transform.position - collision.transform.position;
-                direction.y = 0;
+                eAnim.SetTrigger("staggerBack");
+                knockbackDirection = transform.position - collision.transform.position;
+                knockbackDirection.y = 0;
 
-                rb.AddForce(direction.normalized * smashKnockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection.normalized * smashKnockbackForce, ForceMode.Impulse);
             }
 
             if (combatDebug)
@@ -429,10 +434,22 @@ public class EnemyCarny : MonoBehaviour
 
                 if (rb)
                 {
-                    Vector3 direction = transform.position - collision.transform.position;
-                    direction.y = 0;
+                    //Stagger enemy 1/4 hits
+                    if (staggerCounter >= 3)
+                    {
+                        staggerCounter = 0;
+                        eAnim.SetTrigger("staggerBack");
+                    }
+                    else
+                    {
+                        staggerCounter++;
+                    }
 
-                    rb.AddForce(direction.normalized * basicKnockbackForce, ForceMode.Impulse);
+                    knockbackDirection = transform.position - collision.transform.position;
+                    //knockbackDirection = Vector3.right;
+                    knockbackDirection.y = 0;
+
+                    rb.AddForce(knockbackDirection.normalized * basicKnockbackForce, ForceMode.Impulse);
                 }
 
                 if (combatDebug)
@@ -453,10 +470,11 @@ public class EnemyCarny : MonoBehaviour
 
                 if (rb)
                 {
-                    Vector3 direction = transform.position - collision.transform.position;
-                    direction.y = 0;
+                    eAnim.SetTrigger("staggerBack");
+                    knockbackDirection = transform.position - collision.transform.position;
+                    knockbackDirection.y = 0;
 
-                    rb.AddForce(direction.normalized * whirlKnockbackForce, ForceMode.Impulse);
+                    rb.AddForce(knockbackDirection.normalized * whirlKnockbackForce, ForceMode.Impulse);
                 }
 
                 if (combatDebug)
@@ -477,10 +495,11 @@ public class EnemyCarny : MonoBehaviour
 
             if (rb)
             {
-                Vector3 direction = transform.position - collision.transform.position;
-                direction.y = 0;
+                eAnim.SetTrigger("staggerBack");
+                knockbackDirection = transform.position - collision.transform.position;
+                knockbackDirection.y = 0;
 
-                rb.AddForce(direction.normalized * dashKnockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection.normalized * dashKnockbackForce, ForceMode.Impulse);
             }
 
             if (combatDebug)
@@ -586,10 +605,10 @@ public class EnemyCarny : MonoBehaviour
 
             if (rb)
             {
-                Vector3 direction = transform.position - other.transform.position;
-                direction.y = 0;
+                knockbackDirection = transform.position - other.transform.position;
+                knockbackDirection.y = 0;
 
-                rb.AddForce(direction.normalized * rangeKnockbackForce, ForceMode.Impulse);
+                rb.AddForce(knockbackDirection.normalized * rangeKnockbackForce, ForceMode.Impulse);
             }
 
             if (combatDebug)
@@ -631,7 +650,7 @@ public class EnemyCarny : MonoBehaviour
     public void takeDamage(int dmg)
     {
         //Debug.Log(dmg + "Damage Taken");
-        agent.isStopped = true;
+        //agent.isStopped = true;
         hp -= dmg;
         if (hp <= 0 && !death)
         {
@@ -662,12 +681,12 @@ public class EnemyCarny : MonoBehaviour
         //KNOCKBACK
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         //Previously in before directional knockback added to ahmmer
         //rb.AddForce(-transform.forward * knockDistanceModifier);
 
         //Invokes once enemy is no longer being knocked back and pauses movement
-        Invoke("AgentStop", knockDuration);
+        //Invoke("AgentStop", knockDuration);
     }
     public void DestroyMe()
     {
