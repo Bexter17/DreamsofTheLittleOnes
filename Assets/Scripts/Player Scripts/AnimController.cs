@@ -314,6 +314,8 @@ public class AnimController : MonoBehaviour
 
     public void throw_()
     {
+        Debug.Log("Ranged animations called");
+
         resetCounter();
 
         animator.SetTrigger("Throw");

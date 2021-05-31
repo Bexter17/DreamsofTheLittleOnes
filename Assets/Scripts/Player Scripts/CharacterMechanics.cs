@@ -1459,8 +1459,6 @@ public class CharacterMechanics : MonoBehaviour
                     bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);
 
                     Destroy(bullet, 2);
-
-                    AttackEnd();
                 }
 
                 else
@@ -1496,6 +1494,10 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (ib)
             ib.setBufferTrue();
+
+        isUsingAbilities = false;
+
+        ac.setAbilities(isUsingAbilities);
     }
 
     #endregion
