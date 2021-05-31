@@ -1420,7 +1420,8 @@ public class CharacterMechanics : MonoBehaviour
 
             if (rangedDebug)
             {
-                Debug.Log("ranged ability: IsAimOn = " + IsAimOn + " aims.isCooldown1 = " + aims.isCooldown1);
+                //  Debug.Log("ranged ability: IsAimOn = " + IsAimOn + " aims.isCooldown1 = " + aims.isCooldown1);
+                Debug.Log("Ranged function called");
             }
 
             #endregion
