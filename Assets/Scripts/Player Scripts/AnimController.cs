@@ -203,7 +203,7 @@ public class AnimController : MonoBehaviour
         Debug.Log("ALI - Speed: " + speed);
         Speed = speed;
 
-        strafeSpeed = (strafe * 2.0f);
+        strafeSpeed = strafe;
 
         isGrounded = grounded;
 
@@ -235,7 +235,7 @@ public class AnimController : MonoBehaviour
     {
         animator.SetFloat("Speed", Speed);
 
-        animator.SetFloat("Strafe", (strafeSpeed * 2.0f));
+        animator.SetFloat("Strafe", strafeSpeed);
 
         animator.SetBool("isGrounded", isGrounded);
 
