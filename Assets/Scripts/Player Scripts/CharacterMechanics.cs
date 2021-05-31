@@ -1456,7 +1456,7 @@ public class CharacterMechanics : MonoBehaviour
 
                     GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;
                     //bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1000);  Original Code for our old balloon projectile
-                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 1500);
+                    bullet.GetComponent<Rigidbody>().AddForce(transform.forward * 3000);
 
                     Destroy(bullet, 2);
                 }
@@ -1476,9 +1476,10 @@ public class CharacterMechanics : MonoBehaviour
         {
             if (aims)
                 aims.Throw();
+
+            rangedAim();
         }
     }
-
 
     public void setAimTrue()
     {
@@ -1564,5 +1565,25 @@ public class CharacterMechanics : MonoBehaviour
     {
         Debug.Log("Player rotated by " + input.x);
         rotationAmount = input.x;
+    }
+
+    public void rangedAim()
+    {
+        //isCooldown1 = true;
+        //abilityImage1.fillAmount = 1;
+
+        // if (Input.GetMouseButton(1) && Input.GetButtonDown("Fire5"))
+        //{
+        RaycastHit hit;
+        if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
+        {
+            Debug.Log(hit.collider.gameObject.name);
+        }
+        ac.throw_();
+        Vector3 lookdirection = hit.point - transform.position;
+        GameObject bullet = Instantiate(RangePrefab, transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+        bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 1000);
+        Destroy(bullet, 5);
+        //}
     }
 }
