@@ -68,5 +68,22 @@ public class AudioManager : MonoBehaviour
         });
     }
 
+    void FootstepL (float volume = 1f)
+    {
+        audio.PlayOneShot((AudioClip)Resources.Load("Foot Step 2"));
+        audio.volume = volume;
+    }
 
+    void FootstepR(float volume = 1f)
+    {
+        audio.PlayOneShot((AudioClip)Resources.Load("Foot step 8"));
+        audio.volume = volume;
+    }
+
+    void Jumpland(float volume = 1f, float spatialBlend = 1f)
+    {
+        audio.PlayOneShot((AudioClip)Resources.Load("Foot step 8"));
+        audio.volume = volume;
+        audio.spatialBlend = spatialBlend;
+    }
 }

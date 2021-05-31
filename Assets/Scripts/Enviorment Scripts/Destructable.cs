@@ -14,13 +14,15 @@ public class Destructable : MonoBehaviour
 
     CharacterMechanics character;
 
-    bool onlyHappensOnce = false;
     
+    bool onlyHappensOnce = false;
+
     private void Start()
     {
         GameObject Player = GameObject.FindGameObjectWithTag("Player");
 
         character = Player.GetComponent<CharacterMechanics>();
+
     }
 
     private void Update()

@@ -21,6 +21,7 @@ public class RangedEnemy : MonoBehaviour
     [SerializeField] Rigidbody projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
     [SerializeField] float attackTimer = 0;
+    private bool enemyDissolveIn = false;
 
     [Header("Knockback")]
     [SerializeField] float knockDistanceModifier;
@@ -152,12 +153,17 @@ public class RangedEnemy : MonoBehaviour
         //    takeDamage(1);
         //}
 
+        if (!enemyDissolveIn && !death)
+        {
+            gameObject.GetComponent<VFXenemies>().spawnIn = true;
+            enemyDissolveIn = true;
+        }
+
         #region AI States
         if (agent.enabled)
         {
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
-            gameObject.GetComponent<VFXenemies>().DissolveIn();
 
             if (!isStationary)
             {

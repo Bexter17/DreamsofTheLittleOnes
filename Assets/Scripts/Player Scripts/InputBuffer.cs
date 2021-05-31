@@ -177,7 +177,7 @@ public class InputBuffer : MonoBehaviour
         if (inputBuffer.Count >= 2)
             return false;
 
-        else if (inputBuffer.Count == 1 && action == inputBuffer[0].Action)
+        else if (inputBuffer.Count == 1 && action == inputBuffer[0].Action && action != ActionItem.InputAction.Attack)
             return false;
 
         else

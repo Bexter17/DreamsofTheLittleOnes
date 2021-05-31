@@ -174,7 +174,7 @@ public class InputControl : MonoBehaviour
                 maxJumpPower = 2.0f;
 
             if (minimumJumpPower == 0)
-                minimumJumpPower = 0.5f;
+                minimumJumpPower = 0.6f;
 
             currentJumpPower = 0;
 
@@ -188,7 +188,7 @@ public class InputControl : MonoBehaviour
                 maxDashFrames = 10;
 
             if (dashAcceleration == 0)
-                dashAcceleration = 0.00000001f;
+                dashAcceleration = 20f;
 
             if(maxDashTime == 0)
                 maxDashTime = 0.03f;
@@ -266,10 +266,15 @@ public class InputControl : MonoBehaviour
 
             if (currentDashFrame < maxDashFrames)
             {
-                Vector3 newPos = new Vector3(0, 0, zPosition / maxDashFrames);
+                // zPosition = initPositionZ + (((initVelocityZ * accelerationTime) + (0.5F * dashAcceleration * (accelerationTime * accelerationTime)) * 0.5f) * 0.01f * 0.000000000000000000000000000000000000000000000000000000000000000000000000001f);
+                //zPosition = initPositionZ + (dashAcceleration / maxDashFrames);
+                zPosition = dashAcceleration / maxDashFrames;
+
+
+                Vector3 newPos = new Vector3(0, 0, zPosition);
 
                 newPos = this.transform.TransformDirection(newPos);
-
+                
                 controller.Move(newPos);
 
                 if (inputDebug)
@@ -280,6 +285,10 @@ public class InputControl : MonoBehaviour
 
                     Debug.Log("Dash Frame: " + currentDashFrame + " zPosition = " + zPosition);
 
+                    Debug.Log("Dash Frame: " + currentDashFrame + " accelerationTime = " + accelerationTime);
+
+                    Debug.Log("Dash Frame: " + currentDashFrame + " dashAcceleration = " + dashAcceleration);
+
                     Debug.Log("Dash Frame: " + currentDashFrame + " newPos = " + newPos);
 
                     //  Debug.Log("Dash Frame: " + frame + " + initPositionZ + (initVelocityZ * velocityReducer * accelerationTime");
@@ -288,7 +297,7 @@ public class InputControl : MonoBehaviour
 
                     Debug.Log("Dash Frame: " + currentDashFrame + " initial velocity = " + initVelocityZ);
 
-                    Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
+                  //  Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
                 }
             }
 
@@ -331,13 +340,14 @@ public class InputControl : MonoBehaviour
 
         #region Apply Gravity
 
+        /*
         if (isJumping)
         {
             isFalling = false;
 
             if (jumpDebug)
                 Debug.Log("isJumping true");
-            /*
+            
             if (currentJumpPower < maxJumpPower)
             {
                 if (jumpDebug)
@@ -351,16 +361,17 @@ public class InputControl : MonoBehaviour
                     Debug.Log("reached maxJumpPower");
                 JumpEnd();
             }
-            */
+            
 
             if (jumpDebug)
                 Debug.Log("Jump force applied by JumpPower");
 
-            vSpeed += maxJumpPower * Time.deltaTime;// * jumpAmplifier;
+         //   vSpeed += maxJumpPower * Time.deltaTime;// * jumpAmplifier;
 
             if (jumpDebug)
                 Debug.Log("vSpeed = " + vSpeed);
         }
+    */
 
         if (!isGrounded && !isJumping)
             isFalling = true;
@@ -626,6 +637,8 @@ public class InputControl : MonoBehaviour
             }
         }
     }
+
+    /*
     public void OnJumpEnd()
     {
         if (jumpDebug)
@@ -633,6 +646,7 @@ public class InputControl : MonoBehaviour
 
         JumpEnd();
     }
+    */
 
     public Vector2 getMouseData(Vector2 input)
     {
@@ -1131,9 +1145,13 @@ public class InputControl : MonoBehaviour
 
         initPositionZ = this.transform.position.z;
 
-        initVelocityZ = inputVec.y * 0.5f;
+        initVelocityZ = inputVec.y;
 
-        zPosition = initPositionZ + (((initVelocityZ * velocityReducer * accelerationTime * 0.1f) + (0.5F * (dashAcceleration * accelerationReducer) * (accelerationTime * accelerationTime)) * 0.5f * 0.5f) * 0.1f);
+        zPosition = 0;
+
+        //zPosition = initPositionZ + (((initVelocityZ * velocityReducer * accelerationTime * 0.1f) + (0.5F * (dashAcceleration * accelerationReducer) * (accelerationTime * accelerationTime)) * 0.5f * 0.5f) * 0.1f);
+        
+       // zPosition = initPositionZ + ((initVelocityZ * velocityReducer) + (0.5f * (dashAcceleration * accelerationReducer) * 0.5f) * 0.0001f);
     }
 
     #endregion
@@ -1299,7 +1317,7 @@ public class InputControl : MonoBehaviour
 
             ib.setBufferFalse();
 
-            vSpeed = currentJumpPower * jumpAmplifier * Time.deltaTime;
+            vSpeed = currentJumpPower;// * jumpAmplifier;
 
             #region Debug Log
 
