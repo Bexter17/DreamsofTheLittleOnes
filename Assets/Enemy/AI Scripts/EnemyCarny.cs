@@ -664,11 +664,9 @@ public class EnemyCarny : MonoBehaviour
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
         rb.isKinematic = false;
-        //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
-        //rb.AddForce(transform.up * knockHeightModifier);
+        //Previously in before directional knockback added to ahmmer
+        //rb.AddForce(-transform.forward * knockDistanceModifier);
 
-        //Debug.Log("Knockback");
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
     }
