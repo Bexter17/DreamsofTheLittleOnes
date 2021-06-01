@@ -8,7 +8,10 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
-    //May 5, 2021
+    //June 1, 2021
+    //Most Recent Change: Reimplemented stagger back into anim and script (basic attacks stagger 1/4 attacks)
+
+
     //remaining Distance instead of vector3.distance
     #region Variables
     //TODO removed most of serializefields to a minimum
@@ -86,6 +89,10 @@ public class EnemyCarny : MonoBehaviour
     private int enemyRunMultiplier = 2;
     private float rotationSpeed = 3;
     private float startingMovementSpeed;
+
+    private int basicStaggerCounter = 0;
+    //1 / attackStaggerCount of basic attacks stagger
+    private int attackStaggerCount = 4;
 
 
 
@@ -391,6 +398,7 @@ public class EnemyCarny : MonoBehaviour
 
             if (rb)
             {
+                AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
                 direction.y = 0;
 
@@ -429,6 +437,13 @@ public class EnemyCarny : MonoBehaviour
 
                 if (rb)
                 {
+                    basicStaggerCounter++;
+                    if(basicStaggerCounter >= attackStaggerCount)
+                    {
+                        basicStaggerCounter = 0;
+                        AnimStagger();
+                    }
+                    
                     Vector3 direction = transform.position - collision.transform.position;
                     direction.y = 0;
 
@@ -453,6 +468,7 @@ public class EnemyCarny : MonoBehaviour
 
                 if (rb)
                 {
+                    AnimStagger();
                     Vector3 direction = transform.position - collision.transform.position;
                     direction.y = 0;
 
@@ -477,6 +493,7 @@ public class EnemyCarny : MonoBehaviour
 
             if (rb)
             {
+                AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
                 direction.y = 0;
 
@@ -787,6 +804,11 @@ public class EnemyCarny : MonoBehaviour
 
     // Used for enemy animations and patrolling between waypoints
     #endregion
+
+    private void AnimStagger()
+    {
+        eAnim.SetTrigger("staggerBack");
+    }
 
     public void changeStackrange(float i)
     {

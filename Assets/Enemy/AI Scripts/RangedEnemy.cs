@@ -6,7 +6,10 @@ using UnityEngine.AI;
 
 public class RangedEnemy : MonoBehaviour
 {
-    //May 5, 2021
+    //June 1, 2021
+    //Most Recent Change: Reimplemented stagger back into anim and script (basic attacks stagger 1/4 attacks)
+    //Bugs: Also Clown had a bug that would spam 2 damage, this was caused by an on trigger rapidly entering.
+    //By removing the trigger the bug is fixed but hammersmash no longer deals damage... hammer smash needs a trigger box to do damage it seems.
     #region Variables
 
     [Header("Essentials")]
@@ -52,6 +55,10 @@ public class RangedEnemy : MonoBehaviour
     // The player that the enemy will chase
     //public Vector3 initialPos;
     //bool isInitPos = true;
+
+    private int basicStaggerCounter = 0;
+    //1 / attackStaggerCount of basic attacks stagger
+    private int attackStaggerCount = 4;
 
     IEnumerator Stun()
     {
@@ -299,6 +306,7 @@ public class RangedEnemy : MonoBehaviour
 
             if (rb)
             {
+                AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
                 direction.y = 0;
 
@@ -332,6 +340,13 @@ public class RangedEnemy : MonoBehaviour
 
                 if (rb)
                 {
+                    basicStaggerCounter++;
+                    if(basicStaggerCounter >= attackStaggerCount)
+                    {
+                        basicStaggerCounter = 0;
+                        AnimStagger();
+                    }
+                    
                     Vector3 direction = transform.position - collision.transform.position;
                     direction.y = 0;
 
@@ -356,6 +371,7 @@ public class RangedEnemy : MonoBehaviour
 
                 if (rb)
                 {
+                    AnimStagger();
                     Vector3 direction = transform.position - collision.transform.position;
                     direction.y = 0;
 
@@ -381,6 +397,7 @@ public class RangedEnemy : MonoBehaviour
 
             if (rb)
             {
+                AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
                 direction.y = 0;
 
@@ -404,6 +421,11 @@ public class RangedEnemy : MonoBehaviour
             //Give enemies back their speed after hammer smash AOE
             //enemyMovement = 5;
         }
+    }
+
+    private void AnimStagger()
+    {
+        eAnim.SetTrigger("staggerBack");
     }
 
    

@@ -210,7 +210,7 @@ BoxCollider:
   m_GameObject: {fileID: 942041078614933}
   m_Material: {fileID: 0}
   m_IsTrigger: 1
-  m_Enabled: 1
+  m_Enabled: 0
   serializedVersion: 2
   m_Size: {x: 1, y: 2, z: 0.9}
   m_Center: {x: 0, y: 0, z: 0.4}
@@ -234,6 +234,8 @@ MonoBehaviour:
   - {fileID: 4973858719778585166}
   - {fileID: 8284839520774340216}
   - {fileID: 6190494914886604491}
+  spawnIn: 0
+  despawn: 0
   fade: 1.9
   speed: 10
   spawnSpeedDivider: 2.2
