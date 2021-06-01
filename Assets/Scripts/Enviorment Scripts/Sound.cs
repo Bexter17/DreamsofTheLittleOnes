@@ -13,6 +13,7 @@ public class Sound
     public Action<Sound> callback;
     public bool loop;
     public bool interrupts;
+    
 
     private HashSet<Sound> interruptedSounds =
         new HashSet<Sound>();

@@ -24,6 +24,10 @@ public class VFXenemies : MonoBehaviour
     bool spawnSandPS = false;
     bool deathSandPS = false;
 
+    //Change variable for spawning
+    public bool spawnIn = false;
+    public bool despawn = false;
+
     //Fade parameter; 1.9f is completely dissolved; -13 is fully visable
     public float fade = 1.9f;
 
@@ -51,6 +55,16 @@ public class VFXenemies : MonoBehaviour
     {
         //Gets the time variable
         GetTime();
+
+        if(spawnIn)
+        {
+            DissolveIn();
+        }
+
+        if (despawn)
+        {
+            DissolveOut();
+        }
     }
 
     #region Functions
