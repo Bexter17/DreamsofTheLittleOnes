@@ -235,7 +235,7 @@ public class CharacterMechanics : MonoBehaviour
 
     #region Abilities
 
-    bool isUsingAbilities;
+    public bool isUsingAbilities;
 
     [SerializeField] public GameObject abilitySpawn;
 
