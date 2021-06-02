@@ -8,8 +8,8 @@ using UnityEngine.AI;
 //Combat Script
 public class EnemyCarny : MonoBehaviour
 {
-    //June 1, 2021
-    //Most Recent Change: Reimplemented stagger back into anim and script (basic attacks stagger 1/4 attacks)
+    //June 2, 2021
+    //Most Recent Change: Only deal damage when weapon collides with player / 0 rotation during attack animations
 
 
     //remaining Distance instead of vector3.distance
@@ -22,6 +22,7 @@ public class EnemyCarny : MonoBehaviour
     public NavMeshAgent agent;
     private Animator eAnim;
     private CombatManager CombatScript;
+    [SerializeField] private CarnyWeapon WeaponScript;
     private CharacterMechanics cm;
     //used to track the player for giveDamage function
     private GameObject Player;
@@ -87,7 +88,8 @@ public class EnemyCarny : MonoBehaviour
     [SerializeField] private float enemyMovement;
     // multiplies by walk enemyMovement speed for chasing speed
     private int enemyRunMultiplier = 2;
-    private float rotationSpeed = 3;
+    private float rotationSpeed = 6;
+    private bool isRotating = true;
     private float startingMovementSpeed;
 
     private int basicStaggerCounter = 0;
@@ -255,7 +257,6 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        //Debug.Log("Enemy State :" + myEnemy);
         //Used for testing enemy death
         //if (Input.GetKeyDown("t"))
         //{
@@ -288,7 +289,7 @@ public class EnemyCarny : MonoBehaviour
             NavMeshHit hit;
             if (Vector3.Distance(target.position, gameObject.transform.position) < checkStackRange && !agent.Raycast(target.position, out hit))
             {
-                Debug.Log("Enemy To Stack");
+                //Debug.Log("Enemy To Stack");
                 if (!onStack)
                 {
                     int stackNum = stackTracker.AddStack(gameObject);
@@ -326,9 +327,13 @@ public class EnemyCarny : MonoBehaviour
                 agent.isStopped = false;
                 myEnemy = EnemyState.Patrol;
             }
+            if (isRotating)
+            {
                 Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
                 float str = rotationSpeed * Time.deltaTime;
                 transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+            }
+
             if (myEnemy == EnemyState.Patrol)
             {
                 Patrol();
@@ -350,10 +355,12 @@ public class EnemyCarny : MonoBehaviour
                     //Set to 1, 4 once third animation is added
                     eAnim.SetInteger("randAttk", Random.Range(1, numberOfAttacks+1));
                     randNumGenerated = true;
+                    isRotating = true;
                 }
                 else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
                 {
                     randNumGenerated = false;
+                    isRotating = false;
                 }
                 eAnim.SetBool("isAttacking", true);
                 eAnim.SetTrigger("Attack");
@@ -362,10 +369,6 @@ public class EnemyCarny : MonoBehaviour
             {
                 eAnim.SetBool("isAttacking", false);
             }
-            //else if (myEnemy == EnemyState.Stun)
-            //{
-            //Stun();
-            //}
         }
         #endregion
     }
@@ -390,9 +393,6 @@ public class EnemyCarny : MonoBehaviour
             }
 
             #endregion
-            //Slow down enemies in contact with hammer smash AOE 
-            //movementSpeed = 0;
-            //Stop attacking                                        -> Moved to IEnumerator for WaitForSeconds function
             takeDamage(35);
             StartCoroutine(Stun());
 
@@ -522,7 +522,7 @@ public class EnemyCarny : MonoBehaviour
     {
 
         // During patrol alternate going between Waypoint1 and Waypoint2
-        // On colliding with waypoint sets other as destination
+        // On collision with waypoint sets other as destination
         // Patrolling now works regardless of what order waypoints are in
 
         if (myEnemy == EnemyState.Patrol)
@@ -575,14 +575,6 @@ public class EnemyCarny : MonoBehaviour
             }
         }
 
-        //if(other.CompareTag("Hammer"))
-        //{
-        //    if(cm.isAttacking)
-        //    {
-        //        takeDamage(2);
-        //    }
-        //}
-
         //TODO + parameter to take damage to edit knockback
         //So that ranged attack doesn't knockback as much as melee
         if (other.gameObject.tag == "PlayerRanged")
@@ -599,7 +591,7 @@ public class EnemyCarny : MonoBehaviour
 
             #endregion
 
-            takeDamage(1);
+            takeDamage(8);
 
             if (rb)
             {
@@ -668,6 +660,7 @@ public class EnemyCarny : MonoBehaviour
             Debug.Log("Enemy has been killed");
             enemyMovement = 0;
             rotationSpeed = 0;
+
             // so that enemy doesn't move after dying
             eAnim.SetBool("IsDying", true);
             eAnim.SetTrigger("IsDead");
@@ -677,11 +670,7 @@ public class EnemyCarny : MonoBehaviour
         hpBar.fillAmount = (float)(hp * 0.016f);
 
         //KNOCKBACK
-        // Gets the difference between enemy and player position
-        // To knockback enemy away from player
         rb.isKinematic = false;
-        //Previously in before directional knockback added to ahmmer
-        //rb.AddForce(-transform.forward * knockDistanceModifier);
 
         //Invokes once enemy is no longer being knocked back and pauses movement
         Invoke("AgentStop", knockDuration);
@@ -714,23 +703,8 @@ public class EnemyCarny : MonoBehaviour
         myEnemy = EnemyState.Chase;
         eAnim.SetFloat("Speed", 2);
         // Sets player as destination
-        //agent.SetDestination(target.transform.position);
-        //UpdateCirclePoints();
-
-        // doesn't work if stack call returns 5 which means not on stack
-        // or -1 which means still not changed
-        //if (encircleNum < 4 && encircleNum >= 0 && circlePoints[encircleNum] != null)
-        //{
-        //    agent.isStopped = false;
-        //    agent.SetDestination(circlePoints[encircleNum].transform.position);
-        //}
         agent.SetDestination(target.transform.position);
         agent.isStopped = false;
-        //if (encircleNum < 3 && encircleNum >= 0)
-        //{
-        //    agent.isStopped = false;
-        //    agent.SetDestination(target.transform.position);
-        //}
 
 
     }
@@ -817,7 +791,7 @@ public class EnemyCarny : MonoBehaviour
 
     public void Attack()
     {
-        if (ableToDamage)
+        if (WeaponScript.GetWeaponContact())
         {
             CombatScript.GivePlayerDamage(this.transform, dmgDealt);
         }
@@ -825,7 +799,7 @@ public class EnemyCarny : MonoBehaviour
 
     public void DoubleAttack()
     {
-        if (ableToDamage)
+        if (WeaponScript.GetWeaponContact())
         {
             CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
         }
