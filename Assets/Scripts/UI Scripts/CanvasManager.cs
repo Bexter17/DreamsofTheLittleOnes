@@ -9,7 +9,6 @@ public class CanvasManager : MonoBehaviour
     GameManager gm;
 
     GameObject Player;
-  
 
     CharacterMechanics cm;
 
@@ -29,8 +28,6 @@ public class CanvasManager : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        
-
         gm = GameObject.Find("GameManager").GetComponent<GameManager>();
 
         if (startButton)
@@ -61,10 +58,7 @@ public class CanvasManager : MonoBehaviour
         if(optionsButton)
         {
             optionsButton.onClick.AddListener(gm.Options);
-        }
-
-       
-        
+        } 
     }
 
     private void Awake()
@@ -87,25 +81,61 @@ public class CanvasManager : MonoBehaviour
 
     private void Update()
     {
-        if (cm)
+        if (SceneManager.GetActiveScene().name == "Level_1" || SceneManager.GetActiveScene().name == "MazeScene")
         {
-            #region Debug
-            if (canvasDebug)
-                Debug.Log("Canvas: cm is attached");
-            #endregion
-
-            if (!cm.isPlaying)
+            if (cm)
             {
                 #region Debug
                 if (canvasDebug)
-                    Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
+                    Debug.Log("Canvas: cm is attached");
                 #endregion
 
-                if (!isPaused)
+                if (!cm.isPlaying)
                 {
                     #region Debug
                     if (canvasDebug)
-                        Debug.Log("Canvas: isPaused = " + isPaused);
+                        Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
+                    #endregion
+
+                    if (!isPaused)
+                    {
+                        #region Debug
+                        if (canvasDebug)
+                            Debug.Log("Canvas: isPaused = " + isPaused);
+                        #endregion
+
+                        if (pauseMenu)
+                        {
+                            #region Debug
+                            if (canvasDebug)
+                                Debug.Log("Canvas: pauseMenu attached");
+                            #endregion
+
+                            pauseMenu.SetActive(!pauseMenu.activeSelf);
+
+                            if (pauseMenu.activeSelf)
+                            {
+                                //pauseaudio.play();
+                            }
+
+                            Time.timeScale = 0.0f;
+
+                            isPaused = true;
+
+                            #region Debug
+                            if (canvasDebug)
+                                Debug.Log("Canvas: isPaused set to = " + isPaused);
+                            #endregion
+                        }
+
+                    }
+                }
+
+                else if (cm.isPlaying)
+                {
+                    #region Debug
+                    if (canvasDebug)
+                        Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
                     #endregion
 
                     if (pauseMenu)
@@ -115,57 +145,38 @@ public class CanvasManager : MonoBehaviour
                             Debug.Log("Canvas: pauseMenu attached");
                         #endregion
 
-                        pauseMenu.SetActive(!pauseMenu.activeSelf);
+                        pauseMenu.SetActive(false);
 
-                        if (pauseMenu.activeSelf)
-                        {
-                            //pauseaudio.play();
-                        }
+                        Time.timeScale = 1.0f;
 
-                        Time.timeScale = 0.0f;
-
-                        isPaused = true;
+                        isPaused = false;
 
                         #region Debug
                         if (canvasDebug)
                             Debug.Log("Canvas: isPaused set to = " + isPaused);
                         #endregion
                     }
-
                 }
             }
 
-            else if (cm.isPlaying)
+            else
             {
-                #region Debug
-                if (canvasDebug)
-                    Debug.Log("Canvas: cm.isPlaying = " + cm.isPlaying);
-                #endregion
+                Debug.LogError("Canvas: cm not attached!");
 
-                if (pauseMenu)
+                try
                 {
-                    #region Debug
-                    if (canvasDebug)
-                        Debug.Log("Canvas: pauseMenu attached");
-                    #endregion
-
-                    pauseMenu.SetActive(false);
-
-                    Time.timeScale = 1.0f;
-
-                    isPaused = false;
-
-                    #region Debug
-                    if (canvasDebug)
-                        Debug.Log("Canvas: isPaused set to = " + isPaused);
-                    #endregion
+                    cm = GameObject.FindGameObjectWithTag("Player").GetComponent<CharacterMechanics>();
                 }
+
+                catch (MissingComponentException e)
+                {
+                    Debug.LogError(e.Message);
+                }
+
+                if (cm)
+                    Debug.Log("CharacterMechanics successfully attached!");
             }
         }
-
-        else
-            Debug.LogError("Canvas: cm not attached!");
-
     }
 
 }
