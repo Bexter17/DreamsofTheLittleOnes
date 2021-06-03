@@ -91,6 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5665044538770523029}
   - component: {fileID: 5720015129556793592}
+  - component: {fileID: 7646153390354768694}
   m_Layer: 0
   m_Name: SM_FloatingIsland
   m_TagString: Floor
@@ -125,6 +126,19 @@ TerrainCollider:
   m_Enabled: 1
   m_TerrainData: {fileID: 0}
   m_EnableTreeColliders: 1
+--- !u!114 &7646153390354768694
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5032094540599613743}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ed11fd3c002896e43b8e7db4a5cee596, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  floatStrength: 1
 --- !u!1 &6053122182385553831
 GameObject:
   m_ObjectHideFlags: 0
