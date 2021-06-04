@@ -120,6 +120,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 7981885755477988946}
+  - component: {fileID: 7078456121769866141}
   m_Layer: 0
   m_Name: Booth_4
   m_TagString: Untagged
@@ -148,6 +149,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!65 &7078456121769866141
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 287579197062286543}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 14.631752, y: 10.01347, z: 5.825299}
+  m_Center: {x: 1.0030785, y: 1.5847435, z: 4.454327}
 --- !u!1 &294362975331445964
 GameObject:
   m_ObjectHideFlags: 0

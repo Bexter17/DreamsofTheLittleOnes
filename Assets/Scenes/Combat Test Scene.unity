@@ -1053,7 +1053,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-13248
+  m_Name: pb_Mesh-12526
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -12809,7 +12809,7 @@ Mesh:
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_Name: pb_Mesh-12316
+  m_Name: pb_Mesh-11554
   serializedVersion: 10
   m_SubMeshes:
   - serializedVersion: 2
@@ -15427,6 +15427,12 @@ PrefabInstance:
       propertyPath: respawnPoint
       value: 
       objectReference: {fileID: 135553103}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: RangePrefab
+      value: 
+      objectReference: {fileID: 6882968560295412820, guid: 613ace275d4dea94daf2e5470659c79c,
+        type: 3}
     - target: {fileID: 1016093913191264028, guid: 08256832e9e5191459197d45907b0cd7,
         type: 3}
       propertyPath: m_UpdateMode

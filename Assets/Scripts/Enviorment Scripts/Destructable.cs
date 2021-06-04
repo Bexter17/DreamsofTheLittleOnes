@@ -23,11 +23,12 @@ public class Destructable : MonoBehaviour
 
         character = Player.GetComponent<CharacterMechanics>();
 
+        index = Random.Range(0, pickUps.Length);
     }
 
     private void Update()
     {
-        index = Random.Range(0, pickUps.Length);
+  
     }
     //private void OnMouseDown()
     //{
@@ -50,7 +51,7 @@ public class Destructable : MonoBehaviour
     {
         if (other.gameObject.tag == "Hammer2")
         {
-            if (character.isAttacking)
+            if (character.isAttacking || character.isSpinning)
             {
                 onlyHappensOnce = true;
                 Debug.Log("Working Hammer");
@@ -66,10 +67,6 @@ public class Destructable : MonoBehaviour
                 // Instantiate(destroyedVersion, transform.position, transform.rotation, destroyedVersion.transform.parent);
             }
         }
-
-
-
-
     }
 
     private void OnCollisionEnter(Collision collision)
