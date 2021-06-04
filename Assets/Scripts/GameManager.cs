@@ -18,8 +18,18 @@ public class GameManager : MonoBehaviour
     CharacterMechanics cm;
 
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
+        if (instance == null)
+        {
+            instance = this;
+            DontDestroyOnLoad(Instance);
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
         try
         {
             Player = GameObject.FindGameObjectWithTag("Player");
@@ -155,20 +165,4 @@ public class GameManager : MonoBehaviour
     public GameObject[] checkPoints;
     public int currentCheckpoint;
     private bool hauntedHouse = false;
-
-    void Awake()
-    {
-        if (instance == null)
-        {
-            instance = this;
-            DontDestroyOnLoad(Instance);
-        }
-        else
-        {
-            Destroy(gameObject);
-
-
-
-        }
-    }
 }
