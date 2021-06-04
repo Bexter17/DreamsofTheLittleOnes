@@ -33,7 +33,7 @@ Transform:
   m_LocalPosition: {x: 24.201054, y: 0.3800001, z: 14.98}
   m_LocalScale: {x: -4.1746, y: -4.1745996, z: -4.1746}
   m_Children:
-  - {fileID: 1015161015396823241}
+  - {fileID: 1015161015687523013}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: -89.98, y: 0, z: -5.67}
@@ -17457,7 +17457,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f66a4446bdb669442b0f2c843eef7ed3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!1001 &3114429011857178407
+--- !u!1001 &3114429011565389099
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -17467,17 +17467,17 @@ PrefabInstance:
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: -1.92
+      value: -2.03
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.03
+      value: -0.22
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.92
+      value: -1.19
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
@@ -17522,17 +17522,17 @@ PrefabInstance:
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalScale.x
-      value: 0.056020215
+      value: 0.044255976
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalScale.y
-      value: 0.056020215
+      value: 0.044255976
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
       propertyPath: m_LocalScale.z
-      value: 0.056020204
+      value: 0.044255976
       objectReference: {fileID: 0}
     - target: {fileID: 2679148371660738543, guid: d8f45435a9bad4e4ca2e355825174763,
         type: 3}
@@ -17541,9 +17541,9 @@ PrefabInstance:
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d8f45435a9bad4e4ca2e355825174763, type: 3}
---- !u!4 &1015161015396823241 stripped
+--- !u!4 &1015161015687523013 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 2679148371660738542, guid: d8f45435a9bad4e4ca2e355825174763,
     type: 3}
-  m_PrefabInstance: {fileID: 3114429011857178407}
+  m_PrefabInstance: {fileID: 3114429011565389099}
   m_PrefabAsset: {fileID: 0}
