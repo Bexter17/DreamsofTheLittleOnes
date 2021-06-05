@@ -1144,22 +1144,7 @@ public class CharacterMechanics : MonoBehaviour
             }
         }
     }
-
-    public void firstAttackSFX()
-    {
-
-        am.PlayNewSound("Swing_01_WithReverb", false, false, null);
-    }
-
-    public void secondAttackSFX()
-    {
-        am.PlayNewSound("Swing_02_withReverb", false, false, null);
-    }
-
-    public void thirdAttackSFX()
-    {
-        am.PlayNewSound("Swing_03_WithReverb", false, false, null);
-    }
+          
     #endregion
 
     #region Abilities
