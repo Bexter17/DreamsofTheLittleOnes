@@ -1562,11 +1562,18 @@ public class CharacterMechanics : MonoBehaviour
 
     public void toggleIsPlaying()
     {
-        if(!isPlaying)
-        isPlaying = true;
+        if (!isPlaying)
+        {
+            Cursor.lockState = CursorLockMode.Locked;
+            isPlaying = true;
+        }
 
-        else if(isPlaying)
-        isPlaying = false;
+        else if (isPlaying)
+        {
+            Cursor.lockState = CursorLockMode.None;
+            isPlaying = false;
+        }
+
     }
 
     #endregion
