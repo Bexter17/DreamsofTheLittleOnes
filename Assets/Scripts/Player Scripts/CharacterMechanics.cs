@@ -1564,13 +1564,13 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (!isPlaying)
         {
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.None;
             isPlaying = true;
         }
 
         else if (isPlaying)
         {
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Locked;
             isPlaying = false;
         }
 
