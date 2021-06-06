@@ -135,15 +135,15 @@ public class AudioManager : MonoBehaviour
         audio.volume = volume;
     }
 
-    public void EnemyOnHitSFX(float volume = 1f)
-    {
-        audio.PlayOneShot((AudioClip)Resources.Load(""));
-        audio.volume = volume;
-    }
+    //public void EnemyOnHitSFX(float volume = 1f)
+    //{
+    //    audio.PlayOneShot((AudioClip)Resources.Load("Body Hit"));
+    //    audio.volume = volume;
+    //}
 
     public void ThrowSFX(float volume = 1f)
     {
-        audio.PlayOneShot((AudioClip)Resources.Load(""));
+        audio.PlayOneShot((AudioClip)Resources.Load("Bjorn_LineA_Take03"));
         audio.volume = volume;
     }
 

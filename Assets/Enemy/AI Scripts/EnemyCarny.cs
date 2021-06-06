@@ -28,6 +28,10 @@ public class EnemyCarny : MonoBehaviour
     private GameObject Player;
     private bool enemyDissolveIn = false;
 
+    //Audio
+    public new AudioSource audio;
+    AudioManager am;
+
     //HP
     [Header("Essentials")]
     [SerializeField] private int hp;
@@ -153,6 +157,8 @@ public class EnemyCarny : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.FindGameObjectWithTag("Player").transform;
         CombatScript = GameObject.Find("GameManager").GetComponent<CombatManager>();
+
+        audio = this.GetComponent<AudioSource>();
         #endregion
         #region SetWaypoints
         //STATES
@@ -451,6 +457,7 @@ public class EnemyCarny : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
+                EnemyOnHitSFX();
                 takeDamage(5);
 
                 if (rb)
@@ -826,5 +833,11 @@ public class EnemyCarny : MonoBehaviour
         {
             CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
         }
+    }
+
+    public void EnemyOnHitSFX(float volume = 1f)
+    {
+        audio.PlayOneShot((AudioClip)Resources.Load("Body Hit"));
+        audio.volume = volume;
     }
 }
