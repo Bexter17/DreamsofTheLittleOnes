@@ -113,19 +113,19 @@ public class AudioManager : MonoBehaviour
 
     public void WhirlwindSFX(float volume = 1f)
     {
-        audio.PlayOneShot((AudioClip)Resources.Load(""));
+        audio.PlayOneShot((AudioClip)Resources.Load("Whirlwind_02_Voice"));
         audio.volume = volume;
     }
 
     public void HammerSmashSFX(float volume = 1f)
     {
-        audio.PlayOneShot((AudioClip)Resources.Load(""));
+        audio.PlayOneShot((AudioClip)Resources.Load("HammerSmash_01_Voice"));
         audio.volume = volume;
     }
 
     public void DashSFX(float volume = 1f)
     {
-        audio.PlayOneShot((AudioClip)Resources.Load(""));
+        audio.PlayOneShot((AudioClip)Resources.Load("Whirlwind_02_NoVoice"));
         audio.volume = volume;
     }
 
