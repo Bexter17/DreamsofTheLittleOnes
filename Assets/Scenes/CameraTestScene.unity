@@ -3257,29 +3257,6 @@ MeshFilter:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 421931570}
   m_Mesh: {fileID: 10207, guid: 0000000000000000e000000000000000, type: 0}
---- !u!1 &427039308 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3588806423389122146, guid: 08256832e9e5191459197d45907b0cd7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4850393686984878178}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &427039310
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 427039308}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConfineMode: 0
-  m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
 --- !u!43 &440913310
 Mesh:
   m_ObjectHideFlags: 0
@@ -9080,29 +9057,6 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 1098508202}
   m_PrefabAsset: {fileID: 0}
---- !u!1 &1226785529 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 7950441419671624191, guid: 08256832e9e5191459197d45907b0cd7,
-    type: 3}
-  m_PrefabInstance: {fileID: 4850393686984878178}
-  m_PrefabAsset: {fileID: 0}
---- !u!114 &1226785533
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1226785529}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a2fba25a5cd15594e8f050a11e386c80, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_ConfineMode: 1
-  m_BoundingVolume: {fileID: 0}
-  m_BoundingShape2D: {fileID: 0}
-  m_ConfineScreenEdges: 1
-  m_Damping: 0
 --- !u!4 &1236580777 stripped
 Transform:
   m_CorrespondingSourceObject: {fileID: 942041078614959, guid: c868064414033f346acfca5efd25c9ea,
@@ -15943,6 +15897,11 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -4.498346
       objectReference: {fileID: 0}
+    - target: {fileID: 1257910142045509537, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: m_Damping
+      value: 0.57
+      objectReference: {fileID: 0}
     - target: {fileID: 1933997921424971542, guid: 08256832e9e5191459197d45907b0cd7,
         type: 3}
       propertyPath: m_AnchorMax.x
@@ -15957,6 +15916,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_IsActive
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3033154874870356518, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 2.61
       objectReference: {fileID: 0}
     - target: {fileID: 3292315709018869940, guid: 08256832e9e5191459197d45907b0cd7,
         type: 3}
@@ -16008,7 +15972,8 @@ PrefabInstance:
       propertyPath: m_LocalPosition.z
       value: -1.7912173
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8137884513370695140, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
 --- !u!1 &5569241193779578741 stripped
 GameObject:
