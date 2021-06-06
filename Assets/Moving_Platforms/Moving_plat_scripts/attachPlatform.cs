@@ -18,8 +18,16 @@ public class attachPlatform : MonoBehaviour
 
 	}
 
-	private void OnTriggerExit(Collider other)
+	private void OnCollisionExit(Collision other)
 	{
+		if (other.gameObject == Player)
+		{
+			Player.transform.parent = null;
+		}
+	}
+
+    private void OnTriggerExit(Collider other)
+    {
 		if (other.gameObject == Player)
 		{
 			Player.transform.parent = null;
