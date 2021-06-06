@@ -31,6 +31,7 @@ public class EnemyCarny : MonoBehaviour
     //Audio
     public new AudioSource audio;
     AudioManager am;
+    private int randNumAudio;
 
     //HP
     [Header("Essentials")]
@@ -362,11 +363,16 @@ public class EnemyCarny : MonoBehaviour
                     //1-3
                     //Set to 1, 4 once third animation is added
                     eAnim.SetInteger("randAttk", Random.Range(1, numberOfAttacks+1));
+                    //1-3
+                    randNumAudio = Random.Range(1, 4);
                     randNumGenerated = true;
                     isRotating = true;
                 }
                 else if (eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 1") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 2") || eAnim.GetCurrentAnimatorStateInfo(0).IsName("Attack 3"))
                 {
+                    //Voice Line Function Call For Jer Bear:
+                    //EnemyVoiceLine(randNumAudio);
+
                     randNumGenerated = false;
                     isRotating = false;
                 }
@@ -457,7 +463,6 @@ public class EnemyCarny : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
-                EnemyOnHitSFX();
                 takeDamage(5);
 
                 if (rb)
@@ -666,6 +671,7 @@ public class EnemyCarny : MonoBehaviour
     {
         if (canTakeDamage)
         {
+            EnemyOnHitSFX();
             //Debug.Log("Carny Damage Taken: " + dmg);
             agent.isStopped = true;
             hp -= dmg;
@@ -837,6 +843,7 @@ public class EnemyCarny : MonoBehaviour
 
     public void EnemyOnHitSFX(float volume = 1f)
     {
+        //Debug.Log("Carny Hit Sound");
         audio.PlayOneShot((AudioClip)Resources.Load("Body Hit"));
         audio.volume = volume;
     }
