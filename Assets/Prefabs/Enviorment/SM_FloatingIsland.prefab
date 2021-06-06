@@ -91,7 +91,7 @@ GameObject:
   m_Component:
   - component: {fileID: 5665044538770523029}
   - component: {fileID: 7646153390354768694}
-  - component: {fileID: 833086603718126996}
+  - component: {fileID: 2696831739637465156}
   m_Layer: 0
   m_Name: SM_FloatingIsland
   m_TagString: Floor
@@ -128,7 +128,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   floatStrength: 1
---- !u!65 &833086603718126996
+--- !u!65 &2696831739637465156
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -139,8 +139,8 @@ BoxCollider:
   m_IsTrigger: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.5092462, y: 0.3744133, z: 0.49659938}
-  m_Center: {x: -0.082464, y: 0.17854823, z: 0.010422772}
+  m_Size: {x: 0.5249125, y: 0.12588106, z: 0.5201663}
+  m_Center: {x: -0.082290314, y: 0.30674616, z: 0.0029035278}
 --- !u!1 &6053122182385553831
 GameObject:
   m_ObjectHideFlags: 0
