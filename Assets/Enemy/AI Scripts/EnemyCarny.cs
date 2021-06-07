@@ -463,7 +463,7 @@ public class EnemyCarny : MonoBehaviour
                     Debug.Log(this.transform.name + " Damage Applied!");
                 }
 
-                takeDamage(5);
+                takeDamage(10);
 
                 if (rb)
                 {
