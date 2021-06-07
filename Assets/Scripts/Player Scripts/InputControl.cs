@@ -2,12 +2,15 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
+using UnityEngine.SceneManagement; 
 
 public class InputControl : MonoBehaviour
 {
     #region Components
 
     CharacterController controller;
+
+    [SerializeField] private GameObject respawnPoint;
 
     #endregion
 
@@ -247,25 +250,67 @@ public class InputControl : MonoBehaviour
         }
 
         #endregion
+
+        #region Respawn
+
+        //if (!respawnPoint)
+        //    respawnPoint = GameObject.FindGameObjectWithTag("Starting Respawn Point");
+
+        //            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+
+        if (GameManager.Instance.HauntedHouse)
+        {
+            respawnPoint = GameObject.FindWithTag("HauntedExit");
+            if (respawnPoint != null)
+            {
+                GameManager.Instance.HauntedHouse = false;
+            }
+        }
+        else
+        {
+            if (SceneManager.GetActiveScene().name == "Level_1")
+                respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+        }
+
+
+        if (respawnPoint)
+        {
+            transform.position = respawnPoint.transform.position;
+        }
+        #endregion
     }
 
     private void FixedUpdate()
     {
+        /*
         if(currentDevice == controlType.Controller)
         {
-
+            UnityEngine.InputSystem.InputControlScheme = InputControlScheme.FindControlSchemeForDevices;
         }
 
         if (currentDevice == controlType.Keyboard)
         {
 
         }
+        */
 
-        isGrounded = groundCheck();
+        if (this.transform.parent)
+            Debug.Log("Parent: " + this.transform.parent.name);
 
-        #region Debug
+            isGrounded = groundCheck();
 
-        if (jumpDebug)
+        if (!isGrounded)
+        {
+            if (this.transform.parent)
+            {
+                if (this.transform.parent.tag == "Platform")
+                    this.transform.parent = null;
+            }
+        }
+     
+                    #region Debug
+
+                    if (jumpDebug)
             Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
 
         #endregion
@@ -287,7 +332,6 @@ public class InputControl : MonoBehaviour
                 // zPosition = initPositionZ + (((initVelocityZ * accelerationTime) + (0.5F * dashAcceleration * (accelerationTime * accelerationTime)) * 0.5f) * 0.01f * 0.000000000000000000000000000000000000000000000000000000000000000000000000001f);
                 //zPosition = initPositionZ + (dashAcceleration / maxDashFrames);
                 zPosition = dashAcceleration / maxDashFrames;
-
 
                 Vector3 newPos = new Vector3(0, 0, zPosition);
 
@@ -1232,7 +1276,8 @@ public class InputControl : MonoBehaviour
                     potentialGrounds[i].tag == "Picnic Table" ||
                     potentialGrounds[i].tag == "Train Car" ||
                     potentialGrounds[i].tag == "Trash Can" ||
-                    potentialGrounds[i].tag == "Test Of Strength")
+                    potentialGrounds[i].tag == "Test Of Strength" ||
+                    potentialGrounds[i].tag == "Planks")
                 {
                     if (this.transform.parent == potentialGrounds[i].transform)
                         this.transform.parent = null;
@@ -1244,15 +1289,7 @@ public class InputControl : MonoBehaviour
                     this.transform.parent = potentialGrounds[i].transform;
 
                     return true;
-                }
-                //else
-                //{
-                //    if (this.transform.parent == potentialGrounds[i].transform)
-                //        this.transform.parent = null;
-
-                //    return false;
-                //}
-
+                } 
             }
         }
 
@@ -1321,7 +1358,16 @@ public class InputControl : MonoBehaviour
 
         else if (hit.gameObject.tag == "Killbox")
         {
-            cm.kill();
+            respawnPoint = GameManager.Instance.GetCurrentCheckpoint();
+
+            Debug.Log("respawnPoint = " + respawnPoint.transform.name);
+
+            if (respawnPoint)
+                gameObject.transform.position = respawnPoint.transform.position;
+
+            if (ac)
+                ac.respawn();
+            //die();
         }
     }
 
@@ -1490,6 +1536,11 @@ public class InputControl : MonoBehaviour
             invertX = true;
 
         return invertX;
+    }
+
+    public void freeAction()
+    {
+        ib.setBufferTrue();
     }
 
     #endregion 

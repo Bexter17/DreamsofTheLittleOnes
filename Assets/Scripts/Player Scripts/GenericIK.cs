@@ -233,6 +233,7 @@ public class GenericIK : MonoBehaviour
 
             if (angle > Mathf.Epsilon)
             {
+                angle = Mathf.Clamp(angle, -20, 20);
                 Vector3 currentEulerAngle = new Vector3(0, 0, angle) * Time.deltaTime * rotationSpeed;
                 //CentralJoints.t_root.localEulerAngles = new Vector3(0, 0, angle);
                 //CentralJoints.ctrl_root.localEulerAngles = new Vector3(0, 0, angle);

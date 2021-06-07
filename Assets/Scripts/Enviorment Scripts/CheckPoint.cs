@@ -13,7 +13,7 @@ public class CheckPoint : MonoBehaviour
     {
         if (other.CompareTag("Player"))
         {
-            Debug.Log("checkpoint activated");
+            Debug.LogError("checkpoint activated at " + this.transform.name);
             GameManager.Instance.UpdateCheckpoint(gameObject);
         }
     }

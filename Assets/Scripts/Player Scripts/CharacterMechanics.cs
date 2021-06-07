@@ -662,26 +662,6 @@ public class CharacterMechanics : MonoBehaviour
 
     //Tracks triggers / pickups
 
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.gameObject.tag == "Max Health Pickup")
-        {
-            Destroy(collision.gameObject);
-            Debug.Log("Health Pickup Worked");
-        }
-
-        if (collision.gameObject.tag == "Killbox")   //For Testing Purposes, Can also be implemented in full game as bug failsafe. Can use die() to take away a players life if they fall off or in water.
-        {
-            if (respawnPoint)
-                gameObject.transform.position = respawnPoint.transform.position;
-
-            if (ac)
-                ac.respawn();
-            //die();
-        }
-    }
-
-
     private void OnTriggerEnter(Collider c)
     {
         #region Pickups
