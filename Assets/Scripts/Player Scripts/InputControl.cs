@@ -39,6 +39,10 @@ public class InputControl : MonoBehaviour
 
     #region Movement
 
+    enum controlType { Controller, Keyboard }
+
+    controlType currentDevice;
+
     [SerializeField] bool invertX;
 
     [SerializeField] bool invertY;
@@ -247,6 +251,16 @@ public class InputControl : MonoBehaviour
 
     private void FixedUpdate()
     {
+        if(currentDevice == controlType.Controller)
+        {
+
+        }
+
+        if (currentDevice == controlType.Keyboard)
+        {
+
+        }
+
         isGrounded = groundCheck();
 
         #region Debug
