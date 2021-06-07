@@ -1411,6 +1411,7 @@ MonoBehaviour:
   whirlwindSpawn: {fileID: 3359164965064642167}
   whirlwindDamage: 10
   isSpinning: 0
+  hasRangedWeapon: 0
   RangePrefab: {fileID: 6882968560295412820, guid: 613ace275d4dea94daf2e5470659c79c,
     type: 3}
   RangedSpawn: {fileID: 6548381239326790149}
@@ -1485,6 +1486,7 @@ MonoBehaviour:
     t_R_Foot: {fileID: 8420645595189188429}
   IKDebug: 1
   IKSearchLength: 10
+  rotationSpeed: 0
 --- !u!114 &6245606006775655287
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1604,7 +1606,7 @@ MonoBehaviour:
       m_Calls: []
   m_ActionEvents: []
   m_NeverAutoSwitchControlSchemes: 0
-  m_DefaultControlScheme: 
+  m_DefaultControlScheme: Universal
   m_DefaultActionMap: Player
   m_SplitScreenIndex: -1
   m_Camera: {fileID: 0}
