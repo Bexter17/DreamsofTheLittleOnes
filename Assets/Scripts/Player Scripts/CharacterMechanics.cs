@@ -297,6 +297,8 @@ public class CharacterMechanics : MonoBehaviour
 
     [Header("Ranged Ability")]
 
+    [SerializeField] public bool hasRangedWeapon;
+
     [SerializeField] private GameObject RangePrefab;
 
     [SerializeField] private Transform RangedSpawn;

@@ -1003,44 +1003,60 @@ public class InputControl : MonoBehaviour
         }
 
         #endregion
-        if (!cooldown.isCooldown4)
+
+        if (cm.hasRangedWeapon)
         {
-            #region Debug
-
-            if (inputDebug)
-                Debug.Log("input: Throw not on cooldown");
-
-            #endregion
-
-            if (ib.checkBuffer(ActionItem.InputAction.Ranged))
+            if (!cooldown.isCooldown4)
             {
                 #region Debug
 
                 if (inputDebug)
-                {
-
-                }
+                    Debug.Log("input: Throw not on cooldown");
 
                 #endregion
 
-                if (ib.actionAllowed)
+                if (ib.checkBuffer(ActionItem.InputAction.Ranged))
                 {
                     #region Debug
 
                     if (inputDebug)
-                        Debug.Log("input: action allowed");
+                    {
+
+                    }
 
                     #endregion
 
-                    ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
-                    //cm.AttackEnd();
+                    if (ib.actionAllowed)
+                    {
+                        #region Debug
+
+                        if (inputDebug)
+                            Debug.Log("input: action allowed");
+
+                        #endregion
+
+                        ib.inputBuffer.Add(new ActionItem(ActionItem.InputAction.Ranged, Time.time));
+                        //cm.AttackEnd();
+                    }
+                    else
+                    {
+                        #region Debug
+
+                        if (inputDebug)
+                            Debug.Log("input: action not allowed");
+
+                        #endregion
+                    }
                 }
+
                 else
                 {
                     #region Debug
 
                     if (inputDebug)
-                        Debug.Log("input: action not allowed");
+                    {
+                        Debug.Log("input: not added to input buffer");
+                    }
 
                     #endregion
                 }
@@ -1051,9 +1067,7 @@ public class InputControl : MonoBehaviour
                 #region Debug
 
                 if (inputDebug)
-                {
-                    Debug.Log("input: not added to input buffer");
-                }
+                    Debug.Log("input: Throw is on cooldown");
 
                 #endregion
             }
@@ -1064,7 +1078,7 @@ public class InputControl : MonoBehaviour
             #region Debug
 
             if (inputDebug)
-                Debug.Log("input: Throw is on cooldown");
+                Debug.Log("input: player does not have Ranged attack yet!");
 
             #endregion
         }
