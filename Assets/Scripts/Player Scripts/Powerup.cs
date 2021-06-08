@@ -34,7 +34,7 @@ public class Powerup : MonoBehaviour
         switch(type)
         {
             case CollectibleType.HEAL:
-                instance.currentHealth++;
+                instance.currentHealth += 25;
                 Destroy(gameObject);
                 break;
             case CollectibleType.SPEED:
@@ -42,7 +42,7 @@ public class Powerup : MonoBehaviour
                 Destroy(gameObject);
                 break;
              case CollectibleType.MAXHEALTH:
-                instance.maxHealth++;
+                instance.maxHealth += 5;
                 Destroy(gameObject);
                 break;
            // case CollectibleType.DAMAGE:
