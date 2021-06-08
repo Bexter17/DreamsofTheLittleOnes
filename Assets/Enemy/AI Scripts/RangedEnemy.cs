@@ -109,6 +109,10 @@ public class RangedEnemy : MonoBehaviour
         #region Get Components
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        if(projectilePrefab == null)
+        {
+            agent.enabled = false;
+        }
         eAnim = gameObject.GetComponent<Animator>();
 
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
@@ -146,7 +150,7 @@ public class RangedEnemy : MonoBehaviour
             Patrol();
         }
 
-
+        //abilityCollider.enabled = false;
         #endregion
         if (isStationary)
         {
@@ -178,15 +182,15 @@ public class RangedEnemy : MonoBehaviour
             if(myEnemyClown == EnemyState.Chase || myEnemyClown == EnemyState.Attack)
             {
                 //To ensure spam basic attack damage bug isn't happening / hammersmashaoe works
-                if (cm.isUsingAbilities)
-                {
-                    //Debug.Log("Big Bear using abilities");
-                    abilityCollider.enabled = true;
-                }
-                else
-                {
-                    abilityCollider.enabled = false;
-                }
+                //if (cm.isUsingAbilities)
+                //{
+                //    //Debug.Log("Big Bear using abilities");
+                //    abilityCollider.enabled = true;
+                //}
+                //else
+                //{
+                //    abilityCollider.enabled = false;
+                //}
             }
             Vector3 targetPosition = agent.destination;
             targetPosition.y = transform.position.y;
@@ -245,15 +249,25 @@ public class RangedEnemy : MonoBehaviour
                     Attack();
                 }
             }
-            if(projectilePrefab == null)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePosition;
-            }
+
             targetPosition = Player.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             float str = rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
             //transform.LookAt(targetPosition);
+        }
+        //AgentDisabled
+        else
+        {
+            if (projectilePrefab == null)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+            }
+            Vector3 targetPosition = Player.transform.position;
+            targetPosition.y = transform.position.y;
+            Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+            float str = rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
         }
         #endregion
     }
@@ -305,9 +319,9 @@ public class RangedEnemy : MonoBehaviour
         //KNOCKBACK
         // Gets the difference between enemy and player position
         // To knockback enemy away from player
-        rb.isKinematic = false;
+        //rb.isKinematic = false;
         //agent.enabled = false;
-        rb.AddForce(-transform.forward * knockDistanceModifier);
+        //rb.AddForce(-transform.forward * knockDistanceModifier);
         //rb.AddForce(transform.up * knockHeightModifier);
 
         Debug.Log("Knockback");
@@ -354,7 +368,7 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(35);
             StartCoroutine(Stun());
 
-            if (rb)
+            if (rb && !isStationary)
             {
                 AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
@@ -388,19 +402,23 @@ public class RangedEnemy : MonoBehaviour
 
                 takeDamage(10);
 
-                if (rb)
+                if (rb && !isStationary)
                 {
-                    basicStaggerCounter++;
-                    if(basicStaggerCounter >= attackStaggerCount)
-                    {
-                        basicStaggerCounter = 0;
-                        AnimStagger();
-                    }
+
                     
                     Vector3 direction = transform.position - collision.transform.position;
                     direction.y = 0;
 
                     rb.AddForce(direction.normalized * basicKnockbackForce, ForceMode.Impulse);
+                }
+                if (rb)
+                {
+                    basicStaggerCounter++;
+                    if (basicStaggerCounter >= attackStaggerCount)
+                    {
+                        basicStaggerCounter = 0;
+                        AnimStagger();
+                    }
                 }
 
                 if (combatDebug)
@@ -419,7 +437,7 @@ public class RangedEnemy : MonoBehaviour
 
                 takeDamage(4);
 
-                if (rb)
+                if (rb && !isStationary)
                 {
                     AnimStagger();
                     Vector3 direction = transform.position - collision.transform.position;
@@ -445,7 +463,7 @@ public class RangedEnemy : MonoBehaviour
 
             takeDamage(7);
 
-            if (rb)
+            if (rb && !isStationary)
             {
                 AnimStagger();
                 Vector3 direction = transform.position - collision.transform.position;
@@ -553,7 +571,7 @@ public class RangedEnemy : MonoBehaviour
             takeDamage(35);
             StartCoroutine(Stun());
 
-            if (rb)
+            if (rb && !isStationary)
             {
                 AnimStagger();
                 Vector3 direction = transform.position - other.transform.position;
@@ -573,6 +591,15 @@ public class RangedEnemy : MonoBehaviour
             {
                 //Big Bear: Basic Damage
                 takeDamage(5);
+                if (rb)
+                {
+                    basicStaggerCounter++;
+                    if (basicStaggerCounter >= attackStaggerCount)
+                    {
+                        basicStaggerCounter = 0;
+                        AnimStagger();
+                    }
+                }
             }
             
 
