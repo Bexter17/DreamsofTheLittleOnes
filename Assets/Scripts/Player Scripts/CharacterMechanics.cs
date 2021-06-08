@@ -1571,26 +1571,19 @@ public class CharacterMechanics : MonoBehaviour
         rotationAmount = input.x;
     }
 
-    //Aimed Ranged Attack until we organize the code
+    //Aimed Ranged Attack until we organize better place for the code
     public void Throw()
     {
-        //isCooldown1 = true;
-        //abilityImage1.fillAmount = 1;
-
-        // if (Input.GetMouseButton(1) && Input.GetButtonDown("Fire5"))
-        //{
         RaycastHit hit;
         if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
         {
             Debug.Log(hit.collider.gameObject.name);
         }
 
-
         ac.throw_();
         Vector3 lookdirection = Camera.main.transform.forward;
         GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
-        bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 5000);
+        bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 4000);
         Destroy(bullet, 5);
-        //}
     }
 }
