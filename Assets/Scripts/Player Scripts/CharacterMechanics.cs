@@ -693,28 +693,31 @@ public class CharacterMechanics : MonoBehaviour
         //    StartCoroutine(stopGodmode());
         //}
 
-        if (c.gameObject.tag == "Speed Pickup")
-        {
-            //speed *= speedBoost;
-            Destroy(c.gameObject);
-            // Debug.Log("Speed Boost Applied");
-            //StartCoroutine(stopSpeedBoost());
-            pickupSpeed();
-        }
 
-        if (c.gameObject.tag == "Health Pickup")
-        {
-            Destroy(c.gameObject);
+        //Removed because powerup pickup is called from powerup script
 
-            pickupHealth();
-        }
+        //if (c.gameObject.tag == "Speed Pickup")
+        //{
+        //    //speed *= speedBoost;
+        //    Destroy(c.gameObject);
+        //    // Debug.Log("Speed Boost Applied");
+        //    //StartCoroutine(stopSpeedBoost());
+        //    pickupSpeed();
+        //}
 
-        if (c.gameObject.tag == "Max Health Pickup")
-        {
-            Destroy(c.gameObject);
+        //if (c.gameObject.tag == "Health Pickup")
+        //{
+        //    Destroy(c.gameObject);
 
-            pickupMaxHealth();
-        }
+        //    pickupHealth();
+        //}
+
+        //if (c.gameObject.tag == "Max Health Pickup")
+        //{
+        //    Destroy(c.gameObject);
+
+        //    pickupMaxHealth();
+        //}
 
         #endregion
     }
@@ -729,26 +732,38 @@ public class CharacterMechanics : MonoBehaviour
 
         Destroy(heTemp, healthEffectTimer);
     }
-
-    private void pickupHealth()
+    //Matt Changes
+    // Powerups were being called twice once in powerup script once in this script
+    // Now Powerup script calls these 3 functions below
+    public void IncreaseHealth(int hpIncrease)
     {
-        currentHealth = maxHealth;
+        //takes health increase from power up script
+        currentHealth += hpIncrease;
+        //Ensure current health doesn't exceed max health
+        if(currentHealth > maxHealth)
+        {
+            currentHealth = maxHealth;
+        }
+        //Updates healthbar
+        healthBar.SetHealth(currentHealth);
 
         //updateHud();
 
         createHealthEffect();
     }
 
-    private void pickupMaxHealth()
+    public void IncreaseMaxHealth(int maxIncrease)
     {
-        maxHealth += 50;
+        //takes max health increase from power up script
+        maxHealth += maxIncrease;
 
         // updateHud();
     }
 
-    private void pickupSpeed()
+    public void IncreaseSpeed(int speedIncrease)
     {
-        speedBoost += 2;
+        //takes speed boost increase from power up script
+        speedBoost += speedIncrease;
     }
 
     #endregion

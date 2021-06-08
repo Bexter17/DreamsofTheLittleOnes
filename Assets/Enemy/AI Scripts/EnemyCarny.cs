@@ -827,18 +827,20 @@ public class EnemyCarny : MonoBehaviour
 
     public void Attack()
     {
-        if (WeaponScript.GetWeaponContact())
-        {
-            CombatScript.GivePlayerDamage(this.transform, dmgDealt);
-        }
+        cm.takeDamage(this.transform, dmgDealt);
+        //if (WeaponScript.GetWeaponContact())
+        //{
+        //    CombatScript.GivePlayerDamage(this.transform, dmgDealt);
+        //}
     }
 
     public void DoubleAttack()
     {
-        if (WeaponScript.GetWeaponContact())
-        {
-            CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
-        }
+        cm.takeDamage(this.transform, dmgDealt);
+        //if (WeaponScript.GetWeaponContact())
+        //{
+        //    CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
+        //}
     }
 
     public void EnemyOnHitSFX(float volume = 1f)
