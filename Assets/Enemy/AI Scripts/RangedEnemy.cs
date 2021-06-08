@@ -110,6 +110,7 @@ public class RangedEnemy : MonoBehaviour
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
         eAnim = gameObject.GetComponent<Animator>();
+
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
 
         Player = GameObject.FindGameObjectWithTag("Player");
@@ -207,7 +208,11 @@ public class RangedEnemy : MonoBehaviour
                 }
                 else
                 {
-                    eAnim.SetBool("PlayerSpotted", true);
+                    if(projectilePrefab != null)
+                    {
+                        eAnim.SetBool("PlayerSpotted", true);
+                    }
+                    
                     //if (Vector3.Distance(target.position, gameObject.transform.position) < attackRange)
                     //{
                     //    myEnemyClown = EnemyState.Chase;
@@ -225,7 +230,7 @@ public class RangedEnemy : MonoBehaviour
                 }
             }
             //IsStationary
-            else
+            else if(projectilePrefab != null)
             {
                 rb.isKinematic = true;
                 if (Vector3.Distance(Player.transform.position, gameObject.transform.position) <= attackRange)
@@ -240,6 +245,7 @@ public class RangedEnemy : MonoBehaviour
                     Attack();
                 }
             }
+            targetPosition = Player.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             float str = rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
@@ -512,7 +518,7 @@ public class RangedEnemy : MonoBehaviour
     // Used for enemy animations and patrolling between waypoints
     private void OnTriggerEnter(Collider other)
     {
-        Debug.LogWarning("Clown Ontrigger");
+        //Debug.LogWarning("Clown Ontrigger");
         // During patrol alternate going between Waypoint1 and Waypoint2
         // On collision with waypoint sets other as destination
         if (myEnemyClown == EnemyState.Patrol)
