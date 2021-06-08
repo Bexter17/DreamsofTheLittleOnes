@@ -245,6 +245,10 @@ public class RangedEnemy : MonoBehaviour
                     Attack();
                 }
             }
+            if(projectilePrefab == null)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+            }
             targetPosition = Player.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             float str = rotationSpeed * Time.deltaTime;
