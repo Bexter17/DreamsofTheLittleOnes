@@ -109,6 +109,10 @@ public class RangedEnemy : MonoBehaviour
         #region Get Components
         rb = GetComponent<Rigidbody>();
         agent = GetComponent<NavMeshAgent>();
+        if(projectilePrefab == null)
+        {
+            agent.enabled = false;
+        }
         eAnim = gameObject.GetComponent<Animator>();
 
         hpBar = transform.Find("Clown/Canvas/Enemy HP Bar").GetComponent<Image>();
@@ -245,15 +249,25 @@ public class RangedEnemy : MonoBehaviour
                     Attack();
                 }
             }
-            if(projectilePrefab == null)
-            {
-                rb.constraints = RigidbodyConstraints.FreezePosition;
-            }
+
             targetPosition = Player.transform.position;
             Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
             float str = rotationSpeed * Time.deltaTime;
             transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
             //transform.LookAt(targetPosition);
+        }
+        //AgentDisabled
+        else
+        {
+            if (projectilePrefab == null)
+            {
+                rb.constraints = RigidbodyConstraints.FreezePosition;
+            }
+            Vector3 targetPosition = Player.transform.position;
+            targetPosition.y = transform.position.y;
+            Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+            float str = rotationSpeed * Time.deltaTime;
+            transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
         }
         #endregion
     }
