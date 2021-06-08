@@ -735,6 +735,12 @@ public class CharacterMechanics : MonoBehaviour
     //Matt Changes
     // Powerups were being called twice once in powerup script once in this script
     // Now Powerup script calls these 3 functions below
+
+    public void pickUpRangedWeapon()
+    {
+        hasRangedWeapon = true;
+    }
+
     public void IncreaseHealth(int hpIncrease)
     {
         //takes health increase from power up script
@@ -1546,12 +1552,15 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (!isPlaying)
         {
+            ac.playAnim();
             Cursor.lockState = CursorLockMode.None;
             isPlaying = true;
         }
 
         else if (isPlaying)
         {
+            ac.pauseAnim();
+            ic.resetMovement();
             Cursor.lockState = CursorLockMode.Locked;
             isPlaying = false;
         }

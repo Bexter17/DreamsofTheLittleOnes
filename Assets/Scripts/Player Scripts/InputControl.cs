@@ -322,13 +322,14 @@ public class InputControl : MonoBehaviour
         #region Dash
 
         if(dashRequested)
-        {
+        { 
             accelerationTime += Time.deltaTime;
 
             currentDashFrame++;
 
             if (currentDashFrame < maxDashFrames)
             {
+
                 // zPosition = initPositionZ + (((initVelocityZ * accelerationTime) + (0.5F * dashAcceleration * (accelerationTime * accelerationTime)) * 0.5f) * 0.01f * 0.000000000000000000000000000000000000000000000000000000000000000000000000001f);
                 //zPosition = initPositionZ + (dashAcceleration / maxDashFrames);
                 zPosition = dashAcceleration / maxDashFrames;
@@ -336,8 +337,11 @@ public class InputControl : MonoBehaviour
                 Vector3 newPos = new Vector3(0, 0, zPosition);
 
                 newPos = this.transform.TransformDirection(newPos);
-                
-                controller.Move(newPos);
+                if (obstacleCheck(newPos))
+                    controller.Move(newPos);
+
+                else
+                    Debug.LogWarning("Dash blocked by obstacle!");
 
                 if (inputDebug)
                 {
@@ -378,7 +382,7 @@ public class InputControl : MonoBehaviour
         {
             if (!isGrounded)
             {
-                if (isGrounded)
+                if (groundCheck())
                 {
                     land();
 
@@ -386,7 +390,7 @@ public class InputControl : MonoBehaviour
                     ac.setJumping(isJumping);
                 }
 
-                if (!isJumping)
+                if (!groundCheck() && !isJumping)
                 {
                     if (!isFalling)
                     {
@@ -533,7 +537,6 @@ public class InputControl : MonoBehaviour
     {
         CamControl();
         // changeDirection();
-        resetMovement();
 
         if (!isJumping && isFalling && isGrounded)
             land();
@@ -630,19 +633,16 @@ public class InputControl : MonoBehaviour
         }
     }
 
-    void resetMovement()
+    public void resetMovement()
     {
+        inputVec = Vector2.zero;
 
+        mouseVec = Vector2.zero;
+
+        isJumping = false;
+
+        dashRequested = false;
     }
-
-    /*
-     Godmode - G, Select
-     Killswitch - K
-     Helped with bearicade
-     Tried to help with github issue
-     Fixed jump
-     Fixed grounding raycast
-    */
 
     void OnPause()
     {
@@ -708,7 +708,7 @@ public class InputControl : MonoBehaviour
         }
     }
 
-    /*
+    
     public void OnJumpEnd()
     {
         if (jumpDebug)
@@ -716,7 +716,7 @@ public class InputControl : MonoBehaviour
 
         JumpEnd();
     }
-    */
+    
 
     public Vector2 getMouseData(Vector2 input)
     {
@@ -1328,6 +1328,36 @@ public class InputControl : MonoBehaviour
 
         //else
         //    return false;
+    }
+
+    #endregion
+
+    #region Obstacle Check
+
+    bool obstacleCheck(Vector3 pos)
+    {
+        Vector3 lineStart = raycastSpawn.transform.position;
+        Vector3 vectorToSearch = new Vector3(lineStart.x, lineStart.y, lineStart.z + pos.z);
+
+        RaycastHit obstacleHit;
+
+        Debug.DrawLine(lineStart, vectorToSearch, Color.cyan);
+
+        if (Physics.Linecast(lineStart, vectorToSearch, out obstacleHit))
+        {
+            if (obstacleHit.transform.tag == "Fence" ||
+                obstacleHit.transform.tag == "Train Car" ||
+                obstacleHit.transform.tag == "Booth" ||
+                obstacleHit.transform.tag == "Picnic Table")
+            {
+                return false;
+            }
+
+            else
+                return true;
+        }
+
+        else return true;
     }
 
     #endregion
