@@ -1197,8 +1197,8 @@ public class CharacterMechanics : MonoBehaviour
         if (dashRangePrefab && abilitySpawn)
         {
             dashTemp = Instantiate(dashRangePrefab, abilitySpawn.transform.position, abilitySpawn.transform.rotation, abilitySpawn.transform);
-            //if(combatDebug)
-            Debug.LogError("Dash Zone created!");
+            if(combatDebug)
+            Debug.Log("Dash Zone created!");
         }
 
         else
@@ -1234,7 +1234,7 @@ public class CharacterMechanics : MonoBehaviour
             dashTemp = null;
 
             if (combatDebug)
-                Debug.LogError("Dash Zone destroyed!");
+                Debug.Log("Dash Zone destroyed!");
         }
         if (ib)
             ib.setBufferTrue();
