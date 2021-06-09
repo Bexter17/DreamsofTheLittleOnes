@@ -20,8 +20,9 @@ public class RangedEnemy : MonoBehaviour
     public Rigidbody rb;
     public Transform target;
     [SerializeField] private GameObject ragdoll;
-    [SerializeField] Rigidbody projectilePrefab;
+    [SerializeField] GameObject projectilePrefab;
     [SerializeField] Transform projectileSpawnPoint;
+    private Vector3 playerDirection;
     [SerializeField] float attackTimer = 0;
     private bool enemyDissolveIn = false;
 
@@ -525,8 +526,9 @@ public class RangedEnemy : MonoBehaviour
         rayLook.y += 2.5f;
         Vector3 rayTarget = target.position;
 
-        Physics.Raycast(rayLook, rayTarget - rayLook, out Hit);
-        Debug.DrawRay(rayLook, rayTarget - rayLook, Color.red);
+        playerDirection = rayTarget - rayLook;
+        Physics.Raycast(rayLook, playerDirection, out Hit);
+        Debug.DrawRay(rayLook, playerDirection, Color.red);
 
         if (Time.time - attackTimer > 1.0f)
         {
@@ -646,12 +648,11 @@ public class RangedEnemy : MonoBehaviour
     {
         if (projectilePrefab)
         {
-            projectileSpawnPoint.LookAt(target.position);
-            Rigidbody rb = Instantiate(projectilePrefab,
-                new Vector3(projectileSpawnPoint.position.x, projectileSpawnPoint.position.y + .75f, projectileSpawnPoint.position.z),
-                projectileSpawnPoint.rotation) as Rigidbody;
 
-            rb.AddForce(transform.forward * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);
+            GameObject projectile = Instantiate(projectilePrefab, new Vector3(projectileSpawnPoint.position.x, projectileSpawnPoint.position.y + .75f, projectileSpawnPoint.position.z), projectileSpawnPoint.rotation);
+            Vector3 projPlayerDirection = new Vector3(playerDirection.x, playerDirection.y += 2.5f, playerDirection.z);
+
+            projectile.GetComponent<Rigidbody>().AddForce(projPlayerDirection.normalized * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);
         }
     }
     #endregion
