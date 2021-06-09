@@ -12030,6 +12030,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: -18.902
       objectReference: {fileID: 0}
+    - target: {fileID: 9214926132052183459, guid: 35981b3053f2d894999bee7d57996c17,
+        type: 3}
+      propertyPath: Player
+      value: 
+      objectReference: {fileID: 5569241193779578741}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 35981b3053f2d894999bee7d57996c17, type: 3}
 --- !u!1 &1661266035
@@ -15594,6 +15599,31 @@ PrefabInstance:
     - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
         type: 3}
       propertyPath: hasRangedWeapon
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: combatDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: comboDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: hammerDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: whirlwindDebug
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 1016093913191264025, guid: 08256832e9e5191459197d45907b0cd7,
+        type: 3}
+      propertyPath: rangedDebug
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 1016093913191264028, guid: 08256832e9e5191459197d45907b0cd7,
