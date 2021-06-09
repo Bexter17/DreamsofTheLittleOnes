@@ -6,8 +6,8 @@ using UnityEngine.AI;
 
 public class RangedEnemy : MonoBehaviour
 {
-    //June 5, 2021
-    //Most Recent Change: enemies cannot take damage more then once every 0.5 seconds
+    //June 9, 2021
+    //Most Recent Change: Clowns raycast now targets player so that regardless of elevation of player/clown enemy will still attack(though attacks need to be rotated towards player)
     #region Variables
 
     [Header("Essentials")]
@@ -519,22 +519,51 @@ public class RangedEnemy : MonoBehaviour
     //Ranged Attack 
     private void Attack()
     {
-        //Two raycasts to ensure clown will attack even if its not at equal height as player
-        RaycastHit highHit;
-        RaycastHit lowHit;
-        Physics.Raycast(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.TransformDirection(Vector3.forward), out lowHit);
-        Physics.Raycast(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.TransformDirection(Vector3.forward), out highHit);
+        //Raycast to ensure clown will attack even if its not at equal height as player
+        RaycastHit Hit;
+        Vector3 rayLook = transform.position;
+        rayLook.y += 2.5f;
+        Vector3 rayTarget = target.position;
 
-        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y + 1.5f, transform.position.z), transform.TransformDirection(Vector3.forward) * 20);
-        //Debug.DrawRay(new Vector3(transform.position.x, transform.position.y, transform.position.z), transform.TransformDirection(Vector3.forward) * 20);
+        Physics.Raycast(rayLook, rayTarget - rayLook, out Hit);
+        Debug.DrawRay(rayLook, rayTarget - rayLook, Color.red);
+
         if (Time.time - attackTimer > 1.0f)
         {
-            if(lowHit.collider.tag == "Player" || highHit.collider.tag == "Player")
+            if(Hit.collider.tag == "Player")
             {
                 eAnim.SetTrigger("Attack");
                 attackTimer = Time.time;
             }
         }
+
+        //RaycastHit sphereHit;
+        //Physics.SphereCast(transform.position, 10, transform.TransformDirection(Vector3.forward), out sphereHit);
+        //if(sphereHit.collider.tag == "Player")
+        //{
+        //    playerInRange = true;
+        //}
+        //else
+        //{
+        //    playerInRange = false;
+        //}
+
+        //Collider[] hitColliders = Physics.OverlapSphere(transform.position, 15);
+        //Collider[] hitcoll = Physics.OverlapBox(transform.position, transform.localScale * 5, Quaternion.identity, playerMask);
+        //foreach (var hitCollider in hitColliders)
+        //{
+        //    if (hitCollider.CompareTag("Player"))
+        //    {
+        //        playerInRange = true;
+        //        break;
+        //    }
+        //    else
+        //    {
+        //        playerInRange = false;
+        //    }
+        //}
+
+        //Physics.SphereCast()
     }
 
     // Used for enemy animations and patrolling between waypoints
@@ -617,8 +646,9 @@ public class RangedEnemy : MonoBehaviour
     {
         if (projectilePrefab)
         {
+            projectileSpawnPoint.LookAt(target.position);
             Rigidbody rb = Instantiate(projectilePrefab,
-                projectileSpawnPoint.position,
+                new Vector3(projectileSpawnPoint.position.x, projectileSpawnPoint.position.y + .75f, projectileSpawnPoint.position.z),
                 projectileSpawnPoint.rotation) as Rigidbody;
 
             rb.AddForce(transform.forward * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);
