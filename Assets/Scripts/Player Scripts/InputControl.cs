@@ -89,6 +89,10 @@ public class InputControl : MonoBehaviour
 
     [SerializeField] private float jumpAmplifier;
 
+    [SerializeField] float currentJumpTime;
+
+    [SerializeField] float maxJumpTime;
+
     private float vSpeed = 0;
 
     //Amount of gravity set on the player
@@ -282,218 +286,232 @@ public class InputControl : MonoBehaviour
 
     private void FixedUpdate()
     {
-        /*
-        if(currentDevice == controlType.Controller)
+        if (cm.isPlaying)
         {
-            UnityEngine.InputSystem.InputControlScheme = InputControlScheme.FindControlSchemeForDevices;
-        }
-
-        if (currentDevice == controlType.Keyboard)
-        {
-
-        }
-        */
-
-        if (this.transform.parent)
-            Debug.Log("Parent: " + this.transform.parent.name);
-
-            isGrounded = groundCheck();
-
-        if (!isGrounded)
-        {
-            if (this.transform.parent)
+            if (cm.isAlive)
             {
-                if (this.transform.parent.tag == "Platform")
-                    this.transform.parent = null;
-            }
-        }
-     
-                    #region Debug
-
-                    if (jumpDebug)
-            Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
-
-        #endregion
-
-        ac.setGrounded(isGrounded);
-
-        currentSpeed = movementSpeed + speedBoost;
-
-        #region Dash
-
-        if(dashRequested)
-        { 
-            accelerationTime += Time.deltaTime;
-
-            currentDashFrame++;
-
-            if (currentDashFrame < maxDashFrames)
-            {
-
-                // zPosition = initPositionZ + (((initVelocityZ * accelerationTime) + (0.5F * dashAcceleration * (accelerationTime * accelerationTime)) * 0.5f) * 0.01f * 0.000000000000000000000000000000000000000000000000000000000000000000000000001f);
-                //zPosition = initPositionZ + (dashAcceleration / maxDashFrames);
-                zPosition = dashAcceleration / maxDashFrames;
-
-                Vector3 newPos = new Vector3(0, 0, zPosition);
-
-                newPos = this.transform.TransformDirection(newPos);
-                if (obstacleCheck(newPos))
-                    controller.Move(newPos);
-
-                else
-                    Debug.LogWarning("Dash blocked by obstacle!");
-
-                if (inputDebug)
+                /*
+                if(currentDevice == controlType.Controller)
                 {
-                    Debug.Log("Dash Frame: " + currentDashFrame + " initPositionZ = " + initPositionZ);
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " initVelocityZ = " + initVelocityZ);
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " zPosition = " + zPosition);
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " accelerationTime = " + accelerationTime);
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " dashAcceleration = " + dashAcceleration);
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " newPos = " + newPos);
-
-                    //  Debug.Log("Dash Frame: " + frame + " + initPositionZ + (initVelocityZ * velocityReducer * accelerationTime");
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " distance traveled = " + (this.transform.position.z - initPositionZ));
-
-                    Debug.Log("Dash Frame: " + currentDashFrame + " initial velocity = " + initVelocityZ);
-
-                  //  Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
-                }
-            }
-
-            else if (currentDashFrame >= maxDashFrames)
-                resetDashParameters();
-
-            //else if (accelerationTime >= maxDashTime)
-                //resetDashParameters();
-        }
-
-        #endregion
-
-        #region Check Jumping and Falling States
-
-        if (!isJumping)
-        {
-            if (!isGrounded)
-            {
-                if (groundCheck())
-                {
-                    land();
-
-                    ac.setFalling(isFalling);
-                    ac.setJumping(isJumping);
+                    UnityEngine.InputSystem.InputControlScheme = InputControlScheme.FindControlSchemeForDevices;
                 }
 
-                if (!groundCheck() && !isJumping)
+                if (currentDevice == controlType.Keyboard)
                 {
-                    if (!isFalling)
+
+                }
+                */
+
+                if (this.transform.parent)
+                    Debug.Log("Parent: " + this.transform.parent.name);
+
+                isGrounded = groundCheck();
+
+                if (!isGrounded)
+                {
+                    if (this.transform.parent)
                     {
-                        fall();
-
-                        ac.setFalling(isFalling);
+                        if (this.transform.parent.tag == "Platform")
+                            this.transform.parent = null;
                     }
                 }
-            }
-        }
 
-        #endregion
+                #region Debug
 
-        #region Apply Gravity
-
-        /*
-        if (isJumping)
-        {
-            isFalling = false;
-
-            if (jumpDebug)
-                Debug.Log("isJumping true");
-            
-            if (currentJumpPower < maxJumpPower)
-            {
                 if (jumpDebug)
-                    Debug.Log("jumpPower increased");
-                currentJumpPower++;
-            }
+                    Debug.Log("jumpDebug: groundCheck returns = " + isGrounded);
 
-            else if (currentJumpPower >= maxJumpPower)
-            {
+                #endregion
+
+                ac.setGrounded(isGrounded);
+
+                currentSpeed = movementSpeed + speedBoost;
+
+                #region Dash
+
+                if (dashRequested)
+                {
+                    accelerationTime += Time.deltaTime;
+
+                    currentDashFrame++;
+
+                    if (currentDashFrame < maxDashFrames)
+                    {
+
+                        // zPosition = initPositionZ + (((initVelocityZ * accelerationTime) + (0.5F * dashAcceleration * (accelerationTime * accelerationTime)) * 0.5f) * 0.01f * 0.000000000000000000000000000000000000000000000000000000000000000000000000001f);
+                        //zPosition = initPositionZ + (dashAcceleration / maxDashFrames);
+                        zPosition = dashAcceleration / maxDashFrames;
+
+                        Vector3 newPos = new Vector3(0, 0, zPosition);
+
+                        newPos = this.transform.TransformDirection(newPos);
+                        if (obstacleCheck(newPos))
+                            controller.Move(newPos);
+
+                        else
+                            Debug.LogWarning("Dash blocked by obstacle!");
+
+                        if (inputDebug)
+                        {
+                            Debug.Log("Dash Frame: " + currentDashFrame + " initPositionZ = " + initPositionZ);
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " initVelocityZ = " + initVelocityZ);
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " zPosition = " + zPosition);
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " accelerationTime = " + accelerationTime);
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " dashAcceleration = " + dashAcceleration);
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " newPos = " + newPos);
+
+                            //  Debug.Log("Dash Frame: " + frame + " + initPositionZ + (initVelocityZ * velocityReducer * accelerationTime");
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " distance traveled = " + (this.transform.position.z - initPositionZ));
+
+                            Debug.Log("Dash Frame: " + currentDashFrame + " initial velocity = " + initVelocityZ);
+
+                            //  Debug.Log("Dash Frame: " + currentDashFrame + " adjusted velocity = " + (initVelocityZ * velocityReducer * accelerationTime * 0.1f));
+                        }
+                    }
+
+                    else if (currentDashFrame >= maxDashFrames)
+                        resetDashParameters();
+
+                    //else if (accelerationTime >= maxDashTime)
+                    //resetDashParameters();
+                }
+
+                #endregion
+
+                #region Check Jumping and Falling States
+
+                if (!isJumping)
+                {
+                    if (!isGrounded)
+                    {
+                        if (groundCheck())
+                        {
+                            land();
+
+                            ac.setFalling(isFalling);
+                            ac.setJumping(isJumping);
+                        }
+
+                        if (!groundCheck() && !isJumping)
+                        {
+                            if (!isFalling)
+                            {
+                                fall();
+
+                                ac.setFalling(isFalling);
+                            }
+                        }
+                    }
+                }
+
+                else
+                {
+                    currentJumpTime += Time.deltaTime;
+
+                    if (currentJumpTime >= maxJumpTime)
+                        JumpEnd();
+                }
+
+                #endregion
+
+                #region Apply Gravity
+
+                /*
+                if (isJumping)
+                {
+                    isFalling = false;
+
+                    if (jumpDebug)
+                        Debug.Log("isJumping true");
+
+                    if (currentJumpPower < maxJumpPower)
+                    {
+                        if (jumpDebug)
+                            Debug.Log("jumpPower increased");
+                        currentJumpPower++;
+                    }
+
+                    else if (currentJumpPower >= maxJumpPower)
+                    {
+                        if (jumpDebug)
+                            Debug.Log("reached maxJumpPower");
+                        JumpEnd();
+                    }
+
+
+                    if (jumpDebug)
+                        Debug.Log("Jump force applied by JumpPower");
+
+                 //   vSpeed += maxJumpPower * Time.deltaTime;// * jumpAmplifier;
+
+                    if (jumpDebug)
+                        Debug.Log("vSpeed = " + vSpeed);
+                }
+            */
+
+                if (!isGrounded && !isJumping)
+                    isFalling = true;
+
+                if (isFalling)
+                {
+                    if (jumpDebug)
+                        Debug.Log("isFalling = true");
+
+                    vSpeed -= gravity * Time.deltaTime;
+
+                    if (jumpDebug)
+                    {
+                        Debug.Log("vSpeed reduced by gravity");
+                        Debug.Log("vSpeed = " + vSpeed);
+                    }
+                }
+
+                moveDirection.y = vSpeed;
+
+                if (!dashRequested)
+                    if (controller)
+                        controller.Move(moveDirection * Time.deltaTime * currentSpeed);
+
+                    else
+                        Debug.LogError("controller not assigned!");
+
+                Debug.Log("moved controller by " + moveDirection * Time.deltaTime * currentSpeed);
+                Debug.Log("moveDirection = " + moveDirection);
+
+                #endregion
+
+                #region Debug
+
                 if (jumpDebug)
-                    Debug.Log("reached maxJumpPower");
-                JumpEnd();
-            }
-            
+                {
+                    Debug.Log("jumpDebug: isGrounded =" + isGrounded);
 
-            if (jumpDebug)
-                Debug.Log("Jump force applied by JumpPower");
+                    Debug.Log("jumpDebug: isFalling =" + isFalling);
 
-         //   vSpeed += maxJumpPower * Time.deltaTime;// * jumpAmplifier;
+                    Debug.Log("jumpDebug: isJumping =" + isJumping);
 
-            if (jumpDebug)
-                Debug.Log("vSpeed = " + vSpeed);
-        }
-    */
+                    Debug.Log("Player transform position = " + Player.transform.position);
 
-        if (!isGrounded && !isJumping)
-            isFalling = true;
+                    try
+                    {
+                        Debug.Log("Model transform position = " + Player.GetChild(7).position);
+                    }
 
-        if (isFalling)
-        {
-            if (jumpDebug)
-                Debug.Log("isFalling = true");
+                    catch (MissingReferenceException e)
+                    {
+                        Debug.LogError(e.Message);
+                    }
+                }
 
-            vSpeed -= gravity * Time.deltaTime;
-
-            if (jumpDebug)
-            {
-                Debug.Log("vSpeed reduced by gravity");
-                Debug.Log("vSpeed = " + vSpeed);
+                #endregion
             }
         }
-
-        moveDirection.y = vSpeed;
-
-        if(!dashRequested)
-        if (controller)
-            controller.Move(moveDirection * Time.deltaTime * currentSpeed);
-
-        else
-            Debug.LogError("controller not assigned!");
-
-        Debug.Log("moved controller by " + moveDirection * Time.deltaTime * currentSpeed);
-        Debug.Log("moveDirection = " + moveDirection);
-
-        #endregion
-
-        #region Debug
-
-        if (jumpDebug)
-        {
-            Debug.Log("jumpDebug: isGrounded =" + isGrounded);
-
-            Debug.Log("jumpDebug: isFalling =" + isFalling);
-
-            Debug.Log("jumpDebug: isJumping =" + isJumping);
-
-            Debug.Log("Player transform position = " + Player.transform.position);
-
-            try
-            {
-                Debug.Log("Model transform position = " + Player.GetChild(7).position);
-            }
-
-            catch (MissingReferenceException e)
-            {
-                Debug.LogError(e.Message);
-            }
-        }
-
-        #endregion
     }
 
     // Update is called once per frame
@@ -1424,6 +1442,8 @@ public class InputControl : MonoBehaviour
                 cm.dashEnds();
 
             currentJumpPower = minimumJumpPower;
+
+            currentJumpTime = 0;
 
             isGrounded = false;
 
