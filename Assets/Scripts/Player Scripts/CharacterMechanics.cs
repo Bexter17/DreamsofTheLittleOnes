@@ -1595,4 +1595,12 @@ public class CharacterMechanics : MonoBehaviour
         bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 4000);
         Destroy(bullet, 5);
     }
+
+    public void OnCollisionEnter(Collision other)
+    {
+        if (other.gameObject.CompareTag("ThrowAxeUnlock"))
+        {
+            hasRangedWeapon = true;
+        }
+    }
 }
