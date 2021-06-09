@@ -827,7 +827,10 @@ public class EnemyCarny : MonoBehaviour
 
     public void Attack()
     {
-        cm.takeDamage(this.transform, dmgDealt);
+        if (WeaponScript.GetWeaponContact())
+        {
+            cm.takeDamage(this.transform, dmgDealt);
+        }
         //if (WeaponScript.GetWeaponContact())
         //{
         //    CombatScript.GivePlayerDamage(this.transform, dmgDealt);
@@ -836,7 +839,10 @@ public class EnemyCarny : MonoBehaviour
 
     public void DoubleAttack()
     {
-        cm.takeDamage(this.transform, dmgDealt);
+        if (WeaponScript.GetWeaponContact())
+        {
+            cm.takeDamage(this.transform, dmgDealt);
+        }
         //if (WeaponScript.GetWeaponContact())
         //{
         //    CombatScript.GivePlayerDamage(this.transform, dmgDealt / 2);
