@@ -19,12 +19,18 @@ public class HammerGame : MonoBehaviour
 
     AudioManager am;
     public new AudioSource audio;
+    public Rigidbody rb;
+    public GameObject Axe;
 
     // Start is called before the first frame update
     void Start()
     {
         am = this.transform.GetComponent<AudioManager>();
         audio = this.GetComponent<AudioSource>();
+        rb = Axe.GetComponent<Rigidbody>();
+
+        rb.detectCollisions = false;
+        rb.isKinematic = true;
     }
 
     // Update is called once per frame
@@ -41,6 +47,8 @@ public class HammerGame : MonoBehaviour
             Debug.Log("Gate is being opened to the DARK CARNIVAL!");
                 #endregion
             Destroy(gate);
+            rb.detectCollisions = true;
+            rb.isKinematic = false;
         }
     }
 

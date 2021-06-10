@@ -57582,6 +57582,13 @@ AnimationClip:
     intParameter: 0
     messageOptions: 0
   - time: 0.46666667
+    functionName: TripleAttackFirst
+    data: 
+    objectReferenceParameter: {fileID: 0}
+    floatParameter: 0
+    intParameter: 2
+    messageOptions: 0
+  - time: 0.46666667
     functionName: FirstAttackSFX
     data: 
     objectReferenceParameter: {fileID: 11500000, guid: d7f4848775aa2384cb82dac9103724bc,
@@ -57589,14 +57596,22 @@ AnimationClip:
     floatParameter: 1
     intParameter: 0
     messageOptions: 0
-  - time: 0.46666667
-    functionName: TripleAttackFirst
+  - time: 0.5
+    functionName: freeAction
+    data: 
+    objectReferenceParameter: {fileID: 11500000, guid: 8adafb20d498c6542b692f71fda6a7d8,
+      type: 3}
+    floatParameter: 0
+    intParameter: 0
+    messageOptions: 0
+  - time: 0.5
+    functionName: 
     data: 
     objectReferenceParameter: {fileID: 0}
     floatParameter: 0
-    intParameter: 2
+    intParameter: 0
     messageOptions: 0
-  - time: 0.79408866
+  - time: 0.8
     functionName: AttackEnd
     data: 
     objectReferenceParameter: {fileID: 0}
