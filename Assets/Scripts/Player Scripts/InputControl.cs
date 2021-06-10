@@ -217,6 +217,9 @@ public class InputControl : MonoBehaviour
             if (accelerationReducer == 0)
                 accelerationReducer = 0.00001f;
 
+            if (maxJumpTime == 0)
+                maxJumpTime = 0.5f;
+
             dashRequested = false;
 
             //Assigns a value to the variable
