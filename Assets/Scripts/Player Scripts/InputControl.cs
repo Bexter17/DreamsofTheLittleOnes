@@ -12,6 +12,8 @@ public class InputControl : MonoBehaviour
 
     [SerializeField] private GameObject respawnPoint;
 
+    public bool endGame = false;
+
     #endregion
 
     #region Scripts
@@ -25,6 +27,8 @@ public class InputControl : MonoBehaviour
     AbilitiesCooldown cooldown;
 
     AimShoot aim;
+
+    CameraController cc;
 
     #endregion
 
@@ -177,6 +181,8 @@ public class InputControl : MonoBehaviour
             ac = this.transform.GetComponent<AnimController>();
 
             aim = this.transform.GetComponent<AimShoot>();
+
+            cc = this.transform.GetComponent<CameraController>();
 
             #endregion
 
@@ -556,7 +562,17 @@ public class InputControl : MonoBehaviour
 
     private void LateUpdate()
     {
-        CamControl();
+        if (!endGame)
+        {
+            CamControl();
+        }
+        else
+        {
+            cc.vCam3.Priority = 10;
+            movementSpeed = 0;
+            currentSpeed = 0;
+        }
+        
         // changeDirection();
 
         if (!isJumping && isFalling && isGrounded)
