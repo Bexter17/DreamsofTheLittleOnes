@@ -16,11 +16,13 @@ public class HammerGame : MonoBehaviour
      */
     public bool wallOpen = false;
     public GameObject gate;
+    public bool wallDestroy = false; 
 
     AudioManager am;
     public new AudioSource audio;
     public Rigidbody rb;
     public GameObject Axe;
+    
 
     // Start is called before the first frame update
     void Start()
@@ -41,14 +43,19 @@ public class HammerGame : MonoBehaviour
             transform.position = Vector3.MoveTowards(transform.position, target.transform.position, 10f * Time.deltaTime);
         }
 
-        if (wallOpen == true)
+        if (wallOpen == true && wallDestroy == false)
         {
             #region Debug Log
             Debug.Log("Gate is being opened to the DARK CARNIVAL!");
                 #endregion
-            Destroy(gate);
+            Destroy(gate, 8);
             rb.detectCollisions = true;
             rb.isKinematic = false;
+
+            var sandWall = gate.GetComponent<ParticleSystem>().main;
+
+            sandWall.loop = false;
+            wallDestroy = true;
         }
     }
 
