@@ -22,6 +22,8 @@ public class EndGameCamera : MonoBehaviour
 
     #endregion
 
+    private AudioSource _as;
+    
     enum Cinematic { EndGameCinematic };
 
     // Start is called before the first frame update
@@ -38,6 +40,11 @@ public class EndGameCamera : MonoBehaviour
         #endregion
     }
 
+    void Awake()
+    {
+        _as = GetComponent<AudioSource>();
+    }
+
     // Update is called once per frame
     void Update()
     {
@@ -51,8 +58,9 @@ public class EndGameCamera : MonoBehaviour
             //Disable player cursor
             ic.endGame = true;
             //Dolly Cart Speed
-            dc.m_Speed = 6f;
-            EndGameCinematic();
+            dc.m_Speed = 8f;
+            _as.Play();
+            StartCoroutine(EndGameCinematic());
 
         }
     }

@@ -65,6 +65,8 @@ public class RangedEnemy : MonoBehaviour
     private bool canTakeDamage = true;
     private float takeDamageCooldown = .5f;
 
+    public new AudioSource audio;
+
     IEnumerator Stun()
     {
         Debug.Log("ENEMY HAS BEEN STUNNED FOR 6 SECONDS BY HAMMER SMASH");
@@ -121,6 +123,9 @@ public class RangedEnemy : MonoBehaviour
         Player = GameObject.FindGameObjectWithTag("Player");
         target = Player.transform;
         cm = Player.GetComponent<CharacterMechanics>();
+
+        audio = this.GetComponent<AudioSource>();
+
         #endregion
 
         #region default values
@@ -294,6 +299,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (canTakeDamage)
         {
+            //EnemyOnHitSFX();
             //Debug.Log("Clown Damage Taken: " + dmg);
             agent.isStopped = true;
             hp -= dmg;
@@ -654,6 +660,13 @@ public class RangedEnemy : MonoBehaviour
 
             projectile.GetComponent<Rigidbody>().AddForce(projPlayerDirection.normalized * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);
         }
+    }
+
+    public void EnemyOnHitSFX(float volume = 1f)
+    {
+        //Debug.Log("Carny Hit Sound");
+        audio.PlayOneShot((AudioClip)Resources.Load("Body Hit"));
+        audio.volume = volume;
     }
     #endregion
 }
