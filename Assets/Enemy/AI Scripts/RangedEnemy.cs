@@ -644,7 +644,7 @@ public class RangedEnemy : MonoBehaviour
             {
                 Debug.Log("Hit by whirlwind");
                 //Big Bear: Whirlwind Damage
-                takeDamage(20);
+                takeDamage(25);
             }
         }
     }
