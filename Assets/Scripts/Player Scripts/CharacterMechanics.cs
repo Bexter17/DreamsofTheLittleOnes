@@ -6,6 +6,7 @@ using System;
 using UnityEngine.SceneManagement;
 using TMPro;
 using Random = UnityEngine.Random;
+using Cinemachine;
 
 /*
 
@@ -123,6 +124,8 @@ public class CharacterMechanics : MonoBehaviour
     AimShoot aims;
 
     GameObject Aimshoot;
+
+    CinemachineDollyCart dc;
 
     public SimpleCameraShake ControlCameraShake;
 
@@ -394,6 +397,8 @@ public class CharacterMechanics : MonoBehaviour
         am = this.transform.GetComponent<AudioManager>();
 
         abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
+
+        dc = GameObject.FindGameObjectWithTag("dc").GetComponent<CinemachineDollyCart>();
 
         //walkingHammerParent = GameObject.FindGameObjectWithTag("Walking Hammer Pos");
 
@@ -1602,5 +1607,17 @@ public class CharacterMechanics : MonoBehaviour
         {
             hasRangedWeapon = true;
         }
+
+        if (other.gameObject.CompareTag("endGame"))
+        {
+            Debug.Log("ENDING_CINEMATIC ON");
+            Debug.Log("EndGame = true");
+            Debug.Log("DollyON");
+            ic.endGame = true;
+            dc.m_Speed = 2f;
+        }
+
     }
+
+
 }
