@@ -84,6 +84,7 @@ public class EnemyCarny : MonoBehaviour
     private GameObject waypoint1;
     private GameObject waypoint2;
     private GameObject[] potentialWaypoints;
+    private Vector3 spawnPoint;
     [Header("Patrol (Only needs waypoints if Advanced)")]
     public GameObject[] waypoints;
     public bool advancedPatrol;
@@ -106,7 +107,7 @@ public class EnemyCarny : MonoBehaviour
     //TakeDamage Cooldown
     private float damageInterval = 0;
     private bool canTakeDamage = true;
-    private float takeDamageCooldown = .5f;
+    private float takeDamageCooldown = .8f;
 
 
     //Used to stun the enemy, wait a few seconds for AOE then return to normal function. 
@@ -246,7 +247,7 @@ public class EnemyCarny : MonoBehaviour
             whirlKnockbackForce = 4;
 
         startingMovementSpeed = enemyMovement;
-
+        spawnPoint = transform.position;
         Patrol();
         #endregion
         #region stackTracker
@@ -268,6 +269,7 @@ public class EnemyCarny : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+
         //Used for testing enemy death
         //if (Input.GetKeyDown("t"))
         //{
@@ -322,7 +324,7 @@ public class EnemyCarny : MonoBehaviour
                 editChase();
                 Debug.Log("1111111111111111111111111111111111111");
             }
-            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && !agent.Raycast(target.position, out hit))
+            else if (Vector3.Distance(target.position, gameObject.transform.position) < chaseRange && !agent.Raycast(target.position, out hit) && myEnemy != EnemyState.Start)
             {
                 Chase();
                 agent.isStopped = false;
@@ -403,6 +405,24 @@ public class EnemyCarny : MonoBehaviour
                 canTakeDamage = false;
             }
         }
+
+        if (!ChaseableScript.ReturnChaseable() && myEnemy != EnemyState.Patrol)
+        {
+            hp = 0;
+            takeDamage(1);
+            //if (myEnemy == EnemyState.lockChase)
+            //{
+            //    hp = 0;
+            //    takeDamage(1);
+            //}
+            //onStack = false;
+            //myEnemy = EnemyState.Start;
+            //agent.SetDestination(spawnPoint);
+            ////Patrol();
+            //Debug.Log("Enemy Big Bear STate: " + myEnemy);
+        }
+
+
     }
     //COLLISIONS
     #region Collisions
@@ -674,7 +694,7 @@ public class EnemyCarny : MonoBehaviour
         if (canTakeDamage)
         {
             EnemyOnHitSFX();
-            //Debug.Log("Carny Damage Taken: " + dmg);
+            Debug.Log("Carny Damage Taken: " + dmg);
             agent.isStopped = true;
             hp -= dmg;
             canTakeDamage = false;

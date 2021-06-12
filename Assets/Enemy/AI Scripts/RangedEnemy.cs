@@ -63,7 +63,7 @@ public class RangedEnemy : MonoBehaviour
     //TakeDamage Cooldown
     private float damageInterval = 0;
     private bool canTakeDamage = true;
-    private float takeDamageCooldown = .5f;
+    private float takeDamageCooldown = .8f;
 
     public new AudioSource audio;
 
@@ -300,7 +300,7 @@ public class RangedEnemy : MonoBehaviour
         if (canTakeDamage)
         {
             //EnemyOnHitSFX();
-            //Debug.Log("Clown Damage Taken: " + dmg);
+            Debug.Log("Clown Damage Taken: " + dmg + "Current TIme:" + Time.time);
             agent.isStopped = true;
             hp -= dmg;
             canTakeDamage = false;
@@ -627,7 +627,7 @@ public class RangedEnemy : MonoBehaviour
             if (cm.isAttacking)
             {
                 //Big Bear: Basic Damage
-                takeDamage(5);
+                takeDamage(10);
                 if (rb)
                 {
                     basicStaggerCounter++;
