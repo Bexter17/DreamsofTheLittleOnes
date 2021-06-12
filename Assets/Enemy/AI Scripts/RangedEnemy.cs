@@ -299,7 +299,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (canTakeDamage)
         {
-            //EnemyOnHitSFX();
+            EnemyOnHitSFX();
             Debug.Log("Clown Damage Taken: " + dmg + "Current TIme:" + Time.time);
             agent.isStopped = true;
             hp -= dmg;
