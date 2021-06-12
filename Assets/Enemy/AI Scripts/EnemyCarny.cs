@@ -863,7 +863,7 @@ public class EnemyCarny : MonoBehaviour
     {
         if (WeaponScript.GetWeaponContact())
         {
-            cm.takeDamage(this.transform, dmgDealt);
+            cm.takeDamage(this.transform, dmgDealt / 2);
         }
         //if (WeaponScript.GetWeaponContact())
         //{
