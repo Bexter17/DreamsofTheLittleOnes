@@ -22,6 +22,7 @@ public class EnemyCarny : MonoBehaviour
     public NavMeshAgent agent;
     private Animator eAnim;
     private CombatManager CombatScript;
+    private PlayerChaseable ChaseableScript;
     [SerializeField] private CarnyWeapon WeaponScript;
     private CharacterMechanics cm;
     //used to track the player for giveDamage function
@@ -157,6 +158,7 @@ public class EnemyCarny : MonoBehaviour
 
         Player = GameObject.FindGameObjectWithTag("Player");
         target = GameObject.FindGameObjectWithTag("Player").transform;
+        ChaseableScript = Player.GetComponent<PlayerChaseable>();
         CombatScript = GameObject.Find("GameManager").GetComponent<CombatManager>();
 
         audio = this.GetComponent<AudioSource>();
