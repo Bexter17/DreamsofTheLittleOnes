@@ -62,6 +62,8 @@ public class InputControl : MonoBehaviour
     //Rotation speed of the character
     [SerializeField] private float rotationSpeed;
 
+    [SerializeField] float fallDistance;
+
     Vector2 inputVec;
 
     //Variable used to add force or direction to the character
@@ -395,26 +397,23 @@ public class InputControl : MonoBehaviour
 
                 #region Check Jumping and Falling States
 
-                if (!isJumping)
+                if (!isJumping && !isGrounded)
                 {
-                    if (!isGrounded)
+                    if (groundCheck())
                     {
-                        if (groundCheck())
+                        land();
+
+                        ac.setFalling(isFalling);
+                        ac.setJumping(isJumping);
+                    }
+
+                    if (!groundCheck() && !isJumping)
+                    {
+                        if (!isFalling && fallDistance > 0.4f)
                         {
-                            land();
+                            fall();
 
                             ac.setFalling(isFalling);
-                            ac.setJumping(isJumping);
-                        }
-
-                        if (!groundCheck() && !isJumping)
-                        {
-                            if (!isFalling)
-                            {
-                                fall();
-
-                                ac.setFalling(isFalling);
-                            }
                         }
                     }
                 }
@@ -469,6 +468,8 @@ public class InputControl : MonoBehaviour
 
                 if (isFalling)
                 {
+                    fallDistance += Time.deltaTime;
+
                     if (jumpDebug)
                         Debug.Log("isFalling = true");
 
@@ -1455,6 +1456,9 @@ public class InputControl : MonoBehaviour
 
         if (isGrounded)
         {
+            if (fallDistance != 0)
+                fallDistance = 0;
+
             cm.comboReset();
 
             if (cm.dashTemp)
@@ -1505,11 +1509,13 @@ public class InputControl : MonoBehaviour
         ac.setJumping(isJumping);
 
         currentJumpPower = 0;
-
+    /*
         if (!groundCheck())
         {
             fall();
         }
+    */
+
     }
     void fall()
     {
@@ -1539,6 +1545,8 @@ public class InputControl : MonoBehaviour
 
         if (isJumping)
             isJumping = false;
+
+        fallDistance = 0;
 
         ac.setJumping(isJumping);
 
