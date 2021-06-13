@@ -12,7 +12,10 @@ public class InputControl : MonoBehaviour
 
     [SerializeField] private GameObject respawnPoint;
 
+    //Cinematic's Booleans
     public bool endGame = false;
+
+    public bool hammerGameCinematic = false;
 
     #endregion
 
@@ -559,7 +562,7 @@ public class InputControl : MonoBehaviour
     }
     
 
-    #region Camera
+    #region Camera & Cinematic Settings
 
     private void LateUpdate()
     {
@@ -574,6 +577,17 @@ public class InputControl : MonoBehaviour
             currentSpeed = 0;
         }
         
+        if (!hammerGameCinematic)
+        {
+            CamControl();
+        }
+        else
+        {
+            cc.vCam4.Priority = 10;
+            movementSpeed = 0;
+            currentSpeed = 0;
+        }
+
         // changeDirection();
 
         if (!isJumping && isFalling && isGrounded)

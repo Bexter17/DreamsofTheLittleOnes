@@ -35,6 +35,8 @@ public class CameraController : MonoBehaviour
     public CinemachineVirtualCamera vCam2; //Free Look Camera
     [SerializeField]
     public CinemachineVirtualCamera vCam3; //End game camera
+    [SerializeField]
+    public CinemachineVirtualCamera vCam4; //End game camera
 
 
     void Awake()
@@ -107,6 +109,20 @@ public class CameraController : MonoBehaviour
         {
             vCam3.Priority = 10;
         }
+        else
+        {
+            vCam3.Priority = 0;
+        }
+
+        if(ic.hammerGameCinematic == true)
+        {
+            vCam4.Priority = 10;
+        }
+        else
+        {
+            vCam4.Priority = 0;
+        }
+
     }
 
     private void OnCollisionEnter(Collision collision)
