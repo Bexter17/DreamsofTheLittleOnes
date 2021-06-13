@@ -23,6 +23,14 @@ public class PlayerChaseable : MonoBehaviour
             Debug.Log("Big Bear is here");
             playerChaseable = false;
         }
+
+        if (other.CompareTag("EnemyHead"))
+        {
+            Debug.Log("Big Bear Awayyyy");
+            transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
+            transform.position += transform.TransformDirection(Vector3.back * 3);
+            //transform.TransformDirection()
+        }
     }
 
     private void OnTriggerExit(Collider other)
