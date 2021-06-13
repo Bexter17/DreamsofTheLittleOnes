@@ -65,7 +65,13 @@ public class InputControl : MonoBehaviour
     //Rotation speed of the character
     [SerializeField] private float rotationSpeed;
 
-    [SerializeField] float fallDistance;
+    float fallDistance;
+
+    [SerializeField] float minFallDistance;
+
+    Vector3 fallStartPos;
+
+    Vector3 curFallPos;
 
     Vector2 inputVec;
 
@@ -192,6 +198,9 @@ public class InputControl : MonoBehaviour
             #endregion
 
             #region Movement
+
+            if (minFallDistance == 0)
+                minFallDistance = 0.4f;
 
             if (movementSpeed <= 0)
                 movementSpeed = 6.0f;
@@ -412,7 +421,7 @@ public class InputControl : MonoBehaviour
 
                     if (!groundCheck() && !isJumping)
                     {
-                        if (!isFalling && fallDistance > 0.4f)
+                        if (!isFalling && fallDistance > minFallDistance)
                         {
                             fall();
 
@@ -471,7 +480,11 @@ public class InputControl : MonoBehaviour
 
                 if (isFalling)
                 {
-                    fallDistance += Time.deltaTime;
+                    curFallPos = this.transform.position;
+                    curFallPos.x = 0;
+                    curFallPos.z = 0;
+
+                    fallDistance += Vector3.Distance(curFallPos, fallStartPos);
 
                     if (jumpDebug)
                         Debug.Log("isFalling = true");
@@ -638,7 +651,7 @@ public class InputControl : MonoBehaviour
 
                 mouseVec.x *= mouseHorizontalRotationSpeed;
 
-                mouseVec.x *= mouseHorizontalRotationSpeed;
+                mouseVec.y *= mouseVerticalRotationSpeed;
 
                 cm.rotatePlayer(mouseVec);
             }
@@ -1535,6 +1548,11 @@ public class InputControl : MonoBehaviour
     {
         if (jumpDebug)
             Debug.Log("fall() Called");
+
+        fallStartPos = this.transform.position;
+
+        fallStartPos.x = 0;
+        fallStartPos.z = 0;
 
         if (isGrounded)
             isGrounded = false;
