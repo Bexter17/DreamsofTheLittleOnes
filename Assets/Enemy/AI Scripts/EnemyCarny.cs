@@ -252,6 +252,7 @@ public class EnemyCarny : MonoBehaviour
         #endregion
         #region stackTracker
         stackTracker = GameObject.Find("Enemy Stack Tracker").GetComponent<EnemyStack>();
+        hpBar.enabled = false;
         //if(GameObject.FindGameObjectWithTag("Enemy Slot 1") != null)
         //{
         //    circlePoints[0] = GameObject.FindGameObjectWithTag("Enemy Slot 1");
@@ -693,6 +694,10 @@ public class EnemyCarny : MonoBehaviour
     {
         if (canTakeDamage)
         {
+            if (!hpBar.isActiveAndEnabled)
+            {
+                hpBar.enabled = true;
+            }
             EnemyOnHitSFX();
             Debug.Log("Carny Damage Taken: " + dmg);
             agent.isStopped = true;
