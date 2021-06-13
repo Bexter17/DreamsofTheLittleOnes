@@ -60,13 +60,17 @@ Material:
         m_Texture: {fileID: 2800000, guid: 1c01c3b9cc7f8254690fd97500e7d9b1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
+    - _SampleTexture2D_1839D96C_Texture_1:
+        m_Texture: {fileID: 2800000, guid: 27f18524d1892364c9cd9e591bfb572f, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
     - _SpecGlossMap:
         m_Texture: {fileID: 0}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     m_Floats:
-    - Boolean_F5B12CC4: 1
-    - Fur_Clipping: 0.615
+    - Boolean_F5B12CC4: 0
+    - Fur_Clipping: 0.5
     - Vector1_24FEA3FD: 1
     - Vector1_2D629CFB: 0.05
     - Vector1_312C327: 0.5
@@ -74,6 +78,7 @@ Material:
     - Vector1_751C5E01: 0.7
     - Vector1_77294385: -170
     - Vector1_7F65A3C1: 1.5
+    - Vector1_8A8B788E: 0
     - Vector1_8DA56086: 0.58
     - Vector1_AC7556F3: 9.32
     - Vector1_BAD67CD7: 0
@@ -100,7 +105,8 @@ Material:
     - _WorkflowMode: 1
     - _ZWrite: 1
     m_Colors:
-    - Color_3A7C15A2: {r: 0.8, g: 0.6933333, b: 0.4, a: 0}
+    - Color_3A7C15A2: {r: 0.8301887, g: 0.67397445, b: 0.3563546, a: 0}
+    - Color_5F71C6C8: {r: 0.98039216, g: 0.8046001, b: 0.28529406, a: 0}
     - _BaseColor: {r: 1, g: 1, b: 1, a: 1}
     - _Color: {r: 1, g: 1, b: 1, a: 1}
     - _EmissionColor: {r: 0, g: 0, b: 0, a: 1}

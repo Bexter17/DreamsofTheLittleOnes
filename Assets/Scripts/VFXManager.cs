@@ -15,8 +15,7 @@ public class VFXManager : MonoBehaviour
     public GameObject bjornCOG;
     public GameObject hammerSmashSpawn;
     public GameObject VFX_Storage;
-    /*    public GameObject rayCastFrom;*/
-    public LayerMask ignoreRC;
+
     [Space(order = 1)]
 
     public SkinnedMeshRenderer skinnedMesh;
@@ -30,10 +29,9 @@ public class VFXManager : MonoBehaviour
     bool hammerGlowOut = false;
 
     float glowIntensity = 0;
-    float timeUntilDeath = 4;
+    readonly float timeUntilDeath = 4;
 
     public bool tookDamage = false;
-    public Vector3 collision = Vector3.zero;
 
     List<GameObject> vfxAlive = new List<GameObject>();
 
@@ -83,8 +81,6 @@ public class VFXManager : MonoBehaviour
     #region Bjorn VFX
     void HammerTrail(int attackLayer)
     {
-        //GameObject hammerTrailClone = CheckForClone(playerVFXData.hammerTrailDefault, bjornFullBody.transform);
-
         GameObject hammerTrailClone = InstantiateVFX(playerVFXData.hammerTrailDefault, bjornFullBody.transform);
 
         hammerTrailClone.transform.position = new Vector3(bjornFullBody.transform.position.x, bjornFullBody.transform.position.y + 1f, bjornFullBody.transform.position.z + 0.1f);
@@ -162,8 +158,11 @@ public class VFXManager : MonoBehaviour
         GlowReset();
         hammerMaterial.SetFloat("_spin", 1);
         hammerGlowIn = true;
-        InstantiateVFX(playerVFXData.hammerSpin, bjornHammerHitBox.transform, timeUntilDeath);
-        //clone.transform.position += new Vector3(0, 0.7f, 0);
+        GameObject clone = InstantiateVFX(playerVFXData.hammerSpin, bjornFullBody.transform);
+
+        clone.transform.position += new Vector3(0, 0.7f, 0);
+
+        Destroy(clone, timeUntilDeath);
     }
 
     void HammerSmash()
@@ -181,7 +180,7 @@ public class VFXManager : MonoBehaviour
     public void BjornDamageTaken()
     {
         // This needs to get called in the character mechanics script in the takeDamage function
-        GameObject clone =  Instantiate(playerVFXData.takeDamage, bjornFullBody.transform.position + new Vector3(0,0.5f,0), bjornFullBody.transform.rotation, VFX_Storage.transform);
+        GameObject clone = Instantiate(playerVFXData.takeDamage, bjornFullBody.transform.position + new Vector3(0, 0.5f, 0), bjornFullBody.transform.rotation, VFX_Storage.transform);
         Destroy(clone, timeUntilDeath);
     }
 
@@ -287,66 +286,10 @@ public class VFXManager : MonoBehaviour
         return oriPrefabName.name + "(Clone)";
     }
 
-    void VFXToKill()
-    {
-        List<GameObject> copy;
-
-        copy = new List<GameObject>(vfxAlive);
-
-        foreach (GameObject vfx in vfxAlive)
-        {
-            vfxAlive.Remove(vfx);
-        }
-
-        foreach (GameObject vfx in copy)
-        {
-            Destroy(vfx, 2);
-        }
-       
-    }
-
 
     #endregion
 
     #region Other Functions
-
-    /* Function Name: DestroyVFX
-    * Use: Finds every instance of VFX called in the scene, gets the longest playing VFX for that particular 
-    * effect and kills that entire object after a set amount of time.
-    * 
-    * Input: Takes the tag of the vfx tag to be found and destroyed
-    * Output: No Output
-    */
-    void VFXToPool()
-    {
-        GameObject[] vfxToDestroy = GameObject.FindGameObjectsWithTag("VFX_Bjorn");
-
-        for (int i = 0; i < vfxToDestroy.Length; i++)
-        {
-            vfxAlive.Add(vfxToDestroy[i]);
-        }
-
-        VFXToKill();
-    }
-
-    /* Function Name: GatherPSInScene
-     * Use: Gathers every particle system of every child of the vfxList so they can be referenced
-     * 
-     * Input: Takes an array of GameObjects of all VFX objects instantiated in the scene at that instance
-     * Output: Outputs an array of every Particle System for earch of the VFX Game Objects
-     */
-    /*    ParticleSystem[] GatherPSInScene(GameObject[] vfxList)
-    {
-        ParticleSystem[] vfxPS = new ParticleSystem[vfxList.Length];
-
-        for (int i = 0; i < vfxList.Length; i++)
-        {
-            vfxPS[i] = vfxList[i].GetComponent<ParticleSystem>();
-        }
-
-        return vfxPS;
-    }
-
     void SkinnedHammerCharge()
     {
         GameObject vfx = playerVFXData.hammerCharge;
@@ -390,7 +333,6 @@ public class VFXManager : MonoBehaviour
         } while (index < ps.Length && ps[index] != null);
 
         Instantiate(vfx, hammer.transform.position, hammer.transform.rotation, hammer.transform);
-    }*/
+    }
     #endregion
-
 }
