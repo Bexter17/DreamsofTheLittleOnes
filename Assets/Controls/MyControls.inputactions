@@ -157,7 +157,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -168,7 +168,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "Jump",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -179,7 +179,7 @@
                     "path": "<Gamepad>/buttonWest",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "BasicAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -190,7 +190,7 @@
                     "path": "<Mouse>/leftButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "MouseAttack",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -201,7 +201,7 @@
                     "path": "<Keyboard>/leftShift",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -212,7 +212,7 @@
                     "path": "<Gamepad>/buttonEast",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "Dash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -223,7 +223,7 @@
                     "path": "<Keyboard>/e",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "HammerSmash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -234,7 +234,7 @@
                     "path": "<Gamepad>/rightShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "HammerSmash",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -245,7 +245,7 @@
                     "path": "<Keyboard>/q",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "Whirlwind",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -256,7 +256,7 @@
                     "path": "<Gamepad>/leftShoulder",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "Whirlwind",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -267,7 +267,7 @@
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "AimIn",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -278,7 +278,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "AimIn",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -289,7 +289,7 @@
                     "path": "<Gamepad>/leftStick",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "PlayerMove",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -406,22 +406,11 @@
                 },
                 {
                     "name": "",
-                    "id": "202cfe8b-1461-4ff7-beb4-c67d903b5bd2",
-                    "path": "",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Universal",
-                    "action": "PlayerMove",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
                     "id": "1fd6fba0-86a7-4b4e-809d-27c33f55609a",
                     "path": "<Mouse>/rightButton",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "AimOut",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -432,7 +421,7 @@
                     "path": "<Gamepad>/leftTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "AimOut",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -443,7 +432,7 @@
                     "path": "<Keyboard>/r",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -454,7 +443,7 @@
                     "path": "<Gamepad>/rightTrigger",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "Throw",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -465,7 +454,7 @@
                     "path": "<Mouse>/delta",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mouse and Keyboard;Universal",
                     "action": "MouseCamera",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -476,7 +465,7 @@
                     "path": "<Keyboard>/g",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "ToggleGodMode",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -487,7 +476,7 @@
                     "path": "<Gamepad>/select",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "ToggleGodMode",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -498,7 +487,7 @@
                     "path": "<Keyboard>/k",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Mouse and Keyboard",
                     "action": "Kill",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -520,7 +509,7 @@
                     "path": "<Gamepad>/rightStick/up",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "ControllerCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -531,7 +520,7 @@
                     "path": "<Gamepad>/rightStick/down",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "ControllerCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -542,7 +531,7 @@
                     "path": "<Gamepad>/rightStick/left",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "ControllerCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -553,7 +542,7 @@
                     "path": "<Gamepad>/rightStick/right",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "ControllerCamera",
                     "isComposite": false,
                     "isPartOfComposite": true
@@ -564,7 +553,7 @@
                     "path": "<Keyboard>/space",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "JumpEnd",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -575,7 +564,7 @@
                     "path": "<Gamepad>/buttonSouth",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "JumpEnd",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -586,7 +575,7 @@
                     "path": "<Keyboard>/escape",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Mouse and Keyboard",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -597,7 +586,7 @@
                     "path": "<Gamepad>/start",
                     "interactions": "",
                     "processors": "",
-                    "groups": "",
+                    "groups": "Universal;Controller",
                     "action": "Pause",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -608,7 +597,7 @@
                     "path": "<Keyboard>/y",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse and Keyboard;Controller",
+                    "groups": "Mouse and Keyboard;Universal",
                     "action": "InvertY",
                     "isComposite": false,
                     "isPartOfComposite": false
@@ -619,7 +608,7 @@
                     "path": "<Keyboard>/x",
                     "interactions": "",
                     "processors": "",
-                    "groups": "Mouse and Keyboard",
+                    "groups": "Mouse and Keyboard;Universal",
                     "action": "InvertX",
                     "isComposite": false,
                     "isPartOfComposite": false

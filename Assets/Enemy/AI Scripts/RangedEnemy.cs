@@ -63,7 +63,7 @@ public class RangedEnemy : MonoBehaviour
     //TakeDamage Cooldown
     private float damageInterval = 0;
     private bool canTakeDamage = true;
-    private float takeDamageCooldown = .5f;
+    private float takeDamageCooldown = .8f;
 
     public new AudioSource audio;
 
@@ -156,6 +156,7 @@ public class RangedEnemy : MonoBehaviour
             Patrol();
         }
 
+        hpBar.enabled = false;
         //abilityCollider.enabled = false;
         #endregion
         if (isStationary)
@@ -174,7 +175,23 @@ public class RangedEnemy : MonoBehaviour
         //    Debug.Log("Enemy has lost 1 hp");
         //    takeDamage(1);
         //}
+        //Attempt at making hp bar rotate with player
+        //if (hpBar.isActiveAndEnabled)
+        //{
+        //    Vector3 hpLook = target.position;
 
+        //    hpLook.x = 0;
+        //    Vector3 hpPos = hpBar.transform.position;
+        //    hpPos.x = 0;
+        //    //hpBar.transform.LookAt(hpLook);
+        //    hpBar.transform.TransformDirection(hpLook);
+        //    hpBar.transform.rotation = Quaternion.Euler(hpLook - hpPos);
+
+        //    //targetPosition = Player.transform.position;
+        //    //Quaternion targetRotation = Quaternion.LookRotation(targetPosition - transform.position);
+        //    //float str = rotationSpeed * Time.deltaTime;
+        //    //transform.rotation = Quaternion.Lerp(transform.rotation, targetRotation, str);
+        //}
         if (!enemyDissolveIn && !death)
         {
             gameObject.GetComponent<VFXenemies>().spawnIn = true;
@@ -299,8 +316,12 @@ public class RangedEnemy : MonoBehaviour
     {
         if (canTakeDamage)
         {
-            //EnemyOnHitSFX();
-            //Debug.Log("Clown Damage Taken: " + dmg);
+            if (!hpBar.isActiveAndEnabled)
+            {
+                hpBar.enabled = true;
+            }
+            EnemyOnHitSFX();
+            Debug.Log("Clown Damage Taken: " + dmg + "Current TIme:" + Time.time);
             agent.isStopped = true;
             hp -= dmg;
             canTakeDamage = false;
@@ -627,7 +648,7 @@ public class RangedEnemy : MonoBehaviour
             if (cm.isAttacking)
             {
                 //Big Bear: Basic Damage
-                takeDamage(5);
+                takeDamage(10);
                 if (rb)
                 {
                     basicStaggerCounter++;
@@ -644,7 +665,7 @@ public class RangedEnemy : MonoBehaviour
             {
                 Debug.Log("Hit by whirlwind");
                 //Big Bear: Whirlwind Damage
-                takeDamage(20);
+                takeDamage(25);
             }
         }
     }

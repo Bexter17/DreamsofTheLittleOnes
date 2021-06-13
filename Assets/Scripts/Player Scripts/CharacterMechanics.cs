@@ -555,6 +555,7 @@ public class CharacterMechanics : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        Cursor.lockState = CursorLockMode.Confined;
         if (isPlaying)
         {
             if (isAlive)
@@ -1558,7 +1559,7 @@ public class CharacterMechanics : MonoBehaviour
         if (!isPlaying)
         {
             ac.playAnim();
-            Cursor.lockState = CursorLockMode.None;
+            Cursor.lockState = CursorLockMode.Confined;
             isPlaying = true;
         }
 
@@ -1566,7 +1567,7 @@ public class CharacterMechanics : MonoBehaviour
         {
             ac.pauseAnim();
             ic.resetMovement();
-            Cursor.lockState = CursorLockMode.Locked;
+            Cursor.lockState = CursorLockMode.Confined;
             isPlaying = false;
         }
 
@@ -1616,8 +1617,5 @@ public class CharacterMechanics : MonoBehaviour
             ic.endGame = true;
             dc.m_Speed = 2f;
         }
-
     }
-
-
 }

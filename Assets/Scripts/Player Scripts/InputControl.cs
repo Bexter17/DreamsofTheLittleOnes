@@ -12,7 +12,10 @@ public class InputControl : MonoBehaviour
 
     [SerializeField] private GameObject respawnPoint;
 
+    //Cinematic's Booleans
     public bool endGame = false;
+
+    public bool hammerGameCinematic = false;
 
     #endregion
 
@@ -61,6 +64,14 @@ public class InputControl : MonoBehaviour
 
     //Rotation speed of the character
     [SerializeField] private float rotationSpeed;
+
+    float fallDistance;
+
+    [SerializeField] float minFallDistance;
+
+    Vector3 fallStartPos;
+
+    Vector3 curFallPos;
 
     Vector2 inputVec;
 
@@ -187,6 +198,9 @@ public class InputControl : MonoBehaviour
             #endregion
 
             #region Movement
+
+            if (minFallDistance == 0)
+                minFallDistance = 0.4f;
 
             if (movementSpeed <= 0)
                 movementSpeed = 6.0f;
@@ -395,26 +409,23 @@ public class InputControl : MonoBehaviour
 
                 #region Check Jumping and Falling States
 
-                if (!isJumping)
+                if (!isJumping && !isGrounded)
                 {
-                    if (!isGrounded)
+                    if (groundCheck())
                     {
-                        if (groundCheck())
+                        land();
+
+                        ac.setFalling(isFalling);
+                        ac.setJumping(isJumping);
+                    }
+
+                    if (!groundCheck() && !isJumping)
+                    {
+                        if (!isFalling && fallDistance > minFallDistance)
                         {
-                            land();
+                            fall();
 
                             ac.setFalling(isFalling);
-                            ac.setJumping(isJumping);
-                        }
-
-                        if (!groundCheck() && !isJumping)
-                        {
-                            if (!isFalling)
-                            {
-                                fall();
-
-                                ac.setFalling(isFalling);
-                            }
                         }
                     }
                 }
@@ -469,6 +480,12 @@ public class InputControl : MonoBehaviour
 
                 if (isFalling)
                 {
+                    curFallPos = this.transform.position;
+                    curFallPos.x = 0;
+                    curFallPos.z = 0;
+
+                    fallDistance += Vector3.Distance(curFallPos, fallStartPos);
+
                     if (jumpDebug)
                         Debug.Log("isFalling = true");
 
@@ -558,7 +575,7 @@ public class InputControl : MonoBehaviour
     }
     
 
-    #region Camera
+    #region Camera & Cinematic Settings
 
     private void LateUpdate()
     {
@@ -573,6 +590,17 @@ public class InputControl : MonoBehaviour
             currentSpeed = 0;
         }
         
+        if (!hammerGameCinematic)
+        {
+            CamControl();
+        }
+        else
+        {
+            cc.vCam4.Priority = 10;
+            movementSpeed = 0;
+            currentSpeed = 0;
+        }
+
         // changeDirection();
 
         if (!isJumping && isFalling && isGrounded)
@@ -623,7 +651,7 @@ public class InputControl : MonoBehaviour
 
                 mouseVec.x *= mouseHorizontalRotationSpeed;
 
-                mouseVec.x *= mouseHorizontalRotationSpeed;
+                mouseVec.y *= mouseVerticalRotationSpeed;
 
                 cm.rotatePlayer(mouseVec);
             }
@@ -1455,6 +1483,9 @@ public class InputControl : MonoBehaviour
 
         if (isGrounded)
         {
+            if (fallDistance != 0)
+                fallDistance = 0;
+
             cm.comboReset();
 
             if (cm.dashTemp)
@@ -1505,16 +1536,23 @@ public class InputControl : MonoBehaviour
         ac.setJumping(isJumping);
 
         currentJumpPower = 0;
-
+    /*
         if (!groundCheck())
         {
             fall();
         }
+    */
+
     }
     void fall()
     {
         if (jumpDebug)
             Debug.Log("fall() Called");
+
+        fallStartPos = this.transform.position;
+
+        fallStartPos.x = 0;
+        fallStartPos.z = 0;
 
         if (isGrounded)
             isGrounded = false;
@@ -1539,6 +1577,8 @@ public class InputControl : MonoBehaviour
 
         if (isJumping)
             isJumping = false;
+
+        fallDistance = 0;
 
         ac.setJumping(isJumping);
 

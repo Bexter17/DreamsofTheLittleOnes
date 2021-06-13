@@ -1,0 +1,142 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1 &605044875769665625
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 605044875769665631}
+  - component: {fileID: 605044875769665628}
+  - component: {fileID: 5537849609743245848}
+  m_Layer: 13
+  m_Name: HAMMER_EndGameCollider (1)
+  m_TagString: hammerArea
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &605044875769665631
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605044875769665625}
+  m_LocalRotation: {x: -0, y: 0.7068671, z: -0, w: 0.7073464}
+  m_LocalPosition: {x: 144.93, y: 4.66858, z: 41.69}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children:
+  - {fileID: 605044874830450140}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 89.961, z: 0}
+--- !u!65 &605044875769665628
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605044875769665625}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 1
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 4.828615, y: 12.090139, z: 16.016708}
+  m_Center: {x: 0.29722163, y: -1.2883196, z: 7.5083537}
+--- !u!114 &5537849609743245848
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 605044875769665625}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5d997bb8ca30f064abdd1bdd2f877ae6, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Walls: {fileID: 605044874830450143}
+--- !u!1001 &5805669536020845260
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 605044875769665631}
+    m_Modifications:
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -4.920483
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: -8.835877
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -14.878779
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0.00000005426648
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: -0.6886737
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.000000085199815
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7250715
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: -10.633
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: -171.088
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: -1.657
+      objectReference: {fileID: 0}
+    - target: {fileID: 6409867695585812243, guid: 8e017a3c4b255084690e6eaaf3d91375,
+        type: 3}
+      propertyPath: m_Name
+      value: HAMMER_INVISIBLE_WALL
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8e017a3c4b255084690e6eaaf3d91375, type: 3}
+--- !u!1 &605044874830450143 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 6409867695585812243, guid: 8e017a3c4b255084690e6eaaf3d91375,
+    type: 3}
+  m_PrefabInstance: {fileID: 5805669536020845260}
+  m_PrefabAsset: {fileID: 0}
+--- !u!4 &605044874830450140 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 6409867695585812240, guid: 8e017a3c4b255084690e6eaaf3d91375,
+    type: 3}
+  m_PrefabInstance: {fileID: 5805669536020845260}
+  m_PrefabAsset: {fileID: 0}

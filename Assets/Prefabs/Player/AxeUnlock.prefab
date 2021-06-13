@@ -105,6 +105,7 @@ GameObject:
   - component: {fileID: 8895838951219716848}
   - component: {fileID: -5125025291578842157}
   - component: {fileID: 9214926132052183459}
+  - component: {fileID: 6190242138157220533}
   m_Layer: 0
   m_Name: AxeUnlock
   m_TagString: ThrowingAxeUnlock
@@ -170,6 +171,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Player: {fileID: 1016093913191264023, guid: 08256832e9e5191459197d45907b0cd7, type: 3}
+--- !u!65 &6190242138157220533
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6882968560295412820}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.28545922, y: 0.41337156, z: 0.18996808}
+  m_Center: {x: -0.013688138, y: -0.079832, z: 0.0015469989}
 --- !u!1 &7055206682953528399
 GameObject:
   m_ObjectHideFlags: 0
