@@ -49,8 +49,6 @@ public class HammerGame : MonoBehaviour
             Debug.Log("Gate is being opened to the DARK CARNIVAL!");
                 #endregion
             Destroy(gate, 8);
-            rb.detectCollisions = true;
-            rb.isKinematic = false;
 
             var sandWall = gate.GetComponent<ParticleSystem>().main;
 
@@ -79,6 +77,8 @@ public class HammerGame : MonoBehaviour
             #endregion
             audio.Play();
             wallOpen = true;
+            rb.detectCollisions = true;
+            rb.isKinematic = false;
         }
     }
 }

@@ -8678,6 +8678,19 @@ Rigidbody:
     type: 3}
   m_PrefabInstance: {fileID: 1658386250}
   m_PrefabAsset: {fileID: 0}
+--- !u!65 &1137567935
+BoxCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1137567933}
+  m_Material: {fileID: 0}
+  m_IsTrigger: 0
+  m_Enabled: 1
+  serializedVersion: 2
+  m_Size: {x: 0.40382338, y: 0.48454413, z: 0.3049051}
+  m_Center: {x: 0.0016306649, y: -0.108021975, z: 0.0050198734}
 --- !u!1 &1145145550 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 4294278121661903629, guid: b6e3deb831aabcf4399733a6a481a636,
@@ -11446,6 +11459,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: df758e6dbf033b345a09fd02534ba71a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  sandwall: {fileID: 0}
 --- !u!1001 &1576769364
 PrefabInstance:
   m_ObjectHideFlags: 0
