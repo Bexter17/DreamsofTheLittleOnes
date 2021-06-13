@@ -28,7 +28,7 @@ public class PlayerChaseable : MonoBehaviour
         {
             Debug.Log("Big Bear Awayyyy");
             transform.position = new Vector3(transform.position.x, transform.position.y - 1f, transform.position.z);
-            transform.position += transform.TransformDirection(Vector3.back * 3);
+            transform.position += transform.TransformDirection(Vector3.back);
             //transform.TransformDirection()
         }
     }
