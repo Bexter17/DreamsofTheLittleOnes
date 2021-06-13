@@ -22,7 +22,7 @@ Material:
   m_PrefabAsset: {fileID: 0}
   m_Name: Decal_frontGateName
   m_Shader: {fileID: 4800000, guid: 933532a4fcc9baf4fa0491de14d08ed7, type: 3}
-  m_ShaderKeywords: _EMISSION _METALLICSPECGLOSSMAP _NORMALMAP
+  m_ShaderKeywords: _EMISSION _METALLICSPECGLOSSMAP _NORMALMAP _RECEIVE_SHADOWS_OFF
   m_LightmapFlags: 2
   m_EnableInstancingVariants: 0
   m_DoubleSidedGI: 0
@@ -35,11 +35,11 @@ Material:
     serializedVersion: 3
     m_TexEnvs:
     - _BaseMap:
-        m_Texture: {fileID: 2800000, guid: fc09d31729e562c439ab664cb295d723, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca299902fb29616468be18b39bb03f3b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _BumpMap:
-        m_Texture: {fileID: 2800000, guid: 6540df5675470404ca41304bc7984b6e, type: 3}
+        m_Texture: {fileID: 2800000, guid: dd3ae93becc0b3a4d89175c5359fd796, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _DecalTex:
@@ -47,15 +47,15 @@ Material:
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _EmissionMap:
-        m_Texture: {fileID: 2800000, guid: 60f50476753281b43a7636272fe5ebf0, type: 3}
+        m_Texture: {fileID: 2800000, guid: 128a9be105009b04aaf437bec2930bc1, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MainTex:
-        m_Texture: {fileID: 2800000, guid: fc09d31729e562c439ab664cb295d723, type: 3}
+        m_Texture: {fileID: 2800000, guid: ca299902fb29616468be18b39bb03f3b, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _MetallicGlossMap:
-        m_Texture: {fileID: 2800000, guid: 31a3bef3ac912d14986f9aa717014353, type: 3}
+        m_Texture: {fileID: 2800000, guid: b2dff311d8887a443840c78f34e9dbd6, type: 3}
         m_Scale: {x: 1, y: 1}
         m_Offset: {x: 0, y: 0}
     - _OcclusionMap:
@@ -68,11 +68,11 @@ Material:
         m_Offset: {x: 0, y: 0}
     m_Floats:
     - _AlphaClip: 0
-    - _Blend: 0
+    - _Blend: 2
     - _BumpScale: 1
     - _Cull: 2
-    - _Cutoff: 0.5
-    - _DstBlend: 10
+    - _Cutoff: 0.274
+    - _DstBlend: 1
     - _EnvironmentReflections: 1
     - _GlossMapScale: 0
     - _Glossiness: 0
@@ -80,7 +80,7 @@ Material:
     - _Metallic: 0
     - _OcclusionStrength: 1
     - _QueueOffset: 0
-    - _ReceiveShadows: 1
+    - _ReceiveShadows: 0
     - _Smoothness: 0.5
     - _SmoothnessTextureChannel: 0
     - _SpecularHighlights: 1
