@@ -1604,7 +1604,7 @@ public class CharacterMechanics : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("ThrowAxeUnlock"))
+        if (other.gameObject.CompareTag("ThrowingAxeUnlock"))
         {
             hasRangedWeapon = true;
         }

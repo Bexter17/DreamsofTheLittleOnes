@@ -114,14 +114,14 @@ public class CameraController : MonoBehaviour
             vCam3.Priority = 0;
         }
 
-        if(ic.hammerGameCinematic == true)
-        {
-            vCam4.Priority = 10;
-        }
-        else
-        {
-            vCam4.Priority = 0;
-        }
+        //if(ic.hammerGameCinematic == true)
+        //{
+        //    vCam4.Priority = 10;
+        //}
+        //else
+        //{
+        //    vCam4.Priority = 0;
+        //}
 
     }
 

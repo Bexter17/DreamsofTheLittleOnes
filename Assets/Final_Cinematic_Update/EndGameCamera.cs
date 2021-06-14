@@ -67,7 +67,7 @@ public class EndGameCamera : MonoBehaviour
 
     IEnumerator EndGameCinematic()
     {
-        yield return new WaitForSeconds(12.2f);
+        yield return new WaitForSeconds(15f);
         SceneManager.LoadScene("CreditScene");
     }
 }

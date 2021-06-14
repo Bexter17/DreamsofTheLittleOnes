@@ -115,6 +115,8 @@ public class GameManager : MonoBehaviour
             Cursor.lockState = CursorLockMode.None;
 
             Cursor.visible = true;
+
+            currentCheckpoint = 0;
         }
 
         if (SceneManager.GetActiveScene().name == "EndScene")
