@@ -6,6 +6,8 @@ public class DestroyAxePickup : MonoBehaviour
 {
     CharacterMechanics cm;
 
+    public GameObject axeAbility;
+
     public GameObject Player;
 
     private void Start()
@@ -19,6 +21,7 @@ public class DestroyAxePickup : MonoBehaviour
         {
             Debug.Log("Bjorn recieves throwing axe");
             cm.hasRangedWeapon = true;
+            axeAbility.SetActive(true);
             Destroy(gameObject);
         }
     }
