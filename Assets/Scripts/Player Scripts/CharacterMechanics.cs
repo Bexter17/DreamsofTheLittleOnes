@@ -1535,6 +1535,8 @@ public class CharacterMechanics : MonoBehaviour
     {
         currentHealth = maxHealth;
 
+        this.transform.position = respawnPoint.transform.position;
+
         isAlive = true;
 
         ib.setBufferTrue();
@@ -1545,7 +1547,6 @@ public class CharacterMechanics : MonoBehaviour
     public void kill()
     {
         Lives -= 1;
-        gameObject.transform.position = respawnPoint.transform.position;
 
         ac.respawn();
     }
