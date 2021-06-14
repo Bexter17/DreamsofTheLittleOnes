@@ -49,7 +49,7 @@ public class AbilitiesCooldown : MonoBehaviour
 
         abilityObject4 = GameObject.FindGameObjectWithTag("Ability 4");
         abilityImage4 = abilityObject4.GetComponent<Image>();
-        abilityImage4.fillAmount = 1;
+        abilityImage4.fillAmount = 0;
     }
 
     void Update()

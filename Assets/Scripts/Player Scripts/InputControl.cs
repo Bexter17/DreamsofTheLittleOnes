@@ -1342,6 +1342,7 @@ public class InputControl : MonoBehaviour
                     potentialGrounds[i].tag == "Train Car" ||
                     potentialGrounds[i].tag == "Trash Can" ||
                     potentialGrounds[i].tag == "Test Of Strength" ||
+                    potentialGrounds[i].tag == "Bear-icade" ||
                     potentialGrounds[i].tag == "Planks")
                 {
                     if (this.transform.parent == potentialGrounds[i].transform)

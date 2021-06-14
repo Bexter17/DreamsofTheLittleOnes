@@ -392,7 +392,7 @@ public class CharacterMechanics : MonoBehaviour
 
         am = this.transform.GetComponent<AudioManager>();
 
-        //abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
+        abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         dc = GameObject.FindGameObjectWithTag("dc").GetComponent<CinemachineDollyCart>();
 
@@ -1602,15 +1602,15 @@ public class CharacterMechanics : MonoBehaviour
 
     public void OnCollisionEnter(Collision other)
     {
-        if (other.gameObject.CompareTag("ThrowingAxeUnlock"))
-        {
-            if(abilities)
-            {
-                abilities.setRangedActive();
-            }
+        //if (other.gameObject.CompareTag("ThrowingAxeUnlock"))
+        //{
+        //    if(abilities)
+        //    {
+        //        abilities.setRangedActive();
+        //    }
 
-            hasRangedWeapon = true;
-        }
+        //    hasRangedWeapon = true;
+        //}
 
         if (other.gameObject.CompareTag("endGame"))
         {
