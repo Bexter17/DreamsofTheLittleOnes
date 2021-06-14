@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using UnityEngine.InputSystem;
 using UnityEngine.SceneManagement; 
 
@@ -175,31 +176,36 @@ public class InputControl : MonoBehaviour
     {
         #region Initialization
 
-        try
-        {
-            #region Components
+        #region Components
 
-            controller = this.transform.GetComponent<CharacterController>();
+        try { controller = this.transform.GetComponent<CharacterController>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            //       controllerList = Input.GetJoystickNames();
+        //       controllerList = Input.GetJoystickNames();
 
-            cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
+        try { cooldown = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            ib = this.transform.GetComponent<InputBuffer>();
+        try { ib = this.transform.GetComponent<InputBuffer>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            cm = this.transform.GetComponent<CharacterMechanics>();
+        try { cm = this.transform.GetComponent<CharacterMechanics>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            ac = this.transform.GetComponent<AnimController>();
+        try { ac = this.transform.GetComponent<AnimController>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            aim = this.transform.GetComponent<AimShoot>();
+        try { aim = this.transform.GetComponent<AimShoot>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            cc = this.transform.GetComponent<CameraController>();
+        try { cc = this.transform.GetComponent<CameraController>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
 
-            #endregion
+        #endregion
 
-            #region Movement
+        #region Movement
 
-            if (minFallDistance == 0)
+        if (minFallDistance == 0)
                 minFallDistance = 0.4f;
 
             if (movementSpeed <= 0)
@@ -269,12 +275,7 @@ public class InputControl : MonoBehaviour
             Player = this.transform;
 
             #endregion
-        }
-
-        catch (MissingReferenceException e)
-        {
-            Debug.LogError(e.Message);
-        }
+        
 
         #endregion
 
@@ -441,7 +442,7 @@ public class InputControl : MonoBehaviour
                 #endregion
 
                 #region Apply Gravity
-
+                
                 /*
                 if (isJumping)
                 {
