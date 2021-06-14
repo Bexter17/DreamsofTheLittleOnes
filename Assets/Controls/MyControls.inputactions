@@ -118,14 +118,6 @@
                     "interactions": "Press(behavior=1)"
                 },
                 {
-                    "name": "Kill",
-                    "type": "Button",
-                    "id": "c5095868-ed44-4e65-a8e2-38e75513e173",
-                    "expectedControlType": "Button",
-                    "processors": "",
-                    "interactions": "Press(behavior=1)"
-                },
-                {
                     "name": "Pause",
                     "type": "Button",
                     "id": "a8c306d9-919c-407e-ab76-64eeab7fe875",
@@ -478,17 +470,6 @@
                     "processors": "",
                     "groups": "Universal;Controller",
                     "action": "ToggleGodMode",
-                    "isComposite": false,
-                    "isPartOfComposite": false
-                },
-                {
-                    "name": "",
-                    "id": "be29c682-8469-490e-ac9d-029120b64231",
-                    "path": "<Keyboard>/k",
-                    "interactions": "",
-                    "processors": "",
-                    "groups": "Mouse and Keyboard",
-                    "action": "Kill",
                     "isComposite": false,
                     "isPartOfComposite": false
                 },

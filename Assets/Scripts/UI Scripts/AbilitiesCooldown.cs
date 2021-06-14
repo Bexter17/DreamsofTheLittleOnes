@@ -49,7 +49,7 @@ public class AbilitiesCooldown : MonoBehaviour
 
         abilityObject4 = GameObject.FindGameObjectWithTag("Ability 4");
         abilityImage4 = abilityObject4.GetComponent<Image>();
-        abilityImage4.fillAmount = 0;
+        abilityImage4.fillAmount = 1;
     }
 
     void Update()
@@ -138,5 +138,10 @@ public class AbilitiesCooldown : MonoBehaviour
                 isCooldown4 = false;
             }
         }
+    }
+
+    public void setRangedActive()
+    {
+        abilityImage4.fillAmount = 0;
     }
 }

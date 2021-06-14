@@ -362,13 +362,6 @@ public class CharacterMechanics : MonoBehaviour
             godMode = true;
     }
 
-    void OnKill()
-    {
-        currentHealth = 0;
-
-        //die();
-    }
-
     #endregion
 
     // Start is called before the first frame update
@@ -383,6 +376,9 @@ public class CharacterMechanics : MonoBehaviour
 
         Aimshoot = GameObject.FindGameObjectWithTag("FreeAimer");
 
+        try { abilities = this.transform.GetComponent<AbilitiesCooldown>(); }
+        catch (MissingComponentException e) { Debug.LogError(e.Message.ToString()); }
+
         if (Aimshoot)
             aims = Aimshoot.transform.GetComponent<AimShoot>();
 
@@ -396,7 +392,7 @@ public class CharacterMechanics : MonoBehaviour
 
         am = this.transform.GetComponent<AudioManager>();
 
-        abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
+        //abilities = GameObject.FindGameObjectWithTag("Abilities").GetComponent<AbilitiesCooldown>();
 
         dc = GameObject.FindGameObjectWithTag("dc").GetComponent<CinemachineDollyCart>();
 
@@ -1518,22 +1514,24 @@ public class CharacterMechanics : MonoBehaviour
     {
         Lives--;
 
-        if (Lives <= 0)
-        {
-            SceneManager.LoadScene("EndScene");
-        }
+        //if (Lives <= 0)
+        //{
+            //SceneManager.LoadScene("EndScene");
+        //}
 
-        else
-        {
-            gameObject.transform.position = respawnPoint.transform.position;
+        //else
+        //{
+            //gameObject.transform.position = respawnPoint.transform.position;
 
-            ac.respawn();
-        }
+           // ac.respawn();
+        //}
     }
 
     private void respawn()
     {
         currentHealth = maxHealth;
+
+        this.transform.position = respawnPoint.transform.position;
 
         isAlive = true;
 
@@ -1606,6 +1604,11 @@ public class CharacterMechanics : MonoBehaviour
     {
         if (other.gameObject.CompareTag("ThrowingAxeUnlock"))
         {
+            if(abilities)
+            {
+                abilities.setRangedActive();
+            }
+
             hasRangedWeapon = true;
         }
 
