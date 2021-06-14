@@ -675,8 +675,7 @@ public class RangedEnemy : MonoBehaviour
     {
         if (projectilePrefab)
         {
-
-            GameObject projectile = Instantiate(projectilePrefab, new Vector3(projectileSpawnPoint.position.x, projectileSpawnPoint.position.y + .75f, projectileSpawnPoint.position.z), projectileSpawnPoint.rotation);
+            GameObject projectile = Instantiate(projectilePrefab, new Vector3(projectileSpawnPoint.position.x, projectileSpawnPoint.position.y + .75f, projectileSpawnPoint.position.z), transform.rotation);
             Vector3 projPlayerDirection = new Vector3(playerDirection.x, playerDirection.y += 2.5f, playerDirection.z);
 
             projectile.GetComponent<Rigidbody>().AddForce(projPlayerDirection.normalized * projectilePrefab.GetComponent<Projectiles>().projectileSpeed, ForceMode.Impulse);

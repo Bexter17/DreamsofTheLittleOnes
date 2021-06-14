@@ -14,6 +14,7 @@ GameObject:
   - component: {fileID: 7241515821302985734}
   - component: {fileID: 7614687930393604302}
   - component: {fileID: 3891002260391394033}
+  - component: {fileID: 67712314871476341}
   m_Layer: 0
   m_Name: AIThrowingWeapon
   m_TagString: ClownProjectile
@@ -112,6 +113,7 @@ MonoBehaviour:
   projectileSpeed: 15
   lifeTime: 0
   dmgDealt: 10
+  balloonAngle: 7
 --- !u!54 &3891002260391394033
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -128,3 +130,22 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 0
   m_CollisionDetection: 0
+--- !u!95 &67712314871476341
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7241515821302985735}
+  m_Enabled: 0
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c32cb63766b43e44cb429d661105131d, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

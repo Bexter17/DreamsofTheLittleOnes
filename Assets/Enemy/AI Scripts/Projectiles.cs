@@ -11,6 +11,9 @@ public class Projectiles : MonoBehaviour
     //private CharacterMechanics cm;
     CombatManager CombatScript;
     CharacterMechanics CharacterMechanicsScript;
+
+    float currentXRot;
+    [SerializeField] float balloonAngle = 5;
     // Start is called before the first frame update
     void Start()
     {
@@ -24,14 +27,26 @@ public class Projectiles : MonoBehaviour
 
         if (dmgDealt <= 0)
             dmgDealt = 3;
-
+        currentXRot = transform.localEulerAngles.x;
+        Debug.Log("Big Boy Clown: " + currentXRot);
         Destroy(gameObject, lifeTime);
     }
 
     // Update is called once per frame
     void Update()
     {
-        
+
+    }
+    private void FixedUpdate()
+    {
+        //transform.rotation = Quaternion.Euler(currentXRot, -60, transform.rotation.z);
+        //currentXRot += 1;
+        //transform.localEulerAngles = new Vector3(currentXRot, transform.localEulerAngles.y, transform.localEulerAngles.z);
+
+        transform.rotation *= Quaternion.AngleAxis(balloonAngle, Vector3.right);
+
+
+
     }
     private void OnTriggerEnter(Collider other)
     {
