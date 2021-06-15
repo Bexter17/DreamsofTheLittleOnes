@@ -1587,18 +1587,37 @@ public class CharacterMechanics : MonoBehaviour
     //Aimed Ranged Attack until we organize better place for the code
     public void Throw()
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
-        {
-            Debug.Log(hit.collider.gameObject.name);
-        }
 
-        ac.throw_();
-        Vector3 lookdirection = Camera.main.transform.forward;
-        //        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
-        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;  //Instantiate projectile and then delete after 5 seconds
-        bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 4000);
-        Destroy(bullet, 5);
+        if (ib.actionAllowed)
+        {
+            #region Debug Log
+
+            if (rangedDebug)
+            {
+                Debug.Log("ranged ability: action allowed");
+            }
+
+            #endregion
+
+            ib.setBufferFalse();
+
+            isUsingAbilities = true;
+
+
+            RaycastHit hit;
+            if (Physics.Raycast(transform.position, Camera.main.transform.forward, out hit))   //Shoots directly forward from camera wherever it is looking
+            {
+                Debug.Log(hit.collider.gameObject.name);
+            }
+            if (abilities)
+                abilities.activateAbility4();
+            ac.throw_();
+            Vector3 lookdirection = Camera.main.transform.forward;
+            //        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+            GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+            bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 4000);
+            Destroy(bullet, 5);
+        }
     }
 
     public void OnCollisionEnter(Collision other)
