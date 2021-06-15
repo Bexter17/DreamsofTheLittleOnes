@@ -1595,7 +1595,8 @@ public class CharacterMechanics : MonoBehaviour
 
         ac.throw_();
         Vector3 lookdirection = Camera.main.transform.forward;
-        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+        //        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, Quaternion.LookRotation(lookdirection)) as GameObject;  //Instantiate projectile and then delete after 5 seconds
+        GameObject bullet = Instantiate(RangePrefab, RangedSpawn.transform.position, RangedSpawn.transform.rotation) as GameObject;  //Instantiate projectile and then delete after 5 seconds
         bullet.GetComponent<Rigidbody>().AddForce(lookdirection * 4000);
         Destroy(bullet, 5);
     }
